@@ -1,3 +1,9 @@
+@import "tailwindcss";
+
+@theme {
+  --font-poppins: var(--font-poppins), 'Poppins', sans-serif;
+}
+
 :root {
   --primary: #FF6B00;
   --primary-hover: #E56000;
@@ -69,7 +75,12 @@ body {
 }
 
 /* Typography & Layout */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 700;
 }
 
@@ -97,12 +108,6 @@ img {
   object-fit: cover;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
 /* Menu Card */
 .shadow-card {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
@@ -110,8 +115,15 @@ img {
 
 /* Animations */
 @keyframes section-fade-in {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 section {
@@ -119,8 +131,15 @@ section {
 }
 
 @keyframes bounce-slow {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .animate-bounce-slow {
@@ -128,8 +147,13 @@ section {
 }
 
 @keyframes slide-up {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
 }
 
 .animate-slide-up {
