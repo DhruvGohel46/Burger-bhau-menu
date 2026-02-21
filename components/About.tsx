@@ -1,100 +1,70 @@
 import Image from 'next/image';
-import { Heart, ShieldCheck, Zap } from 'lucide-react';
+import { ShieldCheck, Flame, Truck } from 'lucide-react';
+
+const features = [
+    { icon: <Flame size={22} />, title: 'Made Fresh', desc: 'Every order cooked when you place it.' },
+    { icon: <ShieldCheck size={22} />, title: '100% Quality', desc: 'Premium ingredients, always.' },
+    { icon: <Truck size={22} />, title: 'Fast Delivery', desc: 'Hot food at your door, quick.' },
+];
 
 export default function About() {
     return (
-        <section id="about" className="py-24 bg-gray-50 overflow-hidden">
-            <div className="container mx-auto px-4">
-                <div className="flex flex-col lg:flex-row items-center gap-16">
-                    {/* Image Side */}
-                    <div className="lg:w-1/2 relative">
-                        <div className="relative z-10 rounded-[40px] overflow-hidden shadow-2xl transition-transform duration-500 hover:scale-[1.02]">
+        <section id="about" className="py-16 md:py-24 bg-[#0B0B0B]">
+            <div className="mx-auto max-w-6xl px-4">
+                <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+                    {/* Image */}
+                    <div className="lg:w-1/2 relative w-full">
+                        <div className="relative rounded-3xl overflow-hidden border border-[#2A2A2A]">
                             <Image
                                 src="https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=2070&auto=format&fit=crop"
                                 alt="Our Kitchen"
                                 width={640}
-                                height={500}
+                                height={440}
                                 className="w-full object-cover"
-                                style={{ height: '500px' }}
+                                style={{ height: '440px' }}
                             />
-                            <div
-                                className="absolute inset-0"
-                                style={{ backgroundColor: 'rgba(255, 107, 0, 0.1)', mixBlendMode: 'multiply' }}
-                            />
+                            <div className="absolute inset-0 bg-brand/5" />
                         </div>
-                        {/* Decorative */}
-                        <div
-                            className="absolute -top-6 -right-6 w-32 h-32 rounded-full opacity-20 blur-2xl"
-                            style={{ backgroundColor: 'var(--primary)' }}
-                        />
-                        {/* Floating Badge */}
-                        <div className="absolute bottom-10 -right-8 bg-white p-6 rounded-3xl shadow-2xl z-20 max-w-[200px] hidden md:block">
-                            <div className="flex items-center gap-3 mb-2">
-                                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600">
-                                    <ShieldCheck size={24} />
-                                </div>
-                                <span className="font-bold text-gray-800">100% Fresh</span>
+                        {/* Badge */}
+                        <div className="absolute -bottom-4 -right-4 bg-[#1A1A1A] border border-[#2A2A2A] p-4 rounded-2xl shadow-2xl hidden md:flex items-center gap-3">
+                            <div className="w-10 h-10 bg-brand/15 rounded-full flex items-center justify-center text-brand">
+                                <ShieldCheck size={20} />
                             </div>
-                            <p className="text-gray-500 text-sm">
-                                Quality ingredients sourced daily.
-                            </p>
+                            <div>
+                                <span className="text-white font-bold text-sm block">Since 2015</span>
+                                <span className="text-[#6B6B6B] text-xs">Trusted by thousands</span>
+                            </div>
                         </div>
                     </div>
 
-                    {/* Text Side */}
+                    {/* Text */}
                     <div className="lg:w-1/2">
-                        <span
-                            className="font-bold tracking-widest uppercase text-sm"
-                            style={{ color: 'var(--primary)' }}
-                        >
-                            Our Story
-                        </span>
-                        <h2 className="text-4xl md:text-5xl font-bold mt-2 text-gray-900 leading-[1.2]">
-                            Passion for Food, <br />
-                            <span style={{ color: 'var(--primary)' }}>Service with Heart</span>
+                        <span className="text-brand text-xs font-bold uppercase tracking-[0.15em]">Our Story</span>
+                        <h2 className="text-3xl md:text-4xl font-bold text-white mt-2 leading-tight">
+                            Passion for Food,<br />
+                            <span className="text-brand">Heart in Every Bite</span>
                         </h2>
-                        <p className="mt-8 text-gray-600 text-lg leading-relaxed">
-                            Founded in 2015, Burger Bhau started with a simple mission: to
-                            serve the most delicious, handcrafted burgers in town using only
-                            the finest ingredients. Our journey began in a small local kitchen
-                            and has grown into a community favorite.
+                        <p className="mt-6 text-[#A0A0A0] text-base leading-relaxed">
+                            Burger Bhau started with a simple idea: serve the most delicious handcrafted burgers
+                            using the finest ingredients. From a small kitchen to a community favorite, we&apos;ve
+                            kept the flame alive since 2015.
                         </p>
-                        <p className="mt-4 text-gray-600 text-lg leading-relaxed">
-                            We believe that fast food doesn&apos;t have to mean low quality.
-                            That&apos;s why every patty is pressed by hand, every sauce is made
-                            in-house, and every meal is served with a smile.
+                        <p className="mt-3 text-[#6B6B6B] text-base leading-relaxed">
+                            Every patty is pressed by hand, every sauce is made in-house, and every meal is served
+                            with a smile. Because fast food doesn&apos;t mean low quality.
                         </p>
 
-                        {/* Feature Cards */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-12">
-                            <div className="flex items-start gap-4 p-4 rounded-2xl bg-white shadow-sm border border-gray-100">
-                                <div
-                                    className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
-                                    style={{ backgroundColor: '#ffedd5', color: 'var(--primary)' }}
-                                >
-                                    <Heart size={24} />
+                        {/* Feature cards */}
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-10">
+                            {features.map((f) => (
+                                <div key={f.title} className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl p-4 text-center hover:border-brand/30 transition-colors">
+                                    <div className="w-10 h-10 mx-auto bg-brand/10 rounded-lg flex items-center justify-center text-brand mb-3">
+                                        {f.icon}
+                                    </div>
+                                    <h4 className="text-white font-bold text-sm">{f.title}</h4>
+                                    <p className="text-[#6B6B6B] text-xs mt-1">{f.desc}</p>
                                 </div>
-                                <div>
-                                    <h4 className="font-bold text-gray-900">Made with Love</h4>
-                                    <p className="text-gray-500 text-sm">
-                                        Authentic recipes passed down through generations.
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="flex items-start gap-4 p-4 rounded-2xl bg-white shadow-sm border border-gray-100">
-                                <div
-                                    className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
-                                    style={{ backgroundColor: '#ffedd5', color: 'var(--primary)' }}
-                                >
-                                    <Zap size={24} />
-                                </div>
-                                <div>
-                                    <h4 className="font-bold text-gray-900">Fast Delivery</h4>
-                                    <p className="text-gray-500 text-sm">
-                                        Your hunger won&apos;t have to wait long with us.
-                                    </p>
-                                </div>
-                            </div>
+                            ))}
                         </div>
                     </div>
                 </div>

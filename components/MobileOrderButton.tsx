@@ -1,36 +1,35 @@
-import { ShoppingBag } from 'lucide-react';
+import { ShoppingBag, ArrowRight } from 'lucide-react';
 
 export default function MobileOrderButton() {
     return (
-        <div className="fixed bottom-0 left-0 right-0 p-4 md:hidden z-[60] animate-slide-up">
+        <div className="fixed bottom-4 left-4 right-4 z-50 md:hidden animate-slide-up">
             <div
-                className="p-2 rounded-[28px] flex items-center justify-between"
+                className="p-2.5 rounded-2xl flex items-center justify-between border border-[#2A2A2A]/60"
                 style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-                    backdropFilter: 'blur(24px)',
-                    border: '1px solid rgba(255, 255, 255, 0.2)',
-                    boxShadow: '0 -10px 40px rgba(0,0,0,0.1)',
+                    background: 'rgba(26, 26, 26, 0.92)',
+                    backdropFilter: 'blur(20px)',
+                    WebkitBackdropFilter: 'blur(20px)',
+                    boxShadow: '0 -8px 40px rgba(0, 0, 0, 0.5)',
                 }}
             >
-                <div className="flex flex-col ml-6">
-                    <span className="text-gray-500 text-xs font-medium uppercase tracking-wider">
-                        Your Order
-                    </span>
-                    <div className="flex items-center gap-2">
-                        <span className="text-xl font-bold text-gray-900">₹0.00</span>
-                        <span className="text-gray-400 text-xs">(0 items)</span>
+                <div className="flex items-center gap-3 ml-2.5">
+                    <div className="w-9 h-9 bg-brand/15 rounded-lg flex items-center justify-center">
+                        <ShoppingBag size={16} className="text-brand" />
+                    </div>
+                    <div className="flex flex-col">
+                        <span className="text-[#6B6B6B] text-[10px] font-bold uppercase tracking-wider">
+                            Your Cart
+                        </span>
+                        <div className="flex items-center gap-1.5">
+                            <span className="text-white font-bold text-base">₹0</span>
+                            <span className="text-[#3A3A3A] text-xs">· 0 items</span>
+                        </div>
                     </div>
                 </div>
 
-                <button
-                    className="text-white px-8 py-4 rounded-[22px] font-bold flex items-center gap-3 shadow-lg min-h-[48px]"
-                    style={{
-                        backgroundColor: 'var(--primary)',
-                        boxShadow: '0 10px 15px -3px rgba(255, 107, 0, 0.3)',
-                    }}
-                >
-                    <ShoppingBag size={20} />
-                    Order Now
+                <button className="bg-brand hover:bg-brand-light text-white px-5 py-3 rounded-xl font-bold text-sm flex items-center gap-2 active:scale-95 transition-all shadow-[0_4px_20px_rgba(255,107,0,0.3)]">
+                    View Cart
+                    <ArrowRight size={14} />
                 </button>
             </div>
         </div>

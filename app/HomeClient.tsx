@@ -15,20 +15,18 @@ export default function HomeClient() {
     const [activeCategory, setActiveCategory] = useState('burger');
 
     return (
-        <div className="selection:bg-[--primary] selection:text-white">
+        <>
             <Navbar />
             <main>
                 <Hero />
                 <Categories activeCategory={activeCategory} onCategoryChange={setActiveCategory} />
-                <div className="container mx-auto">
-                    <Menu activeCategory={activeCategory} />
-                    <Offers />
-                    <About />
-                    <Contact />
-                </div>
+                <Menu activeCategory={activeCategory} />
+                <Offers />
+                <About />
+                <Contact />
             </main>
             <Footer />
             <MobileOrderButton />
-        </div>
+        </>
     );
 }

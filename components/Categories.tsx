@@ -10,26 +10,25 @@ interface CategoriesProps {
 export default function Categories({ activeCategory, onCategoryChange }: CategoriesProps) {
     return (
         <div
-            className="bg-white py-4 sticky top-[60px] z-30 shadow-sm border-b border-gray-100"
+            className="sticky top-16 z-30 py-3.5 border-b border-[#2A2A2A]/60"
+            style={{
+                background: 'rgba(11, 11, 11, 0.9)',
+                backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
+            }}
         >
-            <div className="container mx-auto px-4">
-                <div className="flex items-center gap-3 overflow-x-auto no-scrollbar pb-1">
+            <div className="mx-auto max-w-6xl px-4">
+                <div className="flex gap-2.5 overflow-x-auto no-scrollbar">
                     {allCategories.map((cat) => (
                         <button
                             key={cat.id}
                             onClick={() => onCategoryChange(cat.id)}
-                            className="flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold transition-all whitespace-nowrap border-2 min-h-[44px]"
-                            style={{
-                                backgroundColor: activeCategory === cat.id ? 'var(--primary)' : '#f9fafb',
-                                borderColor: activeCategory === cat.id ? 'var(--primary)' : '#f3f4f6',
-                                color: activeCategory === cat.id ? '#ffffff' : '#4b5563',
-                                boxShadow:
-                                    activeCategory === cat.id
-                                        ? '0 8px 15px -3px rgba(255, 107, 0, 0.2)'
-                                        : 'none',
-                            }}
+                            className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-semibold whitespace-nowrap transition-all duration-300 active:scale-95 shrink-0 ${activeCategory === cat.id
+                                    ? 'bg-brand text-white shadow-[0_4px_20px_rgba(255,107,0,0.3)]'
+                                    : 'bg-[#1A1A1A] text-[#A0A0A0] border border-[#2A2A2A] hover:bg-[#222] hover:text-white'
+                                }`}
                         >
-                            <span className="text-lg">{cat.icon}</span>
+                            <span className="text-base">{cat.icon}</span>
                             {cat.name}
                         </button>
                     ))}

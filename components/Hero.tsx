@@ -1,90 +1,90 @@
-import { ArrowRight, Play } from 'lucide-react';
 import Image from 'next/image';
+import { ArrowRight } from 'lucide-react';
 
 export default function Hero() {
     return (
         <section
             id="home"
-            className="relative flex items-center overflow-hidden"
-            style={{ height: '100vh', minHeight: '600px' }}
+            className="relative min-h-screen flex items-end pb-24 md:items-center md:pb-0 overflow-hidden"
         >
-            {/* Background */}
-            <div className="absolute inset-0 z-0">
+            {/* Background Image */}
+            <div className="absolute inset-0">
                 <Image
                     src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?q=80&w=2072&auto=format&fit=crop"
                     alt="Delicious Burger"
                     fill
                     priority
-                    className="object-cover"
+                    className="object-cover scale-105"
                 />
-                <div
-                    className="absolute inset-0"
-                    style={{
-                        background:
-                            'linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 50%, transparent 100%)',
-                    }}
-                />
+                {/* Gradient overlays */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/70 to-[#0B0B0B]/30" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#0B0B0B]/80 via-transparent to-transparent" />
             </div>
 
-            <div className="container relative z-10 px-4">
-                <div className="max-w-2xl text-white">
-                    <span
-                        className="inline-block py-1 px-4 text-white rounded-full text-sm font-bold mb-6 tracking-wide uppercase"
-                        style={{ backgroundColor: 'var(--primary)' }}
-                    >
-                        New Seasonal Menu
-                    </span>
+            {/* Content */}
+            <div className="relative z-10 mx-auto max-w-6xl px-5 w-full">
+                <div className="max-w-lg">
+                    {/* Badge */}
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand/10 border border-brand/25 rounded-full mb-7 animate-fade-up">
+                        <span className="w-1.5 h-1.5 bg-brand rounded-full animate-pulse" />
+                        <span className="text-brand text-xs font-semibold tracking-wide uppercase">
+                            Now Serving
+                        </span>
+                    </div>
 
-                    <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-[1.1]">
-                        Delicious Fast Food, <br />
-                        <span style={{ color: 'var(--primary)' }}>Made Fresh</span>
+                    {/* Heading */}
+                    <h1
+                        className="text-[3.25rem] md:text-7xl font-bold text-white leading-[1.05] tracking-tight animate-fade-up"
+                        style={{ animationDelay: '100ms' }}
+                    >
+                        Fresh. Hot.
+                        <br />
+                        <span className="text-brand">Irresistible.</span>
                     </h1>
 
-                    <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-lg">
-                        Experience the ultimate taste of our handcrafted burgers and crispy
-                        sides. Delivered hot and fresh to your doorstep.
+                    {/* Description */}
+                    <p
+                        className="mt-5 text-[#A0A0A0] text-base md:text-lg max-w-sm leading-relaxed animate-fade-up"
+                        style={{ animationDelay: '200ms' }}
+                    >
+                        Handcrafted burgers, crispy fries, and more. Made with love, served
+                        fresh — every single time.
                     </p>
 
-                    <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+                    {/* CTA */}
+                    <div className="animate-fade-up" style={{ animationDelay: '300ms' }}>
                         <a
                             href="#menu"
-                            className="flex items-center gap-2 text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:-translate-y-1 transition-all"
-                            style={{ backgroundColor: 'var(--primary)', minWidth: '200px', height: '56px' }}
+                            className="mt-8 inline-flex items-center gap-2.5 text-white px-8 py-4 rounded-full font-bold text-base shadow-[0_8px_32px_rgba(255,107,0,0.35)] hover:shadow-[0_12px_40px_rgba(255,107,0,0.5)] active:scale-[0.97] transition-all duration-300"
+                            style={{ background: 'linear-gradient(135deg, #FF6B00 0%, #FF8533 100%)' }}
                         >
-                            View Our Menu
-                            <ArrowRight size={20} />
-                        </a>
-                        <a
-                            href="#contact"
-                            className="flex items-center gap-2 text-white border border-white/30 px-8 py-4 rounded-full font-bold text-lg backdrop-blur-md hover:bg-white/20 transition-all"
-                            style={{ backgroundColor: 'rgba(255,255,255,0.1)', minWidth: '180px', height: '56px' }}
-                        >
-                            <div
-                                className="w-8 h-8 rounded-full flex items-center justify-center"
-                                style={{ backgroundColor: 'var(--primary)' }}
-                            >
-                                <Play size={16} fill="white" />
-                            </div>
-                            Order Now
+                            View Menu
+                            <ArrowRight size={18} />
                         </a>
                     </div>
 
                     {/* Quick Stats */}
-                    <div className="mt-16 flex items-center gap-8 md:gap-12">
-                        <div className="flex flex-col">
-                            <span className="text-3xl font-bold">15+</span>
-                            <span className="text-gray-400 text-sm">Burger Variety</span>
-                        </div>
-                        <div className="w-[1px] h-10 bg-white/20" />
-                        <div className="flex flex-col">
-                            <span className="text-3xl font-bold">20k+</span>
-                            <span className="text-gray-400 text-sm">Happy Clients</span>
-                        </div>
-                        <div className="w-[1px] h-10 bg-white/20" />
-                        <div className="flex flex-col">
-                            <span className="text-3xl font-bold">4.9</span>
-                            <span className="text-gray-400 text-sm">Star Ratings</span>
-                        </div>
+                    <div
+                        className="mt-14 flex items-center gap-8 animate-fade-up"
+                        style={{ animationDelay: '400ms' }}
+                    >
+                        {[
+                            { value: '15+', label: 'Varieties' },
+                            { value: '20k+', label: 'Happy Customers' },
+                            { value: '4.9', label: 'Rating' },
+                        ].map((stat, i) => (
+                            <div key={stat.label} className="flex items-center gap-8">
+                                <div className="flex flex-col">
+                                    <span className="text-white text-2xl md:text-3xl font-bold">
+                                        {stat.value}
+                                    </span>
+                                    <span className="text-[#6B6B6B] text-xs font-medium uppercase tracking-wider">
+                                        {stat.label}
+                                    </span>
+                                </div>
+                                {i < 2 && <div className="w-px h-8 bg-[#2A2A2A]" />}
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>

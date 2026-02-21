@@ -1,135 +1,103 @@
-import { Phone, MapPin, MessageCircle, Clock, Send } from 'lucide-react';
+import { Phone, MapPin, Clock, MessageCircle, Send } from 'lucide-react';
+
+const contactInfo = [
+    { icon: <MapPin size={22} />, title: 'Visit Us', detail: '123 Food Street, Gourmet Avenue, NY 10001' },
+    { icon: <Phone size={22} />, title: 'Call Us', detail: '+1 (234) 567-890' },
+    { icon: <Clock size={22} />, title: 'Hours', detail: 'Mon – Sun: 10 AM – 11 PM' },
+];
 
 export default function Contact() {
     return (
-        <section id="contact" className="py-24 bg-white">
-            <div className="container mx-auto px-4">
-                <div className="flex flex-col lg:flex-row gap-16">
-                    {/* Left Column — Info */}
+        <section id="contact" className="py-16 md:py-24 bg-[#0B0B0B]">
+            <div className="mx-auto max-w-6xl px-4">
+                <div className="flex flex-col lg:flex-row gap-12">
+                    {/* Info */}
                     <div className="lg:w-1/2">
-                        <span
-                            className="font-bold tracking-widest uppercase text-sm"
-                            style={{ color: 'var(--primary)' }}
-                        >
+                        <span className="text-brand text-xs font-bold uppercase tracking-[0.15em]">
                             Get in Touch
                         </span>
-                        <h2 className="text-4xl md:text-5xl font-bold mt-2 text-gray-900">
-                            Visit Us or{' '}
-                            <span style={{ color: 'var(--primary)' }}>Order Now</span>
+                        <h2 className="text-3xl md:text-4xl font-bold text-white mt-2">
+                            Visit Us or <span className="text-brand">Order Now</span>
                         </h2>
-                        <p className="mt-6 text-gray-500 text-lg">
-                            We&apos;re always ready to serve you the best food. Reach out to
-                            us for orders, feedback, or just to say hello!
+                        <p className="mt-5 text-[#A0A0A0] text-base">
+                            We&apos;re always ready to serve. Reach out for orders, feedback,
+                            or just to say hello!
                         </p>
 
-                        <div className="mt-12 flex flex-col gap-8">
-                            {[
-                                {
-                                    icon: <MapPin size={28} />,
-                                    title: 'Our Location',
-                                    detail: '123 Food Street, Gourmet Avenue, NY 10001',
-                                },
-                                {
-                                    icon: <Phone size={28} />,
-                                    title: 'Phone Number',
-                                    detail: '+1 (234) 567-890',
-                                },
-                                {
-                                    icon: <Clock size={28} />,
-                                    title: 'Opening Hours',
-                                    detail: 'Mon - Sun: 10:00 AM - 11:00 PM',
-                                },
-                            ].map((item) => (
-                                <div key={item.title} className="flex items-center gap-6">
-                                    <div
-                                        className="w-14 h-14 bg-gray-50 rounded-2xl flex items-center justify-center p-3 shadow-sm"
-                                        style={{ color: 'var(--primary)' }}
-                                    >
-                                        {item.icon}
+                        <div className="mt-10 flex flex-col gap-6">
+                            {contactInfo.map((c) => (
+                                <div key={c.title} className="flex items-center gap-4">
+                                    <div className="w-12 h-12 bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl flex items-center justify-center text-brand shrink-0">
+                                        {c.icon}
                                     </div>
                                     <div>
-                                        <h4 className="font-bold text-gray-900 text-lg">
-                                            {item.title}
-                                        </h4>
-                                        <p className="text-gray-500">{item.detail}</p>
+                                        <h4 className="text-white font-bold text-sm">{c.title}</h4>
+                                        <p className="text-[#6B6B6B] text-sm">{c.detail}</p>
                                     </div>
                                 </div>
                             ))}
                         </div>
 
-                        <div className="mt-12 flex flex-wrap gap-4">
-                            <button
-                                className="text-white px-8 py-4 rounded-full font-bold flex items-center gap-3 hover:opacity-90 transition-all shadow-lg min-h-[56px]"
-                                style={{ backgroundColor: '#25D366' }}
+                        <div className="mt-10 flex flex-wrap gap-3">
+                            <a
+                                href="https://wa.me/"
+                                className="bg-[#25D366] text-white px-6 py-3.5 rounded-full font-bold text-sm flex items-center gap-2 active:scale-95 transition-all shadow-[0_4px_20px_rgba(37,211,102,0.2)]"
                             >
-                                <MessageCircle size={24} />
-                                Order via WhatsApp
-                            </button>
-                            <button
-                                className="text-white px-8 py-4 rounded-full font-bold flex items-center gap-3 hover:bg-[#FF6B00] transition-all shadow-lg min-h-[56px]"
-                                style={{ backgroundColor: 'var(--secondary)' }}
+                                <MessageCircle size={18} />
+                                WhatsApp Order
+                            </a>
+                            <a
+                                href="#"
+                                className="bg-[#1A1A1A] border border-[#2A2A2A] text-white px-6 py-3.5 rounded-full font-bold text-sm flex items-center gap-2 hover:border-brand/30 active:scale-95 transition-all"
                             >
-                                <Send size={24} />
-                                Our Location
-                            </button>
+                                <Send size={18} />
+                                Get Directions
+                            </a>
                         </div>
                     </div>
 
-                    {/* Right Column — Form */}
+                    {/* Form */}
                     <div className="lg:w-1/2">
-                        <div className="bg-gray-50 p-8 md:p-12 rounded-[40px] shadow-sm border border-gray-100">
-                            <h3 className="text-3xl font-bold mb-8 text-gray-900">
-                                Send us a Message
-                            </h3>
-                            <form className="flex flex-col gap-6">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div className="flex flex-col gap-2">
-                                        <label className="text-sm font-bold text-gray-700 ml-1">
-                                            Your Name
-                                        </label>
+                        <div className="bg-[#121212] border border-[#2A2A2A] p-6 md:p-8 rounded-2xl">
+                            <h3 className="text-xl font-bold text-white mb-6">Send a Message</h3>
+                            <form className="flex flex-col gap-4">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="flex flex-col gap-1.5">
+                                        <label className="text-[#6B6B6B] text-xs font-semibold uppercase tracking-wider">Name</label>
                                         <input
                                             type="text"
                                             placeholder="John Doe"
-                                            className="w-full bg-white border border-gray-200 p-4 rounded-2xl outline-none"
+                                            className="w-full bg-[#1A1A1A] border border-[#2A2A2A] text-white p-3.5 rounded-xl outline-none focus:border-brand/50 transition-colors placeholder:text-[#3A3A3A]"
                                         />
                                     </div>
-                                    <div className="flex flex-col gap-2">
-                                        <label className="text-sm font-bold text-gray-700 ml-1">
-                                            Email Address
-                                        </label>
+                                    <div className="flex flex-col gap-1.5">
+                                        <label className="text-[#6B6B6B] text-xs font-semibold uppercase tracking-wider">Email</label>
                                         <input
                                             type="email"
-                                            placeholder="john@example.com"
-                                            className="w-full bg-white border border-gray-200 p-4 rounded-2xl outline-none"
+                                            placeholder="john@email.com"
+                                            className="w-full bg-[#1A1A1A] border border-[#2A2A2A] text-white p-3.5 rounded-xl outline-none focus:border-brand/50 transition-colors placeholder:text-[#3A3A3A]"
                                         />
                                     </div>
                                 </div>
-                                <div className="flex flex-col gap-2">
-                                    <label className="text-sm font-bold text-gray-700 ml-1">
-                                        Message Topic
-                                    </label>
-                                    <select className="w-full bg-white border border-gray-200 p-4 rounded-2xl outline-none appearance-none cursor-pointer">
+                                <div className="flex flex-col gap-1.5">
+                                    <label className="text-[#6B6B6B] text-xs font-semibold uppercase tracking-wider">Topic</label>
+                                    <select className="w-full bg-[#1A1A1A] border border-[#2A2A2A] text-white p-3.5 rounded-xl outline-none focus:border-brand/50 transition-colors appearance-none cursor-pointer">
                                         <option>General Inquiry</option>
                                         <option>Order Support</option>
                                         <option>Feedback</option>
-                                        <option>Franchise Opportunity</option>
                                     </select>
                                 </div>
-                                <div className="flex flex-col gap-2">
-                                    <label className="text-sm font-bold text-gray-700 ml-1">
-                                        Your Message
-                                    </label>
+                                <div className="flex flex-col gap-1.5">
+                                    <label className="text-[#6B6B6B] text-xs font-semibold uppercase tracking-wider">Message</label>
                                     <textarea
-                                        rows={4}
-                                        placeholder="How can we help you?"
-                                        className="w-full bg-white border border-gray-200 p-4 rounded-2xl outline-none"
-                                        style={{ resize: 'none' }}
+                                        rows={3}
+                                        placeholder="How can we help?"
+                                        className="w-full bg-[#1A1A1A] border border-[#2A2A2A] text-white p-3.5 rounded-xl outline-none focus:border-brand/50 transition-colors resize-none placeholder:text-[#3A3A3A]"
                                     />
                                 </div>
                                 <button
                                     type="submit"
-                                    className="w-full text-white py-5 rounded-2xl font-bold text-lg hover:shadow-xl transition-all hover:-translate-y-1"
-                                    style={{ backgroundColor: 'var(--primary)' }}
+                                    className="w-full bg-brand hover:bg-brand-light text-white py-4 rounded-full font-bold active:scale-[0.97] transition-all shadow-[0_4px_20px_rgba(255,107,0,0.25)]"
                                 >
                                     Send Message
                                 </button>

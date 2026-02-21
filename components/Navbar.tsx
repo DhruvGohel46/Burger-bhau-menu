@@ -1,113 +1,107 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Menu, X, ShoppingBag } from 'lucide-react';
+import { ShoppingBag, Menu as MenuIcon, X } from 'lucide-react';
 
 const navLinks = ['Home', 'Menu', 'Offers', 'About', 'Contact'];
 
 export default function Navbar() {
-    const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const [mobileOpen, setMobileOpen] = useState(false);
 
     useEffect(() => {
-        const handleScroll = () => setScrolled(window.scrollY > 20);
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+        const onScroll = () => setScrolled(window.scrollY > 20);
+        window.addEventListener('scroll', onScroll);
+        return () => window.removeEventListener('scroll', onScroll);
     }, []);
+
+    useEffect(() => {
+        document.body.style.overflow = mobileOpen ? 'hidden' : '';
+        return () => { document.body.style.overflow = ''; };
+    }, [mobileOpen]);
 
     return (
         <nav
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'
-                }`}
+            className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+            style={{
+                background: scrolled ? 'rgba(11, 11, 11, 0.85)' : 'transparent',
+                backdropFilter: scrolled ? 'blur(20px) saturate(1.5)' : 'none',
+                WebkitBackdropFilter: scrolled ? 'blur(20px) saturate(1.5)' : 'none',
+                borderBottom: scrolled ? '1px solid rgba(42, 42, 42, 0.6)' : '1px solid transparent',
+            }}
         >
-            <div className="container mx-auto px-4 flex justify-between items-center">
+            <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
                 {/* Logo */}
-                <div className="flex items-center gap-2">
-                    <div
-                        className="w-10 h-10 rounded-xl flex items-center justify-center"
-                        style={{ backgroundColor: 'var(--primary)' }}
-                    >
-                        <span className="text-white font-bold text-xl">B</span>
+                <a href="#home" className="flex items-center gap-2.5 group">
+                    <div className="w-9 h-9 bg-brand rounded-lg flex items-center justify-center shadow-[0_0_20px_rgba(255,107,0,0.3)] group-hover:shadow-[0_0_28px_rgba(255,107,0,0.5)] transition-shadow duration-300">
+                        <span className="text-white font-bold text-lg">B</span>
                     </div>
-                    <span
-                        className={`font-bold text-xl ${scrolled ? 'text-[#1A1A1A]' : 'text-white'}`}
-                    >
-                        Burger <span style={{ color: 'var(--primary)' }}>Bhau</span>
+                    <span className="text-white font-bold text-lg tracking-tight">
+                        Burger <span className="text-brand">Bhau</span>
                     </span>
-                </div>
+                </a>
 
-                {/* Desktop Nav */}
+                {/* Desktop Links */}
                 <div className="hidden md:flex items-center gap-8">
                     {navLinks.map((item) => (
                         <a
                             key={item}
                             href={`#${item.toLowerCase()}`}
-                            className={`font-medium hover:text-[#FF6B00] transition-colors ${scrolled ? 'text-[#1A1A1A]' : 'text-white'
-                                }`}
+                            className="text-[#A0A0A0] text-sm font-medium hover:text-white transition-colors duration-200 relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-brand after:transition-all after:duration-300 hover:after:w-full"
                         >
                             {item}
                         </a>
                     ))}
-                    <button
-                        className="w-10 h-10 relative flex items-center justify-center bg-gray-100 rounded-full text-[#1A1A1A]"
-                    >
-                        <ShoppingBag size={20} />
-                        <span
-                            className="absolute -top-1 -right-1 text-[10px] w-4 h-4 rounded-full flex items-center justify-center text-white"
-                            style={{ backgroundColor: 'var(--primary)' }}
-                        >
+                </div>
+
+                {/* Right Icons */}
+                <div className="flex items-center gap-2.5">
+                    <button className="relative w-10 h-10 rounded-full bg-[#1A1A1A] border border-[#2A2A2A] flex items-center justify-center text-[#A0A0A0] hover:text-white hover:border-[#3A3A3A] transition-all duration-200">
+                        <ShoppingBag size={18} />
+                        <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-brand text-[10px] font-bold rounded-full flex items-center justify-center text-white animate-pulse-glow">
                             0
                         </span>
                     </button>
-                </div>
-
-                {/* Mobile Icons */}
-                <div className="flex md:hidden items-center gap-4">
                     <button
-                        className={`p-2 rounded-full ${scrolled ? 'bg-gray-100 text-[#1A1A1A]' : 'bg-white/20 text-white'
-                            }`}
+                        onClick={() => setMobileOpen(!mobileOpen)}
+                        className="md:hidden w-10 h-10 rounded-full bg-[#1A1A1A] border border-[#2A2A2A] flex items-center justify-center text-[#A0A0A0] hover:text-white transition-colors"
                     >
-                        <ShoppingBag size={20} />
-                    </button>
-                    <button
-                        onClick={() => setIsOpen(!isOpen)}
-                        className={`p-2 rounded-lg ${scrolled ? 'text-[#1A1A1A]' : 'text-white'}`}
-                    >
-                        {isOpen ? <X size={28} /> : <Menu size={28} />}
+                        {mobileOpen ? <X size={18} /> : <MenuIcon size={18} />}
                     </button>
                 </div>
             </div>
 
-            {/* Mobile Menu Overlay */}
+            {/* Mobile Overlay */}
             <div
-                className={`fixed inset-0 bg-white z-40 transition-transform duration-500 md:hidden ${isOpen ? 'translate-x-0' : 'translate-x-full'
+                className={`fixed inset-0 z-40 md:hidden transition-all duration-500 ${mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
                     }`}
-                style={{ display: isOpen ? 'block' : 'none' }}
+                style={{ background: 'rgba(11, 11, 11, 0.97)', backdropFilter: 'blur(24px)' }}
             >
                 <div className="flex flex-col items-center justify-center h-full gap-8">
-                    {navLinks.map((item) => (
+                    {navLinks.map((item, i) => (
                         <a
                             key={item}
                             href={`#${item.toLowerCase()}`}
-                            onClick={() => setIsOpen(false)}
-                            className="text-2xl font-bold text-[#1A1A1A] hover:text-[#FF6B00]"
+                            onClick={() => setMobileOpen(false)}
+                            className="text-3xl font-bold text-white hover:text-brand transition-colors"
+                            style={{ animationDelay: `${i * 80}ms` }}
                         >
                             {item}
                         </a>
                     ))}
-                    <button
-                        onClick={() => setIsOpen(false)}
-                        className="text-white px-8 py-3 rounded-full font-bold text-lg shadow-lg"
-                        style={{ backgroundColor: 'var(--primary)' }}
+                    <a
+                        href="#menu"
+                        onClick={() => setMobileOpen(false)}
+                        className="mt-4 bg-brand text-white px-10 py-4 rounded-full font-bold text-lg shadow-[0_8px_32px_rgba(255,107,0,0.35)] active:scale-95 transition-transform"
                     >
                         Order Now
-                    </button>
+                    </a>
                 </div>
                 <button
-                    onClick={() => setIsOpen(false)}
-                    className="absolute top-6 right-6 text-[#1A1A1A]"
+                    onClick={() => setMobileOpen(false)}
+                    className="absolute top-5 right-5 w-10 h-10 rounded-full bg-[#1A1A1A] border border-[#2A2A2A] flex items-center justify-center text-white"
                 >
-                    <X size={32} />
+                    <X size={20} />
                 </button>
             </div>
         </nav>
