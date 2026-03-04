@@ -51,7 +51,7 @@ export default function Offers() {
                                 fill
                                 className="object-cover group-hover:scale-105 transition-transform duration-700"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/50 to-transparent" />
+                            <div className="absolute inset-0 bg-linear-to-t from-[#0B0B0B] via-[#0B0B0B]/50 to-transparent" />
 
                             <div className="absolute bottom-0 left-0 p-6 md:p-8 w-full">
                                 <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand text-white text-xs font-bold mb-3">

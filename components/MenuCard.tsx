@@ -30,7 +30,7 @@ export default function MenuCard({ item }: MenuCardProps) {
             </h3>
 
             {/* Description */}
-            <p className="text-[#6B6B6B] text-sm mb-5 flex-grow leading-relaxed">
+            <p className="text-[#6B6B6B] text-sm mb-5 grow leading-relaxed">
                 {item.description}
             </p>
 

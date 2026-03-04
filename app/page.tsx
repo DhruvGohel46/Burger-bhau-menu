@@ -54,26 +54,26 @@ export default function InteractiveMap() {
 
             {/* Immersive Parallax Map Background */}
             <motion.div
-                className="absolute inset-[-60px] w-[calc(100%+120px)] h-[calc(100%+120px)] origin-center"
+                className="absolute inset-[-40px] md:inset-[-60px] w-[calc(100%+80px)] md:w-[calc(100%+120px)] h-[calc(100%+80px)] md:h-[calc(100%+120px)] origin-center"
                 style={{ x: parallaxX, y: parallaxY }}
-                animate={{ scale: selectedCategory ? 1.05 : 1 }}
-                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                animate={{ scale: selectedCategory ? 1.05 : 1.0 }}
+                transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1] }}
             >
                 {/* Desktop Background */}
                 <div
-                    className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-1000 hidden md:block"
+                    className="absolute inset-0 bg-contain md:bg-cover bg-center bg-no-repeat transition-all duration-1000 hidden md:block"
                     style={{
                         backgroundImage: `url(${MAP_IMAGE_DESKTOP})`,
-                        filter: selectedCategory ? "contrast(1.3) brightness(0.4) sepia(0.3) hue-rotate(-15deg) blur(2px)" : "contrast(1.2) brightness(0.6) sepia(0.2) hue-rotate(-10deg)"
+                        filter: selectedCategory ? "contrast(1.3) brightness(0.3) sepia(0.5) hue-rotate(-15deg) blur(3px)" : "contrast(1.2) brightness(0.7) sepia(0.2) hue-rotate(-10deg)"
                     }}
                 />
 
-                {/* Mobile Background */}
+                {/* Mobile Background: Uses contain/cover appropriately so entire map isn't cropped excessively */}
                 <div
-                    className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-1000 block md:hidden"
+                    className="absolute inset-0 bg-contain bg-center bg-no-repeat transition-all duration-1000 block md:hidden"
                     style={{
                         backgroundImage: `url(${MAP_IMAGE_MOBILE})`,
-                        filter: selectedCategory ? "contrast(1.3) brightness(0.4) sepia(0.3) hue-rotate(-15deg) blur(2px)" : "contrast(1.2) brightness(0.6) sepia(0.2) hue-rotate(-10deg)"
+                        filter: selectedCategory ? "contrast(1.3) brightness(0.3) sepia(0.5) hue-rotate(-15deg) blur(3px)" : "contrast(1.1) brightness(0.8) sepia(0.2) hue-rotate(-5deg)"
                     }}
                 />
 
@@ -91,21 +91,23 @@ export default function InteractiveMap() {
                     }}
                 />
 
-                {/* Dark Overlays & Cinematic Vignette */}
+                {/* Dark Overlays & Deep Cinematic Vignette */}
                 <div
-                    className="absolute inset-0 bg-black/40 pointer-events-none transition-opacity duration-1000"
-                    style={{ opacity: selectedCategory ? 0.7 : 0.4 }}
+                    className="absolute inset-0 bg-black/60 pointer-events-none transition-opacity duration-1000"
+                    style={{ opacity: selectedCategory ? 0.8 : 0.5 }}
                 />
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.9)_100%)] pointer-events-none mix-blend-multiply" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_10%,rgba(0,0,0,1)_95%)] pointer-events-none mix-blend-multiply" />
 
                 {/* Fog Layers */}
                 <motion.div
-                    className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.15] mix-blend-overlay pointer-events-none"
+                    className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.25] mix-blend-overlay pointer-events-none"
                 />
+
+                {/* Slow floating fog map block overlay */}
                 <motion.div
-                    className="absolute top-0 left-0 w-[200%] h-[200%] bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10 pointer-events-none"
-                    animate={{ x: [0, -100, 0], y: [0, -50, 0] }}
-                    transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+                    className="absolute -top-[50%] -left-[50%] w-[200%] h-[200%] bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20 pointer-events-none"
+                    animate={{ x: [0, -60, 0], y: [0, -30, 0] }}
+                    transition={{ duration: 40, repeat: Infinity, ease: "easeInOut" }}
                 />
 
                 {/* Hotspots */}

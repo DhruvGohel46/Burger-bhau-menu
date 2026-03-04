@@ -17,8 +17,8 @@ export default function Hero() {
                     className="object-cover scale-105"
                 />
                 {/* Gradient overlays */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/70 to-[#0B0B0B]/30" />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#0B0B0B]/80 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-[#0B0B0B] via-[#0B0B0B]/70 to-[#0B0B0B]/30" />
+                <div className="absolute inset-0 bg-linear-to-r from-[#0B0B0B]/80 via-transparent to-transparent" />
             </div>
 
             {/* Content */}

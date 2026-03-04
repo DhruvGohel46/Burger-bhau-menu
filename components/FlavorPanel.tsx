@@ -17,71 +17,106 @@ export default function FlavorPanel({ category, onClose }: FlavorPanelProps) {
             {category && data && (
                 <motion.div
                     key="flavor-panel"
-                    initial={{ x: "100%", opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    exit={{ x: "100%", opacity: 0 }}
-                    transition={{ type: "spring", damping: 25, stiffness: 200, mass: 0.8 }}
-                    className="absolute top-0 right-0 z-50 w-full h-full md:w-[450px] lg:w-[500px] bg-black/85 backdrop-blur-2xl border-l border-white/5 shadow-[0_0_50px_rgba(0,0,0,0.8)] overflow-y-auto"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="fixed inset-0 z-50 min-h-screen flex items-center justify-center p-4 md:p-6"
                 >
-                    <div className="p-8 md:p-12 min-h-full flex flex-col relative">
-                        {/* Ambient Background Noise/Texture */}
-                        <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay pointer-events-none" />
+                    {/* Dark overlay behind panel */}
+                    <div className="absolute inset-0 bg-black/70 backdrop-blur-sm cursor-pointer" onClick={onClose} />
 
-                        <div className="flex justify-between items-center mb-12 relative z-10">
+                    {/* Background Fix: Premium Haunted Menu Slab */}
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.98, y: 15 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.98, y: 15 }}
+                        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                        className="relative w-full max-w-[440px] px-8 py-12 flex flex-col max-h-[90vh] overflow-y-auto no-scrollbar bg-linear-to-b from-[#0d0f14] via-[#11131a] to-[#090b0f] rounded-xl border border-red-500/15 shadow-[0_0_40px_rgba(255,0,0,0.08)]"
+                    >
+                        {/* Subtle grain texture overlay */}
+                        <div className="absolute inset-0 opacity-[0.04] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay rounded-xl pointer-events-none" />
+
+                        {/* Subtle radial highlight behind content to reduce flat blackness */}
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.02)_0%,transparent_70%)] pointer-events-none rounded-xl" />
+
+                        {/* Improved Close Button: Circular outline with blood glow on hover */}
+                        <button
+                            onClick={onClose}
+                            className="absolute top-6 right-6 p-2 rounded-full border border-gray-600/30 text-gray-500 hover:text-red-500 hover:border-red-500/50 hover:shadow-[0_0_15px_rgba(255,0,0,0.3)] transition-all duration-300 z-20"
+                            aria-label="Close panel"
+                        >
+                            <X className="w-4 h-4" />
+                        </button>
+
+                        <div className="flex flex-col items-center mb-10 w-full relative z-10">
+                            {/* Typography Hierarchy Level 1: Subtitle */}
+                            <motion.span
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.1, duration: 0.8 }}
+                                className="text-[9px] text-gray-400/80 tracking-[0.3em] uppercase mb-4"
+                            >
+                                Forbidden Selection
+                            </motion.span>
+
+                            {/* Typography Hierarchy Level 2: Heading Fix */}
                             <motion.h2
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.1, duration: 0.6, ease: "easeOut" }}
-                                className="text-3xl md:text-5xl font-serif tracking-widest text-red-50 font-bold drop-shadow-[0_5px_15px_rgba(220,38,38,0.3)] uppercase"
+                                initial={{ opacity: 0, y: -5 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.2, duration: 0.8 }}
+                                className="text-3xl md:text-4xl font-gothic tracking-widest text-transparent bg-clip-text bg-linear-to-b from-[#ff3b3b] via-[#b31217] to-[#73050a] uppercase text-center drop-shadow-[0_0_8px_rgba(179,18,23,0.3)]"
                             >
                                 {data.title}
                             </motion.h2>
-                            <motion.button
-                                onClick={onClose}
-                                className="p-3 fixed md:static top-6 right-6 z-50 rounded-full text-white/50 hover:text-red-500 bg-black/50 md:bg-white/5 md:hover:bg-white/10 transition-colors border border-white/10 hover:border-red-500/30 backdrop-blur-md"
-                                whileHover={{ rotate: 90, scale: 1.1 }}
-                                whileTap={{ scale: 0.9 }}
-                                aria-label="Close panel"
-                            >
-                                <X className="w-5 h-5 md:w-6 md:h-6" />
-                            </motion.button>
+
+                            {/* Thin subtle divider line */}
+                            <motion.div
+                                initial={{ scaleX: 0 }}
+                                animate={{ scaleX: 1 }}
+                                transition={{ delay: 0.3, duration: 0.8 }}
+                                className="w-16 h-px bg-[#b31217]/40 mt-6 shadow-[0_0_5px_rgba(179,18,23,0.5)]"
+                            />
                         </div>
 
-                        <div className="flex-1 flex flex-col gap-5 relative z-10 mt-4 md:mt-0">
+                        {/* Card Redesign: Fine-Dining Dotted Leader Lines */}
+                        <div className="flex-1 flex flex-col space-y-6 relative z-10 px-2 mt-2 cursor-default">
                             {data.flavors.map((flavor, index) => (
                                 <motion.div
                                     key={flavor.name}
-                                    initial={{ opacity: 0, y: 30 }}
+                                    initial={{ opacity: 0, y: 15 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.2 + index * 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                                    className="p-5 md:p-6 rounded-xl bg-linear-to-r from-white/3 to-transparent border border-white/5 hover:border-red-500/20 transition-all duration-300 group cursor-pointer relative overflow-hidden"
+                                    transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
+                                    className="flex items-center justify-between w-full group transition-transform duration-300 hover:scale-[1.02]"
                                 >
-                                    <div className="absolute inset-0 bg-red-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                    {/* Typography Hierarchy Level 3: Elegant Serif Item Names (Title Case looks elegant with Gothic font) */}
+                                    <h3 className="text-lg tracking-wide text-gray-200 group-hover:text-white font-gothic transition-colors capitalize">
+                                        {flavor.name.toLowerCase()}
+                                    </h3>
 
-                                    <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-4">
-                                        <h3 className="text-xl md:text-2xl font-light text-white/80 tracking-wide group-hover:text-red-100 transition-colors duration-300">
-                                            {flavor.name}
-                                        </h3>
-                                        <div className="flex items-center gap-2">
-                                            <span className="h-px w-8 bg-white/10 group-hover:bg-red-500/30 transition-colors duration-300 hidden md:block" />
-                                            <span className="text-lg md:text-xl text-amber-500/60 font-medium font-mono tracking-wider group-hover:text-amber-400 transition-colors duration-300">
-                                                ₹{flavor.price}
-                                            </span>
-                                        </div>
+                                    {/* Dotted Leader Line */}
+                                    <div className="grow mx-4 relative overflow-hidden h-4">
+                                        <div className="absolute top-1/2 w-full border-b-2 border-dotted border-gray-600/30 group-hover:border-[#b31217]/40 transition-colors duration-300 transform -translate-y-1/2" />
                                     </div>
+
+                                    {/* Price Right Aligned */}
+                                    <span className="text-base text-amber-500/90 group-hover:text-amber-400 group-hover:drop-shadow-[0_0_8px_rgba(251,191,36,0.3)] font-medium font-mono transition-all duration-300 shrink-0">
+                                        ₹{flavor.price}
+                                    </span>
                                 </motion.div>
                             ))}
                         </div>
 
+                        {/* Elegantly Minimal Footer */}
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ delay: 0.8, duration: 1 }}
-                            className="mt-16 mb-4 text-center text-red-500/20 text-xs md:text-sm tracking-[0.3em] uppercase font-serif"
+                            transition={{ delay: 0.6, duration: 1 }}
+                            className="mt-14 text-center text-gray-500/40 text-[9px] uppercase tracking-widest relative z-10 font-sans"
                         >
-                            Choose your fate
+                            Since 2026
                         </motion.div>
-                    </div>
+                    </motion.div>
                 </motion.div>
             )}
         </AnimatePresence>

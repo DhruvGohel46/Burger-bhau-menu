@@ -1,10 +1,17 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Cinzel_Decorative } from 'next/font/google';
 import './globals.css';
 
 const inter = Inter({
     subsets: ['latin'],
     variable: '--font-inter',
+    display: 'swap',
+});
+
+const gothic = Cinzel_Decorative({
+    subsets: ['latin'],
+    weight: ['400', '700', '900'],
+    variable: '--font-gothic',
     display: 'swap',
 });
 
@@ -22,7 +29,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en" className={`${inter.variable} dark`}>
+        <html lang="en" className={`${inter.variable} ${gothic.variable} dark`}>
             <body className="antialiased">{children}</body>
         </html>
     );
