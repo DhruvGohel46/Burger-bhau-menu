@@ -32,7 +32,7 @@ export default function FlavorPanel({ category, onClose }: FlavorPanelProps) {
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.1, duration: 0.6, ease: "easeOut" }}
-                                className="text-3xl md:text-5xl font-serif tracking-[0.1em] text-red-50 font-bold drop-shadow-[0_5px_15px_rgba(220,38,38,0.3)] uppercase"
+                                className="text-3xl md:text-5xl font-serif tracking-widest text-red-50 font-bold drop-shadow-[0_5px_15px_rgba(220,38,38,0.3)] uppercase"
                             >
                                 {data.title}
                             </motion.h2>
@@ -54,7 +54,7 @@ export default function FlavorPanel({ category, onClose }: FlavorPanelProps) {
                                     initial={{ opacity: 0, y: 30 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.2 + index * 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                                    className="p-5 md:p-6 rounded-xl bg-gradient-to-r from-white/[0.03] to-transparent border border-white/5 hover:border-red-500/20 transition-all duration-300 group cursor-pointer relative overflow-hidden"
+                                    className="p-5 md:p-6 rounded-xl bg-linear-to-r from-white/3 to-transparent border border-white/5 hover:border-red-500/20 transition-all duration-300 group cursor-pointer relative overflow-hidden"
                                 >
                                     <div className="absolute inset-0 bg-red-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
@@ -63,7 +63,7 @@ export default function FlavorPanel({ category, onClose }: FlavorPanelProps) {
                                             {flavor.name}
                                         </h3>
                                         <div className="flex items-center gap-2">
-                                            <span className="h-[1px] w-8 bg-white/10 group-hover:bg-red-500/30 transition-colors duration-300 hidden md:block" />
+                                            <span className="h-px w-8 bg-white/10 group-hover:bg-red-500/30 transition-colors duration-300 hidden md:block" />
                                             <span className="text-lg md:text-xl text-amber-500/60 font-medium font-mono tracking-wider group-hover:text-amber-400 transition-colors duration-300">
                                                 ₹{flavor.price}
                                             </span>

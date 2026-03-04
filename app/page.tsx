@@ -6,8 +6,9 @@ import MapHotspot from "@/components/MapHotspot";
 import FlavorPanel from "@/components/FlavorPanel";
 import Overlay from "@/components/Overlay";
 
-// Using a placeholder map since not provided in project source yet.
-const MAP_IMAGE = "https://images.unsplash.com/photo-1542281286-9e0a16bb7366?auto=format&fit=crop&q=80&w=2560&ixlib=rb-4.0.3";
+// Using user-provided custom local images for desktop and mobile
+const MAP_IMAGE_DESKTOP = "/bigscreen.png";
+const MAP_IMAGE_MOBILE = "/smallscreen.png";
 
 export default function InteractiveMap() {
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -58,11 +59,35 @@ export default function InteractiveMap() {
                 animate={{ scale: selectedCategory ? 1.05 : 1 }}
                 transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
             >
+                {/* Desktop Background */}
                 <div
-                    className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-1000"
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-1000 hidden md:block"
                     style={{
-                        backgroundImage: `url(${MAP_IMAGE})`,
+                        backgroundImage: `url(${MAP_IMAGE_DESKTOP})`,
                         filter: selectedCategory ? "contrast(1.3) brightness(0.4) sepia(0.3) hue-rotate(-15deg) blur(2px)" : "contrast(1.2) brightness(0.6) sepia(0.2) hue-rotate(-10deg)"
+                    }}
+                />
+
+                {/* Mobile Background */}
+                <div
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-1000 block md:hidden"
+                    style={{
+                        backgroundImage: `url(${MAP_IMAGE_MOBILE})`,
+                        filter: selectedCategory ? "contrast(1.3) brightness(0.4) sepia(0.3) hue-rotate(-15deg) blur(2px)" : "contrast(1.2) brightness(0.6) sepia(0.2) hue-rotate(-10deg)"
+                    }}
+                />
+
+                {/* HELPER: Click anywhere on the map to get percentage coordinates for hotspots */}
+                <div
+                    className="absolute inset-0 z-0 cursor-crosshair"
+                    onClick={(e) => {
+                        if (selectedCategory) return;
+                        const rect = e.currentTarget.getBoundingClientRect();
+                        const x = ((e.clientX - rect.left) / rect.width) * 100;
+                        const y = ((e.clientY - rect.top) / rect.height) * 100;
+                        const msg = `New Hotspot -> top: "${y.toFixed(1)}%", left: "${x.toFixed(1)}%"`;
+                        console.log(msg);
+                        alert(msg + "\n\n(Coordinates logged to browser console!)");
                     }}
                 />
 
@@ -71,7 +96,7 @@ export default function InteractiveMap() {
                     className="absolute inset-0 bg-black/40 pointer-events-none transition-opacity duration-1000"
                     style={{ opacity: selectedCategory ? 0.7 : 0.4 }}
                 />
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_rgba(0,0,0,0.9)_100%)] pointer-events-none mix-blend-multiply" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.9)_100%)] pointer-events-none mix-blend-multiply" />
 
                 {/* Fog Layers */}
                 <motion.div
