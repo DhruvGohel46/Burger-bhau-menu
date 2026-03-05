@@ -17,8 +17,8 @@
       "id": "burger-aalu-tikki",
       "name": "Aalu Tikki Burger",
       "category": "Burger",
-      "description": "Crispy tikki, fresh veg, house sauce",
-      "image": "/images/classic-burger.png",
+      "description": "Crispy aloo tikki, fresh onions & lettuce, tangy house sauce",
+      "image": "/productimage/burger/aalu-tikki-burger.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 30 },
         { "id": "jumbo", "label": "Jumbo", "price": 40 }
@@ -28,8 +28,8 @@
       "id": "burger-schezwan",
       "name": "Schezwan Burger",
       "category": "Burger",
-      "description": "Spicy schezwan, crunchy veg",
-      "image": "/images/cheese-burger.png",
+      "description": "Spicy schezwan spread, crunchy veg, bold street-style flavour",
+      "image": "/productimage/burger/burger-schezwan.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 30 },
         { "id": "jumbo", "label": "Jumbo", "price": 40 }
@@ -39,8 +39,8 @@
       "id": "burger-cheesy-garlic",
       "name": "Cheesy Garlic Burger",
       "category": "Burger",
-      "description": "Garlic mayo, cheesy bite",
-      "image": "/images/cheese-burger.png",
+      "description": "Creamy garlic mayo with a cheesy finish and crunchy veg",
+      "image": "/productimage/burger/burger-cheesy-garlic.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 40 },
         { "id": "jumbo", "label": "Jumbo", "price": 50 }
@@ -50,8 +50,8 @@
       "id": "burger-manchurian",
       "name": "Manchurian Burger",
       "category": "Burger",
-      "description": "Manchurian patty, tangy sauce",
-      "image": "/images/special-burger.png",
+      "description": "Manchurian-style patty with tangy sauce and fresh crunch",
+      "image": "/productimage/burger/burger-manchurian.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 40 },
         { "id": "jumbo", "label": "Jumbo", "price": 50 }
@@ -61,8 +61,8 @@
       "id": "burger-veg-lovers",
       "name": "Veg Lovers Burger",
       "category": "Burger",
-      "description": "Loaded veg, balanced flavors",
-      "image": "/images/classic-burger.png",
+      "description": "Loaded with veg, soft bun, and a balanced sweet-spicy sauce",
+      "image": "/productimage/burger/burger-veg-lovers.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 50 },
         { "id": "jumbo", "label": "Jumbo", "price": 60 }
@@ -72,18 +72,18 @@
       "id": "burger-korean",
       "name": "Korean Burger",
       "category": "Burger",
-      "description": "Korean-style spicy sauce",
-      "image": "/images/special-burger.png",
+      "description": "Korean-style spicy sauce with a hint of sweetness and crunch",
+      "image": "/productimage/burger/burger-korean.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 50 },
         { "id": "jumbo", "label": "Jumbo", "price": 60 }
       ]
     },
     {
-      "id": "burger-achari-peri-peri",
+      "id": "burger-african-peri-peri",
       "name": "African Peri Peri Burger",
       "category": "Burger",
-      "description": "African kick with peri peri heat",
+      "description": "Peri peri heat with a bold tangy kick and crunchy veg",
       "image": "/images/special-burger.png",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 50 },
@@ -94,8 +94,8 @@
       "id": "burger-la-mexicano",
       "name": "La Mexicano Burger",
       "category": "Burger",
-      "description": "Mexican spices, fresh crunch",
-      "image": "/images/classic-burger.png",
+      "description": "Mexican-style spices, fresh crunch, and a zesty sauce",
+      "image": "/productimage/burger/burger-la-mexicano.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 50 },
         { "id": "jumbo", "label": "Jumbo", "price": 60 }
@@ -105,8 +105,8 @@
       "id": "burger-tandoori-tadka",
       "name": "Tandoori Tadka Burger",
       "category": "Burger",
-      "description": "Tandoori notes, smoky finish",
-      "image": "/images/special-burger.png",
+      "description": "Smoky tandoori flavour with a creamy, spicy finish",
+      "image": "/productimage/burger/burger-tandoori-tadka.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 50 },
         { "id": "jumbo", "label": "Jumbo", "price": 60 }
@@ -116,8 +116,8 @@
       "id": "burger-jain-chipotle",
       "name": "Jain Chipotle Burger",
       "category": "Burger",
-      "description": "Jain friendly, chipotle style",
-      "image": "/images/classic-burger.png",
+      "description": "Jain-friendly chipotle-style sauce with fresh crunch",
+      "image": "/productimage/burger/burger-jain-chipotle.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 50 },
         { "id": "jumbo", "label": "Jumbo", "price": 60 }
@@ -127,30 +127,41 @@
       "id": "burger-punjabi-makni",
       "name": "Punjabi Makni Burger",
       "category": "Burger",
-      "description": "Makni gravy flavor, rich bite",
-      "image": "/images/cheese-burger.png",
+      "description": "Rich makni gravy flavour with a buttery, desi finish",
+      "image": "/productimage/burger/burger-punjabi-makni.jpg",
+      "variants": [
+        { "id": "regular", "label": "Regular", "price": 50 },
+        { "id": "jumbo", "label": "Jumbo", "price": 60 }
+      ]
+    },
+    {
+      "id": "burger-hot-like-hill",
+      "name": "Hot Like Hill Burger",
+      "category": "Burger",
+      "description": "Extra spicy signature burger with a punchy lava-style sauce",
+      "image": "/productimage/burger/burger-hot-like-hill.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 60 },
         { "id": "jumbo", "label": "Jumbo", "price": 70 }
       ]
     },
     {
-      "id": "burger-hot-lava-hill",
-      "name": "Hot Lava Hill Burger",
+      "id": "burger-shahi-hydrabadi",
+      "name": "Shahi Hydrabadi Burger",
       "category": "Burger",
-      "description": "Extra spicy signature burger",
-      "image": "/images/special-burger.png",
+      "description": "Premium burger with cheese, rich sauce, and a clean, balanced bite",
+      "image": "/productimage/burger/burger-shahi-hydrabadi.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 80 },
         { "id": "jumbo", "label": "Jumbo", "price": 90 }
       ]
     },
     {
-      "id": "burger-shahi-heptagon",
-      "name": "Shahi Heptagon Burger",
+      "id": "burger-bhau-special",
+      "name": "Bhau Special Open Burger",
       "category": "Burger",
-      "description": "Premium burger (includes cheese)",
-      "image": "/images/special-burger.png",
+      "description": "Premium burger with cheese, rich sauce, and a clean, balanced bite,and it is open burger contain two tikki",
+      "image": "/productimage/burger/burger-bhau-special.jpg",
       "price": 100
     },
 
@@ -158,96 +169,96 @@
       "id": "fries-classic",
       "name": "Classic Salted Fries",
       "category": "French Fries",
-      "description": "Crispy golden fries",
-      "image": "/images/french-fries.png",
+      "description": "Crispy, golden fries with classic seasoning",
+      "image": "/productimage/frenchfries/fries-classic.jpg",
       "price": 50
     },
     {
       "id": "fries-peri-peri",
       "name": "Peri Peri Fries",
       "category": "French Fries",
-      "description": "Peri peri seasoning",
-      "image": "/images/french-fries.png",
+      "description": "Hot peri peri seasoning on crispy fries",
+      "image": "/productimage/frenchfries/fries-peri-peri.jpg",
       "price": 60
     },
     {
       "id": "fries-loaded",
       "name": "Loaded Fries",
       "category": "French Fries",
-      "description": "Loaded with toppings",
-      "image": "/images/cheese-fries.png",
+      "description": "Loaded with sauces and toppings for a full, messy bite",
+      "image": "/productimage/frenchfries/fries-loaded.jpg",
       "price": 100
     },
 
     {
-      "id": "sandwich-cheese-chutney",
-      "name": "Cheese Chutney Sandwich",
+      "id": "sandwich-cheese-chilli",
+      "name": "Cheese Chilli Sandwich",
       "category": "Sandwich",
-      "description": "Cheese with chutney",
-      "image": "/images/club-sandwich.png",
+      "description": "Cheese with fresh green chutney in a toasted sandwich",
+      "image": "/productimage/sandwich/sandwich-cheese-chilli.jpg",
       "price": 30
     },
     {
-      "id": "sandwich-schezwan-chutney",
-      "name": "Schezwan Chutney Sandwich",
+      "id": "sandwich-schezwan-chilli",
+      "name": "Schezwan Chilli Sandwich",
       "category": "Sandwich",
-      "description": "Spicy schezwan chutney",
-      "image": "/images/club-sandwich.png",
+      "description": "Spicy schezwan chutney with a crisp, toasted finish",
+      "image": "/productimage/sandwich/sandwich-schezwan-chilli.jpg",
       "price": 40
     },
     {
       "id": "sandwich-cheese-corn",
       "name": "Cheese Corn Sandwich",
       "category": "Sandwich",
-      "description": "Cheese with sweet corn",
-      "image": "/images/club-sandwich.png",
+      "description": "Cheesy, sweet-corn filling toasted until golden",
+      "image": "/productimage/sandwich/sandwich-cheese-corn.jpg",
       "price": 50
     },
     {
       "id": "sandwich-cheese-garlic",
       "name": "Cheese Garlic Sandwich",
       "category": "Sandwich",
-      "description": "Cheese garlic flavor",
-      "image": "/images/club-sandwich.png",
+      "description": "Cheesy garlic flavour with a crisp toast and creamy bite",
+      "image": "/productimage/sandwich/sandwich-cheese-garlic.jpg",
       "price": 50
     },
     {
       "id": "sandwich-masala-tikki",
       "name": "Masala Tikki Sandwich",
       "category": "Sandwich",
-      "description": "Masala tikki filling",
-      "image": "/images/club-sandwich.png",
+      "description": "Masala tikki filling with chutneys and crunchy veg",
+      "image": "/productimage/sandwich/sandwich-masala-tikki.jpg",
       "price": 60
     },
     {
       "id": "sandwich-paneer-delight",
       "name": "Paneer Delight Sandwich",
       "category": "Sandwich",
-      "description": "Paneer delight",
-      "image": "/images/club-sandwich.png",
+      "description": "Soft paneer filling with spices, toasted for a rich bite",
+      "image": "/productimage/sandwich/sandwich-paneer-delight.jpg",
       "price": 60
     },
     {
       "id": "sandwich-veg-grill",
       "name": "Veg Grill Sandwich",
       "category": "Sandwich",
-      "description": "Grilled veg sandwich",
-      "image": "/images/club-sandwich.png",
+      "description": "Grilled veg, fresh chutney, and a clean toasted crunch",
+      "image": "/productimage/sandwich/sandwich-veg-grill.jpg",
       "price": 70
     },
     {
       "id": "sandwich-indori-jumbo",
       "name": "Indori Jumbo Sandwich",
       "category": "Sandwich",
-      "description": "Jumbo style",
-      "image": "/images/club-sandwich.png",
+      "description": "Jumbo portion with bold Indori flavours and toasted crunch",
+      "image": "/productimage/sandwich/sandwich-indori-jumbo.jpg",
       "price": 80
     },
     {
       "id": "sandwich-bhau-manchurian-cheese",
       "name": "Bhau Special Manchurian Cheese Sandwich",
       "category": "Sandwich",
-      "description": "House special",
+      "description": "House special: manchurian filling with cheese, toasted golden",
       "image": "/productimage/sandwich/bhau-special-manchurian-cheese-sandwich.jpg",
       "price": 100
     },
@@ -256,8 +267,8 @@
       "id": "pizza-veg",
       "name": "Veg Pizza (7 inch)",
       "category": "Pizza",
-      "description": "Veg pizza",
-      "image": "/images/margherita-pizza.png",
+      "description": "Loaded veg toppings with melty cheese and a perfectly seasoned crust",
+      "image": "/productimage/pizza/pizza-veg.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 50 },
         { "id": "jumbo", "label": "Jumbo", "price": 60 }
@@ -267,8 +278,8 @@
       "id": "pizza-double-cheese-veg",
       "name": "Double Cheese Veg Pizza (7 inch)",
       "category": "Pizza",
-      "description": "Double cheese veg",
-      "image": "/images/margherita-pizza.png",
+      "description": "Extra cheesy veg pizza with a rich, stretchy cheese pull",
+      "image": "/productimage/pizza/pizza-double-cheese-veg.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 80 },
         { "id": "jumbo", "label": "Jumbo", "price": 90 }
@@ -278,8 +289,8 @@
       "id": "pizza-margherita",
       "name": "Margherita Pizza (7 inch)",
       "category": "Pizza",
-      "description": "Classic margherita",
-      "image": "/images/margherita-pizza.png",
+      "description": "Classic margherita with rich cheese and herby tomato base",
+      "image": "/productimage/pizza/pizza-margherita.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 80 },
         { "id": "jumbo", "label": "Jumbo", "price": 90 }
@@ -289,8 +300,8 @@
       "id": "pizza-italian",
       "name": "Italian Pizza (7 inch)",
       "category": "Pizza",
-      "description": "Italian style",
-      "image": "/images/margherita-pizza.png",
+      "description": "Italian-style seasoning with a cheesy, aromatic finish",
+      "image": "/productimage/pizza/pizza-italian.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 100 },
         { "id": "jumbo", "label": "Jumbo", "price": 110 }
@@ -300,8 +311,8 @@
       "id": "pizza-4-cheese",
       "name": "4 Cheese Pizza (7 inch)",
       "category": "Pizza",
-      "description": "Four cheese",
-      "image": "/images/margherita-pizza.png",
+      "description": "Four-cheese blend for a rich, creamy, premium bite",
+      "image": "/productimage/pizza/pizza-4-cheese.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 100 },
         { "id": "jumbo", "label": "Jumbo", "price": 110 }
@@ -311,8 +322,8 @@
       "id": "pizza-cheese-corn",
       "name": "Cheese Corn Pizza (7 inch)",
       "category": "Pizza",
-      "description": "Cheese & corn",
-      "image": "/images/margherita-pizza.png",
+      "description": "Sweet corn and cheese—simple, creamy, and crowd-pleasing",
+      "image": "/productimage/pizza/pizza-cheese-corn.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 100 },
         { "id": "jumbo", "label": "Jumbo", "price": 110 }
@@ -322,19 +333,19 @@
       "id": "pizza-tandoori-paneer",
       "name": "Tandoori Paneer Pizza (7 inch)",
       "category": "Pizza",
-      "description": "Tandoori paneer",
-      "image": "/images/margherita-pizza.png",
+      "description": "Tandoori paneer with smoky spice and a cheesy finish",
+      "image": "/productimage/pizza/pizza-tandoori-paneer.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 150 },
         { "id": "jumbo", "label": "Jumbo", "price": 160 }
       ]
     },
     {
-      "id": "pizza-makni-paneer",
-      "name": "Makni Paneer Pizza (7 inch)",
+      "id": "pizza-makhni-paneer",
+      "name": "Makhni Paneer Pizza (7 inch)",
       "category": "Pizza",
-      "description": "Makni paneer",
-      "image": "/images/margherita-pizza.png",
+      "description": "Paneer in rich makhni flavour with a buttery, desi finish",
+      "image": "/productimage/pizza/pizza-makhni-paneer.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 150 },
         { "id": "jumbo", "label": "Jumbo", "price": 160 }
@@ -344,8 +355,8 @@
       "id": "pizza-peri-peri-paneer",
       "name": "Peri Peri Paneer Pizza (7 inch)",
       "category": "Pizza",
-      "description": "Peri peri paneer",
-      "image": "/images/margherita-pizza.png",
+      "description": "Peri peri paneer cubes with a bold spicy kick and gooey cheese",
+      "image": "/productimage/pizza/pizza-peri-peri-paneer.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 150 },
         { "id": "jumbo", "label": "Jumbo", "price": 160 }
@@ -355,8 +366,8 @@
       "id": "pizza-cheese-burst",
       "name": "Cheese Burst Pizza (7 inch)",
       "category": "Pizza",
-      "description": "Cheese burst",
-      "image": "/images/margherita-pizza.png",
+      "description": "Cheese burst base for maximum cheese and a rich melt",
+      "image": "/productimage/pizza/pizza-cheese-burst.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 150 },
         { "id": "jumbo", "label": "Jumbo", "price": 160 }
@@ -366,8 +377,8 @@
       "id": "pizza-cheesy-7",
       "name": "Cheesy 7 Pizza (7 inch)",
       "category": "Pizza",
-      "description": "Cheesy 7",
-      "image": "/images/margherita-pizza.png",
+      "description": "Seven-cheese style richness for a premium, creamy bite",
+      "image": "/productimage/pizza/pizza-cheesy-7.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 150 },
         { "id": "jumbo", "label": "Jumbo", "price": 160 }
@@ -378,7 +389,7 @@
       "id": "garlic-cheese",
       "name": "Cheese Garlic Bread",
       "category": "Garlic Bread",
-      "description": "Cheesy garlic bread",
+      "description": "Toasted garlic bread topped with cheese and herbs",
       "image": "/images/garlic-bread.png",
       "price": 50
     },
@@ -386,7 +397,7 @@
       "id": "garlic-schezwan",
       "name": "Schezwan Garlic Bread",
       "category": "Garlic Bread",
-      "description": "Spicy schezwan",
+      "description": "Spicy schezwan spread on toasted garlic bread",
       "image": "/images/garlic-bread.png",
       "price": 70
     },
@@ -394,7 +405,7 @@
       "id": "garlic-peri-peri",
       "name": "Peri Peri Garlic Bread",
       "category": "Garlic Bread",
-      "description": "Peri peri",
+      "description": "Peri peri seasoning on crispy garlic bread",
       "image": "/images/garlic-bread.png",
       "price": 70
     },
@@ -402,7 +413,7 @@
       "id": "garlic-makni",
       "name": "Makni Garlic Bread",
       "category": "Garlic Bread",
-      "description": "Makni",
+      "description": "Rich makni flavour on toasted garlic bread",
       "image": "/images/garlic-bread.png",
       "price": 80
     },
@@ -410,7 +421,7 @@
       "id": "garlic-cheesy-7",
       "name": "Cheesy 7 Garlic Bread",
       "category": "Garlic Bread",
-      "description": "Cheesy 7",
+      "description": "Extra cheesy garlic bread with a premium, creamy bite",
       "image": "/images/garlic-bread.png",
       "price": 100
     },
@@ -418,7 +429,7 @@
       "id": "garlic-veg-loaded",
       "name": "Veg Loaded Bread",
       "category": "Garlic Bread",
-      "description": "Veg loaded",
+      "description": "Veg-loaded garlic bread with sauces and crunchy toppings",
       "image": "/images/garlic-bread.png",
       "price": 100
     },
@@ -427,7 +438,7 @@
       "id": "dip-cheesy-sauce",
       "name": "Cheesy Sauce",
       "category": "Dips",
-      "description": "Dip",
+      "description": "Creamy cheesy dip",
       "image": "/images/garlic-bread.png",
       "price": 10
     },
@@ -435,7 +446,7 @@
       "id": "dip-1000-island",
       "name": "1000 Island",
       "category": "Dips",
-      "description": "Dip",
+      "description": "Creamy 1000 island dip",
       "image": "/images/garlic-bread.png",
       "price": 10
     },
@@ -443,7 +454,7 @@
       "id": "dip-momo-chutney",
       "name": "MOMO Chutney",
       "category": "Dips",
-      "description": "Dip",
+      "description": "Spicy momo-style chutney dip",
       "image": "/images/garlic-bread.png",
       "price": 10
     },
@@ -451,7 +462,7 @@
       "id": "dip-peri-peri-sauce",
       "name": "Peri Peri Sauce",
       "category": "Dips",
-      "description": "Dip",
+      "description": "Spicy peri peri dip",
       "image": "/images/garlic-bread.png",
       "price": 10
     },
@@ -459,7 +470,7 @@
       "id": "dip-makni-sauce",
       "name": "Makni Sauce",
       "category": "Dips",
-      "description": "Dip",
+      "description": "Rich makni dip",
       "image": "/images/garlic-bread.png",
       "price": 10
     },
@@ -467,7 +478,7 @@
       "id": "dip-mayonnaise",
       "name": "Mayonnaise",
       "category": "Dips",
-      "description": "Dip",
+      "description": "Classic creamy mayo dip",
       "image": "/images/garlic-bread.png",
       "price": 10
     }
