@@ -1,0 +1,475 @@
+
+{
+  "categories": [
+    "Burger",
+    "French Fries",
+    "Sandwich",
+    "Pizza",
+    "Garlic Bread",
+    "Dips"
+  ],
+  "extras": [
+    { "id": "cheese-slice", "name": "Cheese Slice", "price": 10 },
+    { "id": "add-cheese", "name": "Add Cheese", "price": 30 }
+  ],
+  "items": [
+    {
+      "id": "burger-aalu-tikki",
+      "name": "Aalu Tikki Burger",
+      "category": "Burger",
+      "description": "Crispy tikki, fresh veg, house sauce",
+      "image": "/images/classic-burger.png",
+      "variants": [
+        { "id": "regular", "label": "Regular", "price": 30 },
+        { "id": "jumbo", "label": "Jumbo", "price": 40 }
+      ]
+    },
+    {
+      "id": "burger-schezwan",
+      "name": "Schezwan Burger",
+      "category": "Burger",
+      "description": "Spicy schezwan, crunchy veg",
+      "image": "/images/cheese-burger.png",
+      "variants": [
+        { "id": "regular", "label": "Regular", "price": 30 },
+        { "id": "jumbo", "label": "Jumbo", "price": 40 }
+      ]
+    },
+    {
+      "id": "burger-cheesy-garlic",
+      "name": "Cheesy Garlic Burger",
+      "category": "Burger",
+      "description": "Garlic mayo, cheesy bite",
+      "image": "/images/cheese-burger.png",
+      "variants": [
+        { "id": "regular", "label": "Regular", "price": 40 },
+        { "id": "jumbo", "label": "Jumbo", "price": 50 }
+      ]
+    },
+    {
+      "id": "burger-manchurian",
+      "name": "Manchurian Burger",
+      "category": "Burger",
+      "description": "Manchurian patty, tangy sauce",
+      "image": "/images/special-burger.png",
+      "variants": [
+        { "id": "regular", "label": "Regular", "price": 40 },
+        { "id": "jumbo", "label": "Jumbo", "price": 50 }
+      ]
+    },
+    {
+      "id": "burger-veg-lovers",
+      "name": "Veg Lovers Burger",
+      "category": "Burger",
+      "description": "Loaded veg, balanced flavors",
+      "image": "/images/classic-burger.png",
+      "variants": [
+        { "id": "regular", "label": "Regular", "price": 50 },
+        { "id": "jumbo", "label": "Jumbo", "price": 60 }
+      ]
+    },
+    {
+      "id": "burger-korean",
+      "name": "Korean Burger",
+      "category": "Burger",
+      "description": "Korean-style spicy sauce",
+      "image": "/images/special-burger.png",
+      "variants": [
+        { "id": "regular", "label": "Regular", "price": 50 },
+        { "id": "jumbo", "label": "Jumbo", "price": 60 }
+      ]
+    },
+    {
+      "id": "burger-achari-peri-peri",
+      "name": "Achari Peri Peri Burger",
+      "category": "Burger",
+      "description": "Achari kick with peri peri heat",
+      "image": "/images/special-burger.png",
+      "variants": [
+        { "id": "regular", "label": "Regular", "price": 50 },
+        { "id": "jumbo", "label": "Jumbo", "price": 60 }
+      ]
+    },
+    {
+      "id": "burger-la-mexicano",
+      "name": "La Mexicano Burger",
+      "category": "Burger",
+      "description": "Mexican spices, fresh crunch",
+      "image": "/images/classic-burger.png",
+      "variants": [
+        { "id": "regular", "label": "Regular", "price": 50 },
+        { "id": "jumbo", "label": "Jumbo", "price": 60 }
+      ]
+    },
+    {
+      "id": "burger-tandoori-tadka",
+      "name": "Tandoori Tadka Burger",
+      "category": "Burger",
+      "description": "Tandoori notes, smoky finish",
+      "image": "/images/special-burger.png",
+      "variants": [
+        { "id": "regular", "label": "Regular", "price": 50 },
+        { "id": "jumbo", "label": "Jumbo", "price": 60 }
+      ]
+    },
+    {
+      "id": "burger-jain-chipotle",
+      "name": "Jain Chipotle Burger",
+      "category": "Burger",
+      "description": "Jain friendly, chipotle style",
+      "image": "/images/classic-burger.png",
+      "variants": [
+        { "id": "regular", "label": "Regular", "price": 50 },
+        { "id": "jumbo", "label": "Jumbo", "price": 60 }
+      ]
+    },
+    {
+      "id": "burger-punjabi-makni",
+      "name": "Punjabi Makni Burger",
+      "category": "Burger",
+      "description": "Makni gravy flavor, rich bite",
+      "image": "/images/cheese-burger.png",
+      "variants": [
+        { "id": "regular", "label": "Regular", "price": 60 },
+        { "id": "jumbo", "label": "Jumbo", "price": 70 }
+      ]
+    },
+    {
+      "id": "burger-hot-lava-hill",
+      "name": "Hot Lava Hill Burger",
+      "category": "Burger",
+      "description": "Extra spicy signature burger",
+      "image": "/images/special-burger.png",
+      "variants": [
+        { "id": "regular", "label": "Regular", "price": 80 },
+        { "id": "jumbo", "label": "Jumbo", "price": 90 }
+      ]
+    },
+    {
+      "id": "burger-shahi-heptagon",
+      "name": "Shahi Heptagon Burger",
+      "category": "Burger",
+      "description": "Premium burger (includes cheese)",
+      "image": "/images/special-burger.png",
+      "price": 100
+    },
+
+    {
+      "id": "fries-classic",
+      "name": "Classic Salted Fries",
+      "category": "French Fries",
+      "description": "Crispy golden fries",
+      "image": "/images/french-fries.png",
+      "price": 50
+    },
+    {
+      "id": "fries-peri-peri",
+      "name": "Peri Peri Fries",
+      "category": "French Fries",
+      "description": "Peri peri seasoning",
+      "image": "/images/french-fries.png",
+      "price": 60
+    },
+    {
+      "id": "fries-loaded",
+      "name": "Loaded Fries",
+      "category": "French Fries",
+      "description": "Loaded with toppings",
+      "image": "/images/cheese-fries.png",
+      "price": 100
+    },
+
+    {
+      "id": "sandwich-cheese-chutney",
+      "name": "Cheese Chutney Sandwich",
+      "category": "Sandwich",
+      "description": "Cheese with chutney",
+      "image": "/images/club-sandwich.png",
+      "price": 30
+    },
+    {
+      "id": "sandwich-schezwan-chutney",
+      "name": "Schezwan Chutney Sandwich",
+      "category": "Sandwich",
+      "description": "Spicy schezwan chutney",
+      "image": "/images/club-sandwich.png",
+      "price": 40
+    },
+    {
+      "id": "sandwich-cheese-corn",
+      "name": "Cheese Corn Sandwich",
+      "category": "Sandwich",
+      "description": "Cheese with sweet corn",
+      "image": "/images/club-sandwich.png",
+      "price": 50
+    },
+    {
+      "id": "sandwich-cheese-garlic",
+      "name": "Cheese Garlic Sandwich",
+      "category": "Sandwich",
+      "description": "Cheese garlic flavor",
+      "image": "/images/club-sandwich.png",
+      "price": 50
+    },
+    {
+      "id": "sandwich-masala-tikki",
+      "name": "Masala Tikki Sandwich",
+      "category": "Sandwich",
+      "description": "Masala tikki filling",
+      "image": "/images/club-sandwich.png",
+      "price": 60
+    },
+    {
+      "id": "sandwich-paneer-delight",
+      "name": "Paneer Delight Sandwich",
+      "category": "Sandwich",
+      "description": "Paneer delight",
+      "image": "/images/club-sandwich.png",
+      "price": 60
+    },
+    {
+      "id": "sandwich-veg-grill",
+      "name": "Veg Grill Sandwich",
+      "category": "Sandwich",
+      "description": "Grilled veg sandwich",
+      "image": "/images/club-sandwich.png",
+      "price": 70
+    },
+    {
+      "id": "sandwich-indori-jumbo",
+      "name": "Indori Jumbo Sandwich",
+      "category": "Sandwich",
+      "description": "Jumbo style",
+      "image": "/images/club-sandwich.png",
+      "price": 80
+    },
+    {
+      "id": "sandwich-bhau-manchurian-cheese",
+      "name": "Bhau Special Manchurian Cheese Sandwich",
+      "category": "Sandwich",
+      "description": "House special",
+      "image": "/images/club-sandwich.png",
+      "price": 100
+    },
+
+    {
+      "id": "pizza-veg",
+      "name": "Veg Pizza (7 inch)",
+      "category": "Pizza",
+      "description": "Veg pizza",
+      "image": "/images/margherita-pizza.png",
+      "variants": [
+        { "id": "regular", "label": "Regular", "price": 50 },
+        { "id": "jumbo", "label": "Jumbo", "price": 60 }
+      ]
+    },
+    {
+      "id": "pizza-double-cheese-veg",
+      "name": "Double Cheese Veg Pizza (7 inch)",
+      "category": "Pizza",
+      "description": "Double cheese veg",
+      "image": "/images/margherita-pizza.png",
+      "variants": [
+        { "id": "regular", "label": "Regular", "price": 80 },
+        { "id": "jumbo", "label": "Jumbo", "price": 90 }
+      ]
+    },
+    {
+      "id": "pizza-margherita",
+      "name": "Margherita Pizza (7 inch)",
+      "category": "Pizza",
+      "description": "Classic margherita",
+      "image": "/images/margherita-pizza.png",
+      "variants": [
+        { "id": "regular", "label": "Regular", "price": 80 },
+        { "id": "jumbo", "label": "Jumbo", "price": 90 }
+      ]
+    },
+    {
+      "id": "pizza-italian",
+      "name": "Italian Pizza (7 inch)",
+      "category": "Pizza",
+      "description": "Italian style",
+      "image": "/images/margherita-pizza.png",
+      "variants": [
+        { "id": "regular", "label": "Regular", "price": 100 },
+        { "id": "jumbo", "label": "Jumbo", "price": 110 }
+      ]
+    },
+    {
+      "id": "pizza-4-cheese",
+      "name": "4 Cheese Pizza (7 inch)",
+      "category": "Pizza",
+      "description": "Four cheese",
+      "image": "/images/margherita-pizza.png",
+      "variants": [
+        { "id": "regular", "label": "Regular", "price": 100 },
+        { "id": "jumbo", "label": "Jumbo", "price": 110 }
+      ]
+    },
+    {
+      "id": "pizza-cheese-corn",
+      "name": "Cheese Corn Pizza (7 inch)",
+      "category": "Pizza",
+      "description": "Cheese & corn",
+      "image": "/images/margherita-pizza.png",
+      "variants": [
+        { "id": "regular", "label": "Regular", "price": 100 },
+        { "id": "jumbo", "label": "Jumbo", "price": 110 }
+      ]
+    },
+    {
+      "id": "pizza-tandoori-paneer",
+      "name": "Tandoori Paneer Pizza (7 inch)",
+      "category": "Pizza",
+      "description": "Tandoori paneer",
+      "image": "/images/margherita-pizza.png",
+      "variants": [
+        { "id": "regular", "label": "Regular", "price": 150 },
+        { "id": "jumbo", "label": "Jumbo", "price": 160 }
+      ]
+    },
+    {
+      "id": "pizza-makni-paneer",
+      "name": "Makni Paneer Pizza (7 inch)",
+      "category": "Pizza",
+      "description": "Makni paneer",
+      "image": "/images/margherita-pizza.png",
+      "variants": [
+        { "id": "regular", "label": "Regular", "price": 150 },
+        { "id": "jumbo", "label": "Jumbo", "price": 160 }
+      ]
+    },
+    {
+      "id": "pizza-peri-peri-paneer",
+      "name": "Peri Peri Paneer Pizza (7 inch)",
+      "category": "Pizza",
+      "description": "Peri peri paneer",
+      "image": "/images/margherita-pizza.png",
+      "variants": [
+        { "id": "regular", "label": "Regular", "price": 150 },
+        { "id": "jumbo", "label": "Jumbo", "price": 160 }
+      ]
+    },
+    {
+      "id": "pizza-cheese-burst",
+      "name": "Cheese Burst Pizza (7 inch)",
+      "category": "Pizza",
+      "description": "Cheese burst",
+      "image": "/images/margherita-pizza.png",
+      "variants": [
+        { "id": "regular", "label": "Regular", "price": 150 },
+        { "id": "jumbo", "label": "Jumbo", "price": 160 }
+      ]
+    },
+    {
+      "id": "pizza-cheesy-7",
+      "name": "Cheesy 7 Pizza (7 inch)",
+      "category": "Pizza",
+      "description": "Cheesy 7",
+      "image": "/images/margherita-pizza.png",
+      "variants": [
+        { "id": "regular", "label": "Regular", "price": 150 },
+        { "id": "jumbo", "label": "Jumbo", "price": 160 }
+      ]
+    },
+
+    {
+      "id": "garlic-cheese",
+      "name": "Cheese Garlic Bread",
+      "category": "Garlic Bread",
+      "description": "Cheesy garlic bread",
+      "image": "/images/garlic-bread.png",
+      "price": 50
+    },
+    {
+      "id": "garlic-schezwan",
+      "name": "Schezwan Garlic Bread",
+      "category": "Garlic Bread",
+      "description": "Spicy schezwan",
+      "image": "/images/garlic-bread.png",
+      "price": 70
+    },
+    {
+      "id": "garlic-peri-peri",
+      "name": "Peri Peri Garlic Bread",
+      "category": "Garlic Bread",
+      "description": "Peri peri",
+      "image": "/images/garlic-bread.png",
+      "price": 70
+    },
+    {
+      "id": "garlic-makni",
+      "name": "Makni Garlic Bread",
+      "category": "Garlic Bread",
+      "description": "Makni",
+      "image": "/images/garlic-bread.png",
+      "price": 80
+    },
+    {
+      "id": "garlic-cheesy-7",
+      "name": "Cheesy 7 Garlic Bread",
+      "category": "Garlic Bread",
+      "description": "Cheesy 7",
+      "image": "/images/garlic-bread.png",
+      "price": 100
+    },
+    {
+      "id": "garlic-veg-loaded",
+      "name": "Veg Loaded Bread",
+      "category": "Garlic Bread",
+      "description": "Veg loaded",
+      "image": "/images/garlic-bread.png",
+      "price": 100
+    },
+
+    {
+      "id": "dip-cheesy-sauce",
+      "name": "Cheesy Sauce",
+      "category": "Dips",
+      "description": "Dip",
+      "image": "/images/garlic-bread.png",
+      "price": 10
+    },
+    {
+      "id": "dip-1000-island",
+      "name": "1000 Island",
+      "category": "Dips",
+      "description": "Dip",
+      "image": "/images/garlic-bread.png",
+      "price": 10
+    },
+    {
+      "id": "dip-momo-chutney",
+      "name": "MOMO Chutney",
+      "category": "Dips",
+      "description": "Dip",
+      "image": "/images/garlic-bread.png",
+      "price": 10
+    },
+    {
+      "id": "dip-peri-peri-sauce",
+      "name": "Peri Peri Sauce",
+      "category": "Dips",
+      "description": "Dip",
+      "image": "/images/garlic-bread.png",
+      "price": 10
+    },
+    {
+      "id": "dip-makni-sauce",
+      "name": "Makni Sauce",
+      "category": "Dips",
+      "description": "Dip",
+      "image": "/images/garlic-bread.png",
+      "price": 10
+    },
+    {
+      "id": "dip-mayonnaise",
+      "name": "Mayonnaise",
+      "category": "Dips",
+      "description": "Dip",
+      "image": "/images/garlic-bread.png",
+      "price": 10
+    }
+  ]
+}

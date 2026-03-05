@@ -1,76 +1,96 @@
-@import "tailwindcss";
-
-@theme {
-  --color-brand: #FF6B00;
-  --color-brand-light: #FF8533;
+:root {
+  --bg: #0f0f0f;
+  --card: #1b1b1b;
+  --text: #f5f5f5;
+  --muted: rgba(245, 245, 245, 0.72);
+  --muted-2: rgba(245, 245, 245, 0.55);
+  --border: rgba(255, 255, 255, 0.08);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  --shadow-soft: 0 6px 18px rgba(0, 0, 0, 0.38);
+  --accent: #ff8c00;
+  --accent-2: #ff3b3b;
+  --radius: 16px;
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
 }
 
-/* ===== Base ===== */
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
 
 html {
-  scroll-behavior: smooth;
   color-scheme: dark;
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: var(--font-inter, 'Inter', sans-serif);
-  background-color: #050505;
-  color: #a3a3a3;
+  margin: 0;
+  font-family: var(--font-poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100dvh;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Custom eerie torch-like cursor */
-  cursor: url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="6" fill="%23ff3b00" fill-opacity="0.4" filter="blur(2px)"/><circle cx="12" cy="12" r="2" fill="%23fff"/></svg>') 12 12, auto;
 }
 
-/* Base headings set to gothic by default */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-gothic, serif);
-  letter-spacing: 0.1em;
+  margin: 0;
+  font-family: var(--font-bebas, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif);
+  letter-spacing: 0.05em;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  font: inherit;
 }
 
 ::selection {
-  background-color: #FF6B00;
-  color: white;
+  background-color: var(--accent);
+  color: #101010;
 }
 
-/* ===== Scrollbar ===== */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-
-::-webkit-scrollbar-track {
-  background: #0B0B0B;
+  width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2A2A2A;
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #FF6B00;
+  background: rgba(255, 255, 255, 0.22);
 }
 
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
+/* ===== Safe areas for mobile ===== */
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+.safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* ===== Fixed layout spacing ===== */
+.pt-header {
+  padding-top: 56px;
+}
+
+.pt-header-category {
+  padding-top: calc(56px + 52px);
 }
 
 /* ===== Animations ===== */
@@ -110,14 +130,20 @@ h6 {
 
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(255, 107, 0, 0.4);
+    box-shadow: 0 0 0 0 rgba(255, 140, 0, 0.4);
   }
 
   50% {
-    box-shadow: 0 0 0 8px rgba(255, 107, 0, 0);
+    box-shadow: 0 0 0 8px rgba(255, 140, 0, 0);
   }
 }
 
 .animate-pulse-glow {
   animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }

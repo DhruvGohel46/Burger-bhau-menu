@@ -1,0 +1,60 @@
+.wrap {
+  position: fixed;
+  top: 56px;
+  left: 0;
+  right: 0;
+  z-index: 45;
+  background: rgba(15, 15, 15, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.scroller {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 10px var(--space-2);
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.pill {
+  position: relative;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.pill:active {
+  transform: translateY(0.5px);
+}
+
+.pillActive {
+  color: #101010;
+  border-color: rgba(255, 140, 0, 0.55);
+}
+
+.activeBg {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 10px 22px rgba(255, 140, 0, 0.18);
+  z-index: -1;
+}
+
+.icon {
+  margin-right: 6px;
+}

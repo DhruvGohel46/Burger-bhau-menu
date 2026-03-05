@@ -1,0 +1,29 @@
+.section {
+  margin-bottom: var(--space-4);
+  scroll-margin-top: 120px;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 var(--space-2);
+  padding: 0 4px;
+}
+
+.title {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.rule {
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(to right, rgba(255,255,255,0.10), transparent);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
