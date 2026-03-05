@@ -80,6 +80,7 @@ export default function ItemModal({
     return (
         <AnimatePresence>
             <motion.div
+                key="item-modal-backdrop"
                 className={styles.backdrop}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -89,6 +90,7 @@ export default function ItemModal({
             />
 
             <motion.div
+                key="item-modal-sheet"
                 className={styles.sheet}
                 initial={{ y: 40, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}

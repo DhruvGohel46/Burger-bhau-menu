@@ -81,9 +81,9 @@
     },
     {
       "id": "burger-achari-peri-peri",
-      "name": "Achari Peri Peri Burger",
+      "name": "African Peri Peri Burger",
       "category": "Burger",
-      "description": "Achari kick with peri peri heat",
+      "description": "African kick with peri peri heat",
       "image": "/images/special-burger.png",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 50 },
@@ -248,7 +248,7 @@
       "name": "Bhau Special Manchurian Cheese Sandwich",
       "category": "Sandwich",
       "description": "House special",
-      "image": "/images/club-sandwich.png",
+      "image": "/productimage/sandwich/bhau-special-manchurian-cheese-sandwich.jpg",
       "price": 100
     },
 
