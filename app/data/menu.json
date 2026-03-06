@@ -17,7 +17,7 @@
       "id": "burger-aalu-tikki",
       "name": "Aalu Tikki Burger",
       "category": "Burger",
-      "description": "Crispy aloo tikki, fresh onions & lettuce, tangy house sauce",
+      "description": "Crispy aloo tikki inside soft bun with fresh onion, lettuce and tangy sauce. Proper desi street burger, garma garam and full mast flavour.",
       "image": "/productimage/burger/aalu-tikki-burger.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 30 },
@@ -28,7 +28,7 @@
       "id": "burger-schezwan",
       "name": "Schezwan Burger",
       "category": "Burger",
-      "description": "Spicy schezwan spread, crunchy veg, bold street-style flavour",
+      "description": "Spicy schezwan sauce with crunchy veggies and juicy veg patty inside toasted bun. Slight Indo-Chinese kick, perfect for spice lovers.",
       "image": "/productimage/burger/burger-schezwan.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 30 },
@@ -39,7 +39,7 @@
       "id": "burger-cheesy-garlic",
       "name": "Cheesy Garlic Burger",
       "category": "Burger",
-      "description": "Creamy garlic mayo with a cheesy finish and crunchy veg",
+      "description": "Soft burger bun filled with juicy patty, creamy garlic mayo and melted cheese. Rich aroma, buttery taste, ekdum cheesy satisfaction.",
       "image": "/productimage/burger/burger-cheesy-garlic.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 40 },
@@ -50,7 +50,7 @@
       "id": "burger-manchurian",
       "name": "Manchurian Burger",
       "category": "Burger",
-      "description": "Manchurian-style patty with tangy sauce and fresh crunch",
+      "description": "Fusion style burger with crispy manchurian patty, tangy sauce and crunchy veggies. Indo-Chinese street flavour packed inside soft toasted bun.",
       "image": "/productimage/burger/burger-manchurian.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 40 },
@@ -61,7 +61,7 @@
       "id": "burger-veg-lovers",
       "name": "Veg Lovers Burger",
       "category": "Burger",
-      "description": "Loaded with veg, soft bun, and a balanced sweet-spicy sauce",
+      "description": "Loaded burger with fresh vegetables, crunchy lettuce and balanced sweet-spicy sauce. Light yet full flavour, perfect for veggie lovers.",
       "image": "/productimage/burger/burger-veg-lovers.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 50 },
@@ -72,7 +72,7 @@
       "id": "burger-korean",
       "name": "Korean Burger",
       "category": "Burger",
-      "description": "Korean-style spicy sauce with a hint of sweetness and crunch",
+      "description": "Juicy patty coated with spicy sweet Korean style sauce, fresh lettuce and crunchy veggies. Unique flavour twist with addictive street taste.",
       "image": "/productimage/burger/burger-korean.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 50 },
@@ -83,8 +83,8 @@
       "id": "burger-african-peri-peri",
       "name": "African Peri Peri Burger",
       "category": "Burger",
-      "description": "Peri peri heat with a bold tangy kick and crunchy veg",
-      "image": "/images/special-burger.png",
+      "description": "Fiery peri peri sauce layered over juicy patty with fresh vegetables. Spicy, tangy and bold flavour that wakes up your taste buds.",
+      "image": "/productimage/burger/burger-african-peri-peri.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 50 },
         { "id": "jumbo", "label": "Jumbo", "price": 60 }
@@ -94,7 +94,7 @@
       "id": "burger-la-mexicano",
       "name": "La Mexicano Burger",
       "category": "Burger",
-      "description": "Mexican-style spices, fresh crunch, and a zesty sauce",
+      "description": "Mexican style burger with spicy seasoning, crunchy veggies and zesty sauce. Slight tangy kick with bold flavour in every bite.",
       "image": "/productimage/burger/burger-la-mexicano.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 50 },
@@ -105,7 +105,7 @@
       "id": "burger-tandoori-tadka",
       "name": "Tandoori Tadka Burger",
       "category": "Burger",
-      "description": "Smoky tandoori flavour with a creamy, spicy finish",
+      "description": "Smoky tandoori masala patty with creamy tadka sauce and fresh vegetables. Desi flavour explosion inside soft bun, warm and satisfying.",
       "image": "/productimage/burger/burger-tandoori-tadka.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 50 },
@@ -116,7 +116,7 @@
       "id": "burger-jain-chipotle",
       "name": "Jain Chipotle Burger",
       "category": "Burger",
-      "description": "Jain-friendly chipotle-style sauce with fresh crunch",
+      "description": "Jain friendly burger with smoky chipotle flavour and crunchy vegetables. Simple ingredients but bold taste, clean and satisfying bite.",
       "image": "/productimage/burger/burger-jain-chipotle.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 50 },
@@ -127,7 +127,7 @@
       "id": "burger-punjabi-makni",
       "name": "Punjabi Makni Burger",
       "category": "Burger",
-      "description": "Rich makni gravy flavour with a buttery, desi finish",
+      "description": "Rich buttery makni sauce layered over juicy patty with fresh veggies. Creamy Punjabi flavour giving proper comfort food feeling.",
       "image": "/productimage/burger/burger-punjabi-makni.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 50 },
@@ -138,7 +138,7 @@
       "id": "burger-hot-like-hill",
       "name": "Hot Like Hill Burger",
       "category": "Burger",
-      "description": "Extra spicy signature burger with a punchy lava-style sauce",
+      "description": "Super spicy burger with fiery lava style sauce and crunchy vegetables. Heat lovers favourite, bold flavour with thrilling spicy punch.",
       "image": "/productimage/burger/burger-hot-like-hill.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 60 },
@@ -149,7 +149,7 @@
       "id": "burger-shahi-hydrabadi",
       "name": "Shahi Hydrabadi Burger",
       "category": "Burger",
-      "description": "Premium burger with cheese, rich sauce, and a clean, balanced bite",
+      "description": "Premium style burger with rich creamy sauce, soft bun and cheesy layers. Smooth royal flavour inspired by classic Hyderabadi taste.",
       "image": "/productimage/burger/burger-shahi-hydrabadi.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 80 },
@@ -160,7 +160,7 @@
       "id": "burger-bhau-special",
       "name": "Bhau Special Open Burger",
       "category": "Burger",
-      "description": "Premium burger with cheese, rich sauce, and a clean, balanced bite,and it is open burger contain two tikki",
+      "description": "House special open burger with double tikki, melted cheese and signature sauce. Big portion, full flavour and proper street food satisfaction.",
       "image": "/productimage/burger/burger-bhau-special.jpg",
       "price": 100
     },
@@ -169,7 +169,7 @@
       "id": "fries-classic",
       "name": "Classic Salted Fries",
       "category": "French Fries",
-      "description": "Crispy, golden fries with classic seasoning",
+      "description": "Golden crispy potato fries sprinkled with perfect salt. Crunchy outside, soft inside, garma garam snack that goes perfectly with ketchup or mayo.",
       "image": "/productimage/frenchfries/fries-classic.jpg",
       "price": 50
     },
@@ -177,7 +177,7 @@
       "id": "fries-peri-peri",
       "name": "Peri Peri Fries",
       "category": "French Fries",
-      "description": "Hot peri peri seasoning on crispy fries",
+      "description": "Hot crispy fries tossed in spicy peri peri seasoning. Tangy, fiery and slightly chatpata flavour that makes every bite exciting.",
       "image": "/productimage/frenchfries/fries-peri-peri.jpg",
       "price": 60
     },
@@ -185,7 +185,7 @@
       "id": "fries-loaded",
       "name": "Loaded Fries",
       "category": "French Fries",
-      "description": "Loaded with sauces and toppings for a full, messy bite",
+      "description": "Fresh crispy fries topped with creamy sauces and melted cheese. Messy, cheesy and fully satisfying street style snack for true fast-food lovers.",
       "image": "/productimage/frenchfries/fries-loaded.jpg",
       "price": 100
     },
@@ -194,7 +194,7 @@
       "id": "sandwich-cheese-chilli",
       "name": "Cheese Chilli Sandwich",
       "category": "Sandwich",
-      "description": "Cheese with fresh green chutney in a toasted sandwich",
+      "description": "Toasted bread stuffed with creamy cheese and spicy green chilli chutney. Crunchy outside, melty inside, perfect street style sandwich.",
       "image": "/productimage/sandwich/sandwich-cheese-chilli.jpg",
       "price": 30
     },
@@ -202,7 +202,7 @@
       "id": "sandwich-schezwan-chilli",
       "name": "Schezwan Chilli Sandwich",
       "category": "Sandwich",
-      "description": "Spicy schezwan chutney with a crisp, toasted finish",
+      "description": "Crispy toasted sandwich with fiery schezwan chutney and crunchy vegetables. Spicy Indo-Chinese flavour with bold street food kick.",
       "image": "/productimage/sandwich/sandwich-schezwan-chilli.jpg",
       "price": 40
     },
@@ -210,7 +210,7 @@
       "id": "sandwich-cheese-corn",
       "name": "Cheese Corn Sandwich",
       "category": "Sandwich",
-      "description": "Cheesy, sweet-corn filling toasted until golden",
+      "description": "Sweet corn mixed with creamy cheese inside toasted sandwich. Light, cheesy and comforting snack with smooth balanced taste.",
       "image": "/productimage/sandwich/sandwich-cheese-corn.jpg",
       "price": 50
     },
@@ -218,7 +218,7 @@
       "id": "sandwich-cheese-garlic",
       "name": "Cheese Garlic Sandwich",
       "category": "Sandwich",
-      "description": "Cheesy garlic flavour with a crisp toast and creamy bite",
+      "description": "Toasted sandwich layered with buttery garlic flavour and melted cheese. Aroma is amazing and every bite feels rich and satisfying.",
       "image": "/productimage/sandwich/sandwich-cheese-garlic.jpg",
       "price": 50
     },
@@ -226,7 +226,7 @@
       "id": "sandwich-masala-tikki",
       "name": "Masala Tikki Sandwich",
       "category": "Sandwich",
-      "description": "Masala tikki filling with chutneys and crunchy veg",
+      "description": "Spicy aloo tikki with chutneys and crunchy vegetables inside grilled sandwich. Proper desi street food flavour in every bite.",
       "image": "/productimage/sandwich/sandwich-masala-tikki.jpg",
       "price": 60
     },
@@ -234,7 +234,7 @@
       "id": "sandwich-paneer-delight",
       "name": "Paneer Delight Sandwich",
       "category": "Sandwich",
-      "description": "Soft paneer filling with spices, toasted for a rich bite",
+      "description": "Soft paneer cubes mixed with spices inside crispy toasted bread. Rich, filling and perfect for paneer lovers.",
       "image": "/productimage/sandwich/sandwich-paneer-delight.jpg",
       "price": 60
     },
@@ -242,7 +242,7 @@
       "id": "sandwich-veg-grill",
       "name": "Veg Grill Sandwich",
       "category": "Sandwich",
-      "description": "Grilled veg, fresh chutney, and a clean toasted crunch",
+      "description": "Grilled sandwich filled with fresh vegetables and chutney. Light, crunchy and refreshing flavour with classic Indian street taste.",
       "image": "/productimage/sandwich/sandwich-veg-grill.jpg",
       "price": 70
     },
@@ -250,7 +250,7 @@
       "id": "sandwich-indori-jumbo",
       "name": "Indori Jumbo Sandwich",
       "category": "Sandwich",
-      "description": "Jumbo portion with bold Indori flavours and toasted crunch",
+      "description": "Big jumbo sandwich packed with spicy Indori style filling and crunchy toast. Heavy portion with bold masala flavour.",
       "image": "/productimage/sandwich/sandwich-indori-jumbo.jpg",
       "price": 80
     },
@@ -258,7 +258,7 @@
       "id": "sandwich-bhau-manchurian-cheese",
       "name": "Bhau Special Manchurian Cheese Sandwich",
       "category": "Sandwich",
-      "description": "House special: manchurian filling with cheese, toasted golden",
+      "description": "Special sandwich stuffed with manchurian filling and melted cheese. Indo-Chinese fusion taste with crispy toasted bread.",
       "image": "/productimage/sandwich/bhau-special-manchurian-cheese-sandwich.jpg",
       "price": 100
     },
@@ -267,7 +267,7 @@
       "id": "pizza-veg",
       "name": "Veg Pizza (7 inch)",
       "category": "Pizza",
-      "description": "Loaded veg toppings with melty cheese and a perfectly seasoned crust",
+      "description": "Fresh vegetables layered on soft pizza base with melted cheese and rich tomato sauce. Light, colourful and garma garam classic veggie delight.",
       "image": "/productimage/pizza/pizza-veg.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 50 },
@@ -278,7 +278,7 @@
       "id": "pizza-double-cheese-veg",
       "name": "Double Cheese Veg Pizza (7 inch)",
       "category": "Pizza",
-      "description": "Extra cheesy veg pizza with a rich, stretchy cheese pull",
+      "description": "Extra cheese loaded pizza with fresh vegetables and creamy mozzarella layer. Every bite stretchy, cheesy and fully satisfying for cheese lovers.",
       "image": "/productimage/pizza/pizza-double-cheese-veg.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 80 },
@@ -289,7 +289,7 @@
       "id": "pizza-margherita",
       "name": "Margherita Pizza (7 inch)",
       "category": "Pizza",
-      "description": "Classic margherita with rich cheese and herby tomato base",
+      "description": "Classic Italian style pizza with rich tomato base, melted mozzarella and herbs. Simple, cheesy and comforting taste everyone enjoys.",
       "image": "/productimage/pizza/pizza-margherita.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 80 },
@@ -300,7 +300,7 @@
       "id": "pizza-italian",
       "name": "Italian Pizza (7 inch)",
       "category": "Pizza",
-      "description": "Italian-style seasoning with a cheesy, aromatic finish",
+      "description": "Herb seasoned pizza topped with vegetables and melted cheese on crispy base. Aromatic Italian flavour with soft centre and crunchy crust.",
       "image": "/productimage/pizza/pizza-italian.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 100 },
@@ -311,7 +311,7 @@
       "id": "pizza-4-cheese",
       "name": "4 Cheese Pizza (7 inch)",
       "category": "Pizza",
-      "description": "Four-cheese blend for a rich, creamy, premium bite",
+      "description": "Premium pizza loaded with four rich cheeses melting together beautifully. Creamy texture, bold flavour and super indulgent bite for true cheese fans.",
       "image": "/productimage/pizza/pizza-4-cheese.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 100 },
@@ -322,7 +322,7 @@
       "id": "pizza-cheese-corn",
       "name": "Cheese Corn Pizza (7 inch)",
       "category": "Pizza",
-      "description": "Sweet corn and cheese—simple, creamy, and crowd-pleasing",
+      "description": "Sweet corn and melted cheese layered on crispy pizza base. Slight sweet taste with creamy cheese giving balanced and comforting flavour.",
       "image": "/productimage/pizza/pizza-cheese-corn.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 100 },
@@ -333,7 +333,7 @@
       "id": "pizza-tandoori-paneer",
       "name": "Tandoori Paneer Pizza (7 inch)",
       "category": "Pizza",
-      "description": "Tandoori paneer with smoky spice and a cheesy finish",
+      "description": "Smoky tandoori paneer cubes on cheesy pizza base with Indian spices. Proper desi twist with spicy aroma and bold flavour.",
       "image": "/productimage/pizza/pizza-tandoori-paneer.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 150 },
@@ -344,7 +344,7 @@
       "id": "pizza-makhni-paneer",
       "name": "Makhni Paneer Pizza (7 inch)",
       "category": "Pizza",
-      "description": "Paneer in rich makhni flavour with a buttery, desi finish",
+      "description": "Paneer cubes coated in buttery makhni sauce on cheesy crust. Creamy, rich and full Punjabi flavour in every bite.",
       "image": "/productimage/pizza/pizza-makhni-paneer.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 150 },
@@ -355,7 +355,7 @@
       "id": "pizza-peri-peri-paneer",
       "name": "Peri Peri Paneer Pizza (7 inch)",
       "category": "Pizza",
-      "description": "Peri peri paneer cubes with a bold spicy kick and gooey cheese",
+      "description": "Spicy peri peri paneer cubes layered on melted cheese pizza base. Bold flavour with fiery kick and soft cheesy texture.",
       "image": "/productimage/pizza/pizza-peri-peri-paneer.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 150 },
@@ -366,7 +366,7 @@
       "id": "pizza-cheese-burst",
       "name": "Cheese Burst Pizza (7 inch)",
       "category": "Pizza",
-      "description": "Cheese burst base for maximum cheese and a rich melt",
+      "description": "Pizza base filled with molten cheese inside crust and topped with extra cheese. Super creamy, stretchy and perfect for hardcore cheese lovers.",
       "image": "/productimage/pizza/pizza-cheese-burst.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 150 },
@@ -377,7 +377,7 @@
       "id": "pizza-cheesy-7",
       "name": "Cheesy 7 Pizza (7 inch)",
       "category": "Pizza",
-      "description": "Seven-cheese style richness for a premium, creamy bite",
+      "description": "Premium pizza loaded with seven rich cheeses creating deep creamy flavour. Smooth texture and luxurious cheesy taste in every bite.",
       "image": "/productimage/pizza/pizza-cheesy-7.jpg",
       "variants": [
         { "id": "regular", "label": "Regular", "price": 150 },
@@ -389,48 +389,48 @@
       "id": "garlic-cheese",
       "name": "Cheese Garlic Bread",
       "category": "Garlic Bread",
-      "description": "Toasted garlic bread topped with cheese and herbs",
-      "image": "/images/garlic-bread.png",
+      "description": "Crispy toasted bread topped with buttery garlic spread and melted cheese. Amazing aroma with crunchy bite and soft cheesy centre.",
+      "image": "/productimage/garlicbread/garlic-cheese.jpg",
       "price": 50
     },
     {
       "id": "garlic-schezwan",
       "name": "Schezwan Garlic Bread",
       "category": "Garlic Bread",
-      "description": "Spicy schezwan spread on toasted garlic bread",
-      "image": "/images/garlic-bread.png",
+      "description": "Garlic bread layered with spicy schezwan sauce and herbs. Slight Indo-Chinese heat with crispy bread and bold flavour.",
+      "image": "/productimage/garlicbread/garlic-schezwan.jpg",
       "price": 70
     },
     {
       "id": "garlic-peri-peri",
       "name": "Peri Peri Garlic Bread",
       "category": "Garlic Bread",
-      "description": "Peri peri seasoning on crispy garlic bread",
-      "image": "/images/garlic-bread.png",
+      "description": "Toasted garlic bread sprinkled with peri peri seasoning. Tangy, spicy and crunchy snack perfect with burgers or fries.",
+      "image": "/productimage/garlicbread/garlic-peri-peri.jpg",
       "price": 70
     },
     {
       "id": "garlic-makni",
       "name": "Makni Garlic Bread",
       "category": "Garlic Bread",
-      "description": "Rich makni flavour on toasted garlic bread",
-      "image": "/images/garlic-bread.png",
+      "description": "Garlic bread topped with creamy makhni style sauce and herbs. Rich buttery flavour with warm desi twist.",
+      "image": "/productimage/garlicbread/garlic-makni.jpg",
       "price": 80
     },
     {
       "id": "garlic-cheesy-7",
       "name": "Cheesy 7 Garlic Bread",
       "category": "Garlic Bread",
-      "description": "Extra cheesy garlic bread with a premium, creamy bite",
-      "image": "/images/garlic-bread.png",
+      "description": "Premium garlic bread loaded with rich cheese layers. Super creamy, extra cheesy and perfect indulgent snack.",
+      "image": "/productimage/garlicbread/garlic-cheesy-7.jpg",
       "price": 100
     },
     {
       "id": "garlic-veg-loaded",
       "name": "Veg Loaded Bread",
       "category": "Garlic Bread",
-      "description": "Veg-loaded garlic bread with sauces and crunchy toppings",
-      "image": "/images/garlic-bread.png",
+      "description": "Garlic bread topped with vegetables, cheese and sauces. Colourful, crunchy and full street style flavour in every bite.",
+      "image": "/productimage/garlicbread/garlic-veg-loaded.jpg",
       "price": 100
     },
 
@@ -438,48 +438,48 @@
       "id": "dip-cheesy-sauce",
       "name": "Cheesy Sauce",
       "category": "Dips",
-      "description": "Creamy cheesy dip",
-      "image": "/images/garlic-bread.png",
+      "description": "Warm creamy cheese dip with smooth texture and rich flavour. Perfect partner for fries, burgers and garlic bread.",
+      "image": "/productimage/dip/dip-cheesy-sauce.jpg",
       "price": 10
     },
     {
       "id": "dip-1000-island",
       "name": "1000 Island",
       "category": "Dips",
-      "description": "Creamy 1000 island dip",
-      "image": "/images/garlic-bread.png",
+      "description": "Creamy sweet-tangy sauce with light tomato flavour. Classic dip that perfectly matches burgers and sandwiches.",
+      "image": "/productimage/dip/dip-1000-island.jpg",
       "price": 10
     },
     {
       "id": "dip-momo-chutney",
       "name": "MOMO Chutney",
       "category": "Dips",
-      "description": "Spicy momo-style chutney dip",
-      "image": "/images/garlic-bread.png",
+      "description": "Spicy momo style chutney with bold garlic and chilli flavour. Street style dip that adds fiery punch to snacks.",
+      "image": "/productimage/dip/dip-momo-chutney.jpg",
       "price": 10
     },
     {
       "id": "dip-peri-peri-sauce",
       "name": "Peri Peri Sauce",
       "category": "Dips",
-      "description": "Spicy peri peri dip",
-      "image": "/images/garlic-bread.png",
+      "description": "Hot peri peri dip with tangy chilli flavour. Perfect for fries and burgers when you want extra spicy kick.",
+      "image": "/productimage/dip/dip-peri-peri-sauce.jpg",
       "price": 10
     },
     {
       "id": "dip-makni-sauce",
       "name": "Makni Sauce",
       "category": "Dips",
-      "description": "Rich makni dip",
-      "image": "/images/garlic-bread.png",
+      "description": "Rich buttery makhni sauce with mild spices and creamy texture. Desi style dip adding Punjabi flavour to snacks.",
+      "image": "/productimage/dip/dip-makni-sauce.jpg",
       "price": 10
     },
     {
       "id": "dip-mayonnaise",
       "name": "Mayonnaise",
       "category": "Dips",
-      "description": "Classic creamy mayo dip",
-      "image": "/images/garlic-bread.png",
+      "description": "Smooth creamy mayonnaise with mild tangy flavour. Classic dip that balances spicy snacks and enhances burger taste.",
+      "image": "/productimage/dip/dip-mayonnaise.jpg",
       "price": 10
     }
   ]

@@ -8,7 +8,7 @@ import styles from "./MenuCard.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useMemo, useState } from "react";
-import ItemModal, { type ItemModalSelection } from "./ItemModal";
+import ItemPreviewModal, { type ItemPreviewSelection } from "./ItemPreviewModal";
 
 function displayVariantLabel(category: string, variantId: string | undefined, fallbackLabel: string | undefined) {
     const cat = category.toLowerCase();
@@ -34,7 +34,7 @@ export default function MenuCard({ item }: { item: MenuItem }) {
     const decreaseQty = useCartStore((s) => s.decreaseQty);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selection, setSelection] = useState<ItemModalSelection>({
+    const [selection, setSelection] = useState<ItemPreviewSelection>({
         variantId: item.variants?.[0]?.id,
         extras: [],
     });
@@ -56,6 +56,7 @@ export default function MenuCard({ item }: { item: MenuItem }) {
     const handleAdd = () => {
         const needsModal = hasVariants || allowedExtras.length > 0;
         if (needsModal) {
+            setSelection({ variantId: item.variants?.[0]?.id, extras: [] });
             setIsModalOpen(true);
             return;
         }
@@ -68,6 +69,11 @@ export default function MenuCard({ item }: { item: MenuItem }) {
             price: item.price ?? 0,
             image: item.image,
         });
+    };
+
+    const handleOpenPreview = () => {
+        setSelection({ variantId: item.variants?.[0]?.id, extras: [] });
+        setIsModalOpen(true);
     };
 
     const handleModalConfirm = () => {
@@ -109,6 +115,12 @@ export default function MenuCard({ item }: { item: MenuItem }) {
                 transition={{ duration: 0.4, ease: "easeOut" }}
                 whileTap={{ scale: 0.98 }}
                 className={styles.card}
+                role="button"
+                tabIndex={0}
+                onClick={handleOpenPreview}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") handleOpenPreview();
+                }}
             >
                 {/* Food Image */}
                 <div className={styles.imageWrap}>
@@ -141,7 +153,10 @@ export default function MenuCard({ item }: { item: MenuItem }) {
                         {cartQtyForItem === 0 ? (
                             <motion.button
                                 whileTap={{ scale: 0.85 }}
-                                onClick={handleAdd}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleAdd();
+                                }}
                                 className={styles.addButton}
                                 aria-label={`Add ${item.name} to cart`}
                             >
@@ -151,7 +166,10 @@ export default function MenuCard({ item }: { item: MenuItem }) {
                             <div className={styles.qty}>
                                 <motion.button
                                     whileTap={{ scale: 0.85 }}
-                                    onClick={() => setIsModalOpen(true)}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleOpenPreview();
+                                    }}
                                     className={styles.qtyBtn}
                                     aria-label="Add with options"
                                 >
@@ -162,7 +180,8 @@ export default function MenuCard({ item }: { item: MenuItem }) {
                                 </span>
                                 <motion.button
                                     whileTap={{ scale: 0.85 }}
-                                    onClick={() => {
+                                    onClick={(e) => {
+                                        e.stopPropagation();
                                         const firstLine = useCartStore.getState().cartItems.find((c) => c.itemId === item.id);
                                         if (firstLine) decreaseQty(firstLine.id);
                                     }}
@@ -177,7 +196,7 @@ export default function MenuCard({ item }: { item: MenuItem }) {
                 </div>
             </motion.div>
 
-            <ItemModal
+            <ItemPreviewModal
                 open={isModalOpen}
                 item={item}
                 availableExtras={allowedExtras}

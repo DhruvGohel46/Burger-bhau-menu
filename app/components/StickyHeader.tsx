@@ -14,9 +14,16 @@ export default function StickyHeader() {
         <header className={`${styles.header} safe-top`}>
             <div className={styles.inner}>
                 {/* Logo */}
-                <h1 className={styles.brand}>
-                    BURGER <span className={styles.brandAccent}>BHAU</span>
-                </h1>
+                <div className={styles.logo}>
+                    <img 
+                        src="/BURGER-BHAU-logo.webp" 
+                        alt="Burger Bhau Logo" 
+                        className={styles.logoImage}
+                    />
+                    <h1 className={styles.brand}>
+                        BURGER <span className={styles.brandAccent}>BHAU</span>
+                    </h1>
+                </div>
 
                 {/* Cart Icon */}
                 <button

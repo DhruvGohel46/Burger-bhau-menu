@@ -27,8 +27,12 @@ export default function FloatingCartBar() {
                         className={styles.bar}
                     >
                         <div className={styles.left}>
-                            <FontAwesomeIcon icon={faBagShopping} width={18} height={18} />
-                            <span className={styles.countBadge}>{cartCount}</span>
+                            <div className={styles.iconWrapper}>
+                                <FontAwesomeIcon icon={faBagShopping} width={18} height={18} />
+                                {cartCount > 0 && (
+                                    <span className={styles.countBadge}>{cartCount}</span>
+                                )}
+                            </div>
                             <span className={styles.itemsText}>
                                 {cartCount} {cartCount === 1 ? 'item' : 'items'}
                             </span>
