@@ -4,10 +4,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { selectCartTotal, useCartStore } from "@/app/store/cartStore";
 import { buildWhatsAppUrl, buildCallUrl } from "@/app/data/shopConfig";
 import styles from "./OrderSummary.module.css";
-import DeliveryChecker from "./DeliveryChecker";
 import ShopMap from "./ShopMap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faPhone } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faPhone, faUser, faMapMarkerAlt, faMobileAlt } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 
 export default function OrderSummary() {
@@ -15,12 +14,21 @@ export default function OrderSummary() {
     const cartTotal = useCartStore(selectCartTotal);
     const isOrderSummaryOpen = useCartStore((s) => s.isOrderSummaryOpen);
     const setIsOrderSummaryOpen = useCartStore((s) => s.setIsOrderSummaryOpen);
+    
+    const customerName = useCartStore((s) => s.customerName);
+    const customerAddress = useCartStore((s) => s.customerAddress);
+    const customerPhone = useCartStore((s) => s.customerPhone);
+    const setCustomerName = useCartStore((s) => s.setCustomerName);
+    const setCustomerAddress = useCartStore((s) => s.setCustomerAddress);
+    const setCustomerPhone = useCartStore((s) => s.setCustomerPhone);
 
     if (!isOrderSummaryOpen) return null;
 
     const handleBackToMenu = () => {
         setIsOrderSummaryOpen(false);
     };
+
+    const whatsappUrl = buildWhatsAppUrl(cartItems, cartTotal, customerName, customerAddress, customerPhone);
 
     return (
         <AnimatePresence>
@@ -100,8 +108,36 @@ export default function OrderSummary() {
 
                         <div className={styles.divider} />
 
-                        {/* Delivery Checker */}
-                        <DeliveryChecker />
+                        {/* Customer Details */}
+                        <div className={styles.customerForm}>
+                            <div className={styles.inputGroup}>
+                                <label><FontAwesomeIcon icon={faUser} /> Name</label>
+                                <input 
+                                    type="text" 
+                                    value={customerName} 
+                                    onChange={(e) => setCustomerName(e.target.value)}
+                                    placeholder="Enter your name"
+                                />
+                            </div>
+                            <div className={styles.inputGroup}>
+                                <label><FontAwesomeIcon icon={faMobileAlt} /> Phone Number</label>
+                                <input 
+                                    type="tel" 
+                                    value={customerPhone} 
+                                    onChange={(e) => setCustomerPhone(e.target.value)}
+                                    placeholder="Enter mobile number"
+                                />
+                            </div>
+                            <div className={styles.inputGroup}>
+                                <label><FontAwesomeIcon icon={faMapMarkerAlt} /> Delivery Address</label>
+                                <textarea 
+                                    value={customerAddress} 
+                                    onChange={(e) => setCustomerAddress(e.target.value)}
+                                    placeholder="Enter your address"
+                                    rows={2}
+                                />
+                            </div>
+                        </div>
 
                         <div className={styles.divider} />
 
@@ -125,7 +161,7 @@ export default function OrderSummary() {
                         Call Now
                     </a>
                     <a
-                        href={buildWhatsAppUrl(cartItems, cartTotal)}
+                        href={whatsappUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={styles.whatsappBtn}

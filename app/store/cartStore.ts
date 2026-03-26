@@ -32,12 +32,18 @@ type CartState = {
     cartItems: CartItem[];
     isCartOpen: boolean;
     isOrderSummaryOpen: boolean;
+    customerName: string;
+    customerAddress: string;
+    customerPhone: string;
 
     addItem: (item: Omit<CartItem, "quantity">) => void;
     removeItem: (lineId: string) => void;
     increaseQty: (lineId: string) => void;
     decreaseQty: (lineId: string) => void;
     clearCart: () => void;
+    setCustomerName: (name: string) => void;
+    setCustomerAddress: (address: string) => void;
+    setCustomerPhone: (phone: string) => void;
 
     setIsCartOpen: (isOpen: boolean) => void;
     setIsOrderSummaryOpen: (isOpen: boolean) => void;
@@ -49,6 +55,9 @@ export const useCartStore = create<CartState>()(
             cartItems: [],
             isCartOpen: false,
             isOrderSummaryOpen: false,
+            customerName: "",
+            customerAddress: "",
+            customerPhone: "",
 
             addItem: (item) => {
                 set((state) => {
@@ -100,13 +109,22 @@ export const useCartStore = create<CartState>()(
                 set({ cartItems: [], isCartOpen: false, isOrderSummaryOpen: false });
             },
 
+            setCustomerName: (name) => set({ customerName: name }),
+            setCustomerAddress: (address) => set({ customerAddress: address }),
+            setCustomerPhone: (phone) => set({ customerPhone: phone }),
+
             setIsCartOpen: (isOpen) => set({ isCartOpen: isOpen }),
             setIsOrderSummaryOpen: (isOpen) => set({ isOrderSummaryOpen: isOpen }),
         }),
         {
             name: "burgerBhauCart",
             storage: createJSONStorage(() => localStorage),
-            partialize: (state) => ({ cartItems: state.cartItems }),
+            partialize: (state) => ({ 
+                cartItems: state.cartItems, 
+                customerName: state.customerName, 
+                customerAddress: state.customerAddress,
+                customerPhone: state.customerPhone
+            }),
         }
     )
 );

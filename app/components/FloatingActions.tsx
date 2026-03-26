@@ -10,6 +10,9 @@ import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 export default function FloatingActions() {
     const cartItems = useCartStore((s) => s.cartItems);
     const cartTotal = useCartStore(selectCartTotal);
+    const customerName = useCartStore((s) => s.customerName);
+    const customerAddress = useCartStore((s) => s.customerAddress);
+    const customerPhone = useCartStore((s) => s.customerPhone);
 
     return (
         <div className={styles.wrap}>
@@ -21,7 +24,7 @@ export default function FloatingActions() {
                 <FontAwesomeIcon icon={faPhone} width={20} height={20} />
             </a>
             <a
-                href={buildWhatsAppUrl(cartItems, cartTotal)}
+                href={buildWhatsAppUrl(cartItems, cartTotal, customerName, customerAddress, customerPhone)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`${styles.fab} ${styles.whatsapp}`}

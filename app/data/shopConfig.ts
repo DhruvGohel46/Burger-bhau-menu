@@ -1,7 +1,7 @@
 import { CartItem } from "@/app/store/cartStore";
 
 // ─── Shop Details ───────────────────────────────────────
-export const SHOP_PHONE = "919998872339"; // Prefix with 91 for India if needed for WhatsApp, but user gave 10 digits. Assuming 91 prefix for WhatsApp.
+export const SHOP_PHONE = "919558941555"; // Prefix with 91 for India if needed for WhatsApp.
 export const SHOP_NAME = "Burger Bhau";
 export const SHOP_TAGLINE = "Premium Street Food";
 export const WEBSITE_URL = "https://burger-bhau-menu.netlify.app";
@@ -40,7 +40,8 @@ export function buildWhatsAppMessage(
     cartItems: CartItem[],
     cartTotal: number,
     customerName?: string,
-    customerAddress?: string
+    customerAddress?: string,
+    customerPhone?: string
 ): string {
     const lines = cartItems.map(
         (item) =>
@@ -50,6 +51,7 @@ export function buildWhatsAppMessage(
     let msg = `Hello ${SHOP_NAME},\nI want to order the following items:\n\n${lines.join("\n")}\n\nTotal: ₹${cartTotal}`;
 
     if (customerName) msg += `\nName: ${customerName}`;
+    if (customerPhone) msg += `\nPhone: ${customerPhone}`;
     if (customerAddress) msg += `\nAddress: ${customerAddress}`;
     msg += `\n\nPlease confirm the order.`;
     return msg;
@@ -59,12 +61,13 @@ export function buildWhatsAppUrl(
     cartItems: CartItem[],
     cartTotal: number,
     customerName?: string,
-    customerAddress?: string
+    customerAddress?: string,
+    customerPhone?: string
 ): string {
     if (cartItems.length === 0) {
         return `https://wa.me/${SHOP_PHONE}?text=${encodeURIComponent(`Hello ${SHOP_NAME}!`)}`;
     }
-    const message = buildWhatsAppMessage(cartItems, cartTotal, customerName, customerAddress);
+    const message = buildWhatsAppMessage(cartItems, cartTotal, customerName, customerAddress, customerPhone);
     return `https://wa.me/${SHOP_PHONE}?text=${encodeURIComponent(message)}`;
 }
 
