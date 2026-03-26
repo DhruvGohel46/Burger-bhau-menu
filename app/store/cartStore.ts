@@ -135,4 +135,3 @@ export const selectCartCount = (state: CartState) =>
 
 export const selectCartTotal = (state: CartState) =>
     state.cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-\n// Burger Bhau MenuSite - Auto-documented file\n

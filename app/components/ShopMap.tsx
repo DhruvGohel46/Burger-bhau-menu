@@ -1,4 +1,5 @@
-// Burger Bhau MenuSite - Auto-documented file\nimport { GOOGLE_MAPS_EMBED_URL, SHOP_LAT, SHOP_LNG } from "@/app/data/shopConfig";
+// Burger Bhau MenuSite - Auto-documented file
+import { GOOGLE_MAPS_EMBED_URL, SHOP_LAT, SHOP_LNG } from "@/app/data/shopConfig";
 import styles from "./ShopMap.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";

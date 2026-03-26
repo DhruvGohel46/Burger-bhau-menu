@@ -1,4 +1,5 @@
-// Burger Bhau MenuSite - Auto-documented file\n// This configuration file centralizes shop details, location coordinates, delivery policy rules, and WhatsApp message building utilities.
+// Burger Bhau MenuSite - Auto-documented file
+// This configuration file centralizes shop details, location coordinates, delivery policy rules, and WhatsApp message building utilities.
 import { CartItem } from "@/app/store/cartStore";
 
 // ─── Shop Details ───────────────────────────────────────

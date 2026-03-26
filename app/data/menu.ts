@@ -1,4 +1,5 @@
-// Burger Bhau MenuSite - Auto-documented file\nimport menuData from "./menu.json";
+// Burger Bhau MenuSite - Auto-documented file
+import menuData from "./menu.json";
 
 export type MenuVariant = {
     id: string;

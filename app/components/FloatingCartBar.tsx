@@ -50,4 +50,3 @@ export default function FloatingCartBar() {
         </AnimatePresence>
     );
 }
-\n// Burger Bhau MenuSite - Auto-documented file\n

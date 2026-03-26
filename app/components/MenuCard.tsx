@@ -208,4 +208,3 @@ export default function MenuCard({ item }: { item: MenuItem }) {
         </>
     );
 }
-\n// Burger Bhau MenuSite - Auto-documented file\n

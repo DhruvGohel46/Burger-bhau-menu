@@ -217,4 +217,3 @@ export default function OrderSummary() {
         </AnimatePresence>
     );
 }
-\n// Burger Bhau MenuSite - Auto-documented file\n

@@ -146,4 +146,3 @@ export default function DeliveryChecker({ onResult }: { onResult?: (ok: boolean)
         </div>
     );
 }
-\n// Burger Bhau MenuSite - Auto-documented file\n
