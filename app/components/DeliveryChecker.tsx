@@ -64,7 +64,7 @@ export default function DeliveryChecker({ onResult }: { onResult?: (ok: boolean)
                 setStatus("error");
                 onResult?.(false);
             },
-            { enableHighAccuracy: true, timeout: 10000 }
+            { enableHighAccuracy: false, timeout: 15000 }
         );
     }, [cartTotal, onResult]);
 
