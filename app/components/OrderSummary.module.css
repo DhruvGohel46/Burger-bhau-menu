@@ -39,13 +39,12 @@
 
 .body {
   flex: 1;
-  overflow: auto;
+  overflow-y: auto;
   padding: var(--space-3) var(--space-2);
-  display: flex;
-  justify-content: center;
 }
 
 .receipt {
+  margin: 0 auto;
   width: 100%;
   max-width: 420px;
   background: #ffffff;
