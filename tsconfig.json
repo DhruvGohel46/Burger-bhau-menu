@@ -1,4 +1,5 @@
 {
+  "_comment": "Burger Bhau MenuSite - TypeScript compilation options for Next.js.",
   "compilerOptions": {
     "target": "ES2017",
     "lib": [

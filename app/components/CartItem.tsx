@@ -89,3 +89,4 @@ export default function CartItem({ item }: { item: CartItemType }) {
         </motion.div>
     );
 }
+\n// Burger Bhau MenuSite - Auto-documented file\n

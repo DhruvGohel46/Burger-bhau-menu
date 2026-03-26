@@ -1,3 +1,4 @@
+# Netlify configuration file for build settings, routing, and deployment security headers.
 [build]
   publish = "out"
   command = "npm run build"

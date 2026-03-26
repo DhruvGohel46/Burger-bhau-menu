@@ -1,5 +1,6 @@
 {
   "name": "burger-bhau-menu",
+  "description": "Burger Bhau MenuSite - Next.js dependencies and script definitions.",
   "version": "0.1.0",
   "private": true,
   "scripts": {

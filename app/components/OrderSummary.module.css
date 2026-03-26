@@ -1,3 +1,4 @@
+/* Burger Bhau MenuSite - Auto-documented file */\n/* Styles for the Order Summary screen, receipt formatting, customer details form, and responsive action buttons. */
 .screen {
   position: fixed;
   inset: 0;
@@ -257,7 +258,26 @@
   transition: transform 0.1s ease;
 }
 
-.callBtn:active {
+.callBtnFull {
+  flex: 1;
+  height: 50px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  font-weight: 800;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  font-family: var(--font-poppins, inherit);
+  transition: transform 0.1s ease;
+}
+
+.callBtn:active, .callBtnFull:active {
   transform: scale(0.97);
 }
 

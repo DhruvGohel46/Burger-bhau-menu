@@ -112,3 +112,4 @@ export default function CategoryNav() {
         </div>
     );
 }
+\n// Burger Bhau MenuSite - Auto-documented file\n

@@ -1,3 +1,4 @@
+// This Zustand store manages global cart state, persistent customer details (name, phone, address), and cart item operations.
 "use client";
 
 import { create } from "zustand";
@@ -134,3 +135,4 @@ export const selectCartCount = (state: CartState) =>
 
 export const selectCartTotal = (state: CartState) =>
     state.cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+\n// Burger Bhau MenuSite - Auto-documented file\n

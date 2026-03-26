@@ -1,3 +1,4 @@
+// This component renders the order summary, handles delivery eligibility logic, applies parcel charges for pizzas, and provides actions to contact the shop.
 "use client";
 
 import { useState, useEffect } from "react";
@@ -33,13 +34,22 @@ export default function OrderSummary() {
         }
     }, [cartTotal]);
 
+    // Apply +₹10 parcel charge to pizzas if delivery is eligible
+    const adjustedCartItems = cartItems.map(item => ({
+        ...item,
+        price: (isEligible && item.itemId.startsWith("pizza-")) ? item.price + 10 : item.price,
+        variantLabel: isEligible && item.itemId.startsWith("pizza-") && item.variantLabel ? `${item.variantLabel} + Parcel Box` : item.variantLabel
+    }));
+
+    const adjustedCartTotal = adjustedCartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
     if (!isOrderSummaryOpen) return null;
 
     const handleBackToMenu = () => {
         setIsOrderSummaryOpen(false);
     };
 
-    const whatsappUrl = buildWhatsAppUrl(cartItems, cartTotal, customerName, customerAddress, customerPhone);
+    const whatsappUrl = buildWhatsAppUrl(adjustedCartItems, adjustedCartTotal, customerName, customerAddress, customerPhone);
 
     return (
         <AnimatePresence>
@@ -83,7 +93,7 @@ export default function OrderSummary() {
 
                         {/* Order Items */}
                         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                            {cartItems.map((item) => (
+                            {adjustedCartItems.map((item) => (
                                 <div key={item.id} className={styles.line}>
                                     <div className={styles.left}>
                                         <span className={styles.qty}>
@@ -114,7 +124,7 @@ export default function OrderSummary() {
                         {/* Total */}
                         <div className={styles.totalRow}>
                             <span className={styles.totalLabel}>Total</span>
-                            <span className={styles.totalValue}>₹{cartTotal}</span>
+                            <span className={styles.totalValue}>₹{adjustedCartTotal}</span>
                         </div>
 
                         <div className={styles.divider} />
@@ -186,7 +196,7 @@ export default function OrderSummary() {
                 <div className={`${styles.footer} safe-bottom`}>
                     <a
                         href={buildCallUrl()}
-                        className={styles.callBtn}
+                        className={isEligible ? styles.callBtn : styles.callBtnFull}
                     >
                         <FontAwesomeIcon icon={faPhone} width={16} height={16} />
                         Call Now
@@ -207,3 +217,4 @@ export default function OrderSummary() {
         </AnimatePresence>
     );
 }
+\n// Burger Bhau MenuSite - Auto-documented file\n

@@ -1,3 +1,4 @@
+// Burger Bhau MenuSite - Next.js configuration for static export and unoptimized images.
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     output: 'export',

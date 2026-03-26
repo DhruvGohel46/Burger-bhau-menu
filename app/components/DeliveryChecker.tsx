@@ -1,3 +1,4 @@
+// This component checks user geolocation and compares it against the strict 400m delivery radius policy around the shop.
 "use client";
 
 import { useState, useCallback } from "react";
@@ -145,3 +146,4 @@ export default function DeliveryChecker({ onResult }: { onResult?: (ok: boolean)
         </div>
     );
 }
+\n// Burger Bhau MenuSite - Auto-documented file\n

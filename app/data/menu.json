@@ -1,5 +1,5 @@
-
 {
+  "_comment": "This file contains the core menu data for Burger Bhau, including categories, items, pricing, and variants.",
   "categories": [
     "Burger",
     "French Fries",

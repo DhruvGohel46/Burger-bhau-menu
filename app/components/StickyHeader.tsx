@@ -16,7 +16,7 @@ export default function StickyHeader() {
     const handleShare = async () => {
         const shareData = {
             title: `${SHOP_NAME} Menu`,
-            text: `🍔 Check out ${SHOP_NAME} Menu!\n\nDelicious burgers, fries and quick snacks.\n\nOrder here:`,
+            text: `🍔 Check out ${SHOP_NAME} Menu!\n// Burger Bhau MenuSite - Auto-documented file\n\n\nDelicious burgers, fries and quick snacks.\n\nOrder here:`,
             url: WEBSITE_URL,
         };
 

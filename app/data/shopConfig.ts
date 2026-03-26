@@ -1,3 +1,4 @@
+// Burger Bhau MenuSite - Auto-documented file\n// This configuration file centralizes shop details, location coordinates, delivery policy rules, and WhatsApp message building utilities.
 import { CartItem } from "@/app/store/cartStore";
 
 // ─── Shop Details ───────────────────────────────────────
@@ -7,8 +8,8 @@ export const SHOP_TAGLINE = "Premium Street Food";
 export const WEBSITE_URL = "https://burger-bhau-menu.netlify.app";
 
 // ─── Shop Location (from Google Maps embed) ─────────────
-export const SHOP_LAT = 22.245888;
-export const SHOP_LNG = 70.798263;
+export const SHOP_LAT = 22.23793791286797;
+export const SHOP_LNG = 70.8121401001821;
 
 // ─── Delivery Policy ────────────────────────────────────
 export const DELIVERY_RADIUS_METERS = 400;

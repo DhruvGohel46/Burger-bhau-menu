@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from 'next';
+// Burger Bhau MenuSite - Auto-documented file\nimport type { Metadata, Viewport } from 'next';
 import { Poppins, Bebas_Neue } from 'next/font/google';
 import './globals.css';
 

@@ -63,3 +63,4 @@ export default function MenuSection({
         </section>
     );
 }
+\n// Burger Bhau MenuSite - Auto-documented file\n
