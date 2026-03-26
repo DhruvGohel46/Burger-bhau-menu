@@ -2,25 +2,24 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { selectCartTotal, useCartStore } from "@/app/store/cartStore";
+import { buildWhatsAppUrl, buildCallUrl } from "@/app/data/shopConfig";
 import styles from "./OrderSummary.module.css";
+import DeliveryChecker from "./DeliveryChecker";
+import ShopMap from "./ShopMap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faRotateLeft } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faPhone } from "@fortawesome/free-solid-svg-icons";
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 
 export default function OrderSummary() {
     const cartItems = useCartStore((s) => s.cartItems);
     const cartTotal = useCartStore(selectCartTotal);
     const isOrderSummaryOpen = useCartStore((s) => s.isOrderSummaryOpen);
     const setIsOrderSummaryOpen = useCartStore((s) => s.setIsOrderSummaryOpen);
-    const clearCart = useCartStore((s) => s.clearCart);
 
     if (!isOrderSummaryOpen) return null;
 
     const handleBackToMenu = () => {
         setIsOrderSummaryOpen(false);
-    };
-
-    const handleStartNewOrder = () => {
-        clearCart();
     };
 
     return (
@@ -48,7 +47,7 @@ export default function OrderSummary() {
                     <div style={{ width: 64 }} /> {/* Spacer */}
                 </div>
 
-                {/* Receipt-style content */}
+                {/* Scrollable body */}
                 <div className={styles.body}>
                     <div className={styles.receipt}>
                         {/* Brand */}
@@ -101,28 +100,39 @@ export default function OrderSummary() {
 
                         <div className={styles.divider} />
 
+                        {/* Delivery Checker */}
+                        <DeliveryChecker />
+
+                        <div className={styles.divider} />
+
                         {/* Message */}
                         <div className={styles.message}>
-                            Please show this screen to the cashier.
+                            Please show this screen to the cashier or order via WhatsApp.
                         </div>
                     </div>
+
+                    {/* Google Maps */}
+                    <ShopMap />
                 </div>
 
-                {/* Footer Actions */}
+                {/* Footer Actions: Call + WhatsApp */}
                 <div className={`${styles.footer} safe-bottom`}>
-                    <button
-                        onClick={handleBackToMenu}
-                        className={styles.secondary}
+                    <a
+                        href={buildCallUrl()}
+                        className={styles.callBtn}
                     >
-                        Back to Menu
-                    </button>
-                    <button
-                        onClick={handleStartNewOrder}
-                        className={styles.primary}
+                        <FontAwesomeIcon icon={faPhone} width={16} height={16} />
+                        Call Now
+                    </a>
+                    <a
+                        href={buildWhatsAppUrl(cartItems, cartTotal)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.whatsappBtn}
                     >
-                        <FontAwesomeIcon icon={faRotateLeft} width={16} height={16} />
-                        New Order
-                    </button>
+                        <FontAwesomeIcon icon={faWhatsapp} width={18} height={18} />
+                        Order on WhatsApp
+                    </a>
                 </div>
             </motion.div>
         </AnimatePresence>

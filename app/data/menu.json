@@ -8,10 +8,7 @@
     "Garlic Bread",
     "Dips"
   ],
-  "extras": [
-    { "id": "cheese-slice", "name": "Cheese Slice", "price": 10 },
-    { "id": "add-cheese", "name": "Add Cheese", "price": 30 }
-  ],
+  "extras": [],
   "items": [
     {
       "id": "burger-aalu-tikki",

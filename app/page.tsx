@@ -5,6 +5,7 @@ import Header from "@/app/components/Header";
 import CategoryNav from "@/app/components/CategoryNav";
 import MenuSection from "@/app/components/MenuSection";
 import FloatingCartBar from "@/app/components/FloatingCartBar";
+import FloatingActions from "@/app/components/FloatingActions";
 import CartDrawer from "@/app/components/CartDrawer";
 import OrderSummary from "@/app/components/OrderSummary";
 import styles from "./page.module.css";
@@ -32,6 +33,9 @@ export default function Home() {
                     <MenuSection key={group.id} category={group} items={group.items} />
                 ))}
             </div>
+
+            {/* Floating Action Buttons (Call + WhatsApp) */}
+            <FloatingActions />
 
             {/* Floating Cart Bar */}
             <FloatingCartBar />

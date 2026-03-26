@@ -12,11 +12,14 @@
   right: 0;
   bottom: 0;
   z-index: 81;
+  max-height: 90dvh;
   background: #131313;
   border-top: 1px solid var(--border);
   border-top-left-radius: 22px;
   border-top-right-radius: 22px;
   box-shadow: 0 -24px 70px rgba(0, 0, 0, 0.75);
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
 }
 
@@ -35,18 +38,21 @@
 }
 
 .content {
+  flex: 1;
+  overflow-y: auto;
   padding: 0 16px calc(16px + env(safe-area-inset-bottom, 0px));
 }
 
 .hero {
   position: relative;
-  width: 100%;
+  width: calc(100% - 32px);
   height: 190px;
   border-radius: 18px;
   overflow: hidden;
-  margin: 0 16px;
+  margin: 0 auto;
   background: rgba(255, 255, 255, 0.04);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  flex: 0 0 auto;
 }
 
 .hero :global(img) {
@@ -159,113 +165,10 @@
   color: var(--accent);
 }
 
-.addons {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.addonRow {
-  height: 46px;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  background: rgba(255, 255, 255, 0.03);
-  padding: 0 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.addonLeft {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  min-width: 0;
-}
-
-.toggle {
-  width: 34px;
-  height: 20px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.06);
-  position: relative;
-  flex: 0 0 auto;
-}
-
-.toggleOn {
-  border-color: rgba(245, 180, 0, 0.55);
-  background: rgba(245, 180, 0, 0.22);
-}
-
-.toggleKnob {
-  position: absolute;
-  top: 50%;
-  left: 3px;
-  width: 14px;
-  height: 14px;
-  border-radius: 999px;
-  transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.75);
-}
-
-.toggleKnobOn {
-  left: 17px;
-  background: var(--accent);
-}
-
-.addonName {
-  font-weight: 900;
-  font-size: 13px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.addonPrice {
-  font-weight: 900;
-  font-size: 13px;
-  color: var(--accent);
-  flex: 0 0 auto;
-}
-
-.summary {
-  margin-top: 16px;
-  border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  background: rgba(255, 255, 255, 0.03);
-  padding: 12px 14px;
-}
-
-.summaryRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  font-size: 13px;
-  color: var(--muted-2);
-  font-weight: 800;
-}
-
-.summaryDivider {
-  height: 1px;
-  background: rgba(255, 255, 255, 0.10);
-  margin: 10px 0;
-}
-
-.summaryTotal {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  font-size: 15px;
-  font-weight: 900;
-}
-
 .footer {
   margin-top: 14px;
   padding: 0 16px 16px;
+  flex: 0 0 auto;
 }
 
 .primary {

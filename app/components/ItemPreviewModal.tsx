@@ -68,19 +68,11 @@ export default function ItemPreviewModal({
         : undefined;
 
     const basePrice = selectedVariant?.price ?? item.price ?? 0;
-    const extrasById = new Map(availableExtras.map((e) => [e.id, e] as const));
-    const extrasTotal = selection.extras.reduce((sum, id) => sum + (extrasById.get(id)?.price ?? 0), 0);
-    const total = basePrice + extrasTotal;
+    const total = basePrice;
 
     const prep = getPrepTime(item);
 
-    const toggleExtra = (id: string) => {
-        const on = selection.extras.includes(id);
-        onChange({
-            ...selection,
-            extras: on ? selection.extras.filter((x) => x !== id) : [...selection.extras, id],
-        });
-    };
+
 
     const setVariant = (id: string) => {
         onChange({ ...selection, variantId: id });
@@ -175,52 +167,6 @@ export default function ItemPreviewModal({
                             </div>
                         </div>
                     ) : null}
-
-                    {availableExtras.length > 0 ? (
-                        <div className={styles.section}>
-                            <div className={styles.sectionTitle}>Add-ons</div>
-                            <div className={styles.addons}>
-                                {availableExtras.map((e) => {
-                                    const on = selection.extras.includes(e.id);
-                                    return (
-                                        <motion.button
-                                            key={e.id}
-                                            type="button"
-                                            whileTap={{ scale: 0.99 }}
-                                            className={styles.addonRow}
-                                            onClick={() => toggleExtra(e.id)}
-                                        >
-                                            <span className={styles.addonLeft}>
-                                                <span className={`${styles.toggle} ${on ? styles.toggleOn : ""}`}
-                                                    aria-hidden="true"
-                                                >
-                                                    <span className={`${styles.toggleKnob} ${on ? styles.toggleKnobOn : ""}`} />
-                                                </span>
-                                                <span className={styles.addonName}>{e.name}</span>
-                                            </span>
-                                            <span className={styles.addonPrice}>+{formatPrice(e.price)}</span>
-                                        </motion.button>
-                                    );
-                                })}
-                            </div>
-                        </div>
-                    ) : null}
-
-                    <div className={styles.summary}>
-                        <div className={styles.summaryRow}>
-                            <span>Base Price</span>
-                            <span>{formatPrice(basePrice)}</span>
-                        </div>
-                        <div className={styles.summaryRow} style={{ marginTop: 8 }}>
-                            <span>Add-ons</span>
-                            <span>{formatPrice(extrasTotal)}</span>
-                        </div>
-                        <div className={styles.summaryDivider} />
-                        <div className={styles.summaryTotal}>
-                            <span>Total</span>
-                            <span>{formatPrice(total)}</span>
-                        </div>
-                    </div>
                 </div>
 
                 <div className={styles.footer}>
