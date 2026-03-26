@@ -5,8 +5,7 @@
     "French Fries",
     "Sandwich",
     "Pizza",
-    "Garlic Bread",
-    "Dips"
+    "Garlic Bread"
   ],
   "extras": [],
   "items": [
@@ -429,55 +428,6 @@
       "description": "Garlic bread topped with vegetables, cheese and sauces. Colourful, crunchy and full street style flavour in every bite.",
       "image": "/productimage/garlicbread/garlic-veg-loaded.jpg",
       "price": 100
-    },
-
-    {
-      "id": "dip-cheesy-sauce",
-      "name": "Cheesy Sauce",
-      "category": "Dips",
-      "description": "Warm creamy cheese dip with smooth texture and rich flavour. Perfect partner for fries, burgers and garlic bread.",
-      "image": "/productimage/dip/dip-cheesy-sauce.jpg",
-      "price": 10
-    },
-    {
-      "id": "dip-1000-island",
-      "name": "1000 Island",
-      "category": "Dips",
-      "description": "Creamy sweet-tangy sauce with light tomato flavour. Classic dip that perfectly matches burgers and sandwiches.",
-      "image": "/productimage/dip/dip-1000-island.jpg",
-      "price": 10
-    },
-    {
-      "id": "dip-momo-chutney",
-      "name": "MOMO Chutney",
-      "category": "Dips",
-      "description": "Spicy momo style chutney with bold garlic and chilli flavour. Street style dip that adds fiery punch to snacks.",
-      "image": "/productimage/dip/dip-momo-chutney.jpg",
-      "price": 10
-    },
-    {
-      "id": "dip-peri-peri-sauce",
-      "name": "Peri Peri Sauce",
-      "category": "Dips",
-      "description": "Hot peri peri dip with tangy chilli flavour. Perfect for fries and burgers when you want extra spicy kick.",
-      "image": "/productimage/dip/dip-peri-peri-sauce.jpg",
-      "price": 10
-    },
-    {
-      "id": "dip-makni-sauce",
-      "name": "Makni Sauce",
-      "category": "Dips",
-      "description": "Rich buttery makhni sauce with mild spices and creamy texture. Desi style dip adding Punjabi flavour to snacks.",
-      "image": "/productimage/dip/dip-makni-sauce.jpg",
-      "price": 10
-    },
-    {
-      "id": "dip-mayonnaise",
-      "name": "Mayonnaise",
-      "category": "Dips",
-      "description": "Smooth creamy mayonnaise with mild tangy flavour. Classic dip that balances spicy snacks and enhances burger taste.",
-      "image": "/productimage/dip/dip-mayonnaise.jpg",
-      "price": 10
     }
   ]
 }

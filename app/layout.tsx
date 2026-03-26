@@ -26,11 +26,11 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-    title: 'Burger Bhau — Premium Handcrafted Fast Food',
+    title: 'Burger Bhau',
     description: 'Build your order, show the cashier, and enjoy handcrafted burgers, pizzas, and more from Burger Bhau.',
-    keywords: ['burger', 'fast food', 'pizza', 'sandwich', 'Burger Bhau', 'food delivery'],
+    keywords: ['burger', 'fast food', 'pizza', 'sandwich', 'Burger Bhau', 'food delivery', 'burger bhau menu', 'burger bhau', 'Rajkot', 'burger bhau rajkot', 'kothariya', 'Rolex road', 'burger bhau kothariya', 'burger bhau rolex road', 'burger bhau kothariya road', 'burger bhau rolex road rajkot', 'burger bhau saibaba circle', 'burger bhau saibaba circle rajkot', 'burger bhau saibaba circle kothariya', 'burger bhau saibaba circle kothariya road', 'burger bhau saibaba circle kothariya road rajkot', 'burger bhau saibaba circle kothariya road rajkot'],
     openGraph: {
-        title: 'Burger Bhau — Build Your Order',
+        title: 'Burger Bhau',
         description: 'Premium fast food. Handcrafted burgers, crispy fries, fresh pizzas.',
         type: 'website',
     },
