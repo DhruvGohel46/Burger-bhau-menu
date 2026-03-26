@@ -1,9 +1,11 @@
-"use client";
-
-import { GOOGLE_MAPS_EMBED_URL } from "@/app/data/shopConfig";
+import { GOOGLE_MAPS_EMBED_URL, SHOP_LAT, SHOP_LNG } from "@/app/data/shopConfig";
 import styles from "./ShopMap.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 
 export default function ShopMap() {
+    const mapsLink = `https://www.google.com/maps/dir/?api=1&destination=${SHOP_LAT},${SHOP_LNG}`;
+
     return (
         <div className={styles.wrap}>
             <h3 className={styles.heading}>Find Us</h3>
@@ -18,6 +20,15 @@ export default function ShopMap() {
                     title="Burger Bhau Location"
                 />
             </div>
+            <a 
+                href={mapsLink} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className={styles.mapAction}
+            >
+                <FontAwesomeIcon icon={faExternalLinkAlt} width={14} height={14} />
+                Open in Google Maps
+            </a>
         </div>
     );
 }

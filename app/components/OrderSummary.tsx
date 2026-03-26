@@ -4,9 +4,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { selectCartTotal, useCartStore } from "@/app/store/cartStore";
 import { buildWhatsAppUrl, buildCallUrl } from "@/app/data/shopConfig";
 import styles from "./OrderSummary.module.css";
+import DeliveryChecker from "./DeliveryChecker";
 import ShopMap from "./ShopMap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faPhone, faUser, faMapMarkerAlt, faMobileAlt } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faPhone, faUser, faMapMarkerAlt, faMobileAlt, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 
 export default function OrderSummary() {
@@ -138,6 +139,15 @@ export default function OrderSummary() {
                                 />
                             </div>
                         </div>
+
+                        <div className={styles.divider} />
+
+                        {/* Delivery Eligibility */}
+                        <div className={styles.deliveryPolicy}>
+                            <FontAwesomeIcon icon={faInfoCircle} width={12} height={12} />
+                            <span>Free Home Delivery within 400m for orders above ₹500</span>
+                        </div>
+                        <DeliveryChecker />
 
                         <div className={styles.divider} />
 

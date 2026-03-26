@@ -19,3 +19,26 @@
   display: block;
   width: 100%;
 }
+
+.mapAction {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.mapAction:active {
+  background: rgba(255, 255, 255, 0.08);
+  transform: scale(0.98);
+}
+
