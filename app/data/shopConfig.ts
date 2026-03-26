@@ -43,17 +43,24 @@ export function buildWhatsAppMessage(
     customerAddress?: string,
     customerPhone?: string
 ): string {
-    const lines = cartItems.map(
+    const itemLines = cartItems.map(
         (item) =>
-            `• ${item.quantity}x ${item.name}${item.variantLabel ? ` (${item.variantLabel})` : ""}${item.extras && item.extras.length > 0 ? ` + ${item.extras.map((e) => e.name).join(", ")}` : ""}`
+            `• *${item.quantity}x* ${item.name}${item.variantLabel ? ` _(${item.variantLabel})_` : ""}`
     );
 
-    let msg = `Hello ${SHOP_NAME},\nI want to order the following items:\n\n${lines.join("\n")}\n\nTotal: ₹${cartTotal}`;
-
-    if (customerName) msg += `\nName: ${customerName}`;
-    if (customerPhone) msg += `\nPhone: ${customerPhone}`;
-    if (customerAddress) msg += `\nAddress: ${customerAddress}`;
-    msg += `\n\nPlease confirm the order.`;
+    let msg = `*🍔 NEW ORDER - ${SHOP_NAME.toUpperCase()}*\n`;
+    msg += `--------------------------\n\n`;
+    msg += `*ITEMS:*\n${itemLines.join("\n")}\n\n`;
+    msg += `*TOTAL AMOUNT:* ₹${cartTotal}\n\n`;
+    
+    msg += `*CUSTOMER DETAILS:*\n`;
+    if (customerName) msg += `👤 *Name:* ${customerName}\n`;
+    if (customerPhone) msg += `📱 *Phone:* ${customerPhone}\n`;
+    if (customerAddress) msg += `📍 *Address:* ${customerAddress}\n`;
+    
+    msg += `\n--------------------------\n`;
+    msg += `Please confirm my order. Thank you!`;
+    
     return msg;
 }
 

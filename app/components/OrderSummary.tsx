@@ -1,13 +1,14 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { selectCartTotal, useCartStore } from "@/app/store/cartStore";
-import { buildWhatsAppUrl, buildCallUrl } from "@/app/data/shopConfig";
+import { buildWhatsAppUrl, buildCallUrl, MIN_ORDER_FOR_DELIVERY } from "@/app/data/shopConfig";
 import styles from "./OrderSummary.module.css";
 import DeliveryChecker from "./DeliveryChecker";
 import ShopMap from "./ShopMap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faPhone, faUser, faMapMarkerAlt, faMobileAlt, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faPhone, faUser, faMapMarkerAlt, faMobileAlt, faInfoCircle, faMotorcycle } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 
 export default function OrderSummary() {
@@ -22,6 +23,15 @@ export default function OrderSummary() {
     const setCustomerName = useCartStore((s) => s.setCustomerName);
     const setCustomerAddress = useCartStore((s) => s.setCustomerAddress);
     const setCustomerPhone = useCartStore((s) => s.setCustomerPhone);
+
+    const [isEligible, setIsEligible] = useState(false);
+
+    // Reset eligibility if cart total drops below minimum
+    useEffect(() => {
+        if (cartTotal < MIN_ORDER_FOR_DELIVERY) {
+            setIsEligible(false);
+        }
+    }, [cartTotal]);
 
     if (!isOrderSummaryOpen) return null;
 
@@ -109,45 +119,56 @@ export default function OrderSummary() {
 
                         <div className={styles.divider} />
 
-                        {/* Customer Details */}
-                        <div className={styles.customerForm}>
-                            <div className={styles.inputGroup}>
-                                <label><FontAwesomeIcon icon={faUser} /> Name</label>
-                                <input 
-                                    type="text" 
-                                    value={customerName} 
-                                    onChange={(e) => setCustomerName(e.target.value)}
-                                    placeholder="Enter your name"
-                                />
+                        {/* Delivery Eligibility Policy */}
+                        <div className={styles.deliveryPolicyBox}>
+                            <div className={styles.policyHeader}>
+                                <FontAwesomeIcon icon={faMotorcycle} />
+                                <span>HOME DELIVERY POLICY</span>
                             </div>
-                            <div className={styles.inputGroup}>
-                                <label><FontAwesomeIcon icon={faMobileAlt} /> Phone Number</label>
-                                <input 
-                                    type="tel" 
-                                    value={customerPhone} 
-                                    onChange={(e) => setCustomerPhone(e.target.value)}
-                                    placeholder="Enter mobile number"
-                                />
-                            </div>
-                            <div className={styles.inputGroup}>
-                                <label><FontAwesomeIcon icon={faMapMarkerAlt} /> Delivery Address</label>
-                                <textarea 
-                                    value={customerAddress} 
-                                    onChange={(e) => setCustomerAddress(e.target.value)}
-                                    placeholder="Enter your address"
-                                    rows={2}
-                                />
-                            </div>
+                            <ul className={styles.policyList}>
+                                <li><strong>Condition 1:</strong> Distance must be under 400m</li>
+                                <li><strong>Condition 2:</strong> Order amount must be min ₹500</li>
+                            </ul>
+                            <DeliveryChecker onResult={setIsEligible} />
                         </div>
 
-                        <div className={styles.divider} />
+                        {isEligible && (
+                            <>
+                                <div className={styles.divider} />
+                                {/* Customer Details */}
+                                <div className={styles.customerForm}>
+                                    <div className={styles.inputGroup}>
+                                        <label><FontAwesomeIcon icon={faUser} /> Name</label>
+                                        <input 
+                                            type="text" 
+                                            value={customerName} 
+                                            onChange={(e) => setCustomerName(e.target.value)}
+                                            placeholder="Enter your name"
+                                        />
+                                    </div>
+                                    <div className={styles.inputGroup}>
+                                        <label><FontAwesomeIcon icon={faMobileAlt} /> Phone Number</label>
+                                        <input 
+                                            type="tel" 
+                                            value={customerPhone} 
+                                            onChange={(e) => setCustomerPhone(e.target.value)}
+                                            placeholder="Enter mobile number"
+                                        />
+                                    </div>
+                                    <div className={styles.inputGroup}>
+                                        <label><FontAwesomeIcon icon={faMapMarkerAlt} /> Delivery Address</label>
+                                        <textarea 
+                                            value={customerAddress} 
+                                            onChange={(e) => setCustomerAddress(e.target.value)}
+                                            placeholder="Enter your address"
+                                            rows={2}
+                                        />
+                                    </div>
+                                </div>
+                            </>
+                        )}
 
-                        {/* Delivery Eligibility */}
-                        <div className={styles.deliveryPolicy}>
-                            <FontAwesomeIcon icon={faInfoCircle} width={12} height={12} />
-                            <span>Free Home Delivery within 400m for orders above ₹500</span>
-                        </div>
-                        <DeliveryChecker />
+
 
                         <div className={styles.divider} />
 
@@ -170,15 +191,17 @@ export default function OrderSummary() {
                         <FontAwesomeIcon icon={faPhone} width={16} height={16} />
                         Call Now
                     </a>
-                    <a
-                        href={whatsappUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.whatsappBtn}
-                    >
-                        <FontAwesomeIcon icon={faWhatsapp} width={18} height={18} />
-                        Order on WhatsApp
-                    </a>
+                    {isEligible && (
+                        <a
+                            href={whatsappUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.whatsappBtn}
+                        >
+                            <FontAwesomeIcon icon={faWhatsapp} width={18} height={18} />
+                            Order on WhatsApp
+                        </a>
+                    )}
                 </div>
             </motion.div>
         </AnimatePresence>

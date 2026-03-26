@@ -15,14 +15,21 @@ import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 type DeliveryStatus = "idle" | "loading" | "available" | "too_far" | "low_cart" | "both_fail" | "error";
 
-export default function DeliveryChecker() {
+export default function DeliveryChecker({ onResult }: { onResult?: (ok: boolean) => void }) {
     const cartTotal = useCartStore(selectCartTotal);
     const [status, setStatus] = useState<DeliveryStatus>("idle");
     const [distance, setDistance] = useState<number | null>(null);
 
     const checkDelivery = useCallback(() => {
+        if (cartTotal < MIN_ORDER_FOR_DELIVERY) {
+            setStatus("low_cart");
+            onResult?.(false);
+            return;
+        }
+
         if (!navigator.geolocation) {
             setStatus("error");
+            onResult?.(false);
             return;
         }
 
@@ -41,7 +48,8 @@ export default function DeliveryChecker() {
                 const inRange = dist <= DELIVERY_RADIUS_METERS;
                 const meetsMin = cartTotal >= MIN_ORDER_FOR_DELIVERY;
 
-                if (inRange && meetsMin) {
+                const ok = inRange && meetsMin;
+                if (ok) {
                     setStatus("available");
                 } else if (!inRange && !meetsMin) {
                     setStatus("both_fail");
@@ -50,13 +58,29 @@ export default function DeliveryChecker() {
                 } else {
                     setStatus("low_cart");
                 }
+                onResult?.(ok);
             },
             () => {
                 setStatus("error");
+                onResult?.(false);
             },
             { enableHighAccuracy: true, timeout: 10000 }
         );
-    }, [cartTotal]);
+    }, [cartTotal, onResult]);
+
+    if (cartTotal < MIN_ORDER_FOR_DELIVERY) {
+        return (
+            <div className={`${styles.badge} ${styles.unavailable}`}>
+                <span className={styles.icon}>⚠️</span>
+                <div>
+                    <strong>Minimum ₹{MIN_ORDER_FOR_DELIVERY} required for Home Delivery</strong>
+                    <span className={styles.sub}>
+                        Add more items to check delivery availability.
+                    </span>
+                </div>
+            </div>
+        );
+    }
 
     if (status === "idle") {
         return (
