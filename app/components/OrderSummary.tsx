@@ -189,7 +189,7 @@ export default function OrderSummary() {
 
                         {/* Human Touch Footer */}
                         <div className={styles.receiptFooter}>
-                            Handcrafted with ❤️ for you!
+                            A Taste You&apos;ll Remember
                         </div>
                     </div>
 
