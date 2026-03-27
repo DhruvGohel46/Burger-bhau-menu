@@ -5,7 +5,7 @@ import { CartItem } from "@/app/store/cartStore";
 // ─── Shop Details ───────────────────────────────────────
 export const SHOP_PHONE = "919558941555"; // Prefix with 91 for India if needed for WhatsApp.
 export const SHOP_NAME = "Burger Bhau";
-export const SHOP_TAGLINE = "Premium Street Food";
+export const SHOP_TAGLINE = "Premium Fast Food";
 export const WEBSITE_URL = "https://burger-bhau-menu.netlify.app";
 
 // ─── Shop Location (from Google Maps embed) ─────────────

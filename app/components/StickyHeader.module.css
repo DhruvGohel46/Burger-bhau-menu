@@ -72,6 +72,19 @@
   background: rgba(255, 255, 255, 0.06);
 }
 
+.shareBtn {
+  background: rgba(255, 140, 0, 0.1);
+  border: 1px solid rgba(255, 140, 0, 0.25) !important;
+  color: var(--accent);
+  animation: pulse-share 3s ease-in-out infinite;
+}
+
+@keyframes pulse-share {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 140, 0, 0.4); }
+  70% { transform: scale(1.04); box-shadow: 0 0 0 8px rgba(255, 140, 0, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 140, 0, 0); }
+}
+
 .actionLabel {
   font-size: 9px;
   font-weight: 700;

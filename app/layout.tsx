@@ -1,6 +1,6 @@
 // Burger Bhau MenuSite - Auto-documented file
 import type { Metadata, Viewport } from 'next';
-import { Poppins, Bebas_Neue } from 'next/font/google';
+import { Poppins, Bebas_Neue, Gochi_Hand } from 'next/font/google';
 import './globals.css';
 
 const poppins = Poppins({
@@ -14,6 +14,13 @@ const bebas = Bebas_Neue({
     subsets: ['latin'],
     weight: ['400'],
     variable: '--font-bebas',
+    display: 'swap',
+});
+
+const gochi = Gochi_Hand({
+    subsets: ['latin'],
+    weight: ['400'],
+    variable: '--font-gochi',
     display: 'swap',
 });
 
@@ -39,7 +46,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en" className={`${poppins.variable} ${bebas.variable} dark`}>
+        <html lang="en" className={`${poppins.variable} ${bebas.variable} ${gochi.variable} dark`}>
             <body>
                 {children}
             </body>

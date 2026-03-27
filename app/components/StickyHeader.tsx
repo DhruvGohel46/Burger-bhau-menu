@@ -58,7 +58,7 @@ export default function StickyHeader() {
                     {/* Share */}
                     <button
                         onClick={handleShare}
-                        className={styles.actionBtn}
+                        className={`${styles.actionBtn} ${styles.shareBtn}`}
                         aria-label="Share menu"
                     >
                         <FontAwesomeIcon icon={faShareNodes} width={16} height={16} />

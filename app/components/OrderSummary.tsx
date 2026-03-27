@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { selectCartTotal, useCartStore } from "@/app/store/cartStore";
-import { buildWhatsAppUrl, buildCallUrl, MIN_ORDER_FOR_DELIVERY } from "@/app/data/shopConfig";
+import { buildWhatsAppUrl, buildCallUrl, MIN_ORDER_FOR_DELIVERY, SHOP_TAGLINE } from "@/app/data/shopConfig";
 import styles from "./OrderSummary.module.css";
 import DeliveryChecker from "./DeliveryChecker";
 import ShopMap from "./ShopMap";
@@ -85,7 +85,7 @@ export default function OrderSummary() {
                                 Burger Bhau
                             </h3>
                             <p className={styles.receiptSub}>
-                                Premium Street Food
+                                {SHOP_TAGLINE}
                             </p>
                         </div>
 
@@ -185,6 +185,11 @@ export default function OrderSummary() {
                         {/* Message */}
                         <div className={styles.message}>
                             Please show this screen to the cashier or order via WhatsApp.
+                        </div>
+
+                        {/* Human Touch Footer */}
+                        <div className={styles.receiptFooter}>
+                            Handcrafted with ❤️ for you!
                         </div>
                     </div>
 
