@@ -34,7 +34,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-    metadataBase: new URL('https://burger-bhau-menu.netlify.app'),
+    metadataBase: new URL('https://burgerbhau.netlify.com'),
     title: 'Burger Bhau (Kothariya) | Premium Fast Food Menu',
     description: 'Order handcrafted burgers, pizzas, and more from Burger Bhau (Kothariya). Fresh, delicious, and premium fast food in Rajkot.',
     applicationName: 'Burger Bhau (Kothariya)',
@@ -46,11 +46,14 @@ export const metadata: Metadata = {
         ],
         apple: '/favicon.ico',
     },
+    alternates: {
+        canonical: '/',
+    },
     openGraph: {
         title: 'Burger Bhau (Kothariya) – Premium Handcrafted Fast Food',
         description: 'Order handcrafted burgers, pizzas, and more from Burger Bhau (Kothariya).',
         siteName: 'Burger Bhau',
-        url: 'https://burgerbhau.netlify.app',
+        url: 'https://burgerbhau.netlify.com',
         images: [
             {
                 url: '/BURGER-BHAU-logo.webp',
@@ -61,11 +64,39 @@ export const metadata: Metadata = {
         ],
         type: 'website',
     },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Burger Bhau (Kothariya) – Premium Fast Food',
+        description: 'Order handcrafted burgers, pizzas, and more from Burger Bhau (Kothariya).',
+        images: ['/BURGER-BHAU-logo.webp'],
+    },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "name": "Burger Bhau (Kothariya)",
+        "url": "https://burgerbhau.netlify.com",
+        "image": "https://burgerbhau.netlify.com/BURGER-BHAU-logo.webp",
+        "servesCuisine": "Fast Food, Burgers, Pizza, Sandwich",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Rolex road, Kothariya",
+            "addressLocality": "Rajkot",
+            "addressRegion": "Gujarat",
+            "addressCountry": "IN"
+        }
+    };
+
     return (
         <html lang="en" className={`${jakarta.variable} ${outfit.variable} ${kalam.variable} dark`}>
+            <head>
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                />
+            </head>
             <body>
                 {children}
             </body>

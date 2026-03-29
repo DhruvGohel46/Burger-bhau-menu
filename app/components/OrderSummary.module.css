@@ -341,20 +341,24 @@
 
 .errorPopup {
   position: fixed;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 80px);
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 90px);
   left: 50%;
   transform: translateX(-50%);
   background: #ff4500;
   color: white;
-  padding: 12px 20px;
-  border-radius: 999px;
+  padding: 14px 24px;
+  border-radius: 16px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
   font-family: var(--font-jakarta, inherit);
   font-size: 13px;
+  line-height: 1.4;
   font-weight: 700;
-  white-space: nowrap;
-  box-shadow: 0 10px 30px rgba(255, 69, 0, 0.4);
-  z-index: 100;
+  box-shadow: 0 12px 40px rgba(255, 69, 0, 0.45);
+  z-index: 1000;
+  width: calc(100% - 40px);
+  max-width: 380px;
 }
