@@ -4,7 +4,7 @@ import { CartItem } from "@/app/store/cartStore";
 
 // ─── Shop Details ───────────────────────────────────────
 export const SHOP_PHONE = "919558941555"; // Prefix with 91 for India if needed for WhatsApp.
-export const SHOP_NAME = "Burger Bhau";
+export const SHOP_NAME = "Burger Bhau (Kothariya)";
 export const SHOP_TAGLINE = "Premium Fast Food";
 export const WEBSITE_URL = "https://burger-bhau-menu.netlify.app";
 
@@ -15,6 +15,8 @@ export const SHOP_LNG = 70.8121401001821;
 // ─── Delivery Policy ────────────────────────────────────
 export const DELIVERY_RADIUS_METERS = 400;
 export const MIN_ORDER_FOR_DELIVERY = 500;
+export const DELIVERY_RADIUS_NEAR = 100;
+export const MIN_ORDER_NEAR = 299;
 
 // ─── Google Maps Embed ──────────────────────────────────
 export const GOOGLE_MAPS_EMBED_URL =
@@ -45,23 +47,39 @@ export function buildWhatsAppMessage(
     customerAddress?: string,
     customerPhone?: string
 ): string {
-    const itemLines = cartItems.map(
-        (item) =>
-            `• *${item.quantity}x* ${item.name}${item.variantLabel ? ` _(${item.variantLabel})_` : ""}`
-    );
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+    const timeStr = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
 
-    let msg = `*🍔 NEW ORDER - ${SHOP_NAME.toUpperCase()}*\n`;
-    msg += `--------------------------\n\n`;
-    msg += `*ITEMS:*\n${itemLines.join("\n")}\n\n`;
-    msg += `*TOTAL AMOUNT:* ₹${cartTotal}\n\n`;
+    const itemLines = cartItems.map((item) => {
+        const line = `• *${item.quantity}x* ${item.name}`;
+        const sub = item.variantLabel ? ` _(${item.variantLabel})_ ` : "";
+        const price = ` ... *₹${item.price * item.quantity}*`;
+        return `${line}${sub}${price}`;
+    });
+
+    let msg = `━━━━━━━━━━━━━━━\n`;
+    msg += `      🍔 *NEW ORDER*      \n`;
+    msg += `━━━━━━━━━━━━━━━\n\n`;
     
-    msg += `*CUSTOMER DETAILS:*\n`;
+    msg += `🏢 *${SHOP_NAME.toUpperCase()}*\n`;
+    msg += `📅 *Date:* ${dateStr}\n`;
+    msg += `⏰ *Time:* ${timeStr}\n\n`;
+
+    msg += `📜 *ORDER SUMMARY:*\n`;
+    msg += `──────────────────\n`;
+    msg += `${itemLines.join("\n")}\n`;
+    msg += `──────────────────\n`;
+    msg += `💰 *TOTAL AMOUNT: ₹${cartTotal}*\n\n`;
+    
+    msg += `👤 *CUSTOMER DETAILS:*\n`;
+    msg += `──────────────────\n`;
     if (customerName) msg += `👤 *Name:* ${customerName}\n`;
     if (customerPhone) msg += `📱 *Phone:* ${customerPhone}\n`;
     if (customerAddress) msg += `📍 *Address:* ${customerAddress}\n`;
     
-    msg += `\n--------------------------\n`;
-    msg += `Please confirm my order. Thank you!`;
+    msg += `\n──────────────────\n`;
+    msg += `🚀 *Please confirm my order. Thank you!*`;
     
     return msg;
 }

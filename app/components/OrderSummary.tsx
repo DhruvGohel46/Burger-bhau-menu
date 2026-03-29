@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { selectCartTotal, useCartStore } from "@/app/store/cartStore";
-import { buildWhatsAppUrl, buildCallUrl, MIN_ORDER_FOR_DELIVERY, SHOP_TAGLINE } from "@/app/data/shopConfig";
+import { buildWhatsAppUrl, buildCallUrl, MIN_ORDER_FOR_DELIVERY, MIN_ORDER_NEAR, SHOP_TAGLINE } from "@/app/data/shopConfig";
 import styles from "./OrderSummary.module.css";
 import DeliveryChecker from "./DeliveryChecker";
 import ShopMap from "./ShopMap";
@@ -26,10 +26,11 @@ export default function OrderSummary() {
     const setCustomerPhone = useCartStore((s) => s.setCustomerPhone);
 
     const [isEligible, setIsEligible] = useState(false);
+    const [showFormError, setShowFormError] = useState(false);
 
-    // Reset eligibility if cart total drops below minimum
+    // Reset eligibility if cart total drops below the absolute minimum
     useEffect(() => {
-        if (cartTotal < MIN_ORDER_FOR_DELIVERY) {
+        if (cartTotal <= MIN_ORDER_NEAR) {
             setIsEligible(false);
         }
     }, [cartTotal]);
@@ -42,6 +43,8 @@ export default function OrderSummary() {
     }));
 
     const adjustedCartTotal = adjustedCartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+    const isFormValid = customerName.trim() !== "" && customerPhone.trim() !== "" && customerAddress.trim() !== "";
 
     if (!isOrderSummaryOpen) return null;
 
@@ -136,8 +139,8 @@ export default function OrderSummary() {
                                 <span>HOME DELIVERY POLICY</span>
                             </div>
                             <ul className={styles.policyList}>
-                                <li><strong>Condition 1:</strong> Distance must be under 400m</li>
-                                <li><strong>Condition 2:</strong> Order amount must be min ₹500</li>
+                                <li><strong>Option 1:</strong> Distance &lt; 100m &amp; Order &gt; ₹299</li>
+                                <li><strong>Option 2:</strong> Distance &lt; 400m &amp; Order ≥ ₹500</li>
                             </ul>
                             <DeliveryChecker onResult={setIsEligible} />
                         </div>
@@ -208,16 +211,38 @@ export default function OrderSummary() {
                     </a>
                     {isEligible && (
                         <a
-                            href={whatsappUrl}
-                            target="_blank"
+                            href={isFormValid ? whatsappUrl : "#"}
+                            onClick={(e) => {
+                                if (!isFormValid) {
+                                    e.preventDefault();
+                                    setShowFormError(true);
+                                    setTimeout(() => setShowFormError(false), 3000);
+                                }
+                            }}
+                            target={isFormValid ? "_blank" : undefined}
                             rel="noopener noreferrer"
-                            className={styles.whatsappBtn}
+                            className={isFormValid ? styles.whatsappBtn : styles.whatsappBtnDisabled}
                         >
                             <FontAwesomeIcon icon={faWhatsapp} width={18} height={18} />
                             Order on WhatsApp
                         </a>
                     )}
                 </div>
+
+                {/* Custom Validation Popup */}
+                <AnimatePresence>
+                    {showFormError && (
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                            className={styles.errorPopup}
+                        >
+                            <FontAwesomeIcon icon={faInfoCircle} />
+                            <span>Please fill Name, Phone, and Address</span>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </motion.div>
         </AnimatePresence>
     );

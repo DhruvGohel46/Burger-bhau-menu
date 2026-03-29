@@ -8,6 +8,8 @@ import {
     SHOP_LNG,
     DELIVERY_RADIUS_METERS,
     MIN_ORDER_FOR_DELIVERY,
+    DELIVERY_RADIUS_NEAR,
+    MIN_ORDER_NEAR,
     getHaversineDistance,
 } from "@/app/data/shopConfig";
 import styles from "./DeliveryChecker.module.css";
@@ -22,7 +24,7 @@ export default function DeliveryChecker({ onResult }: { onResult?: (ok: boolean)
     const [distance, setDistance] = useState<number | null>(null);
 
     const checkDelivery = useCallback(() => {
-        if (cartTotal < MIN_ORDER_FOR_DELIVERY) {
+        if (cartTotal <= MIN_ORDER_NEAR) {
             setStatus("low_cart");
             onResult?.(false);
             return;
@@ -46,15 +48,15 @@ export default function DeliveryChecker({ onResult }: { onResult?: (ok: boolean)
                 );
                 setDistance(Math.round(dist));
 
-                const inRange = dist <= DELIVERY_RADIUS_METERS;
-                const meetsMin = cartTotal >= MIN_ORDER_FOR_DELIVERY;
+                const inRangeNear = dist <= DELIVERY_RADIUS_NEAR;
+                const meetsMinNear = cartTotal > MIN_ORDER_NEAR;
+                const inRangeFar = dist <= DELIVERY_RADIUS_METERS;
+                const meetsMinFar = cartTotal >= MIN_ORDER_FOR_DELIVERY;
 
-                const ok = inRange && meetsMin;
+                const ok = (inRangeNear && meetsMinNear) || (inRangeFar && meetsMinFar);
                 if (ok) {
                     setStatus("available");
-                } else if (!inRange && !meetsMin) {
-                    setStatus("both_fail");
-                } else if (!inRange) {
+                } else if (!inRangeFar) {
                     setStatus("too_far");
                 } else {
                     setStatus("low_cart");
@@ -69,12 +71,12 @@ export default function DeliveryChecker({ onResult }: { onResult?: (ok: boolean)
         );
     }, [cartTotal, onResult]);
 
-    if (cartTotal < MIN_ORDER_FOR_DELIVERY) {
+    if (cartTotal <= MIN_ORDER_NEAR) {
         return (
             <div className={`${styles.badge} ${styles.unavailable}`}>
                 <span className={styles.icon}>⚠️</span>
                 <div>
-                    <strong>Minimum ₹{MIN_ORDER_FOR_DELIVERY} required for Home Delivery</strong>
+                    <strong>Minimum ₹{MIN_ORDER_NEAR + 1} required for shortest distance</strong>
                     <span className={styles.sub}>
                         Add more items to check delivery availability.
                     </span>
@@ -108,7 +110,7 @@ export default function DeliveryChecker({ onResult }: { onResult?: (ok: boolean)
                 <div>
                     <strong>Home Delivery Available</strong>
                     <span className={styles.sub}>
-                        {distance}m away · Radius: {DELIVERY_RADIUS_METERS}m · Min order: ₹{MIN_ORDER_FOR_DELIVERY}
+                        You are {distance}m away. Delivery is eligible based on distance and order total.
                     </span>
                 </div>
             </div>
@@ -138,8 +140,8 @@ export default function DeliveryChecker({ onResult }: { onResult?: (ok: boolean)
                 <strong>Delivery Unavailable</strong>
                 <span className={styles.sub}>
                     {status === "too_far" && `You're ${distance}m away (max ${DELIVERY_RADIUS_METERS}m).`}
-                    {status === "low_cart" && `Minimum order ₹${MIN_ORDER_FOR_DELIVERY} required (current: ₹${cartTotal}).`}
-                    {status === "both_fail" && `You're ${distance}m away & cart is under ₹${MIN_ORDER_FOR_DELIVERY}.`}
+                    {status === "low_cart" && `Minimum order for your distance not met (current: ₹${cartTotal}).`}
+                    {status === "both_fail" && `You're ${distance}m away & cart total is too low.`}
                     {" "}You can still place a Pickup order.
                 </span>
             </div>
