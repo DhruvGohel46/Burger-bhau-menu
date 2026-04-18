@@ -1,5 +1,6 @@
 "use client";
 
+import { motion, type Variants } from "framer-motion";
 import MenuCard from "./MenuCard";
 import type { MenuCategory, MenuItem } from "@/app/data/menu";
 import styles from "./MenuSection.module.css";
@@ -31,12 +32,25 @@ function categoryIcon(iconKey: string) {
     }
 }
 
+const sectionVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.06,
+            delayChildren: 0.1,
+        },
+    },
+};
+
 export default function MenuSection({
     category,
     items,
+    index = 0,
 }: {
     category: MenuCategory;
     items: MenuItem[];
+    index?: number;
 }) {
     return (
         <section
@@ -44,22 +58,34 @@ export default function MenuSection({
             className={styles.section}
         >
             {/* Section Title */}
-            <div className={styles.titleRow}>
+            <motion.div
+                className={styles.titleRow}
+                initial={{ opacity: 0, x: -16 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.5, ease: "easeOut", delay: index * 0.05 }}
+            >
                 <h2 className={styles.title}>
-                    <span aria-hidden="true" style={{ marginRight: 10 }}>
+                    <span aria-hidden="true" className={styles.titleIcon}>
                         <FontAwesomeIcon icon={categoryIcon(category.icon)} width={18} height={18} />
                     </span>
                     {category.name}
                 </h2>
                 <div className={styles.rule} />
-            </div>
+            </motion.div>
 
             {/* Menu Cards Stack */}
-            <div className={styles.list}>
+            <motion.div
+                className={styles.list}
+                variants={sectionVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-30px" }}
+            >
                 {items.map((item) => (
                     <MenuCard key={item.id} item={item} />
                 ))}
-            </div>
+            </motion.div>
         </section>
     );
 }

@@ -1,22 +1,23 @@
-/* Burger Bhau MenuSite - Auto-documented file */
+/* Burger Bhau MenuSite - Premium Cart Item Row */
 .row {
   display: flex;
   gap: 12px;
   padding: 12px;
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
   border: 1px solid var(--border);
   background: var(--card);
-  box-shadow: var(--shadow-soft);
+  box-shadow: var(--shadow-sm);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .image {
   position: relative;
   width: 64px;
   height: 64px;
-  border-radius: 14px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   flex: 0 0 auto;
-  background: rgba(255,255,255,0.04);
+  background: var(--border);
 }
 
 .image :global(img) {
@@ -39,26 +40,38 @@
 }
 
 .name {
-  font-family: var(--font-poppins, inherit);
   font-size: 14px;
   font-weight: 700;
   line-height: 1.2;
+  color: var(--text);
 }
 
 .remove {
-  width: 36px;
-  height: 36px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(255,255,255,0.03);
-  color: var(--muted);
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--glass-inner);
+  color: var(--muted-2);
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  transition: all var(--duration-fast) ease;
 }
 
 .remove:active {
-  background: rgba(255,255,255,0.06);
+  background: var(--danger-soft);
+  color: var(--danger);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+@media (hover: hover) {
+  .remove:hover {
+    background: var(--danger-soft);
+    color: var(--danger);
+    border-color: rgba(239, 68, 68, 0.2);
+  }
 }
 
 .bottom {
@@ -70,40 +83,47 @@
 
 .price {
   color: var(--accent);
-  font-family: var(--font-poppins, inherit);
-  font-weight: 900;
+  font-weight: 800;
   font-size: 14px;
 }
 
 .qty {
-  height: 40px;
+  height: 36px;
   display: inline-flex;
   align-items: center;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-strong);
+  background: var(--glass-inner);
   overflow: hidden;
 }
 
 .qtyBtn {
-  width: 44px;
-  height: 40px;
+  width: 40px;
+  height: 36px;
   border: none;
   background: transparent;
   color: var(--text);
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) ease;
 }
 
 .qtyBtn:active {
-  background: rgba(255,255,255,0.06);
+  background: var(--border);
+}
+
+@media (hover: hover) {
+  .qtyBtn:hover {
+    background: var(--border);
+  }
 }
 
 .qtyVal {
-  width: 34px;
+  width: 30px;
   text-align: center;
-  font-family: var(--font-poppins, inherit);
-  font-weight: 900;
+  font-weight: 800;
   font-size: 14px;
+  color: var(--text);
 }

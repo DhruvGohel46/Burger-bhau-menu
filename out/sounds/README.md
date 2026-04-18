@@ -1,4 +1,4 @@
-# Horror Sound Effects
+<!-- Burger Bhau MenuSite - Auto-documented file -->\n# Horror Sound Effects
 
 This directory contains ambient horror sound effects for the Burger Bhau website.
 

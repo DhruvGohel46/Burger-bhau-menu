@@ -4,6 +4,8 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
+import { MenuItem } from "@/app/data/menu";
+
 export type CartItem = {
     id: string;
     itemId: string;
@@ -48,6 +50,8 @@ type CartState = {
 
     setIsCartOpen: (isOpen: boolean) => void;
     setIsOrderSummaryOpen: (isOpen: boolean) => void;
+    previewItem: MenuItem | null;
+    setPreviewItem: (item: MenuItem | null) => void;
 };
 
 export const useCartStore = create<CartState>()(
@@ -59,6 +63,7 @@ export const useCartStore = create<CartState>()(
             customerName: "",
             customerAddress: "",
             customerPhone: "",
+            previewItem: null,
 
             addItem: (item) => {
                 set((state) => {
@@ -116,6 +121,7 @@ export const useCartStore = create<CartState>()(
 
             setIsCartOpen: (isOpen) => set({ isCartOpen: isOpen }),
             setIsOrderSummaryOpen: (isOpen) => set({ isOrderSummaryOpen: isOpen }),
+            setPreviewItem: (item) => set({ previewItem: item }),
         }),
         {
             name: "burgerBhauCart",

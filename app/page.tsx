@@ -29,8 +29,8 @@ export default function Home() {
 
             {/* Main Content — padded for fixed header + category bar */}
             <div className={styles.content}>
-                {groupedItems.map((group) => (
-                    <MenuSection key={group.id} category={group} items={group.items} />
+                {groupedItems.map((group, index) => (
+                    <MenuSection key={group.id} category={group} items={group.items} index={index} />
                 ))}
             </div>
 
@@ -48,4 +48,3 @@ export default function Home() {
         </main>
     );
 }
-// Burger Bhau MenuSite - Auto-documented file

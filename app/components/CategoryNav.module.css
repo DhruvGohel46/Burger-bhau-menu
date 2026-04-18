@@ -1,13 +1,16 @@
-/* Burger Bhau MenuSite - Auto-documented file */
+/* Burger Bhau MenuSite - Premium Glass Category Navigation */
 .wrap {
   position: fixed;
-  top: 56px;
+  top: var(--header-height);
   left: 0;
   right: 0;
   z-index: 45;
-  background: rgba(15, 15, 15, 0.92);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-xs);
+  transition: background-color 0.4s ease, border-color 0.3s ease;
 }
 
 .scroller {
@@ -29,30 +32,40 @@
   position: relative;
   height: 36px;
   padding: 0 14px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border);
+  background: var(--glass-inner);
   color: var(--muted);
   font-size: 13px;
   font-weight: 600;
   white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--duration-fast) ease, border-color var(--duration-fast) ease, background-color var(--duration-fast) ease;
 }
 
 .pill:active {
   transform: translateY(0.5px);
 }
 
+@media (hover: hover) {
+  .pill:hover:not(.pillActive) {
+    background: var(--border);
+    border-color: var(--border-strong);
+  }
+}
+
 .pillActive {
-  color: #101010;
-  border-color: rgba(255, 140, 0, 0.55);
+  color: var(--accent-text);
+  border-color: var(--accent-border);
+  font-weight: 700;
 }
 
 .activeBg {
   position: absolute;
   inset: 0;
-  border-radius: 999px;
+  border-radius: var(--radius-full);
   background: var(--accent);
-  box-shadow: 0 10px 22px rgba(255, 140, 0, 0.18);
+  box-shadow: 0 6px 18px var(--accent-glow);
   z-index: -1;
 }
 

@@ -1,4 +1,4 @@
-/* Burger Bhau MenuSite - Auto-documented file */
+/* Burger Bhau MenuSite - Premium Floating Action Buttons */
 .wrap {
   position: fixed;
   left: 12px;
@@ -18,13 +18,21 @@
   align-items: center;
   justify-content: center;
   color: #fff;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-md);
   text-decoration: none;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: transform var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
 }
 
 .fab:active {
-  transform: scale(0.92);
+  transform: scale(0.90);
+  box-shadow: var(--shadow-xs);
+}
+
+@media (hover: hover) {
+  .fab:hover {
+    transform: scale(1.08) translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
 }
 
 .call {
@@ -32,7 +40,7 @@
 }
 
 .whatsapp {
-  background: #25d366;
+  background: var(--whatsapp);
 }
 
 @media (min-width: 641px) {

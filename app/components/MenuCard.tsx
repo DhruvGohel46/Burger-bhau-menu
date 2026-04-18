@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import Image from "next/image";
 import { MenuItem, extras as globalExtras } from "@/app/data/menu";
 import { buildCartLineId, useCartStore } from "@/app/store/cartStore";
@@ -25,6 +25,15 @@ function displayVariantLabel(category: string, variantId: string | undefined, fa
 
     return fallbackLabel;
 }
+
+const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 12 },
+    visible: { 
+        opacity: 1, 
+        y: 0,
+        transition: { duration: 0.4, ease: "easeOut" }
+    },
+};
 
 export default function MenuCard({ item }: { item: MenuItem }) {
     const cartQtyForItem = useCartStore(
@@ -109,10 +118,8 @@ export default function MenuCard({ item }: { item: MenuItem }) {
     return (
         <>
             <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-30px" }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
+                variants={itemVariants}
+                whileHover={{ y: -4, transition: { duration: 0.2 } }}
                 whileTap={{ scale: 0.98 }}
                 className={styles.card}
                 role="button"

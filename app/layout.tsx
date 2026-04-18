@@ -1,4 +1,4 @@
-// Burger Bhau MenuSite - Auto-documented file
+// Burger Bhau MenuSite - Root layout with theme support and SEO
 import type { Metadata, Viewport } from 'next';
 import { Plus_Jakarta_Sans, Outfit, Kalam } from 'next/font/google';
 import './globals.css';
@@ -72,6 +72,20 @@ export const metadata: Metadata = {
     },
 };
 
+// Inline script to set theme before paint — prevents FOUC
+const themeScript = `
+(function(){
+  try {
+    var t = localStorage.getItem('bb-theme');
+    if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  } catch(e) {}
+})();
+`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     const jsonLd = {
         "@context": "https://schema.org",
@@ -90,8 +104,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     };
 
     return (
-        <html lang="en" className={`${jakarta.variable} ${outfit.variable} ${kalam.variable} dark`}>
+        <html lang="en" className={`${jakarta.variable} ${outfit.variable} ${kalam.variable}`} suppressHydrationWarning>
             <head>
+                <script
+                    dangerouslySetInnerHTML={{ __html: themeScript }}
+                />
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

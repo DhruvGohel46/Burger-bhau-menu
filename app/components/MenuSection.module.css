@@ -1,7 +1,7 @@
-/* Burger Bhau MenuSite - Auto-documented file */
+/* Burger Bhau MenuSite - Premium Menu Section */
 .section {
   margin-bottom: var(--space-4);
-  scroll-margin-top: 120px;
+  scroll-margin-top: calc(var(--header-height) + var(--category-height) + 8px);
 }
 
 .titleRow {
@@ -13,14 +13,25 @@
 }
 
 .title {
-  font-size: 26px;
+  font-size: 24px;
   line-height: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.titleIcon {
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
 }
 
 .rule {
   height: 1px;
   flex: 1;
-  background: linear-gradient(to right, rgba(255,255,255,0.10), transparent);
+  background: linear-gradient(to right, var(--border-strong), transparent);
 }
 
 .list {

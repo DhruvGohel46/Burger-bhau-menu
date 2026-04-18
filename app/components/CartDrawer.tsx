@@ -5,7 +5,7 @@ import { selectCartCount, selectCartTotal, useCartStore } from "@/app/store/cart
 import styles from "./CartDrawer.module.css";
 import CartItem from "./CartItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBagShopping, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faBagShopping, faXmark, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
 export default function CartDrawer() {
     const cartItems = useCartStore((s) => s.cartItems);
@@ -29,7 +29,7 @@ export default function CartDrawer() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.2 }}
+                        transition={{ duration: 0.25 }}
                         onClick={() => setIsCartOpen(false)}
                         className={styles.backdrop}
                     />
@@ -53,20 +53,34 @@ export default function CartDrawer() {
                                     ({cartCount} {cartCount === 1 ? 'item' : 'items'})
                                 </span>
                             </div>
-                            <button
+                            <motion.button
                                 onClick={() => setIsCartOpen(false)}
                                 className={styles.close}
                                 aria-label="Close cart"
+                                whileTap={{ scale: 0.88 }}
                             >
                                 <FontAwesomeIcon icon={faXmark} width={18} height={18} />
-                            </button>
+                            </motion.button>
                         </div>
 
                         {/* Cart Items */}
                         <div className={styles.list}>
                             {cartItems.length === 0 ? (
                                 <div className={styles.empty}>
-                                    Your cart is empty.
+                                    <div className={styles.emptyIcon}>
+                                        <FontAwesomeIcon icon={faCartShopping} width={40} height={40} />
+                                    </div>
+                                    <h3 className={styles.emptyTitle}>Your cart is empty</h3>
+                                    <p className={styles.emptyText}>
+                                        Browse our menu and add your favourite items to get started
+                                    </p>
+                                    <motion.button
+                                        onClick={() => setIsCartOpen(false)}
+                                        className={styles.emptyBtn}
+                                        whileTap={{ scale: 0.96 }}
+                                    >
+                                        Browse Menu
+                                    </motion.button>
                                 </div>
                             ) : (
                                 cartItems.map((item) => (

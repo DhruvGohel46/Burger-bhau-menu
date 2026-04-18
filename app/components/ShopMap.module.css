@@ -1,19 +1,22 @@
-/* Burger Bhau MenuSite - Auto-documented file */
+/* Burger Bhau MenuSite - Premium Shop Map */
 .wrap {
-  margin-top: var(--space-3);
+  margin-top: var(--space-4);
+  padding: 0 8px;
 }
 
 .heading {
-  font-size: 20px;
-  margin-bottom: 12px;
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 16px;
   color: var(--text);
 }
 
 .mapContainer {
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   border: 1px solid var(--border);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  box-shadow: var(--shadow-sm);
+  background: var(--card);
 }
 
 .mapContainer iframe {
@@ -22,24 +25,29 @@
 }
 
 .mapAction {
-  margin-top: 12px;
+  margin-top: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  height: 48px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  height: 52px;
+  border-radius: var(--radius-full);
+  background: var(--glass-inner);
+  border: 1px solid var(--border-strong);
   color: var(--text);
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 15px;
+  font-weight: 800;
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: background-color var(--duration-fast) ease, transform var(--duration-fast) ease;
 }
 
 .mapAction:active {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--border);
   transform: scale(0.98);
 }
 
+@media (hover: hover) {
+  .mapAction:hover {
+    background: var(--border);
+  }
+}
