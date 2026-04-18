@@ -8,6 +8,7 @@ import FloatingCartBar from "@/app/components/FloatingCartBar";
 import FloatingActions from "@/app/components/FloatingActions";
 import CartDrawer from "@/app/components/CartDrawer";
 import OrderSummary from "@/app/components/OrderSummary";
+import GlobalItemPreview from "@/app/components/GlobalItemPreview";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -45,6 +46,9 @@ export default function Home() {
 
             {/* Order Summary Screen */}
             <OrderSummary />
+
+            {/* Global Item Preview Modal */}
+            <GlobalItemPreview />
         </main>
     );
 }

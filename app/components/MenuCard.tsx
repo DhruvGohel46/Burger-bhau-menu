@@ -7,8 +7,7 @@ import { buildCartLineId, useCartStore } from "@/app/store/cartStore";
 import styles from "./MenuCard.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { useMemo, useState } from "react";
-import ItemPreviewModal, { type ItemPreviewSelection } from "./ItemPreviewModal";
+import { useMemo } from "react";
 
 function displayVariantLabel(category: string, variantId: string | undefined, fallbackLabel: string | undefined) {
     const cat = category.toLowerCase();
@@ -41,12 +40,7 @@ export default function MenuCard({ item }: { item: MenuItem }) {
     );
     const addItem = useCartStore((s) => s.addItem);
     const decreaseQty = useCartStore((s) => s.decreaseQty);
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selection, setSelection] = useState<ItemPreviewSelection>({
-        variantId: item.variants?.[0]?.id,
-        extras: [],
-    });
+    const setPreviewItem = useCartStore((s) => s.setPreviewItem);
 
     const hasVariants = (item.variants?.length ?? 0) > 0;
 
@@ -65,8 +59,7 @@ export default function MenuCard({ item }: { item: MenuItem }) {
     const handleAdd = () => {
         const needsModal = hasVariants || allowedExtras.length > 0;
         if (needsModal) {
-            setSelection({ variantId: item.variants?.[0]?.id, extras: [] });
-            setIsModalOpen(true);
+            setPreviewItem(item);
             return;
         }
 
@@ -81,38 +74,7 @@ export default function MenuCard({ item }: { item: MenuItem }) {
     };
 
     const handleOpenPreview = () => {
-        setSelection({ variantId: item.variants?.[0]?.id, extras: [] });
-        setIsModalOpen(true);
-    };
-
-    const handleModalConfirm = () => {
-        const selectedVariant = item.variants?.find((v) => v.id === selection.variantId);
-        const basePrice = selectedVariant?.price ?? item.price ?? 0;
-        const selectedExtras = allowedExtras.filter((e) => selection.extras.includes(e.id));
-        const extrasTotal = selectedExtras.reduce((sum, e) => sum + e.price, 0);
-
-        const vLabel = selectedVariant
-            ? displayVariantLabel(item.category, selectedVariant.id, selectedVariant.label)
-            : undefined;
-
-        const lineId = buildCartLineId({
-            itemId: item.id,
-            variantId: selectedVariant?.id,
-            extras: selection.extras,
-        });
-
-        addItem({
-            id: lineId,
-            itemId: item.id,
-            name: item.name,
-            price: basePrice + extrasTotal,
-            image: item.image,
-            variantLabel: vLabel,
-            extras: selectedExtras,
-        });
-
-        setIsModalOpen(false);
-        setSelection({ variantId: item.variants?.[0]?.id, extras: [] });
+        setPreviewItem(item);
     };
 
     return (
@@ -202,16 +164,6 @@ export default function MenuCard({ item }: { item: MenuItem }) {
                     </div>
                 </div>
             </motion.div>
-
-            <ItemPreviewModal
-                open={isModalOpen}
-                item={item}
-                availableExtras={allowedExtras}
-                selection={selection}
-                onChange={setSelection}
-                onClose={() => setIsModalOpen(false)}
-                onConfirm={handleModalConfirm}
-            />
         </>
     );
 }
