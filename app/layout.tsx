@@ -1,6 +1,6 @@
 // Burger Bhau MenuSite - Root layout with theme support and SEO
 import type { Metadata, Viewport } from 'next';
-import { Plus_Jakarta_Sans, Outfit, Kalam } from 'next/font/google';
+import { Plus_Jakarta_Sans, Outfit, Kalam, Playfair_Display } from 'next/font/google';
 import './globals.css';
 
 const jakarta = Plus_Jakarta_Sans({
@@ -21,6 +21,13 @@ const kalam = Kalam({
     subsets: ['latin'],
     weight: ['400', '700'],
     variable: '--font-kalam',
+    display: 'swap',
+});
+
+const playfair = Playfair_Display({
+    subsets: ['latin'],
+    weight: ['400', '500', '600', '700'],
+    variable: '--font-playfair',
     display: 'swap',
 });
 
@@ -72,16 +79,12 @@ export const metadata: Metadata = {
     },
 };
 
-// Inline script to set theme before paint — prevents FOUC
+// Inline script to set light theme as default — prevents FOUC
 const themeScript = `
 (function(){
   try {
-    var t = localStorage.getItem('bb-theme');
-    if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+    document.documentElement.classList.remove('dark');
+    localStorage.setItem('bb-theme', 'light');
   } catch(e) {}
 })();
 `;
@@ -104,7 +107,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     };
 
     return (
-        <html lang="en" className={`${jakarta.variable} ${outfit.variable} ${kalam.variable}`} suppressHydrationWarning>
+        <html lang="en" className={`${jakarta.variable} ${outfit.variable} ${kalam.variable} ${playfair.variable}`} suppressHydrationWarning>
             <head>
                 <script
                     dangerouslySetInnerHTML={{ __html: themeScript }}

@@ -6,11 +6,11 @@
   right: 0;
   z-index: 50;
   height: var(--header-height);
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-  border-bottom: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
+  background: rgba(240, 232, 199, 0.95);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid rgba(6, 5, 4, 0.08);
+  box-shadow: 0 4px 20px rgba(6, 5, 4, 0.08);
   transition: background-color 0.4s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -41,13 +41,16 @@
 .brand {
   font-size: 22px;
   line-height: 1;
-  letter-spacing: 0.10em;
+  letter-spacing: 0.08em;
   margin: 0;
-  font-weight: 800;
+  font-weight: 1000;
+  font-family: var(--font-playfair, "Playfair Display", serif);
+  color: var(--text);
 }
 
 .brandAccent {
   color: var(--accent);
+  font-weight: 1000;
 }
 
 .actions {
@@ -69,32 +72,32 @@
   border-radius: var(--radius-md);
   border: 1px solid transparent;
   background: transparent;
-  color: var(--text);
+  color: #060504;
   cursor: pointer;
   transition: background-color var(--duration-fast) ease, transform var(--duration-fast) ease;
 }
 
 .actionBtn:active {
-  background: var(--glass-inner);
+  background: rgba(6, 5, 4, 0.06);
 }
 
 @media (hover: hover) {
   .actionBtn:hover {
-    background: var(--glass-inner);
+    background: rgba(6, 5, 4, 0.06);
   }
 }
 
 .shareBtn {
-  background: var(--accent-soft);
-  border: 1px solid var(--accent-border) !important;
-  color: var(--accent);
+  background: rgba(207, 75, 19, 0.12);
+  border: 1px solid rgba(207, 75, 19, 0.30) !important;
+  color: #CF4B13;
   animation: pulse-share 3s ease-in-out infinite;
 }
 
 @keyframes pulse-share {
-  0% { transform: scale(1); box-shadow: 0 0 0 0 var(--accent-glow); }
-  70% { transform: scale(1.03); box-shadow: 0 0 0 8px rgba(255, 140, 0, 0); }
-  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 140, 0, 0); }
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(207, 75, 19, 0.20); }
+  70% { transform: scale(1.03); box-shadow: 0 0 0 8px rgba(207, 75, 19, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(207, 75, 19, 0); }
 }
 
 .actionLabel {
@@ -114,7 +117,7 @@
   padding: 4px 10px;
   border-radius: var(--radius-sm);
   background: var(--accent);
-  color: var(--accent-text);
+  color: #ffffff;
   font-size: 11px;
   font-weight: 800;
   white-space: nowrap;
@@ -139,12 +142,12 @@
   padding: 0 5px;
   border-radius: var(--radius-full);
   background: var(--accent);
-  color: var(--accent-text);
+  color: #ffffff;
   font-size: 11px;
-  font-weight: 800;
+  font-weight: 700;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px var(--accent-glow);
+  box-shadow: 0 4px 12px rgba(207, 75, 19, 0.40);
   line-height: 1;
 }

@@ -14,14 +14,14 @@
   width: 100%;
   max-width: 640px;
   margin: 0 auto;
-  height: 68px;
-  padding: 0 16px;
+  height: 72px;
+  padding: 0 20px;
   border-radius: var(--radius-full);
-  border: 1px solid var(--glass-border);
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-  box-shadow: var(--shadow-float);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  background: rgba(240, 232, 199, 0.95);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  box-shadow: 0 8px 32px rgba(6, 5, 4, 0.15);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -42,33 +42,34 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: var(--text);
+  color: #060504;
 }
 
 .countBadge {
   position: absolute;
   top: -6px;
   right: -8px;
-  min-width: 16px;
-  height: 16px;
-  padding: 0 4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
   border-radius: var(--radius-full);
   background: var(--accent);
-  color: var(--accent-text);
-  font-size: 10px;
-  font-weight: 900;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   line-height: 1;
-  box-shadow: 0 2px 8px var(--accent-glow);
+  box-shadow: 0 4px 12px rgba(207, 75, 19, 0.40);
 }
 
 .itemsText {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  color: #060504;
   margin-left: 4px;
+  font-family: var(--font-jakarta, "Plus Jakarta Sans", sans-serif);
 }
 
 .right {
@@ -78,18 +79,19 @@
 }
 
 .total {
-  font-size: 15px;
-  font-weight: 900;
-  color: var(--text);
+  font-size: 16px;
+  font-weight: 700;
+  color: #060504;
+  font-family: var(--font-jakarta, "Plus Jakarta Sans", sans-serif);
 }
 
 .view {
   border: none;
   background: var(--accent);
-  color: var(--accent-text);
-  font-weight: 900;
-  height: 42px;
-  padding: 0 16px;
+  color: #ffffff;
+  font-weight: 600;
+  height: 44px;
+  padding: 0 18px;
   border-radius: var(--radius-full);
   display: inline-flex;
   align-items: center;
@@ -97,19 +99,20 @@
   gap: 6px;
   line-height: 1;
   white-space: nowrap;
-  font-size: 13px;
-  box-shadow: 0 4px 14px var(--accent-glow);
+  font-size: 14px;
+  box-shadow: 0 6px 20px rgba(207, 75, 19, 0.35);
   transition: transform var(--duration-fast) ease, background-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
+  font-family: var(--font-jakarta, "Plus Jakarta Sans", sans-serif);
 }
 
 @media (hover: hover) {
   .view:hover {
     background: var(--accent-hover);
     transform: scale(1.02);
-    box-shadow: 0 6px 20px var(--accent-glow);
+    box-shadow: 0 8px 24px rgba(207, 75, 19, 0.45);
   }
 }
 
 .view:active {
-  transform: scale(0.95);
+  transform: scale(0.96);
 }

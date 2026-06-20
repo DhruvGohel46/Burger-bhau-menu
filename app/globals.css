@@ -5,36 +5,36 @@
 
 /* ─── Light Theme (default) ──────────────────────────────── */
 :root {
-  /* Surfaces */
-  --bg: #f6f5f2;
-  --bg-secondary: #edecea;
-  --card: #ffffff;
-  --card-hover: #fafafa;
+  /* Surfaces - Premium warm minimalist palette */
+  --bg: #F0E8C7; /* Soft cream background */
+  --bg-secondary: #E8DFB8;
+  --card: #060504; /* Rich charcoal dark-mode cards */
+  --card-hover: #1a1816;
 
   /* Text */
-  --text: #1a1a1a;
-  --text-secondary: #555555;
-  --muted: rgba(26, 26, 26, 0.72);
-  --muted-2: rgba(26, 26, 26, 0.50);
+  --text: #060504;
+  --text-secondary: #4a4540;
+  --muted: rgba(6, 5, 4, 0.72);
+  --muted-2: rgba(6, 5, 4, 0.50);
 
   /* Borders & Dividers */
-  --border: rgba(0, 0, 0, 0.07);
-  --border-strong: rgba(0, 0, 0, 0.12);
+  --border: rgba(6, 5, 4, 0.08);
+  --border-strong: rgba(6, 5, 4, 0.15);
 
-  /* Brand accent */
-  --accent: #ff8c00;
-  --accent-hover: #e67e00;
-  --accent-soft: rgba(255, 140, 0, 0.12);
-  --accent-border: rgba(255, 140, 0, 0.30);
-  --accent-glow: rgba(255, 140, 0, 0.20);
-  --accent-text: #101010;
+  /* Brand accent - Warm terracotta orange */
+  --accent: #CF4B13;
+  --accent-hover: #b83d10;
+  --accent-soft: rgba(207, 75, 19, 0.12);
+  --accent-border: rgba(207, 75, 19, 0.30);
+  --accent-glow: rgba(207, 75, 19, 0.20);
+  --accent-text: #ffffff;
 
-  /* Glass system */
-  --glass-bg: rgba(255, 255, 255, 0.72);
-  --glass-border: rgba(255, 255, 255, 0.55);
-  --glass-blur: 20px;
-  --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
-  --glass-inner: rgba(255, 255, 255, 0.35);
+  /* Glass system - Warm cream glass */
+  --glass-bg: rgba(240, 232, 199, 0.85);
+  --glass-border: rgba(240, 232, 199, 0.90);
+  --glass-blur: 24px;
+  --glass-shadow: 0 8px 32px rgba(6, 5, 4, 0.12);
+  --glass-inner: rgba(255, 255, 255, 0.40);
 
   /* Depth / Shadows */
   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
@@ -44,12 +44,12 @@
   --shadow-float: 0 16px 48px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06);
   --shadow-sheet: 0 -16px 60px rgba(0, 0, 0, 0.15);
 
-  /* Rounded corners */
-  --radius-xs: 6px;
-  --radius-sm: 10px;
-  --radius-md: 16px;
-  --radius-lg: 22px;
-  --radius-xl: 28px;
+  /* Rounded corners - Premium smooth rounded */
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
   --radius-full: 999px;
 
   /* Spacing */
@@ -158,10 +158,10 @@ body {
 /* ─── Typography ──────────────────────────────────────────── */
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
-  font-family: var(--font-outfit, "Outfit", system-ui, -apple-system, Segoe UI, Roboto, sans-serif);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  line-height: 1.2;
+  font-family: var(--font-playfair, "Playfair Display", serif);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
 p {

@@ -1,12 +1,12 @@
 /* Burger Bhau MenuSite - Premium 3D Depth Menu Card */
 .card {
   display: flex;
-  gap: 12px;
-  padding: 12px;
+  gap: 16px;
+  padding: 16px;
   border-radius: var(--radius-lg);
   background: var(--card);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.30);
   overflow: hidden;
   cursor: pointer;
   transition:
@@ -19,28 +19,28 @@
 /* Desktop hover: 3D lift */
 @media (hover: hover) {
   .card:hover {
-    box-shadow: var(--shadow-lg);
-    border-color: var(--border-strong);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.40);
+    border-color: rgba(255, 255, 255, 0.12);
     background: var(--card-hover);
-    transform: translateY(-2px);
+    transform: translateY(-4px);
   }
 }
 
 /* Mobile tap */
 .card:active {
-  transform: scale(0.985);
-  box-shadow: var(--shadow-xs);
+  transform: scale(0.98);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
 .imageWrap {
   position: relative;
-  width: 82px;
-  height: 82px;
+  width: 90px;
+  height: 90px;
   border-radius: var(--radius-md);
   overflow: hidden;
   flex: 0 0 auto;
-  background: var(--border);
-  box-shadow: var(--shadow-xs);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.20);
 }
 
 .imageWrap :global(img) {
@@ -57,22 +57,23 @@
 }
 
 .title {
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 600;
   line-height: 1.2;
   margin: 0;
-  color: var(--text);
+  color: #ffffff;
+  font-family: var(--font-playfair, "Playfair Display", serif);
 }
 
 .desc {
-  margin-top: 3px;
-  font-size: 12px;
-  line-height: 1.3;
-  color: var(--muted-2);
+  margin-top: 4px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.85);
   overflow: hidden;
   display: -webkit-box;
-  line-clamp: 1;
-  -webkit-line-clamp: 1;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
 
@@ -86,32 +87,34 @@
 
 .price {
   color: var(--accent);
-  font-weight: 800;
-  font-size: 15px;
+  font-weight: 700;
+  font-size: 16px;
+  font-family: var(--font-jakarta, "Plus Jakarta Sans", sans-serif);
 }
 
 .addButton {
-  height: 38px;
-  padding: 0 16px;
+  height: 40px;
+  padding: 0 20px;
   border-radius: var(--radius-full);
-  border: 1px solid var(--accent-border);
-  background: var(--accent-soft);
-  color: var(--text);
-  font-weight: 800;
-  font-size: 13px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 14px;
   cursor: pointer;
   transition:
     background-color var(--duration-fast) ease,
     box-shadow var(--duration-fast) ease,
     transform var(--duration-fast) ease;
+  font-family: var(--font-jakarta, "Plus Jakarta Sans", sans-serif);
 }
 
 @media (hover: hover) {
   .addButton:hover {
-    background: var(--accent);
-    color: var(--accent-text);
-    box-shadow: 0 4px 14px var(--accent-glow);
-    border-color: var(--accent);
+    background: var(--accent-hover);
+    color: #ffffff;
+    box-shadow: 0 6px 20px rgba(207, 75, 19, 0.35);
+    border-color: var(--accent-hover);
   }
 }
 
@@ -120,42 +123,43 @@
 }
 
 .qty {
-  height: 38px;
+  height: 40px;
   display: inline-flex;
   align-items: center;
   border-radius: var(--radius-full);
-  border: 1px solid var(--border-strong);
-  background: var(--glass-inner);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
   overflow: hidden;
 }
 
 .qtyBtn {
   width: 40px;
-  height: 38px;
+  height: 40px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border: none;
   background: transparent;
-  color: var(--text);
+  color: #ffffff;
   cursor: pointer;
   transition: background-color var(--duration-fast) ease;
 }
 
 .qtyBtn:active {
-  background: var(--border);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 @media (hover: hover) {
   .qtyBtn:hover {
-    background: var(--border);
+    background: rgba(255, 255, 255, 0.12);
   }
 }
 
 .qtyVal {
-  width: 30px;
+  width: 32px;
   text-align: center;
-  font-weight: 800;
-  font-size: 14px;
-  color: var(--text);
+  font-weight: 700;
+  font-size: 15px;
+  color: #ffffff;
+  font-family: var(--font-jakarta, "Plus Jakarta Sans", sans-serif);
 }

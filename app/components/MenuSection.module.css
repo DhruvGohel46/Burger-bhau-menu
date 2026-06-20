@@ -18,8 +18,10 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  color: var(--text);
+  color: #060504;
   white-space: nowrap;
+  font-family: var(--font-playfair, "Playfair Display", serif);
+  font-weight: 500;
 }
 
 .titleIcon {

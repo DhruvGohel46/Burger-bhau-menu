@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import styles from "./ItemModal.module.css";
 import type { MenuExtra, MenuItem, MenuVariant } from "@/app/data/menu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -100,73 +101,89 @@ export default function ItemModal({
                 aria-modal="true"
                 onClick={(e) => e.stopPropagation()}
             >
-                <div className={styles.header}>
-                    <div style={{ minWidth: 0 }}>
-                        <div className={styles.title}>{item.name}</div>
-                        <div className={styles.desc}>{item.description}</div>
+                {/* Hero Image Section */}
+                <div className={styles.heroSection}>
+                    <div className={styles.heroImage}>
+                        <Image
+                            src={item.image}
+                            alt={item.name}
+                            fill
+                            className={styles.heroImg}
+                            priority
+                        />
                     </div>
                     <button className={styles.close} onClick={onClose} aria-label="Close">
-                        <FontAwesomeIcon icon={faXmark} width={18} height={18} />
+                        <FontAwesomeIcon icon={faXmark} width={20} height={20} />
                     </button>
                 </div>
 
-                {hasVariants && (
-                    <div className={styles.section}>
-                        <div className={styles.sectionTitle}>Choose size</div>
-                        <div className={styles.options}>
-                            {variants.map((v) => {
-                                const active = v.id === selectedVariant?.id;
-                                return (
-                                    <button
-                                        key={v.id}
-                                        className={styles.option}
-                                        onClick={() => setVariant(v.id)}
-                                        type="button"
-                                    >
-                                        <span className={styles.optionLeft}>
-                                            <span className={`${styles.dot} ${active ? styles.dotOn : ""}`} />
-                                            <span className={styles.optionLabel}>{displayVariantLabel(item.category, v)}</span>
-                                        </span>
-                                        <span className={styles.optionPrice}>{formatPrice(v.price)}</span>
-                                    </button>
-                                );
-                            })}
+                {/* Dark Customization Panel */}
+                <div className={styles.customizationPanel}>
+                    <div className={styles.header}>
+                        <div style={{ minWidth: 0 }}>
+                            <div className={styles.title}>{item.name}</div>
+                            <div className={styles.desc}>{item.description}</div>
                         </div>
                     </div>
-                )}
 
-                {availableExtras.length > 0 && (
-                    <div className={styles.section}>
-                        <div className={styles.sectionTitle}>Extras</div>
-                        <div className={styles.options}>
-                            {availableExtras.map((e) => {
-                                const active = selection.extras.includes(e.id);
-                                return (
-                                    <button
-                                        key={e.id}
-                                        className={styles.option}
-                                        onClick={() => toggleExtra(e.id)}
-                                        type="button"
-                                    >
-                                        <span className={styles.optionLeft}>
-                                            <span className={`${styles.check} ${active ? styles.checkOn : ""}`} />
-                                            <span className={styles.optionLabel}>{e.name}</span>
-                                        </span>
-                                        <span className={styles.optionPrice}>+{formatPrice(e.price)}</span>
-                                    </button>
-                                );
-                            })}
+                    {hasVariants && (
+                        <div className={styles.section}>
+                            <div className={styles.sectionTitle}>Choose size</div>
+                            <div className={styles.options}>
+                                {variants.map((v) => {
+                                    const active = v.id === selectedVariant?.id;
+                                    return (
+                                        <button
+                                            key={v.id}
+                                            className={styles.option}
+                                            onClick={() => setVariant(v.id)}
+                                            type="button"
+                                        >
+                                            <span className={styles.optionLeft}>
+                                                <span className={`${styles.dot} ${active ? styles.dotOn : ""}`} />
+                                                <span className={styles.optionLabel}>{displayVariantLabel(item.category, v)}</span>
+                                            </span>
+                                            <span className={styles.optionPrice}>{formatPrice(v.price)}</span>
+                                        </button>
+                                    );
+                                })}
+                            </div>
                         </div>
-                    </div>
-                )}
+                    )}
 
-                <div className={styles.footer}>
-                    <button className={styles.secondary} onClick={onClose} type="button">
-                        Cancel
-                    </button>
-                    <button className={styles.primary} onClick={onConfirm} type="button">
-                        Add to Cart <span className={styles.total}>{formatPrice(total)}</span>
-                    </button>
+                    {availableExtras.length > 0 && (
+                        <div className={styles.section}>
+                            <div className={styles.sectionTitle}>Extras</div>
+                            <div className={styles.options}>
+                                {availableExtras.map((e) => {
+                                    const active = selection.extras.includes(e.id);
+                                    return (
+                                        <button
+                                            key={e.id}
+                                            className={styles.option}
+                                            onClick={() => toggleExtra(e.id)}
+                                            type="button"
+                                        >
+                                            <span className={styles.optionLeft}>
+                                                <span className={`${styles.check} ${active ? styles.checkOn : ""}`} />
+                                                <span className={styles.optionLabel}>{e.name}</span>
+                                            </span>
+                                            <span className={styles.optionPrice}>+{formatPrice(e.price)}</span>
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    )}
+
+                    <div className={styles.footer}>
+                        <button className={styles.secondary} onClick={onClose} type="button">
+                            Cancel
+                        </button>
+                        <button className={styles.primary} onClick={onConfirm} type="button">
+                            Add to Cart <span className={styles.total}>{formatPrice(total)}</span>
+                        </button>
+                    </div>
                 </div>
             </motion.div>
         </AnimatePresence>
