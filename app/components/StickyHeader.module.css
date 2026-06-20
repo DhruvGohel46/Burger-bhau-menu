@@ -41,16 +41,16 @@
 .brand {
   font-size: 22px;
   line-height: 1;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
   margin: 0;
-  font-weight: 1000;
-  font-family: var(--font-playfair, "Playfair Display", serif);
-  color: var(--text);
+  font-weight: 750;
+  font-family: 'googlesans', sans-serif;
+  color:black;
 }
 
 .brandAccent {
   color: var(--accent);
-  font-weight: 1000;
+  font-weight: 800;
 }
 
 .actions {

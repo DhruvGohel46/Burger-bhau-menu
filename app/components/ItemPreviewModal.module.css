@@ -155,7 +155,7 @@
   padding: 0 14px;
   border-radius: var(--radius-full);
   border: 1px solid var(--border);
-  background: var(--glass-inner);
+  background: var(--accent-soft);
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -173,7 +173,7 @@
 
 .chipOn {
   border-color: var(--accent-border);
-  background: var(--accent-soft);
+  background: var(--glass-inner);
   box-shadow: 0 2px 12px var(--accent-glow);
 }
 
