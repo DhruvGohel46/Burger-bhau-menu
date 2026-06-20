@@ -16,8 +16,8 @@
       "description": "Crispy aloo tikki inside soft bun with fresh onion, lettuce and tangy sauce. Proper desi street burger, garma garam and full mast flavour.",
       "image": "/productimage/burger/aalu-tikki-burger.jpg",
       "variants": [
-        { "id": "regular", "label": "Regular", "price": 30 },
-        { "id": "jumbo", "label": "Jumbo", "price": 40 }
+        { "id": "regular", "label": "Regular", "price": 40 },
+        { "id": "jumbo", "label": "Jumbo", "price": 50 }
       ]
     },
     {
@@ -27,8 +27,8 @@
       "description": "Spicy schezwan sauce with crunchy veggies and juicy veg patty inside toasted bun. Slight Indo-Chinese kick, perfect for spice lovers.",
       "image": "/productimage/burger/burger-schezwan.jpg",
       "variants": [
-        { "id": "regular", "label": "Regular", "price": 30 },
-        { "id": "jumbo", "label": "Jumbo", "price": 40 }
+        { "id": "regular", "label": "Regular", "price": 40 },
+        { "id": "jumbo", "label": "Jumbo", "price": 50 }
       ]
     },
     {
