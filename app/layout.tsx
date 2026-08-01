@@ -41,7 +41,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-    metadataBase: new URL('https://burgerbhau.netlify.com'),
+    metadataBase: new URL('https://burgerbhau.netlify.app'),
     title: 'Burger Bhau (Kothariya) | Premium Fast Food Menu',
     description: 'Order handcrafted burgers, pizzas, and more from Burger Bhau (Kothariya). Fresh, delicious, and premium fast food in Rajkot.',
     applicationName: 'Burger Bhau (Kothariya)',
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
         title: 'Burger Bhau (Kothariya) – Premium Handcrafted Fast Food',
         description: 'Order handcrafted burgers, pizzas, and more from Burger Bhau (Kothariya).',
         siteName: 'Burger Bhau',
-        url: 'https://burgerbhau.netlify.com',
+        url: 'https://burgerbhau.netlify.app',
         images: [
             {
                 url: '/BURGER-BHAU-logo.webp',
@@ -96,8 +96,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         "@context": "https://schema.org",
         "@type": "Restaurant",
         "name": "Burger Bhau (Kothariya)",
-        "url": "https://burgerbhau.netlify.com",
-        "image": "https://burgerbhau.netlify.com/BURGER-BHAU-logo.webp",
+        "url": "https://burgerbhau.netlify.app",
+        "image": "https://burgerbhau.netlify.app/BURGER-BHAU-logo.webp",
         "servesCuisine": "Fast Food, Burgers, Pizza, Sandwich",
         "address": {
             "@type": "PostalAddress",

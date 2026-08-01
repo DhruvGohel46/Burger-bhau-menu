@@ -32,8 +32,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     const pathname = usePathname();
     const { user, profile, isLoading, signOut } = useAuthStore();
 
-    // If on /admin/login, bypass layout wrapper sidebar
-    const isLoginPage = pathname === "/admin/login";
+    // If on /admin/login (with or without trailing slash), bypass layout wrapper sidebar
+    const isLoginPage = pathname?.startsWith("/admin/login");
 
     useEffect(() => {
         if (!isLoading && !isLoginPage) {
@@ -86,7 +86,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 {/* Nav Links */}
                 <nav style={{ display: "flex", flexDirection: "column", gap: "6px", flex: 1 }}>
                     {NAV_ITEMS.map((item) => {
-                        const isActive = pathname === item.href;
+                        const isActive = pathname === item.href || pathname === `${item.href}/`;
                         return (
                             <Link
                                 key={item.href}

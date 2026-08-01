@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { uploadImageToSupabase } from "@/lib/storage";
-import { MenuItem, MenuCategory } from "@/app/data/menu";
+import { MenuItem, MenuCategory, MenuVariant } from "@/app/data/menu";
 import menuJsonData from "@/app/data/menu.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faEdit, faTrash, faUpload, faLeaf } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faEdit, faTrash, faUpload, faTag } from "@fortawesome/free-solid-svg-icons";
 
 export default function AdminMenuPage() {
     const [categories, setCategories] = useState<MenuCategory[]>([]);
@@ -25,7 +25,7 @@ export default function AdminMenuPage() {
     const [prodDesc, setProdDesc] = useState("");
     const [prodImage, setProdImage] = useState("");
     const [prodPrice, setProdPrice] = useState<number>(0);
-    const [isVeg, setIsVeg] = useState(true);
+    const [prodVariants, setProdVariants] = useState<MenuVariant[]>([]);
     const [isBestseller, setIsBestseller] = useState(false);
     const [isRecommended, setIsRecommended] = useState(false);
     const [isNew, setIsNew] = useState(false);
@@ -83,7 +83,7 @@ export default function AdminMenuPage() {
             setProdDesc(product.description || "");
             setProdImage(product.image || "");
             setProdPrice(product.price || 0);
-            setIsVeg(product.is_veg ?? true);
+            setProdVariants(product.variants ? [...product.variants] : []);
             setIsBestseller(product.is_bestseller ?? false);
             setIsRecommended(product.is_recommended ?? false);
             setIsNew(product.is_new ?? false);
@@ -91,11 +91,14 @@ export default function AdminMenuPage() {
             setEditProduct(null);
             setProdId(`item-${Date.now()}`);
             setProdName("");
-            setProdCat(categories[0]?.name || "Burgers");
+            setProdCat(categories[0]?.name || "Burger");
             setProdDesc("");
-            setProdImage("/productimage/burger-default.png");
-            setProdPrice(99);
-            setIsVeg(true);
+            setProdImage("/productimage/burger/aalu-tikki-burger.jpg");
+            setProdPrice(40);
+            setProdVariants([
+                { id: "regular", label: "Without Cheese", price: 40 },
+                { id: "cheese", label: "With Cheese", price: 50 },
+            ]);
             setIsBestseller(false);
             setIsRecommended(false);
             setIsNew(false);
@@ -103,8 +106,30 @@ export default function AdminMenuPage() {
         setIsProductModalOpen(true);
     };
 
+    const handleAddVariant = () => {
+        setProdVariants((prev) => [
+            ...prev,
+            { id: `variant-${Date.now()}`, label: "New Option", price: 50 },
+        ]);
+    };
+
+    const handleUpdateVariant = (index: number, key: keyof MenuVariant, value: string | number) => {
+        setProdVariants((prev) => {
+            const updated = [...prev];
+            updated[index] = { ...updated[index], [key]: value };
+            return updated;
+        });
+    };
+
+    const handleRemoveVariant = (index: number) => {
+        setProdVariants((prev) => prev.filter((_, i) => i !== index));
+    };
+
     const handleSaveProduct = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        // Base price calculation from variants if variants exist
+        const computedPrice = prodVariants.length > 0 ? prodVariants[0].price : Number(prodPrice);
 
         const { error } = await supabase.from("products").upsert({
             id: prodId,
@@ -112,8 +137,8 @@ export default function AdminMenuPage() {
             name: prodName,
             description: prodDesc,
             image: prodImage,
-            price: Number(prodPrice),
-            is_veg: isVeg,
+            price: computedPrice,
+            variants: prodVariants,
             is_bestseller: isBestseller,
             is_recommended: isRecommended,
             is_new: isNew,
@@ -138,6 +163,17 @@ export default function AdminMenuPage() {
         }
     };
 
+    const formatProductPrice = (p: MenuItem) => {
+        if (p.variants && p.variants.length > 0) {
+            const prices = p.variants.map((v) => v.price);
+            const min = Math.min(...prices);
+            const max = Math.max(...prices);
+            if (min === max) return `₹${min}`;
+            return `₹${min} - ₹${max}`;
+        }
+        return `₹${p.price || 0}`;
+    };
+
     return (
         <div>
             {/* Header */}
@@ -147,7 +183,7 @@ export default function AdminMenuPage() {
                         Menu Management
                     </h1>
                     <p style={{ fontSize: "14px", color: "#888", marginTop: "4px" }}>
-                        Manage items, prices, image uploads (Supabase Storage), and product badges.
+                        Manage menu items, price variants (e.g. Without Cheese / With Cheese), image uploads, and badges.
                     </p>
                 </div>
                 <button
@@ -181,8 +217,7 @@ export default function AdminMenuPage() {
                                 <th style={{ padding: "14px" }}>Image</th>
                                 <th style={{ padding: "14px" }}>Item Name</th>
                                 <th style={{ padding: "14px" }}>Category</th>
-                                <th style={{ padding: "14px" }}>Type</th>
-                                <th style={{ padding: "14px" }}>Price</th>
+                                <th style={{ padding: "14px" }}>Price / Variants</th>
                                 <th style={{ padding: "14px" }}>Badges</th>
                                 <th style={{ padding: "14px" }}>Actions</th>
                             </tr>
@@ -191,19 +226,22 @@ export default function AdminMenuPage() {
                             {products.map((p) => (
                                 <tr key={p.id} style={{ borderBottom: "1px solid #1e1e1e" }}>
                                     <td style={{ padding: "14px" }}>
-                                        <img src={p.image} alt={p.name} style={{ width: "40px", height: "40px", borderRadius: "6px", objectFit: "cover" }} />
+                                        <img src={p.image} alt={p.name} style={{ width: "42px", height: "42px", borderRadius: "8px", objectFit: "cover" }} />
                                     </td>
                                     <td style={{ padding: "14px", fontWeight: "700", color: "#fff" }}>{p.name}</td>
                                     <td style={{ padding: "14px", color: "#ff8c00" }}>{p.category}</td>
                                     <td style={{ padding: "14px" }}>
-                                        <span style={{ fontSize: "12px", color: p.is_veg ? "#28a745" : "#ff4444", fontWeight: "700" }}>
-                                            {p.is_veg ? "🟢 Veg" : "🔴 Non-Veg"}
-                                        </span>
+                                        <div style={{ fontWeight: "700", color: "#28a745" }}>{formatProductPrice(p)}</div>
+                                        {p.variants && p.variants.length > 0 && (
+                                            <div style={{ fontSize: "11px", color: "#aaa", marginTop: "2px" }}>
+                                                {p.variants.map((v) => v.label).join(", ")}
+                                            </div>
+                                        )}
                                     </td>
-                                    <td style={{ padding: "14px", fontWeight: "700", color: "#28a745" }}>₹{p.price}</td>
                                     <td style={{ padding: "14px", fontSize: "11px" }}>
                                         {p.is_bestseller && <span style={{ backgroundColor: "#ff8c00", color: "#000", padding: "2px 6px", borderRadius: "4px", fontWeight: "700", marginRight: "4px" }}>Bestseller</span>}
-                                        {p.is_recommended && <span style={{ backgroundColor: "#17a2b8", color: "#fff", padding: "2px 6px", borderRadius: "4px", fontWeight: "700" }}>Recommended</span>}
+                                        {p.is_recommended && <span style={{ backgroundColor: "#17a2b8", color: "#fff", padding: "2px 6px", borderRadius: "4px", fontWeight: "700", marginRight: "4px" }}>Recommended</span>}
+                                        {p.is_new && <span style={{ backgroundColor: "#28a745", color: "#fff", padding: "2px 6px", borderRadius: "4px", fontWeight: "700" }}>New</span>}
                                     </td>
                                     <td style={{ padding: "14px" }}>
                                         <div style={{ display: "flex", gap: "8px" }}>
@@ -226,17 +264,17 @@ export default function AdminMenuPage() {
             {isProductModalOpen && (
                 <div style={{
                     position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
-                    backgroundColor: "rgba(0,0,0,0.8)",
+                    backgroundColor: "rgba(0,0,0,0.85)",
                     display: "flex", alignItems: "center", justifyContent: "center", padding: "20px", zIndex: 1000,
                 }}>
                     <div style={{
-                        backgroundColor: "#161616", border: "1px solid #333", borderRadius: "16px", padding: "24px", maxWidth: "520px", width: "100%", maxHeight: "90vh", overflowY: "auto",
+                        backgroundColor: "#161616", border: "1px solid #333", borderRadius: "16px", padding: "24px", maxWidth: "580px", width: "100%", maxHeight: "90vh", overflowY: "auto",
                     }}>
                         <h3 style={{ fontSize: "18px", fontWeight: "800", color: "#ff8c00", marginBottom: "16px" }}>
                             {editProduct ? "Edit Product" : "Add New Product"}
                         </h3>
 
-                        <form onSubmit={handleSaveProduct} style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                        <form onSubmit={handleSaveProduct} style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
                             <div>
                                 <label style={{ display: "block", fontSize: "12px", color: "#aaa", marginBottom: "4px" }}>Item Name</label>
                                 <input type="text" required value={prodName} onChange={(e) => setProdName(e.target.value)} style={{ width: "100%", padding: "10px", backgroundColor: "#202020", border: "1px solid #444", borderRadius: "6px", color: "#fff" }} />
@@ -252,9 +290,57 @@ export default function AdminMenuPage() {
                                     </select>
                                 </div>
                                 <div>
-                                    <label style={{ display: "block", fontSize: "12px", color: "#aaa", marginBottom: "4px" }}>Price (₹)</label>
+                                    <label style={{ display: "block", fontSize: "12px", color: "#aaa", marginBottom: "4px" }}>Base Price (₹)</label>
                                     <input type="number" required value={prodPrice} onChange={(e) => setProdPrice(Number(e.target.value))} style={{ width: "100%", padding: "10px", backgroundColor: "#202020", border: "1px solid #444", borderRadius: "6px", color: "#fff" }} />
                                 </div>
+                            </div>
+
+                            {/* Price Variants Section */}
+                            <div style={{ backgroundColor: "#202020", border: "1px solid #333", borderRadius: "10px", padding: "14px" }}>
+                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px" }}>
+                                    <label style={{ fontSize: "13px", fontWeight: "700", color: "#ff8c00", display: "flex", alignItems: "center", gap: "6px" }}>
+                                        <FontAwesomeIcon icon={faTag} /> Price Variants (e.g. Without Cheese / With Cheese)
+                                    </label>
+                                    <button
+                                        type="button"
+                                        onClick={handleAddVariant}
+                                        style={{ padding: "4px 10px", backgroundColor: "#ff8c00", color: "#000", border: "none", borderRadius: "6px", fontWeight: "700", fontSize: "11px", cursor: "pointer" }}
+                                    >
+                                        + Add Variant Option
+                                    </button>
+                                </div>
+
+                                {prodVariants.length === 0 ? (
+                                    <p style={{ fontSize: "12px", color: "#777", margin: 0 }}>No price variants configured. Standard single price (₹{prodPrice}) will apply.</p>
+                                ) : (
+                                    <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                                        {prodVariants.map((variant, idx) => (
+                                            <div key={variant.id || idx} style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+                                                <input
+                                                    type="text"
+                                                    placeholder="Variant Label (e.g. With Cheese)"
+                                                    value={variant.label}
+                                                    onChange={(e) => handleUpdateVariant(idx, "label", e.target.value)}
+                                                    style={{ flex: 2, padding: "8px", backgroundColor: "#141414", border: "1px solid #444", borderRadius: "6px", color: "#fff", fontSize: "12px" }}
+                                                />
+                                                <input
+                                                    type="number"
+                                                    placeholder="Price (₹)"
+                                                    value={variant.price}
+                                                    onChange={(e) => handleUpdateVariant(idx, "price", Number(e.target.value))}
+                                                    style={{ flex: 1, padding: "8px", backgroundColor: "#141414", border: "1px solid #444", borderRadius: "6px", color: "#fff", fontSize: "12px" }}
+                                                />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => handleRemoveVariant(idx)}
+                                                    style={{ padding: "8px 10px", backgroundColor: "rgba(255,68,68,0.2)", border: "1px solid #ff4444", color: "#ff6b6b", borderRadius: "6px", cursor: "pointer", fontSize: "12px" }}
+                                                >
+                                                    <FontAwesomeIcon icon={faTrash} />
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
 
                             {/* Image Upload Control */}
@@ -266,16 +352,16 @@ export default function AdminMenuPage() {
                                 </div>
                             </div>
 
-                            {/* Veg / Non-Veg & Badges */}
+                            {/* Badges Toggle */}
                             <div style={{ backgroundColor: "#202020", padding: "12px", borderRadius: "8px", display: "flex", flexDirection: "column", gap: "8px" }}>
-                                <label style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "13px", color: "#fff" }}>
-                                    <input type="checkbox" checked={isVeg} onChange={(e) => setIsVeg(e.target.checked)} /> Pure Veg Item 🟢
-                                </label>
                                 <label style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "13px", color: "#fff" }}>
                                     <input type="checkbox" checked={isBestseller} onChange={(e) => setIsBestseller(e.target.checked)} /> Mark as Bestseller ⭐
                                 </label>
                                 <label style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "13px", color: "#fff" }}>
                                     <input type="checkbox" checked={isRecommended} onChange={(e) => setIsRecommended(e.target.checked)} /> Recommended Item 👍
+                                </label>
+                                <label style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "13px", color: "#fff" }}>
+                                    <input type="checkbox" checked={isNew} onChange={(e) => setIsNew(e.target.checked)} /> New Arrival ✨
                                 </label>
                             </div>
 

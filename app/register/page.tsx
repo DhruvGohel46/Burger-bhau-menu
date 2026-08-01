@@ -43,15 +43,19 @@ export default function RegisterPage() {
             }
 
             if (data.user) {
-                // Upsert profile details directly as well to ensure DB sync
-                await supabase.from("profiles").upsert({
-                    id: data.user.id,
-                    email,
-                    name,
-                    phone,
-                    address,
-                    role: "customer",
-                });
+                // Try updating profile row created by trigger if session is active
+                try {
+                    await supabase.from("profiles").upsert({
+                        id: data.user.id,
+                        email,
+                        name,
+                        phone,
+                        address,
+                        role: "customer",
+                    });
+                } catch {
+                    // Trigger automatically handles creation in DB
+                }
 
                 await fetchProfile(data.user.id, email);
                 router.push("/profile");
