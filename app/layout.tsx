@@ -89,6 +89,8 @@ const themeScript = `
 })();
 `;
 
+import AuthProvider from '@/app/components/AuthProvider';
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     const jsonLd = {
         "@context": "https://schema.org",
@@ -118,7 +120,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 />
             </head>
             <body>
-                {children}
+                <AuthProvider>
+                    {children}
+                </AuthProvider>
             </body>
         </html>
     );

@@ -1,14 +1,17 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { selectCartCount, useCartStore } from "@/app/store/cartStore";
+import { useAuthStore } from "@/store/authStore";
 import { SHOP_NAME, WEBSITE_URL } from "@/app/data/shopConfig";
 import styles from "./StickyHeader.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBagShopping, faShareNodes } from "@fortawesome/free-solid-svg-icons";
+import { faBagShopping, faShareNodes, faUser, faBoxOpen } from "@fortawesome/free-solid-svg-icons";
 
 export default function StickyHeader() {
+    const { user } = useAuthStore();
     const cartCount = useCartStore(selectCartCount);
     const setIsCartOpen = useCartStore((s) => s.setIsCartOpen);
     const [copied, setCopied] = useState(false);
@@ -55,6 +58,29 @@ export default function StickyHeader() {
 
                 {/* Actions */}
                 <div className={styles.actions}>
+                    {/* Orders / Profile Link */}
+                    <Link
+                        href={user ? "/profile" : "/login"}
+                        className={styles.actionBtn}
+                        aria-label="User profile or login"
+                        style={{ display: "flex", alignItems: "center", gap: "6px", textDecoration: "none", color: "#fff" }}
+                    >
+                        <FontAwesomeIcon icon={faUser} width={16} height={16} color="var(--accent)" />
+                        <span className={styles.actionLabel}>{user ? "Profile" : "Login"}</span>
+                    </Link>
+
+                    {user && (
+                        <Link
+                            href="/orders"
+                            className={styles.actionBtn}
+                            aria-label="My orders"
+                            style={{ display: "flex", alignItems: "center", gap: "6px", textDecoration: "none", color: "#fff" }}
+                        >
+                            <FontAwesomeIcon icon={faBoxOpen} width={16} height={16} color="var(--accent)" />
+                            <span className={styles.actionLabel}>Orders</span>
+                        </Link>
+                    )}
+
                     {/* Share */}
                     <button
                         onClick={handleShare}

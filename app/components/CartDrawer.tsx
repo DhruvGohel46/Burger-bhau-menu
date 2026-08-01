@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { selectCartCount, selectCartTotal, useCartStore } from "@/app/store/cartStore";
 import styles from "./CartDrawer.module.css";
@@ -13,11 +14,12 @@ export default function CartDrawer() {
     const setIsCartOpen = useCartStore((s) => s.setIsCartOpen);
     const cartTotal = useCartStore(selectCartTotal);
     const cartCount = useCartStore(selectCartCount);
-    const setIsOrderSummaryOpen = useCartStore((s) => s.setIsOrderSummaryOpen);
 
-    const handleShowToCashier = () => {
+    const router = useRouter();
+
+    const handleProceedToCheckout = () => {
         setIsCartOpen(false);
-        setTimeout(() => setIsOrderSummaryOpen(true), 100);
+        router.push("/checkout");
     };
 
     return (
@@ -105,14 +107,14 @@ export default function CartDrawer() {
                                 {/* CTA Button */}
                                 <motion.button
                                     whileTap={{ scale: 0.97 }}
-                                    onClick={handleShowToCashier}
+                                    onClick={handleProceedToCheckout}
                                     className={styles.cta}
                                 >
-                                    Show Order to Cashier
+                                    Proceed to Checkout →
                                 </motion.button>
 
                                 <p className={styles.note}>
-                                    Pay at the counter via Cash or UPI
+                                    Fast & secure payment via UPI
                                 </p>
                             </div>
                         )}

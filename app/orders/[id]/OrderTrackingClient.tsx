@@ -1,0 +1,316 @@
+"use client";
+
+import { useEffect, useState, use } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { supabase } from "@/lib/supabase";
+import { useAuthStore } from "@/store/authStore";
+import { Order, OrderStatus } from "@/lib/types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faArrowLeft,
+    faCheckCircle,
+    faClock,
+    faUtensils,
+    faStore,
+    faMotorcycle,
+    faPhone,
+    faExclamationTriangle,
+    faReceipt,
+} from "@fortawesome/free-solid-svg-icons";
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+
+const STATUS_STEPS: { status: OrderStatus; label: string; timeKey?: keyof Order }[] = [
+    { status: "Pending Payment Verification", label: "Order Received & UTR Submitted", timeKey: "created_at" },
+    { status: "Payment Verified", label: "Payment Verified by Cashier", timeKey: "payment_verified_at" },
+    { status: "Accepted", label: "Order Accepted by Kitchen", timeKey: "accepted_at" },
+    { status: "Preparing", label: "Preparing Fresh Food", timeKey: "preparing_at" },
+    { status: "Ready For Pickup", label: "Ready For Pickup / Delivery", timeKey: "ready_at" },
+    { status: "Delivered", label: "Order Completed" },
+];
+
+export default function OrderTrackingClient({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = use(params);
+    const router = useRouter();
+    const { user, isLoading: authLoading } = useAuthStore();
+
+    const [order, setOrder] = useState<Order | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+        if (!authLoading && !user) {
+            router.push("/login");
+            return;
+        }
+
+        async function fetchOrder() {
+            setLoading(true);
+            const { data, error: err } = await supabase
+                .from("orders")
+                .select("*, order_items(*)")
+                .eq("id", id)
+                .single();
+
+            if (err || !data) {
+                setError("Order not found or permission denied.");
+            } else {
+                setOrder(data as Order);
+            }
+            setLoading(false);
+        }
+
+        if (id) {
+            fetchOrder();
+        }
+
+        // Subscribe to Supabase Realtime updates on this order
+        const channel = supabase
+            .channel(`order-tracking-${id}`)
+            .on(
+                "postgres_changes",
+                {
+                    event: "UPDATE",
+                    schema: "public",
+                    table: "orders",
+                    filter: `id=eq.${id}`,
+                },
+                (payload) => {
+                    if (payload.new) {
+                        setOrder((prev) => (prev ? { ...prev, ...(payload.new as Order) } : null));
+                    }
+                }
+            )
+            .subscribe();
+
+        return () => {
+            supabase.removeChannel(channel);
+        };
+    }, [id, user, authLoading, router]);
+
+    if (loading || authLoading) {
+        return (
+            <div style={{ minHeight: "100vh", backgroundColor: "#0f0f0f", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <p>Loading order status...</p>
+            </div>
+        );
+    }
+
+    if (error || !order) {
+        return (
+            <div style={{ minHeight: "100vh", backgroundColor: "#0f0f0f", color: "#fff", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "20px" }}>
+                <h2 style={{ fontSize: "20px", color: "#ff4444", marginBottom: "12px" }}>{error || "Order Not Found"}</h2>
+                <Link href="/orders" style={{ padding: "10px 20px", backgroundColor: "#ff8c00", color: "#000", borderRadius: "8px", fontWeight: "700", textDecoration: "none" }}>
+                    Back to My Orders
+                </Link>
+            </div>
+        );
+    }
+
+    const currentStepIndex = STATUS_STEPS.findIndex((s) => s.status === order.status);
+
+    return (
+        <div style={{
+            minHeight: "100vh",
+            backgroundColor: "#0f0f0f",
+            color: "#fff",
+            padding: "20px 16px 40px 16px",
+            fontFamily: "var(--font-jakarta), sans-serif",
+        }}>
+            <div style={{ maxWidth: "640px", margin: "0 auto" }}>
+
+                {/* Header */}
+                <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
+                    <Link href="/orders" style={{ color: "#ff8c00", fontSize: "18px" }}>
+                        <FontAwesomeIcon icon={faArrowLeft} />
+                    </Link>
+                    <div>
+                        <h1 style={{ fontSize: "22px", fontWeight: "800", margin: 0, color: "#fff" }}>
+                            Order Tracker
+                        </h1>
+                        <span style={{ fontSize: "14px", color: "#ff8c00", fontWeight: "700" }}>
+                            Order #{order.order_number || order.id.slice(0, 8)} • Realtime Sync
+                        </span>
+                    </div>
+                </div>
+
+                {/* Rapido Rider Notice Banner */}
+                {order.delivery_method === "rapido" && (
+                    <div style={{
+                        backgroundColor: order.status === "Ready For Pickup" ? "rgba(40, 167, 69, 0.2)" : "rgba(255, 140, 0, 0.15)",
+                        border: `1px solid ${order.status === "Ready For Pickup" ? "#28a745" : "#ff8c00"}`,
+                        borderRadius: "12px",
+                        padding: "16px",
+                        marginBottom: "20px",
+                        display: "flex",
+                        gap: "14px",
+                        alignItems: "center",
+                    }}>
+                        <FontAwesomeIcon icon={faMotorcycle} style={{ fontSize: "24px", color: order.status === "Ready For Pickup" ? "#28a745" : "#ff8c00" }} />
+                        <div>
+                            <h4 style={{ fontSize: "15px", fontWeight: "700", margin: "0 0 4px 0", color: "#fff" }}>
+                                {order.status === "Ready For Pickup" ? "🚀 Food is Ready! Book Rapido Now" : "Rapido Delivery Selected"}
+                            </h4>
+                            <p style={{ fontSize: "13px", color: "#ddd", margin: 0, lineHeight: "1.4" }}>
+                                {order.status === "Ready For Pickup"
+                                    ? "Your order is prepared and ready! You can book your Rapido Parcel rider to collect from Burger Bhau now."
+                                    : "Please wait until status updates to READY FOR PICKUP before booking your Rapido Parcel rider."}
+                            </p>
+                        </div>
+                    </div>
+                )}
+
+                {/* Cancelled Banner if cancelled */}
+                {order.status === "Cancelled" && (
+                    <div style={{
+                        backgroundColor: "rgba(255, 68, 68, 0.2)",
+                        border: "1px solid #ff4444",
+                        borderRadius: "12px",
+                        padding: "16px",
+                        marginBottom: "20px",
+                        color: "#ff6b6b",
+                        fontSize: "14px",
+                        fontWeight: "600",
+                    }}>
+                        ❌ This order was cancelled. {order.cancelled_at && `Time: ${new Date(order.cancelled_at).toLocaleTimeString()}`}
+                    </div>
+                )}
+
+                {/* Live Status Tracker Stepper with Timestamps */}
+                {order.status !== "Cancelled" && (
+                    <div style={{
+                        backgroundColor: "#1a1a1a",
+                        border: "1px solid #333",
+                        borderRadius: "16px",
+                        padding: "24px 20px",
+                        marginBottom: "20px",
+                    }}>
+                        <h3 style={{ fontSize: "16px", fontWeight: "700", marginBottom: "20px", color: "#ff8c00" }}>
+                            Live Order Timeline
+                        </h3>
+
+                        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+                            {STATUS_STEPS.map((step, idx) => {
+                                const isDone = idx <= currentStepIndex;
+                                const isCurrent = idx === currentStepIndex;
+                                const timeVal = step.timeKey && order[step.timeKey] ? new Date(order[step.timeKey] as string).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" }) : null;
+
+                                return (
+                                    <div key={step.status} style={{ display: "flex", alignItems: "flex-start", gap: "16px" }}>
+                                        <div style={{
+                                            width: "32px",
+                                            height: "32px",
+                                            borderRadius: "50%",
+                                            backgroundColor: isDone ? "#ff8c00" : "#262626",
+                                            color: isDone ? "#000" : "#666",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            fontWeight: "700",
+                                            fontSize: "14px",
+                                            border: isCurrent ? "2px solid #fff" : "none",
+                                            boxShadow: isCurrent ? "0 0 12px rgba(255,140,0,0.6)" : "none",
+                                            flexShrink: 0,
+                                        }}>
+                                            {isDone ? <FontAwesomeIcon icon={faCheckCircle} /> : idx + 1}
+                                        </div>
+                                        <div style={{ flex: 1 }}>
+                                            <div style={{
+                                                fontSize: "15px",
+                                                fontWeight: isCurrent ? "800" : isDone ? "600" : "400",
+                                                color: isDone ? "#fff" : "#777",
+                                                display: "flex",
+                                                justifyContent: "space-between",
+                                            }}>
+                                                <span>{step.label}</span>
+                                                {timeVal && <span style={{ fontSize: "12px", color: "#ff8c00" }}>{timeVal}</span>}
+                                            </div>
+                                            {isCurrent && (
+                                                <div style={{ fontSize: "12px", color: "#ff8c00", marginTop: "2px" }}>
+                                                    • Active Step
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                )}
+
+                {/* Payment & Order Details */}
+                <div style={{
+                    backgroundColor: "#1a1a1a",
+                    border: "1px solid #333",
+                    borderRadius: "16px",
+                    padding: "20px",
+                    marginBottom: "20px",
+                }}>
+                    <h3 style={{ fontSize: "16px", fontWeight: "700", marginBottom: "14px", color: "#ff8c00" }}>
+                        Payment & Order Summary
+                    </h3>
+
+                    <div style={{ display: "flex", flexDirection: "column", gap: "10px", fontSize: "14px", color: "#ddd" }}>
+                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                            <span style={{ color: "#aaa" }}>Payment Status:</span>
+                            <span style={{ fontWeight: "700", color: order.payment_status === "Approved" ? "#28a745" : order.payment_status === "Rejected" ? "#ff4444" : "#ffc107" }}>
+                                {order.payment_status}
+                            </span>
+                        </div>
+
+                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                            <span style={{ color: "#aaa" }}>Transaction UTR:</span>
+                            <span style={{ fontFamily: "monospace", color: "#fff", fontWeight: "600" }}>{order.utr}</span>
+                        </div>
+
+                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                            <span style={{ color: "#aaa" }}>Delivery Method:</span>
+                            <span style={{ textTransform: "capitalize", fontWeight: "600", color: "#ff8c00" }}>{order.delivery_method}</span>
+                        </div>
+
+                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                            <span style={{ color: "#aaa" }}>Customer Name:</span>
+                            <span>{order.customer_name}</span>
+                        </div>
+
+                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                            <span style={{ color: "#aaa" }}>Phone:</span>
+                            <span>{order.customer_phone}</span>
+                        </div>
+
+                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                            <span style={{ color: "#aaa" }}>Address:</span>
+                            <span style={{ maxWidth: "240px", textAlign: "right" }}>{order.customer_address}</span>
+                        </div>
+                    </div>
+
+                    <div style={{ borderTop: "1px solid #333", marginTop: "14px", paddingTop: "12px" }}>
+                        <h4 style={{ fontSize: "14px", fontWeight: "700", marginBottom: "8px", color: "#aaa" }}>Items Ordered:</h4>
+                        {order.order_items && order.order_items.map((item) => (
+                            <div key={item.id} style={{ display: "flex", justifyContent: "space-between", fontSize: "14px", marginBottom: "6px" }}>
+                                <span>{item.quantity}x {item.name} {item.variant_label ? `(${item.variant_label})` : ""}</span>
+                                <span>₹{item.price * item.quantity}</span>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div style={{ borderTop: "1px solid #333", marginTop: "12px", paddingTop: "12px", display: "flex", justifyContent: "space-between", fontSize: "18px", fontWeight: "800", color: "#fff" }}>
+                        <span>Total Paid / Payable</span>
+                        <span style={{ color: "#ff8c00" }}>₹{order.total}</span>
+                    </div>
+                </div>
+
+                {/* Contact Actions */}
+                <div style={{ display: "flex", gap: "12px" }}>
+                    <a href="tel:+919558941555" style={{ flex: 1, padding: "14px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "12px", color: "#fff", textAlign: "center", textDecoration: "none", fontSize: "14px", fontWeight: "700" }}>
+                        <FontAwesomeIcon icon={faPhone} style={{ color: "#28a745", marginRight: "8px" }} /> Call Shop
+                    </a>
+                    <a href={`https://wa.me/919558941555?text=${encodeURIComponent(`Hi, inquiry regarding Order #${order.order_number || order.id.slice(0, 8)}`)}`} target="_blank" rel="noreferrer" style={{ flex: 1, padding: "14px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "12px", color: "#fff", textAlign: "center", textDecoration: "none", fontSize: "14px", fontWeight: "700" }}>
+                        <FontAwesomeIcon icon={faWhatsapp} style={{ color: "#25d366", marginRight: "8px" }} /> WhatsApp
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    );
+}
