@@ -12,6 +12,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faPhone, faUser, faMapMarkerAlt, faMobileAlt, faInfoCircle, faMotorcycle } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 
+import { useAuthStore } from "@/store/authStore";
+import { supabase } from "@/lib/supabase";
+import { ShopSettings } from "@/lib/types";
+
 export default function OrderSummary() {
     const cartItems = useCartStore((s) => s.cartItems);
     const cartTotal = useCartStore(selectCartTotal);
@@ -25,15 +29,57 @@ export default function OrderSummary() {
     const setCustomerAddress = useCartStore((s) => s.setCustomerAddress);
     const setCustomerPhone = useCartStore((s) => s.setCustomerPhone);
 
+    const { profile } = useAuthStore();
+
     const [isEligible, setIsEligible] = useState(false);
     const [showFormError, setShowFormError] = useState(false);
+    const [settings, setSettings] = useState<ShopSettings | null>(null);
 
-    // Reset eligibility if cart total drops below the absolute minimum
+    // Auto-preload customer details and address from logged-in user profile
     useEffect(() => {
-        if (cartTotal <= MIN_ORDER_NEAR) {
+        if (profile) {
+            if (!customerName && profile.name) {
+                setCustomerName(profile.name);
+            }
+            if (!customerPhone && profile.phone) {
+                setCustomerPhone(profile.phone);
+            }
+            if (!customerAddress) {
+                const formattedAddress = profile.address || [
+                    profile.house_flat,
+                    profile.area,
+                    profile.landmark ? `Near ${profile.landmark}` : "",
+                    profile.city,
+                    profile.pincode
+                ].filter(Boolean).join(", ");
+
+                if (formattedAddress.trim()) {
+                    setCustomerAddress(formattedAddress.trim());
+                }
+            }
+        }
+    }, [profile, customerName, customerPhone, customerAddress, setCustomerName, setCustomerPhone, setCustomerAddress]);
+
+    useEffect(() => {
+        async function fetchSettings() {
+            try {
+                const { data } = await supabase.from("shop_settings").select("*").eq("id", 1).single();
+                if (data) setSettings(data as ShopSettings);
+            } catch (err) {}
+        }
+        fetchSettings();
+    }, []);
+
+    const maxDistMeters = settings?.delivery_radius_meters ?? 400;
+    const minOrderVal = settings?.min_order_for_delivery ?? 500;
+    const distLabel = maxDistMeters >= 1000 ? `${(maxDistMeters / 1000).toFixed(1)} km` : `${maxDistMeters} m`;
+
+    // Reset eligibility if cart total drops below the dynamic minimum
+    useEffect(() => {
+        if (cartTotal < minOrderVal) {
             setIsEligible(false);
         }
-    }, [cartTotal]);
+    }, [cartTotal, minOrderVal]);
 
     // Apply +₹10 parcel charge to pizzas if delivery is eligible
     const adjustedCartItems = cartItems.map(item => ({
@@ -139,10 +185,10 @@ export default function OrderSummary() {
                                 <span>HOME DELIVERY POLICY</span>
                             </div>
                             <ul className={styles.policyList}>
-                                <li><strong>Option 1:</strong> Distance &lt; 100m &amp; Order &gt; ₹299</li>
-                                <li><strong>Option 2:</strong> Distance &lt; 400m &amp; Order ≥ ₹500</li>
+                                <li><strong>Delivery Area:</strong> Max distance &le; {distLabel} from store</li>
+                                <li><strong>Minimum Order:</strong> Cart total &ge; ₹{minOrderVal}</li>
                             </ul>
-                            <DeliveryChecker onResult={setIsEligible} />
+                            <DeliveryChecker settings={settings} onResult={setIsEligible} />
                         </div>
 
                         {isEligible && (

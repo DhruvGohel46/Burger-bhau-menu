@@ -81,9 +81,9 @@ export default function CheckoutPage() {
 
     useEffect(() => {
         if (profile) {
-            setName(profile.name || "");
-            setPhone(profile.phone || "");
-            setHouseFlat(profile.house_flat || "");
+            if (profile.name) setName(profile.name);
+            if (profile.phone) setPhone(profile.phone);
+            setHouseFlat(profile.house_flat || profile.address || "");
             setArea(profile.area || "");
             setLandmark(profile.landmark || "");
             setCity(profile.city || "Rajkot");

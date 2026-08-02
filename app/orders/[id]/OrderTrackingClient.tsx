@@ -37,6 +37,21 @@ export default function OrderTrackingClient({ params }: { params: Promise<{ id: 
     const [order, setOrder] = useState<Order | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [shopPhone, setShopPhone] = useState("919558941555");
+    const [whatsappNum, setWhatsappNum] = useState("919558941555");
+
+    useEffect(() => {
+        async function fetchSettings() {
+            try {
+                const { data } = await supabase.from("shop_settings").select("*").eq("id", 1).single();
+                if (data) {
+                    if (data.shop_phone) setShopPhone(data.shop_phone);
+                    if (data.whatsapp_number) setWhatsappNum(data.whatsapp_number);
+                }
+            } catch (err) {}
+        }
+        fetchSettings();
+    }, []);
 
     useEffect(() => {
         if (!authLoading && !user) {
@@ -109,6 +124,11 @@ export default function OrderTrackingClient({ params }: { params: Promise<{ id: 
 
     const currentStepIndex = STATUS_STEPS.findIndex((s) => s.status === order.status);
 
+    const cleanWhatsappNum = whatsappNum.replace(/[^0-9]/g, "");
+    const cleanShopPhone = shopPhone.replace(/[^0-9]/g, "");
+    const confirmMessage = `Hi Burger Bhau! I have placed Order #${order.order_number || order.id.slice(0, 8)} (Total: ₹${order.total}) with UTR: ${order.utr}. Please confirm and start preparing my order!`;
+    const whatsappConfirmUrl = `https://wa.me/${cleanWhatsappNum}?text=${encodeURIComponent(confirmMessage)}`;
+
     return (
         <div style={{
             minHeight: "100vh",
@@ -133,6 +153,74 @@ export default function OrderTrackingClient({ params }: { params: Promise<{ id: 
                         </span>
                     </div>
                 </div>
+
+                {/* Urgent Customer Contact Banner to Confirm Order after Payment */}
+                {(order.status === "Pending Payment Verification" || order.payment_status === "Pending") && (
+                    <div style={{
+                        backgroundColor: "rgba(207, 75, 19, 0.15)",
+                        border: "2px solid #CF4B13",
+                        borderRadius: "16px",
+                        padding: "20px",
+                        marginBottom: "20px",
+                        boxShadow: "0 8px 24px rgba(207, 75, 19, 0.25)",
+                    }}>
+                        <div style={{ display: "flex", alignItems: "flex-start", gap: "14px" }}>
+                            <FontAwesomeIcon icon={faWhatsapp} style={{ fontSize: "32px", color: "#25d366", marginTop: "2px" }} />
+                            <div style={{ flex: 1 }}>
+                                <h3 style={{ fontSize: "17px", fontWeight: "800", color: "#fff", margin: "0 0 6px 0" }}>
+                                    ⚡ Please Contact Us to Confirm Your Order!
+                                </h3>
+                                <p style={{ fontSize: "13px", color: "#ddd", margin: "0 0 14px 0", lineHeight: "1.5" }}>
+                                    Your order with Transaction UTR <strong style={{ color: "#ff8c00" }}>{order.utr}</strong> has been submitted. Please send a quick message on WhatsApp or call our cashier to fast-track your order verification and kitchen preparation.
+                                </p>
+
+                                <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+                                    <a
+                                        href={whatsappConfirmUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        style={{
+                                            padding: "12px 18px",
+                                            backgroundColor: "#25d366",
+                                            color: "#000",
+                                            borderRadius: "10px",
+                                            fontWeight: "800",
+                                            fontSize: "14px",
+                                            textDecoration: "none",
+                                            display: "inline-flex",
+                                            alignItems: "center",
+                                            gap: "8px",
+                                            boxShadow: "0 4px 12px rgba(37, 211, 102, 0.35)",
+                                        }}
+                                    >
+                                        <FontAwesomeIcon icon={faWhatsapp} style={{ fontSize: "18px" }} />
+                                        Confirm Order on WhatsApp
+                                    </a>
+
+                                    <a
+                                        href={`tel:+${cleanShopPhone}`}
+                                        style={{
+                                            padding: "12px 18px",
+                                            backgroundColor: "#262626",
+                                            border: "1px solid #ff8c00",
+                                            color: "#ff8c00",
+                                            borderRadius: "10px",
+                                            fontWeight: "700",
+                                            fontSize: "14px",
+                                            textDecoration: "none",
+                                            display: "inline-flex",
+                                            alignItems: "center",
+                                            gap: "8px",
+                                        }}
+                                    >
+                                        <FontAwesomeIcon icon={faPhone} />
+                                        Call Store
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
 
                 {/* Rapido Rider Notice Banner */}
                 {order.delivery_method === "rapido" && (
@@ -302,11 +390,11 @@ export default function OrderTrackingClient({ params }: { params: Promise<{ id: 
 
                 {/* Contact Actions */}
                 <div style={{ display: "flex", gap: "12px" }}>
-                    <a href="tel:+919558941555" style={{ flex: 1, padding: "14px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "12px", color: "#fff", textAlign: "center", textDecoration: "none", fontSize: "14px", fontWeight: "700" }}>
-                        <FontAwesomeIcon icon={faPhone} style={{ color: "#28a745", marginRight: "8px" }} /> Call Shop
+                    <a href={`tel:+${cleanShopPhone}`} style={{ flex: 1, padding: "14px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "12px", color: "#fff", textAlign: "center", textDecoration: "none", fontSize: "14px", fontWeight: "700" }}>
+                        <FontAwesomeIcon icon={faPhone} style={{ color: "#ff8c00", marginRight: "8px" }} /> Call Shop
                     </a>
-                    <a href={`https://wa.me/919558941555?text=${encodeURIComponent(`Hi, inquiry regarding Order #${order.order_number || order.id.slice(0, 8)}`)}`} target="_blank" rel="noreferrer" style={{ flex: 1, padding: "14px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "12px", color: "#fff", textAlign: "center", textDecoration: "none", fontSize: "14px", fontWeight: "700" }}>
-                        <FontAwesomeIcon icon={faWhatsapp} style={{ color: "#25d366", marginRight: "8px" }} /> WhatsApp
+                    <a href={whatsappConfirmUrl} target="_blank" rel="noreferrer" style={{ flex: 1, padding: "14px", backgroundColor: "rgba(37, 211, 102, 0.15)", border: "1px solid #25d366", borderRadius: "12px", color: "#25d366", textAlign: "center", textDecoration: "none", fontSize: "14px", fontWeight: "700" }}>
+                        <FontAwesomeIcon icon={faWhatsapp} style={{ marginRight: "8px" }} /> WhatsApp Confirm
                     </a>
                 </div>
 
