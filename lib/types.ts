@@ -111,6 +111,8 @@ export type ShopSettings = {
     gst_number?: string;
     shop_phone: string;
     whatsapp_number: string;
+    additional_phones?: string[];
+    additional_whatsapps?: string[];
     address: string;
     google_maps_url: string;
     upi_id: string;

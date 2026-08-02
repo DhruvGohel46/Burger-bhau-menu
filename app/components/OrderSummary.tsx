@@ -156,7 +156,7 @@ export default function OrderSummary() {
                                             type="text" 
                                             value={customerName} 
                                             onChange={(e) => setCustomerName(e.target.value)}
-                                            placeholder="Enter your name"
+                                            placeholder="e.g. Alex XXXX"
                                         />
                                     </div>
                                     <div className={styles.inputGroup}>
@@ -165,7 +165,7 @@ export default function OrderSummary() {
                                             type="tel" 
                                             value={customerPhone} 
                                             onChange={(e) => setCustomerPhone(e.target.value)}
-                                            placeholder="Enter mobile number"
+                                            placeholder="e.g. +91 98XXX XXXXX"
                                         />
                                     </div>
                                     <div className={styles.inputGroup}>
@@ -173,7 +173,7 @@ export default function OrderSummary() {
                                         <textarea 
                                             value={customerAddress} 
                                             onChange={(e) => setCustomerAddress(e.target.value)}
-                                            placeholder="Enter your address"
+                                            placeholder="e.g. House XX, Street XX"
                                             rows={2}
                                         />
                                     </div>

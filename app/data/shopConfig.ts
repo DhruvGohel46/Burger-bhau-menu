@@ -89,15 +89,18 @@ export function buildWhatsAppUrl(
     cartTotal: number,
     customerName?: string,
     customerAddress?: string,
-    customerPhone?: string
+    customerPhone?: string,
+    whatsappNumber?: string
 ): string {
+    const targetNum = (whatsappNumber || SHOP_PHONE).replace(/[^0-9]/g, "");
     if (cartItems.length === 0) {
-        return `https://wa.me/${SHOP_PHONE}?text=${encodeURIComponent(`Hello ${SHOP_NAME}!`)}`;
+        return `https://wa.me/${targetNum}?text=${encodeURIComponent(`Hello ${SHOP_NAME}!`)}`;
     }
     const message = buildWhatsAppMessage(cartItems, cartTotal, customerName, customerAddress, customerPhone);
-    return `https://wa.me/${SHOP_PHONE}?text=${encodeURIComponent(message)}`;
+    return `https://wa.me/${targetNum}?text=${encodeURIComponent(message)}`;
 }
 
-export function buildCallUrl(): string {
-    return `tel:+${SHOP_PHONE}`;
+export function buildCallUrl(phoneNumber?: string): string {
+    const targetNum = (phoneNumber || SHOP_PHONE).replace(/[^0-9]/g, "");
+    return `tel:+${targetNum}`;
 }

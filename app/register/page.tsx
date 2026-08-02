@@ -118,7 +118,7 @@ export default function RegisterPage() {
                         <input
                             type="text"
                             required
-                            placeholder="John Doe"
+                            placeholder="Alex XXXX"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             style={{
@@ -141,7 +141,7 @@ export default function RegisterPage() {
                         <input
                             type="tel"
                             required
-                            placeholder="+91 9876543210"
+                            placeholder="+91 98XXX XXXXX"
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
                             style={{
@@ -164,7 +164,7 @@ export default function RegisterPage() {
                         <input
                             type="email"
                             required
-                            placeholder="your@email.com"
+                            placeholder="userXXXX@gmail.com"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             style={{

@@ -95,52 +95,51 @@ export default function Home() {
             {/* Sticky Category Nav */}
             <CategoryNav />
 
-            {/* Instant Menu Search Bar */}
-            <div style={{
-                maxWidth: "1200px",
-                margin: "16px auto 0 auto",
-                padding: "0 16px",
-            }}>
-                <div style={{
-                    position: "relative",
-                    width: "100%",
-                }}>
-                    <FontAwesomeIcon
-                        icon={faSearch}
-                        style={{
-                            position: "absolute",
-                            left: "16px",
-                            top: "50%",
-                            transform: "translateY(-50%)",
-                            color: "#ff8c00",
-                            fontSize: "15px",
-                        }}
-                    />
-                    <input
-                        type="text"
-                        placeholder="Search delicious burgers, pizzas, fries..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        style={{
-                            width: "100%",
-                            padding: "14px 16px 14px 42px",
-                            backgroundColor: "#1a1a1a",
-                            border: "1px solid #333",
-                            borderRadius: "14px",
-                            color: "#fff",
-                            fontSize: "15px",
-                            outline: "none",
-                        }}
-                    />
-                </div>
-            </div>
-
             {/* Main Content */}
             <div className={styles.content}>
+                {/* Instant Menu Search Bar */}
+                <div style={{
+                    marginBottom: "20px",
+                }}>
+                    <div style={{
+                        position: "relative",
+                        width: "100%",
+                    }}>
+                        <FontAwesomeIcon
+                            icon={faSearch}
+                            style={{
+                                position: "absolute",
+                                left: "16px",
+                                top: "50%",
+                                transform: "translateY(-50%)",
+                                color: "#CF4B13",
+                                fontSize: "14px",
+                            }}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Search burgers, fries, sandwiches..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            style={{
+                                width: "100%",
+                                padding: "12px 16px 12px 42px",
+                                backgroundColor: "#060504",
+                                border: "1px solid rgba(6, 5, 4, 0.15)",
+                                borderRadius: "16px",
+                                color: "#ffffff",
+                                fontSize: "14px",
+                                outline: "none",
+                                boxShadow: "0 4px 14px rgba(6, 5, 4, 0.08)",
+                            }}
+                        />
+                    </div>
+                </div>
+
                 {groupedItems.length === 0 ? (
-                    <div style={{ padding: "40px 16px", textAlign: "center", color: "#aaa" }}>
-                        <h3>No items matched your search query</h3>
-                        <p style={{ fontSize: "14px", color: "#666" }}>Try searching for another delicious item on the menu.</p>
+                    <div style={{ padding: "40px 16px", textAlign: "center", color: "#666" }}>
+                        <h3 style={{ fontSize: "18px", fontWeight: "600", color: "#060504", marginBottom: "6px" }}>No items found</h3>
+                        <p style={{ fontSize: "14px", color: "#666" }}>Try searching for another item on the menu.</p>
                     </div>
                 ) : (
                     groupedItems.map((group, index) => (

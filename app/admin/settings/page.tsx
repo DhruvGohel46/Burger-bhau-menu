@@ -159,14 +159,179 @@ export default function AdminSettingsPage() {
                     </div>
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
-                    <div>
-                        <label style={{ display: "block", fontSize: "13px", fontWeight: "700", color: "#aaa", marginBottom: "4px" }}>Phone Number</label>
-                        <input type="text" required value={settings.shop_phone} onChange={(e) => setSettings({ ...settings, shop_phone: e.target.value })} style={{ width: "100%", padding: "12px", backgroundColor: "#202020", border: "1px solid #333", borderRadius: "8px", color: "#fff", fontSize: "14px" }} />
+                {/* Phone Numbers Section */}
+                <div style={{ backgroundColor: "#1e1e1e", border: "1px solid #333", borderRadius: "12px", padding: "16px" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
+                        <div>
+                            <h3 style={{ fontSize: "14px", fontWeight: "700", color: "#ff8c00", margin: 0 }}>
+                                Phone Calling Lines (Voice Call)
+                            </h3>
+                            <p style={{ fontSize: "12px", color: "#888", margin: "2px 0 0 0" }}>
+                                Primary number will be called first. Add backup phone lines for high order volume.
+                            </p>
+                        </div>
+                        <button
+                            type="button"
+                            onClick={() => setSettings((prev) => ({
+                                ...prev,
+                                additional_phones: [...(prev.additional_phones || []), ""],
+                            }))}
+                            style={{
+                                padding: "6px 12px",
+                                backgroundColor: "rgba(255, 140, 0, 0.15)",
+                                border: "1px solid #ff8c00",
+                                color: "#ff8c00",
+                                borderRadius: "6px",
+                                fontSize: "12px",
+                                fontWeight: "700",
+                                cursor: "pointer",
+                            }}
+                        >
+                            + Add Phone Line
+                        </button>
                     </div>
-                    <div>
-                        <label style={{ display: "block", fontSize: "13px", fontWeight: "700", color: "#aaa", marginBottom: "4px" }}>WhatsApp Number</label>
-                        <input type="text" required value={settings.whatsapp_number} onChange={(e) => setSettings({ ...settings, whatsapp_number: e.target.value })} style={{ width: "100%", padding: "12px", backgroundColor: "#202020", border: "1px solid #333", borderRadius: "8px", color: "#fff", fontSize: "14px" }} />
+
+                    <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                        <div>
+                            <label style={{ display: "block", fontSize: "12px", fontWeight: "600", color: "#aaa", marginBottom: "4px" }}>
+                                Primary Phone Number *
+                            </label>
+                            <input
+                                type="text"
+                                required
+                                value={settings.shop_phone}
+                                onChange={(e) => setSettings({ ...settings, shop_phone: e.target.value })}
+                                style={{ width: "100%", padding: "10px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "8px", color: "#fff", fontSize: "14px" }}
+                            />
+                        </div>
+
+                        {(settings.additional_phones || []).map((num, idx) => (
+                            <div key={idx} style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+                                <div style={{ flex: 1 }}>
+                                    <label style={{ display: "block", fontSize: "11px", fontWeight: "600", color: "#888", marginBottom: "2px" }}>
+                                        Backup Phone #{idx + 2}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={num}
+                                        onChange={(e) => {
+                                            const updated = [...(settings.additional_phones || [])];
+                                            updated[idx] = e.target.value;
+                                            setSettings({ ...settings, additional_phones: updated });
+                                        }}
+                                        placeholder="e.g. 919876543210"
+                                        style={{ width: "100%", padding: "10px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "8px", color: "#fff", fontSize: "14px" }}
+                                    />
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        const updated = (settings.additional_phones || []).filter((_, i) => i !== idx);
+                                        setSettings({ ...settings, additional_phones: updated });
+                                    }}
+                                    style={{
+                                        marginTop: "16px",
+                                        padding: "8px 12px",
+                                        backgroundColor: "rgba(255, 68, 68, 0.15)",
+                                        border: "1px solid #ff4444",
+                                        color: "#ff6b6b",
+                                        borderRadius: "8px",
+                                        cursor: "pointer",
+                                        fontSize: "13px",
+                                    }}
+                                >
+                                    ✕
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* WhatsApp Numbers Section */}
+                <div style={{ backgroundColor: "#1e1e1e", border: "1px solid #333", borderRadius: "12px", padding: "16px" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
+                        <div>
+                            <h3 style={{ fontSize: "14px", fontWeight: "700", color: "#25d366", margin: 0 }}>
+                                WhatsApp Order Lines
+                            </h3>
+                            <p style={{ fontSize: "12px", color: "#888", margin: "2px 0 0 0" }}>
+                                Primary WhatsApp receives instant orders. Add additional lines for store managers or counters.
+                            </p>
+                        </div>
+                        <button
+                            type="button"
+                            onClick={() => setSettings((prev) => ({
+                                ...prev,
+                                additional_whatsapps: [...(prev.additional_whatsapps || []), ""],
+                            }))}
+                            style={{
+                                padding: "6px 12px",
+                                backgroundColor: "rgba(37, 211, 102, 0.15)",
+                                border: "1px solid #25d366",
+                                color: "#25d366",
+                                borderRadius: "6px",
+                                fontSize: "12px",
+                                fontWeight: "700",
+                                cursor: "pointer",
+                            }}
+                        >
+                            + Add WhatsApp Line
+                        </button>
+                    </div>
+
+                    <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                        <div>
+                            <label style={{ display: "block", fontSize: "12px", fontWeight: "600", color: "#aaa", marginBottom: "4px" }}>
+                                Primary WhatsApp Number *
+                            </label>
+                            <input
+                                type="text"
+                                required
+                                value={settings.whatsapp_number}
+                                onChange={(e) => setSettings({ ...settings, whatsapp_number: e.target.value })}
+                                style={{ width: "100%", padding: "10px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "8px", color: "#fff", fontSize: "14px" }}
+                            />
+                        </div>
+
+                        {(settings.additional_whatsapps || []).map((num, idx) => (
+                            <div key={idx} style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+                                <div style={{ flex: 1 }}>
+                                    <label style={{ display: "block", fontSize: "11px", fontWeight: "600", color: "#888", marginBottom: "2px" }}>
+                                        Additional WhatsApp Line #{idx + 2}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={num}
+                                        onChange={(e) => {
+                                            const updated = [...(settings.additional_whatsapps || [])];
+                                            updated[idx] = e.target.value;
+                                            setSettings({ ...settings, additional_whatsapps: updated });
+                                        }}
+                                        placeholder="e.g. 919876543210"
+                                        style={{ width: "100%", padding: "10px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "8px", color: "#fff", fontSize: "14px" }}
+                                    />
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        const updated = (settings.additional_whatsapps || []).filter((_, i) => i !== idx);
+                                        setSettings({ ...settings, additional_whatsapps: updated });
+                                    }}
+                                    style={{
+                                        marginTop: "16px",
+                                        padding: "8px 12px",
+                                        backgroundColor: "rgba(255, 68, 68, 0.15)",
+                                        border: "1px solid #ff4444",
+                                        color: "#ff6b6b",
+                                        borderRadius: "8px",
+                                        cursor: "pointer",
+                                        fontSize: "13px",
+                                    }}
+                                >
+                                    ✕
+                                </button>
+                            </div>
+                        ))}
                     </div>
                 </div>
 

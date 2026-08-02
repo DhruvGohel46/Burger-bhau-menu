@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useCartStore, selectCartTotal } from "@/app/store/cartStore";
 import { useAuthStore } from "@/store/authStore";
 import { supabase } from "@/lib/supabase";
+import { buildCallUrl } from "@/app/data/shopConfig";
 import { DeliveryMethod, ShopSettings } from "@/lib/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -321,28 +322,28 @@ export default function CheckoutPage() {
                             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                                 <div>
                                     <label style={{ display: "block", fontSize: "12px", fontWeight: "600", color: "#aaa", marginBottom: "4px" }}>Full Name *</label>
-                                    <input type="text" required value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter name" style={{ width: "100%", padding: "10px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "8px", color: "#fff", fontSize: "14px" }} />
+                                    <input type="text" required value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Alex XXXX" style={{ width: "100%", padding: "10px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "8px", color: "#fff", fontSize: "14px" }} />
                                 </div>
 
                                 <div>
                                     <label style={{ display: "block", fontSize: "12px", fontWeight: "600", color: "#aaa", marginBottom: "4px" }}>Phone Number *</label>
-                                    <input type="tel" required value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Enter phone" style={{ width: "100%", padding: "10px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "8px", color: "#fff", fontSize: "14px" }} />
+                                    <input type="tel" required value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="e.g. +91 98XXX XXXXX" style={{ width: "100%", padding: "10px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "8px", color: "#fff", fontSize: "14px" }} />
                                 </div>
 
                                 <div>
                                     <label style={{ display: "block", fontSize: "12px", fontWeight: "600", color: "#aaa", marginBottom: "4px" }}>House / Flat / Bldg No. *</label>
-                                    <input type="text" required value={houseFlat} onChange={(e) => setHouseFlat(e.target.value)} placeholder="e.g. Flat 201" style={{ width: "100%", padding: "10px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "8px", color: "#fff", fontSize: "14px" }} />
+                                    <input type="text" required value={houseFlat} onChange={(e) => setHouseFlat(e.target.value)} placeholder="e.g. Flat 2XX" style={{ width: "100%", padding: "10px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "8px", color: "#fff", fontSize: "14px" }} />
                                 </div>
 
                                 <div>
                                     <label style={{ display: "block", fontSize: "12px", fontWeight: "600", color: "#aaa", marginBottom: "4px" }}>Area / Society / Road *</label>
-                                    <input type="text" required value={area} onChange={(e) => setArea(e.target.value)} placeholder="e.g. Rolex Road, Kothariya" style={{ width: "100%", padding: "10px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "8px", color: "#fff", fontSize: "14px" }} />
+                                    <input type="text" required value={area} onChange={(e) => setArea(e.target.value)} placeholder="e.g. Street XX, Area XX" style={{ width: "100%", padding: "10px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "8px", color: "#fff", fontSize: "14px" }} />
                                 </div>
 
                                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
                                     <div>
                                         <label style={{ display: "block", fontSize: "12px", fontWeight: "600", color: "#aaa", marginBottom: "4px" }}>Landmark</label>
-                                        <input type="text" value={landmark} onChange={(e) => setLandmark(e.target.value)} placeholder="e.g. Saibaba Temple" style={{ width: "100%", padding: "10px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "8px", color: "#fff", fontSize: "13px" }} />
+                                        <input type="text" value={landmark} onChange={(e) => setLandmark(e.target.value)} placeholder="e.g. Near Landmark XX" style={{ width: "100%", padding: "10px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "8px", color: "#fff", fontSize: "13px" }} />
                                     </div>
                                     <div>
                                         <label style={{ display: "block", fontSize: "12px", fontWeight: "600", color: "#aaa", marginBottom: "4px" }}>Pincode</label>
@@ -375,12 +376,36 @@ export default function CheckoutPage() {
                                     </div>
                                 </div>
 
-                                <div onClick={() => setDeliveryMethod("contact")} style={{ display: "flex", alignItems: "flex-start", gap: "14px", padding: "14px", backgroundColor: deliveryMethod === "contact" ? "rgba(255, 140, 0, 0.12)" : "#262626", border: `2px solid ${deliveryMethod === "contact" ? "#ff8c00" : "#333"}`, borderRadius: "10px", cursor: "pointer" }}>
-                                    <FontAwesomeIcon icon={faHeadset} style={{ fontSize: "20px", color: "#ff8c00", marginTop: "2px" }} />
-                                    <div>
-                                        <h4 style={{ fontSize: "15px", fontWeight: "700", color: "#fff", margin: "0 0 4px 0" }}>Contact Store</h4>
-                                        <p style={{ fontSize: "13px", color: "#aaa", margin: 0 }}>Contact store for special delivery assistance.</p>
+                                <div onClick={() => setDeliveryMethod("contact")} style={{ display: "flex", flexDirection: "column", gap: "8px", padding: "14px", backgroundColor: deliveryMethod === "contact" ? "rgba(255, 140, 0, 0.12)" : "#262626", border: `2px solid ${deliveryMethod === "contact" ? "#ff8c00" : "#333"}`, borderRadius: "10px", cursor: "pointer" }}>
+                                    <div style={{ display: "flex", alignItems: "flex-start", gap: "14px" }}>
+                                        <FontAwesomeIcon icon={faHeadset} style={{ fontSize: "20px", color: "#ff8c00", marginTop: "2px" }} />
+                                        <div>
+                                            <h4 style={{ fontSize: "15px", fontWeight: "700", color: "#fff", margin: "0 0 4px 0" }}>Contact Store Directly</h4>
+                                            <p style={{ fontSize: "13px", color: "#aaa", margin: 0 }}>Reach our team on any of our call or WhatsApp lines for custom delivery assistance.</p>
+                                        </div>
                                     </div>
+
+                                    {deliveryMethod === "contact" && (
+                                        <div style={{ marginTop: "8px", paddingTop: "10px", borderTop: "1px solid rgba(255,140,0,0.2)", display: "flex", flexDirection: "column", gap: "6px" }}>
+                                            <div style={{ fontSize: "12px", fontWeight: "700", color: "#ff8c00" }}>📞 Call Lines:</div>
+                                            <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                                                {[settings.shop_phone, ...(settings.additional_phones || [])].filter(Boolean).map((num, i) => (
+                                                    <a key={i} href={buildCallUrl(num)} onClick={(e) => e.stopPropagation()} style={{ padding: "4px 10px", backgroundColor: "#1e1e1e", border: "1px solid #444", borderRadius: "6px", color: "#fff", textDecoration: "none", fontSize: "12px", fontWeight: "600" }}>
+                                                        +{num}
+                                                    </a>
+                                                ))}
+                                            </div>
+
+                                            <div style={{ fontSize: "12px", fontWeight: "700", color: "#25d366", marginTop: "4px" }}>💬 WhatsApp Lines:</div>
+                                            <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                                                {[settings.whatsapp_number, ...(settings.additional_whatsapps || [])].filter(Boolean).map((num, i) => (
+                                                    <a key={i} href={`https://wa.me/${num.replace(/[^0-9]/g, "")}`} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} style={{ padding: "4px 10px", backgroundColor: "rgba(37, 211, 102, 0.15)", border: "1px solid #25d366", borderRadius: "6px", color: "#25d366", textDecoration: "none", fontSize: "12px", fontWeight: "600" }}>
+                                                        +{num}
+                                                    </a>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -426,7 +451,7 @@ export default function CheckoutPage() {
                             <input
                                 type="text"
                                 required
-                                placeholder="e.g. 423198765432"
+                                placeholder="e.g. 4231XXXX5432"
                                 value={utr}
                                 onChange={(e) => setUtr(e.target.value)}
                                 style={{ width: "100%", padding: "14px", backgroundColor: "#262626", border: "1px solid #555", borderRadius: "10px", color: "#fff", fontSize: "16px", fontWeight: "600", outline: "none" }}

@@ -45,7 +45,9 @@ ALTER TABLE public.shop_settings
     ADD COLUMN IF NOT EXISTS gst_number TEXT DEFAULT '',
     ADD COLUMN IF NOT EXISTS upi_name TEXT DEFAULT 'Burger Bhau Fast Food',
     ADD COLUMN IF NOT EXISTS instagram_url TEXT DEFAULT '',
-    ADD COLUMN IF NOT EXISTS facebook_url TEXT DEFAULT '';
+    ADD COLUMN IF NOT EXISTS facebook_url TEXT DEFAULT '',
+    ADD COLUMN IF NOT EXISTS additional_phones JSONB DEFAULT '[]'::jsonb,
+    ADD COLUMN IF NOT EXISTS additional_whatsapps JSONB DEFAULT '[]'::jsonb;
 
 
 -- ─── 4. EXTEND PRODUCTS TABLE ────────────────────────────

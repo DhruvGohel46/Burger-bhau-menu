@@ -249,7 +249,7 @@ export default function ProfilePage() {
                                     <input
                                         type="text"
                                         required
-                                        placeholder="e.g. Flat 302, Sai Residency"
+                                        placeholder="e.g. Flat 3XX, Building XX"
                                         value={houseFlat}
                                         onChange={(e) => setHouseFlat(e.target.value)}
                                         style={{ width: "100%", padding: "10px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "8px", color: "#fff", fontSize: "14px" }}
@@ -263,7 +263,7 @@ export default function ProfilePage() {
                                     <input
                                         type="text"
                                         required
-                                        placeholder="e.g. Rolex Road, Kothariya"
+                                        placeholder="e.g. Street XX, Area XX"
                                         value={area}
                                         onChange={(e) => setArea(e.target.value)}
                                         style={{ width: "100%", padding: "10px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "8px", color: "#fff", fontSize: "14px" }}
@@ -277,7 +277,7 @@ export default function ProfilePage() {
                                         </label>
                                         <input
                                             type="text"
-                                            placeholder="e.g. Near Saibaba Temple"
+                                            placeholder="e.g. Near Landmark XX"
                                             value={landmark}
                                             onChange={(e) => setLandmark(e.target.value)}
                                             style={{ width: "100%", padding: "10px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "8px", color: "#fff", fontSize: "14px" }}

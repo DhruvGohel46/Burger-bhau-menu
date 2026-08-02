@@ -16,8 +16,8 @@
       "description": "Crispy aloo tikki inside soft bun with fresh onion, lettuce and tangy sauce. Proper desi street burger, garma garam and full mast flavour.",
       "image": "/productimage/burger/aalu-tikki-burger.jpg",
       "variants": [
-        { "id": "regular", "label": "Regular", "price": 40 },
-        { "id": "jumbo", "label": "Jumbo", "price": 50 }
+        { "id": "regular", "label": "Without cheese", "price": 40 },
+        { "id": "jumbo", "label": "With Cheese", "price": 50 }
       ]
     },
     {
@@ -27,8 +27,8 @@
       "description": "Spicy schezwan sauce with crunchy veggies and juicy veg patty inside toasted bun. Slight Indo-Chinese kick, perfect for spice lovers.",
       "image": "/productimage/burger/burger-schezwan.jpg",
       "variants": [
-        { "id": "regular", "label": "Regular", "price": 40 },
-        { "id": "jumbo", "label": "Jumbo", "price": 50 }
+        { "id": "regular", "label": "Without cheese", "price": 40 },
+        { "id": "jumbo", "label": "With Cheese", "price": 50 }
       ]
     },
     {
@@ -38,8 +38,8 @@
       "description": "Soft burger bun filled with juicy patty, creamy garlic mayo and melted cheese. Rich aroma, buttery taste, ekdum cheesy satisfaction.",
       "image": "/productimage/burger/burger-cheesy-garlic.jpg",
       "variants": [
-        { "id": "regular", "label": "Regular", "price": 40 },
-        { "id": "jumbo", "label": "Jumbo", "price": 50 }
+        { "id": "regular", "label": "Without cheese", "price": 40 },
+        { "id": "jumbo", "label": "With Cheese", "price": 50 }
       ]
     },
     {
@@ -49,8 +49,8 @@
       "description": "Fusion style burger with crispy manchurian patty, tangy sauce and crunchy veggies. Indo-Chinese street flavour packed inside soft toasted bun.",
       "image": "/productimage/burger/burger-manchurian.jpg",
       "variants": [
-        { "id": "regular", "label": "Regular", "price": 40 },
-        { "id": "jumbo", "label": "Jumbo", "price": 50 }
+        { "id": "regular", "label": "Without cheese", "price": 40 },
+        { "id": "jumbo", "label": "With Cheese", "price": 50 }
       ]
     },
     {
@@ -60,8 +60,8 @@
       "description": "Loaded burger with fresh vegetables, crunchy lettuce and balanced sweet-spicy sauce. Light yet full flavour, perfect for veggie lovers.",
       "image": "/productimage/burger/burger-veg-lovers.jpg",
       "variants": [
-        { "id": "regular", "label": "Regular", "price": 50 },
-        { "id": "jumbo", "label": "Jumbo", "price": 60 }
+        { "id": "regular", "label": "Without cheese", "price": 50 },
+        { "id": "jumbo", "label": "With Cheese", "price": 60 }
       ]
     },
     {
@@ -71,8 +71,8 @@
       "description": "Juicy patty coated with spicy sweet Korean style sauce, fresh lettuce and crunchy veggies. Unique flavour twist with addictive street taste.",
       "image": "/productimage/burger/burger-korean.jpg",
       "variants": [
-        { "id": "regular", "label": "Regular", "price": 50 },
-        { "id": "jumbo", "label": "Jumbo", "price": 60 }
+        { "id": "regular", "label": "Without cheese", "price": 50 },
+        { "id": "jumbo", "label": "With Cheese", "price": 60 }
       ]
     },
     {
@@ -82,8 +82,8 @@
       "description": "Fiery peri peri sauce layered over juicy patty with fresh vegetables. Spicy, tangy and bold flavour that wakes up your taste buds.",
       "image": "/productimage/burger/burger-african-peri-peri.jpg",
       "variants": [
-        { "id": "regular", "label": "Regular", "price": 50 },
-        { "id": "jumbo", "label": "Jumbo", "price": 60 }
+        { "id": "regular", "label": "Without cheese", "price": 50 },
+        { "id": "jumbo", "label": "With Cheese", "price": 60 }
       ]
     },
     {
@@ -93,8 +93,8 @@
       "description": "Mexican style burger with spicy seasoning, crunchy veggies and zesty sauce. Slight tangy kick with bold flavour in every bite.",
       "image": "/productimage/burger/burger-la-mexicano.jpg",
       "variants": [
-        { "id": "regular", "label": "Regular", "price": 50 },
-        { "id": "jumbo", "label": "Jumbo", "price": 60 }
+        { "id": "regular", "label": "Without cheese", "price": 50 },
+        { "id": "jumbo", "label": "With Cheese", "price": 60 }
       ]
     },
     {
@@ -104,8 +104,8 @@
       "description": "Smoky tandoori masala patty with creamy tadka sauce and fresh vegetables. Desi flavour explosion inside soft bun, warm and satisfying.",
       "image": "/productimage/burger/burger-tandoori-tadka.jpg",
       "variants": [
-        { "id": "regular", "label": "Regular", "price": 50 },
-        { "id": "jumbo", "label": "Jumbo", "price": 60 }
+        { "id": "regular", "label": "Without cheese", "price": 50 },
+        { "id": "jumbo", "label": "With Cheese", "price": 60 }
       ]
     },
     {
@@ -115,8 +115,8 @@
       "description": "Jain friendly burger with smoky chipotle flavour and crunchy vegetables. Simple ingredients but bold taste, clean and satisfying bite.",
       "image": "/productimage/burger/burger-jain-chipotle.jpg",
       "variants": [
-        { "id": "regular", "label": "Regular", "price": 50 },
-        { "id": "jumbo", "label": "Jumbo", "price": 60 }
+        { "id": "regular", "label": "Without cheese", "price": 50 },
+        { "id": "jumbo", "label": "With Cheese", "price": 60 }
       ]
     },
     {
@@ -126,8 +126,8 @@
       "description": "Rich buttery makni sauce layered over juicy patty with fresh veggies. Creamy Punjabi flavour giving proper comfort food feeling.",
       "image": "/productimage/burger/burger-punjabi-makni.jpg",
       "variants": [
-        { "id": "regular", "label": "Regular", "price": 50 },
-        { "id": "jumbo", "label": "Jumbo", "price": 60 }
+        { "id": "regular", "label": "Without cheese", "price": 50 },
+        { "id": "jumbo", "label": "With Cheese", "price": 60 }
       ]
     },
     {
@@ -137,8 +137,8 @@
       "description": "Super spicy burger with fiery lava style sauce and crunchy vegetables. Heat lovers favourite, bold flavour with thrilling spicy punch.",
       "image": "/productimage/burger/burger-hot-like-hill.jpg",
       "variants": [
-        { "id": "regular", "label": "Regular", "price": 60 },
-        { "id": "jumbo", "label": "Jumbo", "price": 70 }
+        { "id": "regular", "label": "Without cheese", "price": 60 },
+        { "id": "jumbo", "label": "With Cheese", "price": 70 }
       ]
     },
     {
@@ -148,8 +148,8 @@
       "description": "Premium style burger with rich creamy sauce, soft bun and cheesy layers. Smooth royal flavour inspired by classic Hyderabadi taste.",
       "image": "/productimage/burger/burger-shahi-hydrabadi.jpg",
       "variants": [
-        { "id": "regular", "label": "Regular", "price": 80 },
-        { "id": "jumbo", "label": "Jumbo", "price": 90 }
+        { "id": "regular", "label": "Without cheese", "price": 80 },
+        { "id": "jumbo", "label": "With Cheese", "price": 90 }
       ]
     },
     {

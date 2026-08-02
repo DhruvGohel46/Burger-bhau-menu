@@ -139,7 +139,7 @@ export default function AdminCustomersPage() {
                                                     cursor: "pointer",
                                                 }}
                                             >
-                                                View History
+                                                Show Profile
                                             </button>
                                         </td>
                                     </tr>
