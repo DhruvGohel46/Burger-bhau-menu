@@ -8,8 +8,8 @@
   /* Surfaces - Premium warm minimalist palette */
   --bg: #F0E8C7; /* Soft cream background */
   --bg-secondary: #E8DFB8;
-  --card: #060504; /* Rich charcoal dark-mode cards */
-  --card-hover: #1a1816;
+  --card: rgba(18, 14, 10, 0.76); /* Translucent liquid glass dark cards */
+  --card-hover: rgba(28, 22, 16, 0.85);
 
   /* Text */
   --text: #ffffff;

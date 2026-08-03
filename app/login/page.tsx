@@ -49,8 +49,8 @@ export default function LoginPage() {
     return (
         <div style={{
             minHeight: "100vh",
-            backgroundColor: "#0f0f0f",
-            color: "#fff",
+            backgroundColor: "#F0E8C7",
+            color: "#060504",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -61,29 +61,31 @@ export default function LoginPage() {
             <div style={{
                 width: "100%",
                 maxWidth: "420px",
-                backgroundColor: "#1a1a1a",
-                border: "1px solid #333",
+                backgroundColor: "rgba(18, 14, 10, 0.76)",
+                backdropFilter: "blur(20px) saturate(180%)",
+                WebkitBackdropFilter: "blur(20px) saturate(180%)",
+                border: "1px solid rgba(255, 255, 255, 0.12)",
                 borderRadius: "16px",
                 padding: "32px 24px",
-                boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
+                boxShadow: "0 12px 40px rgba(6, 5, 4, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.12)",
             }}>
                 <div style={{ textAlign: "center", marginBottom: "24px" }}>
-                    <h1 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "8px", color: "#ff8c00" }}>
-                        Burger Bhau Login
+                    <h1 style={{ fontSize: "24px", fontWeight: "800", marginBottom: "8px", color: "#FF9F1C" }}>
+                        Welcome Back
                     </h1>
-                    <p style={{ fontSize: "14px", color: "#aaa" }}>
-                        Sign in to access your profile and track orders.
+                    <p style={{ fontSize: "14px", color: "#e2e8f0", margin: 0 }}>
+                        Log in to manage orders & checkout faster
                     </p>
                 </div>
 
                 {errorMsg && (
                     <div style={{
-                        backgroundColor: "rgba(255, 68, 68, 0.15)",
+                        backgroundColor: "rgba(255, 68, 68, 0.2)",
                         border: "1px solid #ff4444",
                         color: "#ff6b6b",
-                        padding: "12px",
+                        padding: "10px 14px",
                         borderRadius: "8px",
-                        fontSize: "14px",
+                        fontSize: "13px",
                         marginBottom: "16px",
                     }}>
                         {errorMsg}
@@ -92,8 +94,8 @@ export default function LoginPage() {
 
                 <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
                     <div>
-                        <label style={{ display: "block", fontSize: "13px", fontWeight: "600", marginBottom: "6px", color: "#ddd" }}>
-                            Email Address
+                        <label style={{ display: "block", fontSize: "13px", fontWeight: "700", color: "#ffffff", marginBottom: "6px" }}>
+                            Email Address *
                         </label>
                         <input
                             type="email"
@@ -103,20 +105,21 @@ export default function LoginPage() {
                             onChange={(e) => setEmail(e.target.value)}
                             style={{
                                 width: "100%",
-                                padding: "12px 14px",
-                                backgroundColor: "#262626",
-                                border: "1px solid #444",
+                                padding: "12px",
+                                backgroundColor: "rgba(255, 255, 255, 0.08)",
+                                border: "1px solid rgba(255, 255, 255, 0.25)",
                                 borderRadius: "8px",
-                                color: "#fff",
-                                fontSize: "14px",
+                                color: "#ffffff",
+                                fontSize: "15px",
+                                fontWeight: "600",
                                 outline: "none",
                             }}
                         />
                     </div>
 
                     <div>
-                        <label style={{ display: "block", fontSize: "13px", fontWeight: "600", marginBottom: "6px", color: "#ddd" }}>
-                            Password
+                        <label style={{ display: "block", fontSize: "13px", fontWeight: "700", color: "#ffffff", marginBottom: "6px" }}>
+                            Password *
                         </label>
                         <input
                             type="password"
@@ -126,12 +129,13 @@ export default function LoginPage() {
                             onChange={(e) => setPassword(e.target.value)}
                             style={{
                                 width: "100%",
-                                padding: "12px 14px",
-                                backgroundColor: "#262626",
-                                border: "1px solid #444",
+                                padding: "12px",
+                                backgroundColor: "rgba(255, 255, 255, 0.08)",
+                                border: "1px solid rgba(255, 255, 255, 0.25)",
                                 borderRadius: "8px",
-                                color: "#fff",
-                                fontSize: "14px",
+                                color: "#ffffff",
+                                fontSize: "15px",
+                                fontWeight: "600",
                                 outline: "none",
                             }}
                         />
@@ -143,24 +147,25 @@ export default function LoginPage() {
                         style={{
                             width: "100%",
                             padding: "14px",
-                            backgroundColor: "#ff8c00",
-                            color: "#000",
+                            backgroundColor: "#FF9F1C",
+                            color: "#060504",
                             border: "none",
-                            borderRadius: "8px",
+                            borderRadius: "10px",
                             fontSize: "15px",
-                            fontWeight: "700",
+                            fontWeight: "800",
                             cursor: loading ? "not-allowed" : "pointer",
-                            marginTop: "8px",
                             opacity: loading ? 0.7 : 1,
+                            marginTop: "8px",
+                            boxShadow: "0 6px 20px rgba(255, 159, 28, 0.4)",
                         }}
                     >
-                        {loading ? "Signing in..." : "Sign In"}
+                        {loading ? "Signing In..." : "Sign In"}
                     </button>
                 </form>
 
                 <div style={{ marginTop: "24px", textAlign: "center", fontSize: "14px", color: "#aaa" }}>
                     Don't have an account?{" "}
-                    <Link href="/register" style={{ color: "#ff8c00", fontWeight: "600", textDecoration: "underline" }}>
+                    <Link href="/register" style={{ color: "#FF9F1C", fontWeight: "600", textDecoration: "underline" }}>
                         Create One
                     </Link>
                 </div>

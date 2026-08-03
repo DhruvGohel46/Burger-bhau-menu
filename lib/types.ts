@@ -125,3 +125,18 @@ export type ShopSettings = {
     facebook_url?: string;
     updated_at?: string;
 };
+
+export type GalleryCategory = "food" | "shop" | "interior" | "event";
+
+export type GalleryImage = {
+    id: string;
+    storage_path?: string;
+    public_url: string;
+    category: GalleryCategory;
+    title: string;
+    alt_text: string;
+    caption?: string;
+    display_order: number;
+    is_featured: boolean;
+    created_at?: string;
+};

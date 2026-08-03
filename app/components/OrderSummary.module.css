@@ -1,10 +1,10 @@
-/* Burger Bhau MenuSite - Dark Mode Delivery Flow & Order Summary */
+/* Burger Bhau MenuSite - Delivery Flow & Order Summary */
 
 .screen {
   position: fixed;
   inset: 0;
   z-index: 70;
-  background: #0f0f0f;
+  background: var(--bg, #F0E8C7);
   display: flex;
   flex-direction: column;
   padding-top: var(--safe-top);
@@ -18,9 +18,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #262626;
+  border-bottom: 1px solid rgba(6, 5, 4, 0.12);
   flex: 0 0 auto;
-  background: #141414;
+  background: rgba(240, 232, 199, 0.95);
+  backdrop-filter: blur(20px);
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
@@ -28,8 +29,8 @@
   height: 40px;
   padding: 0 16px;
   border-radius: 20px;
-  border: 1px solid #333;
-  background: #222;
+  border: 1px solid rgba(6, 5, 4, 0.15);
+  background: #060504;
   color: #fff;
   display: inline-flex;
   align-items: center;
@@ -42,12 +43,12 @@
 }
 
 .back:active, .back:hover {
-  background: #333;
+  background: #1a1816;
 }
 
 .title {
   font-size: 18px;
-  color: #fff;
+  color: #060504;
   font-weight: 800;
   margin: 0;
 }
@@ -63,11 +64,13 @@
 
 .receipt {
   width: 100%;
-  background: #181818;
+  background: rgba(10, 8, 6, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   color: #ffffff;
   border-radius: 16px;
-  border: 1px solid #333333;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 16px 40px rgba(6, 5, 4, 0.15);
   padding: 24px;
   position: relative;
   overflow: hidden;
@@ -86,7 +89,7 @@
   margin-top: 4px;
   text-align: center;
   font-size: 15px;
-  color: #ff8c00;
+  color: #CF4B13;
   font-weight: 700;
 }
 
@@ -125,8 +128,8 @@
 .qty {
   font-size: 12px;
   font-weight: 900;
-  background: #ff8c00;
-  color: #000;
+  background: #CF4B13;
+  color: #fff;
   border-radius: 6px;
   padding: 3px 8px;
   flex: 0 0 auto;
@@ -160,7 +163,7 @@
 .totalValue {
   font-size: 32px;
   font-weight: 900;
-  color: #ff8c00;
+  color: #CF4B13;
 }
 
 .customerForm {
@@ -181,7 +184,7 @@
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #ff8c00;
+  color: #CF4B13;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -192,8 +195,8 @@
   width: 100%;
   padding: 12px 14px;
   border-radius: 10px;
-  border: 1px solid #444;
-  background: #242424;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
   font-size: 14px;
   color: #ffffff;
   font-family: inherit;
@@ -204,9 +207,9 @@
 .inputGroup input:focus,
 .inputGroup textarea:focus {
   outline: none;
-  background: #2a2a2a;
-  border-color: #ff8c00;
-  box-shadow: 0 0 12px rgba(255, 140, 0, 0.3);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: #CF4B13;
+  box-shadow: 0 0 12px rgba(207, 75, 19, 0.3);
 }
 
 .inputGroup textarea {
@@ -214,11 +217,11 @@
 }
 
 .deliveryPolicyBox {
-  background: #222222;
+  background: rgba(255, 255, 255, 0.06);
   border-radius: 12px;
   padding: 16px;
   margin-bottom: 20px;
-  border: 1px dashed rgba(255, 140, 0, 0.35);
+  border: 1px dashed rgba(207, 75, 19, 0.35);
 }
 
 .policyHeader {
@@ -227,7 +230,7 @@
   gap: 8px;
   font-size: 13px;
   font-weight: 800;
-  color: #ff8c00;
+  color: #CF4B13;
   margin-bottom: 10px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -258,8 +261,8 @@
 .message {
   padding: 14px 16px;
   border-radius: 10px;
-  border: 1px solid #ff8c00;
-  background: rgba(255, 140, 0, 0.15);
+  border: 1px solid #CF4B13;
+  background: rgba(207, 75, 19, 0.15);
   color: #fff;
   text-align: center;
   font-weight: 800;
@@ -269,8 +272,9 @@
 /* Footer with Call + WhatsApp buttons */
 .footer {
   padding: 16px;
-  border-top: 1px solid #262626;
-  background: #141414;
+  border-top: 1px solid rgba(6, 5, 4, 0.12);
+  background: rgba(240, 232, 199, 0.95);
+  backdrop-filter: blur(20px);
   display: flex;
   gap: 12px;
   flex: 0 0 auto;

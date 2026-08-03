@@ -6,7 +6,7 @@ import { MenuItem, extras as globalExtras } from "@/app/data/menu";
 import { buildCartLineId, useCartStore } from "@/app/store/cartStore";
 import styles from "./MenuCard.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faMinus, faPlus, faFire, faThumbsUp, faRibbon, faStar } from "@fortawesome/free-solid-svg-icons";
 import { useMemo } from "react";
 
 function displayVariantLabel(category: string, variantId: string | undefined, fallbackLabel: string | undefined) {
@@ -95,7 +95,7 @@ export default function MenuCard({ item }: { item: MenuItem }) {
                 <div className={styles.imageWrap}>
                     <Image
                         src={item.image}
-                        alt={item.name}
+                        alt={`${item.name} - Burger Bhau Kothariya`}
                         fill
                         className={""}
                         sizes="90px"
@@ -106,6 +106,86 @@ export default function MenuCard({ item }: { item: MenuItem }) {
                 {/* Info */}
                 <div className={styles.info}>
                     <div>
+                        {(item.is_bestseller || item.is_recommended || item.is_new || item.is_popular) && (
+                            <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "6px" }}>
+                                {item.is_bestseller && (
+                                    <span style={{
+                                        padding: "3px 8px",
+                                        backgroundColor: "rgba(255, 140, 0, 0.15)",
+                                        border: "1px solid #ff8c00",
+                                        color: "#ff8c00",
+                                        fontSize: "10px",
+                                        fontWeight: "800",
+                                        borderRadius: "6px",
+                                        textTransform: "uppercase",
+                                        letterSpacing: "0.04em",
+                                        display: "inline-flex",
+                                        alignItems: "center",
+                                        gap: "5px",
+                                    }}>
+                                        <FontAwesomeIcon icon={faFire} style={{ fontSize: "10px" }} />
+                                        Bestseller
+                                    </span>
+                                )}
+                                {item.is_recommended && (
+                                    <span style={{
+                                        padding: "3px 8px",
+                                        backgroundColor: "rgba(23, 162, 184, 0.15)",
+                                        border: "1px solid #17a2b8",
+                                        color: "#38d39f",
+                                        fontSize: "10px",
+                                        fontWeight: "800",
+                                        borderRadius: "6px",
+                                        textTransform: "uppercase",
+                                        letterSpacing: "0.04em",
+                                        display: "inline-flex",
+                                        alignItems: "center",
+                                        gap: "5px",
+                                    }}>
+                                        <FontAwesomeIcon icon={faThumbsUp} style={{ fontSize: "10px" }} />
+                                        Recommended
+                                    </span>
+                                )}
+                                {item.is_new && (
+                                    <span style={{
+                                        padding: "3px 8px",
+                                        backgroundColor: "rgba(40, 167, 69, 0.15)",
+                                        border: "1px solid #28a745",
+                                        color: "#5dd579",
+                                        fontSize: "10px",
+                                        fontWeight: "800",
+                                        borderRadius: "6px",
+                                        textTransform: "uppercase",
+                                        letterSpacing: "0.04em",
+                                        display: "inline-flex",
+                                        alignItems: "center",
+                                        gap: "5px",
+                                    }}>
+                                        <FontAwesomeIcon icon={faRibbon} style={{ fontSize: "10px" }} />
+                                        New
+                                    </span>
+                                )}
+                                {item.is_popular && (
+                                    <span style={{
+                                        padding: "3px 8px",
+                                        backgroundColor: "rgba(255, 193, 7, 0.15)",
+                                        border: "1px solid #ffc107",
+                                        color: "#ffd54f",
+                                        fontSize: "10px",
+                                        fontWeight: "800",
+                                        borderRadius: "6px",
+                                        textTransform: "uppercase",
+                                        letterSpacing: "0.04em",
+                                        display: "inline-flex",
+                                        alignItems: "center",
+                                        gap: "5px",
+                                    }}>
+                                        <FontAwesomeIcon icon={faStar} style={{ fontSize: "10px" }} />
+                                        Popular
+                                    </span>
+                                )}
+                            </div>
+                        )}
                         <h3 className={styles.title}>
                             {item.name}
                         </h3>

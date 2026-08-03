@@ -36,7 +36,7 @@ export const viewport: Viewport = {
     initialScale: 1,
     maximumScale: 1,
     userScalable: false,
-    themeColor: '#0f0f0f',
+    themeColor: '#F0E8C7',
     viewportFit: 'cover',
 };
 
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     title: 'Burger Bhau (Kothariya) | Premium Fast Food Menu',
     description: 'Order handcrafted burgers, pizzas, and more from Burger Bhau (Kothariya). Fresh, delicious, and premium fast food in Rajkot.',
     applicationName: 'Burger Bhau (Kothariya)',
-    keywords: ['burger', 'fast food', 'pizza', 'sandwich', 'Burger Bhau', 'food delivery', 'burger bhau menu', 'burger bhau', 'Rajkot', 'burger bhau rajkot', 'kothariya', 'Rolex road', 'burger bhau kothariya', 'burger bhau rolex road', 'burger bhau kothariya road', 'burger bhau rolex road rajkot', 'burger bhau saibaba circle', 'burger bhau saibaba circle rajkot', 'burger bhau saibaba circle kothariya', 'burger bhau saibaba circle kothariya road', 'burger bhau saibaba circle kothariya road rajkot', 'burger bhau saibaba circle kothariya road rajkot'],
+    keywords: ['burger bhau', 'burger bhau rajkot', 'burger bhau kothariya', 'best burgers rajkot', 'fast food rajkot', 'pizza rajkot', 'sandwich rajkot'],
     manifest: '/site.webmanifest',
     icons: {
         icon: [
@@ -92,31 +92,11 @@ const themeScript = `
 import AuthProvider from '@/app/components/AuthProvider';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-    const jsonLd = {
-        "@context": "https://schema.org",
-        "@type": "Restaurant",
-        "name": "Burger Bhau (Kothariya)",
-        "url": "https://burgerbhau.netlify.app",
-        "image": "https://burgerbhau.netlify.app/BURGER-BHAU-logo.webp",
-        "servesCuisine": "Fast Food, Burgers, Pizza, Sandwich",
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "Rolex road, Kothariya",
-            "addressLocality": "Rajkot",
-            "addressRegion": "Gujarat",
-            "addressCountry": "IN"
-        }
-    };
-
     return (
         <html lang="en" className={`${jakarta.variable} ${outfit.variable} ${kalam.variable} ${playfair.variable}`} suppressHydrationWarning>
             <head>
                 <script
                     dangerouslySetInnerHTML={{ __html: themeScript }}
-                />
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
                 />
             </head>
             <body>

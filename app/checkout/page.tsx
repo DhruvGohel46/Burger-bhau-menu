@@ -83,8 +83,22 @@ export default function CheckoutPage() {
         if (profile) {
             if (profile.name) setName(profile.name);
             if (profile.phone) setPhone(profile.phone);
-            setHouseFlat(profile.house_flat || profile.address || "");
-            setArea(profile.area || "");
+            
+            let hFlat = profile.house_flat || "";
+            let aArea = profile.area || "";
+
+            if (profile.address) {
+                const firstCommaIndex = profile.address.indexOf(",");
+                if (firstCommaIndex !== -1) {
+                    if (!hFlat) hFlat = profile.address.slice(0, firstCommaIndex).trim();
+                    if (!aArea) aArea = profile.address.slice(firstCommaIndex + 1).trim();
+                } else {
+                    if (!hFlat) hFlat = profile.address.trim();
+                }
+            }
+
+            setHouseFlat(hFlat);
+            setArea(aArea);
             setLandmark(profile.landmark || "");
             setCity(profile.city || "Rajkot");
             setPincode(profile.pincode || "360004");
@@ -93,7 +107,7 @@ export default function CheckoutPage() {
 
     if (isLoading) {
         return (
-            <div style={{ minHeight: "100vh", backgroundColor: "#0f0f0f", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ minHeight: "100vh", backgroundColor: "#F0E8C7", color: "#060504", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <p>Loading checkout...</p>
             </div>
         );
@@ -103,8 +117,8 @@ export default function CheckoutPage() {
         return (
             <div style={{
                 minHeight: "100vh",
-                backgroundColor: "#0f0f0f",
-                color: "#fff",
+                backgroundColor: "#F0E8C7",
+                color: "#060504",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -115,23 +129,26 @@ export default function CheckoutPage() {
                 <div style={{
                     width: "100%",
                     maxWidth: "400px",
-                    backgroundColor: "#1a1a1a",
-                    border: "1px solid #333",
+                    backgroundColor: "rgba(18, 14, 10, 0.76)",
+                    backdropFilter: "blur(20px) saturate(180%)",
+                    WebkitBackdropFilter: "blur(20px) saturate(180%)",
+                    border: "1px solid rgba(255, 255, 255, 0.12)",
                     borderRadius: "16px",
                     padding: "32px 24px",
                     textAlign: "center",
+                    boxShadow: "0 12px 40px rgba(6, 5, 4, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.12)",
                 }}>
-                    <h2 style={{ fontSize: "22px", fontWeight: "700", marginBottom: "12px", color: "#ff8c00" }}>
+                    <h2 style={{ fontSize: "22px", fontWeight: "700", marginBottom: "12px", color: "#CF4B13" }}>
                         Login Required to Checkout
                     </h2>
                     <p style={{ fontSize: "14px", color: "#aaa", marginBottom: "24px" }}>
                         Please log in or create an account to complete your order.
                     </p>
                     <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                        <Link href="/login" style={{ padding: "14px", backgroundColor: "#ff8c00", color: "#000", borderRadius: "8px", fontWeight: "700", textDecoration: "none" }}>
+                        <Link href="/login" style={{ padding: "14px", backgroundColor: "#CF4B13", color: "#fff", borderRadius: "8px", fontWeight: "700", textDecoration: "none" }}>
                             Sign In
                         </Link>
-                        <Link href="/register" style={{ padding: "14px", backgroundColor: "#262626", border: "1px solid #444", color: "#fff", borderRadius: "8px", fontWeight: "600", textDecoration: "none" }}>
+                        <Link href="/register" style={{ padding: "14px", backgroundColor: "rgba(255, 255, 255, 0.08)", border: "1px solid rgba(255, 255, 255, 0.2)", color: "#fff", borderRadius: "8px", fontWeight: "600", textDecoration: "none" }}>
                             Create New Account
                         </Link>
                     </div>
@@ -144,8 +161,8 @@ export default function CheckoutPage() {
         return (
             <div style={{
                 minHeight: "100vh",
-                backgroundColor: "#0f0f0f",
-                color: "#fff",
+                backgroundColor: "#F0E8C7",
+                color: "#060504",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -154,9 +171,9 @@ export default function CheckoutPage() {
                 fontFamily: "var(--font-jakarta), sans-serif",
             }}>
                 <div style={{ textAlign: "center" }}>
-                    <h2 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "8px" }}>Your Cart is Empty</h2>
-                    <p style={{ color: "#aaa", marginBottom: "20px" }}>Add items from our menu before proceeding to checkout.</p>
-                    <Link href="/" style={{ padding: "12px 24px", backgroundColor: "#ff8c00", color: "#000", borderRadius: "8px", fontWeight: "700", textDecoration: "none" }}>
+                    <h2 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "8px", color: "#060504" }}>Your Cart is Empty</h2>
+                    <p style={{ color: "#666", marginBottom: "20px" }}>Add items from our menu before proceeding to checkout.</p>
+                    <Link href="/" style={{ padding: "12px 24px", backgroundColor: "#CF4B13", color: "#fff", borderRadius: "8px", fontWeight: "700", textDecoration: "none" }}>
                         Browse Menu
                     </Link>
                 </div>
@@ -172,6 +189,12 @@ export default function CheckoutPage() {
 
         if (!name.trim() || !phone.trim() || !houseFlat.trim() || !area.trim()) {
             setErrorMsg("Please fill out your Name, Phone Number, and Address fields.");
+            return;
+        }
+
+        const minOrderVal = settings?.min_order_for_delivery ?? 500;
+        if (deliveryMethod === "rapido" && cartTotal < minOrderVal) {
+            setErrorMsg(`Minimum order value for Rapido Parcel delivery is ₹${minOrderVal} (Current cart: ₹${cartTotal}). Please select Self Pickup to proceed with ₹${cartTotal}, or add more items.`);
             return;
         }
 
@@ -262,8 +285,8 @@ export default function CheckoutPage() {
     return (
         <div style={{
             minHeight: "100vh",
-            backgroundColor: "#0f0f0f",
-            color: "#fff",
+            backgroundColor: "#F0E8C7",
+            color: "#060504",
             padding: "20px 16px 40px 16px",
             fontFamily: "var(--font-jakarta), sans-serif",
         }}>
@@ -276,11 +299,11 @@ export default function CheckoutPage() {
                             if (step === 2) setStep(1);
                             else router.push("/");
                         }}
-                        style={{ background: "none", border: "none", color: "#ff8c00", fontSize: "18px", cursor: "pointer", padding: "8px" }}
+                        style={{ background: "none", border: "none", color: "#CF4B13", fontSize: "18px", cursor: "pointer", padding: "8px" }}
                     >
                         <FontAwesomeIcon icon={faArrowLeft} />
                     </button>
-                    <h1 style={{ fontSize: "22px", fontWeight: "800", color: "#fff", margin: 0 }}>
+                    <h1 style={{ fontSize: "22px", fontWeight: "800", color: "#060504", margin: 0 }}>
                         Checkout ({step === 1 ? "Step 1 of 2: Details" : "Step 2 of 2: Payment"})
                     </h1>
                 </div>
@@ -295,111 +318,111 @@ export default function CheckoutPage() {
                 {step === 1 && (
                     <form onSubmit={handleNextStep}>
                         {/* Order Summary Box */}
-                        <div style={{ backgroundColor: "#1a1a1a", border: "1px solid #333", borderRadius: "14px", padding: "18px", marginBottom: "20px" }}>
-                            <h3 style={{ fontSize: "16px", fontWeight: "700", marginBottom: "12px", color: "#ff8c00" }}>
+                        <div style={{ backgroundColor: "rgba(18, 14, 10, 0.76)", backdropFilter: "blur(20px) saturate(180%)", WebkitBackdropFilter: "blur(20px) saturate(180%)", border: "1px solid rgba(255, 255, 255, 0.12)", borderRadius: "14px", padding: "18px", marginBottom: "20px", boxShadow: "0 12px 40px rgba(6, 5, 4, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.12)", color: "#fff" }}>
+                            <h3 style={{ fontSize: "17px", fontWeight: "800", marginBottom: "12px", color: "#FF9F1C" }}>
                                 Order Summary ({cartItems.length} items)
                             </h3>
                             <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "12px" }}>
                                 {cartItems.map((item) => (
-                                    <div key={item.id} style={{ display: "flex", justifyContent: "space-between", fontSize: "14px", color: "#ddd" }}>
+                                    <div key={item.id} style={{ display: "flex", justifyContent: "space-between", fontSize: "14px", color: "#ffffff" }}>
                                         <span>{item.quantity}x {item.name} {item.variantLabel ? `(${item.variantLabel})` : ""}</span>
-                                        <span>₹{item.price * item.quantity}</span>
+                                        <span style={{ fontWeight: "700" }}>₹{item.price * item.quantity}</span>
                                     </div>
                                 ))}
                             </div>
-                            <div style={{ borderTop: "1px solid #333", paddingTop: "8px", display: "flex", justifyContent: "space-between", fontWeight: "700", fontSize: "16px", color: "#fff" }}>
+                            <div style={{ borderTop: "1px solid rgba(255, 255, 255, 0.15)", paddingTop: "10px", display: "flex", justifyContent: "space-between", fontWeight: "800", fontSize: "16px", color: "#ffffff" }}>
                                 <span>Total Payable</span>
-                                <span style={{ color: "#ff8c00" }}>₹{cartTotal}</span>
+                                <span style={{ color: "#FF9F1C", fontSize: "18px" }}>₹{cartTotal}</span>
                             </div>
                         </div>
 
                         {/* Structured Address */}
-                        <div style={{ backgroundColor: "#1a1a1a", border: "1px solid #333", borderRadius: "14px", padding: "18px", marginBottom: "20px" }}>
-                            <h3 style={{ fontSize: "16px", fontWeight: "700", marginBottom: "14px", color: "#ff8c00" }}>
+                        <div style={{ backgroundColor: "rgba(18, 14, 10, 0.76)", backdropFilter: "blur(20px) saturate(180%)", WebkitBackdropFilter: "blur(20px) saturate(180%)", border: "1px solid rgba(255, 255, 255, 0.12)", borderRadius: "14px", padding: "18px", marginBottom: "20px", boxShadow: "0 12px 40px rgba(6, 5, 4, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.12)", color: "#fff" }}>
+                            <h3 style={{ fontSize: "17px", fontWeight: "800", marginBottom: "14px", color: "#FF9F1C" }}>
                                 Delivery Details
                             </h3>
 
                             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                                 <div>
-                                    <label style={{ display: "block", fontSize: "12px", fontWeight: "600", color: "#aaa", marginBottom: "4px" }}>Full Name *</label>
-                                    <input type="text" required value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Alex XXXX" style={{ width: "100%", padding: "10px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "8px", color: "#fff", fontSize: "14px" }} />
+                                    <label style={{ display: "block", fontSize: "13px", fontWeight: "700", color: "#ffffff", marginBottom: "4px" }}>Full Name *</label>
+                                    <input type="text" required value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Alex XXXX" style={{ width: "100%", padding: "10px", backgroundColor: "rgba(255, 255, 255, 0.08)", border: "1px solid rgba(255, 255, 255, 0.25)", borderRadius: "8px", color: "#ffffff", fontSize: "14px", fontWeight: "600" }} />
                                 </div>
 
                                 <div>
-                                    <label style={{ display: "block", fontSize: "12px", fontWeight: "600", color: "#aaa", marginBottom: "4px" }}>Phone Number *</label>
-                                    <input type="tel" required value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="e.g. +91 98XXX XXXXX" style={{ width: "100%", padding: "10px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "8px", color: "#fff", fontSize: "14px" }} />
+                                    <label style={{ display: "block", fontSize: "13px", fontWeight: "700", color: "#ffffff", marginBottom: "4px" }}>Phone Number *</label>
+                                    <input type="tel" required value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="e.g. +91 98XXX XXXXX" style={{ width: "100%", padding: "10px", backgroundColor: "rgba(255, 255, 255, 0.08)", border: "1px solid rgba(255, 255, 255, 0.25)", borderRadius: "8px", color: "#ffffff", fontSize: "14px", fontWeight: "600" }} />
                                 </div>
 
                                 <div>
-                                    <label style={{ display: "block", fontSize: "12px", fontWeight: "600", color: "#aaa", marginBottom: "4px" }}>House / Flat / Bldg No. *</label>
-                                    <input type="text" required value={houseFlat} onChange={(e) => setHouseFlat(e.target.value)} placeholder="e.g. Flat 2XX" style={{ width: "100%", padding: "10px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "8px", color: "#fff", fontSize: "14px" }} />
+                                    <label style={{ display: "block", fontSize: "13px", fontWeight: "700", color: "#ffffff", marginBottom: "4px" }}>House / Flat / Bldg No. *</label>
+                                    <input type="text" required value={houseFlat} onChange={(e) => setHouseFlat(e.target.value)} placeholder="e.g. Flat 2XX" style={{ width: "100%", padding: "10px", backgroundColor: "rgba(255, 255, 255, 0.08)", border: "1px solid rgba(255, 255, 255, 0.25)", borderRadius: "8px", color: "#ffffff", fontSize: "14px", fontWeight: "600" }} />
                                 </div>
 
                                 <div>
-                                    <label style={{ display: "block", fontSize: "12px", fontWeight: "600", color: "#aaa", marginBottom: "4px" }}>Area / Society / Road *</label>
-                                    <input type="text" required value={area} onChange={(e) => setArea(e.target.value)} placeholder="e.g. Street XX, Area XX" style={{ width: "100%", padding: "10px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "8px", color: "#fff", fontSize: "14px" }} />
+                                    <label style={{ display: "block", fontSize: "13px", fontWeight: "700", color: "#ffffff", marginBottom: "4px" }}>Area / Society / Road *</label>
+                                    <input type="text" required value={area} onChange={(e) => setArea(e.target.value)} placeholder="e.g. Street XX, Area XX" style={{ width: "100%", padding: "10px", backgroundColor: "rgba(255, 255, 255, 0.08)", border: "1px solid rgba(255, 255, 255, 0.25)", borderRadius: "8px", color: "#ffffff", fontSize: "14px", fontWeight: "600" }} />
                                 </div>
 
                                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
                                     <div>
-                                        <label style={{ display: "block", fontSize: "12px", fontWeight: "600", color: "#aaa", marginBottom: "4px" }}>Landmark</label>
-                                        <input type="text" value={landmark} onChange={(e) => setLandmark(e.target.value)} placeholder="e.g. Near Landmark XX" style={{ width: "100%", padding: "10px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "8px", color: "#fff", fontSize: "13px" }} />
+                                        <label style={{ display: "block", fontSize: "13px", fontWeight: "700", color: "#ffffff", marginBottom: "4px" }}>Landmark</label>
+                                        <input type="text" value={landmark} onChange={(e) => setLandmark(e.target.value)} placeholder="e.g. Near Landmark XX" style={{ width: "100%", padding: "10px", backgroundColor: "rgba(255, 255, 255, 0.08)", border: "1px solid rgba(255, 255, 255, 0.25)", borderRadius: "8px", color: "#ffffff", fontSize: "13px", fontWeight: "600" }} />
                                     </div>
                                     <div>
-                                        <label style={{ display: "block", fontSize: "12px", fontWeight: "600", color: "#aaa", marginBottom: "4px" }}>Pincode</label>
-                                        <input type="text" required value={pincode} onChange={(e) => setPincode(e.target.value)} style={{ width: "100%", padding: "10px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "8px", color: "#fff", fontSize: "13px" }} />
+                                        <label style={{ display: "block", fontSize: "13px", fontWeight: "700", color: "#ffffff", marginBottom: "4px" }}>Pincode</label>
+                                        <input type="text" required value={pincode} onChange={(e) => setPincode(e.target.value)} style={{ width: "100%", padding: "10px", backgroundColor: "rgba(255, 255, 255, 0.08)", border: "1px solid rgba(255, 255, 255, 0.25)", borderRadius: "8px", color: "#ffffff", fontSize: "13px", fontWeight: "600" }} />
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         {/* Delivery Method Options */}
-                        <div style={{ backgroundColor: "#1a1a1a", border: "1px solid #333", borderRadius: "14px", padding: "18px", marginBottom: "24px" }}>
-                            <h3 style={{ fontSize: "16px", fontWeight: "700", marginBottom: "14px", color: "#ff8c00" }}>
+                        <div style={{ backgroundColor: "rgba(18, 14, 10, 0.76)", backdropFilter: "blur(20px) saturate(180%)", WebkitBackdropFilter: "blur(20px) saturate(180%)", border: "1px solid rgba(255, 255, 255, 0.12)", borderRadius: "14px", padding: "18px", marginBottom: "24px", boxShadow: "0 12px 40px rgba(6, 5, 4, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.12)", color: "#fff" }}>
+                            <h3 style={{ fontSize: "17px", fontWeight: "800", marginBottom: "14px", color: "#FF9F1C" }}>
                                 How would you like to receive your order?
                             </h3>
 
                             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                                <div onClick={() => setDeliveryMethod("pickup")} style={{ display: "flex", alignItems: "flex-start", gap: "14px", padding: "14px", backgroundColor: deliveryMethod === "pickup" ? "rgba(255, 140, 0, 0.12)" : "#262626", border: `2px solid ${deliveryMethod === "pickup" ? "#ff8c00" : "#333"}`, borderRadius: "10px", cursor: "pointer" }}>
-                                    <FontAwesomeIcon icon={faStore} style={{ fontSize: "20px", color: "#ff8c00", marginTop: "2px" }} />
+                                <div onClick={() => setDeliveryMethod("pickup")} style={{ display: "flex", alignItems: "flex-start", gap: "14px", padding: "14px", backgroundColor: deliveryMethod === "pickup" ? "rgba(255, 159, 28, 0.18)" : "rgba(255, 255, 255, 0.06)", border: `2px solid ${deliveryMethod === "pickup" ? "#FF9F1C" : "rgba(255,255,255,0.15)"}`, borderRadius: "10px", cursor: "pointer" }}>
+                                    <FontAwesomeIcon icon={faStore} style={{ fontSize: "20px", color: "#FF9F1C", marginTop: "2px" }} />
                                     <div>
-                                        <h4 style={{ fontSize: "15px", fontWeight: "700", color: "#fff", margin: "0 0 4px 0" }}>Self Pickup</h4>
-                                        <p style={{ fontSize: "13px", color: "#aaa", margin: 0 }}>Collect directly from Burger Bhau counter.</p>
+                                        <h4 style={{ fontSize: "15px", fontWeight: "800", color: "#ffffff", margin: "0 0 4px 0" }}>Self Pickup</h4>
+                                        <p style={{ fontSize: "13px", color: "#e2e8f0", margin: 0, fontWeight: "500" }}>Collect directly from Burger Bhau counter.</p>
                                     </div>
                                 </div>
 
-                                <div onClick={() => setDeliveryMethod("rapido")} style={{ display: "flex", alignItems: "flex-start", gap: "14px", padding: "14px", backgroundColor: deliveryMethod === "rapido" ? "rgba(255, 140, 0, 0.12)" : "#262626", border: `2px solid ${deliveryMethod === "rapido" ? "#ff8c00" : "#333"}`, borderRadius: "10px", cursor: "pointer" }}>
-                                    <FontAwesomeIcon icon={faMotorcycle} style={{ fontSize: "20px", color: "#ff8c00", marginTop: "2px" }} />
+                                <div onClick={() => setDeliveryMethod("rapido")} style={{ display: "flex", alignItems: "flex-start", gap: "14px", padding: "14px", backgroundColor: deliveryMethod === "rapido" ? "rgba(255, 159, 28, 0.18)" : "rgba(255, 255, 255, 0.06)", border: `2px solid ${deliveryMethod === "rapido" ? "#FF9F1C" : "rgba(255,255,255,0.15)"}`, borderRadius: "10px", cursor: "pointer" }}>
+                                    <FontAwesomeIcon icon={faMotorcycle} style={{ fontSize: "20px", color: "#FF9F1C", marginTop: "2px" }} />
                                     <div>
-                                        <h4 style={{ fontSize: "15px", fontWeight: "700", color: "#fff", margin: "0 0 4px 0" }}>Rapido Parcel</h4>
-                                        <p style={{ fontSize: "13px", color: "#aaa", margin: 0 }}>Arrange your Rapido rider after status updates to READY FOR PICKUP.</p>
+                                        <h4 style={{ fontSize: "15px", fontWeight: "800", color: "#ffffff", margin: "0 0 4px 0" }}>Rapido Parcel</h4>
+                                        <p style={{ fontSize: "13px", color: "#e2e8f0", margin: 0, fontWeight: "500" }}>Arrange your Rapido rider after status updates to READY FOR PICKUP.</p>
                                     </div>
                                 </div>
 
-                                <div onClick={() => setDeliveryMethod("contact")} style={{ display: "flex", flexDirection: "column", gap: "8px", padding: "14px", backgroundColor: deliveryMethod === "contact" ? "rgba(255, 140, 0, 0.12)" : "#262626", border: `2px solid ${deliveryMethod === "contact" ? "#ff8c00" : "#333"}`, borderRadius: "10px", cursor: "pointer" }}>
+                                <div onClick={() => setDeliveryMethod("contact")} style={{ display: "flex", flexDirection: "column", gap: "8px", padding: "14px", backgroundColor: deliveryMethod === "contact" ? "rgba(255, 159, 28, 0.18)" : "rgba(255, 255, 255, 0.06)", border: `2px solid ${deliveryMethod === "contact" ? "#FF9F1C" : "rgba(255,255,255,0.15)"}`, borderRadius: "10px", cursor: "pointer" }}>
                                     <div style={{ display: "flex", alignItems: "flex-start", gap: "14px" }}>
-                                        <FontAwesomeIcon icon={faHeadset} style={{ fontSize: "20px", color: "#ff8c00", marginTop: "2px" }} />
+                                        <FontAwesomeIcon icon={faHeadset} style={{ fontSize: "20px", color: "#FF9F1C", marginTop: "2px" }} />
                                         <div>
-                                            <h4 style={{ fontSize: "15px", fontWeight: "700", color: "#fff", margin: "0 0 4px 0" }}>Contact Store Directly</h4>
-                                            <p style={{ fontSize: "13px", color: "#aaa", margin: 0 }}>Reach our team on any of our call or WhatsApp lines for custom delivery assistance.</p>
+                                            <h4 style={{ fontSize: "15px", fontWeight: "800", color: "#ffffff", margin: "0 0 4px 0" }}>Contact Store Directly</h4>
+                                            <p style={{ fontSize: "13px", color: "#e2e8f0", margin: 0, fontWeight: "500" }}>Reach our team on any of our call or WhatsApp lines for custom delivery assistance.</p>
                                         </div>
                                     </div>
 
                                     {deliveryMethod === "contact" && (
-                                        <div style={{ marginTop: "8px", paddingTop: "10px", borderTop: "1px solid rgba(255,140,0,0.2)", display: "flex", flexDirection: "column", gap: "6px" }}>
-                                            <div style={{ fontSize: "12px", fontWeight: "700", color: "#ff8c00" }}>📞 Call Lines:</div>
+                                        <div style={{ marginTop: "8px", paddingTop: "10px", borderTop: "1px solid rgba(255, 159, 28, 0.3)", display: "flex", flexDirection: "column", gap: "6px" }}>
+                                            <div style={{ fontSize: "12px", fontWeight: "800", color: "#FF9F1C" }}>📞 Call Lines:</div>
                                             <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
                                                 {[settings.shop_phone, ...(settings.additional_phones || [])].filter(Boolean).map((num, i) => (
-                                                    <a key={i} href={buildCallUrl(num)} onClick={(e) => e.stopPropagation()} style={{ padding: "4px 10px", backgroundColor: "#1e1e1e", border: "1px solid #444", borderRadius: "6px", color: "#fff", textDecoration: "none", fontSize: "12px", fontWeight: "600" }}>
+                                                    <a key={i} href={buildCallUrl(num)} onClick={(e) => e.stopPropagation()} style={{ padding: "4px 10px", backgroundColor: "#1e1e1e", border: "1px solid #FF9F1C", borderRadius: "6px", color: "#ffffff", textDecoration: "none", fontSize: "12px", fontWeight: "700" }}>
                                                         +{num}
                                                     </a>
                                                 ))}
                                             </div>
 
-                                            <div style={{ fontSize: "12px", fontWeight: "700", color: "#25d366", marginTop: "4px" }}>💬 WhatsApp Lines:</div>
+                                            <div style={{ fontSize: "12px", fontWeight: "800", color: "#25d366", marginTop: "4px" }}>💬 WhatsApp Lines:</div>
                                             <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
                                                 {[settings.whatsapp_number, ...(settings.additional_whatsapps || [])].filter(Boolean).map((num, i) => (
-                                                    <a key={i} href={`https://wa.me/${num.replace(/[^0-9]/g, "")}`} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} style={{ padding: "4px 10px", backgroundColor: "rgba(37, 211, 102, 0.15)", border: "1px solid #25d366", borderRadius: "6px", color: "#25d366", textDecoration: "none", fontSize: "12px", fontWeight: "600" }}>
+                                                    <a key={i} href={`https://wa.me/${num.replace(/[^0-9]/g, "")}`} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} style={{ padding: "4px 10px", backgroundColor: "rgba(37, 211, 102, 0.15)", border: "1px solid #25d366", borderRadius: "6px", color: "#25d366", textDecoration: "none", fontSize: "12px", fontWeight: "700" }}>
                                                         +{num}
                                                     </a>
                                                 ))}
@@ -410,7 +433,7 @@ export default function CheckoutPage() {
                             </div>
                         </div>
 
-                        <button type="submit" style={{ width: "100%", padding: "16px", backgroundColor: "#ff8c00", color: "#000", border: "none", borderRadius: "12px", fontSize: "16px", fontWeight: "800", cursor: "pointer" }}>
+                        <button type="submit" style={{ width: "100%", padding: "16px", backgroundColor: "#FF9F1C", color: "#060504", border: "none", borderRadius: "12px", fontSize: "16px", fontWeight: "800", cursor: "pointer", boxShadow: "0 6px 20px rgba(255, 159, 28, 0.4)" }}>
                             Proceed to Payment →
                         </button>
                     </form>
@@ -422,14 +445,14 @@ export default function CheckoutPage() {
                         {deliveryMethod === "rapido" && (
                             <div style={{ backgroundColor: "rgba(255, 193, 7, 0.15)", border: "1px solid #ffc107", borderRadius: "12px", padding: "14px", marginBottom: "20px", display: "flex", gap: "12px", alignItems: "flex-start" }}>
                                 <FontAwesomeIcon icon={faExclamationTriangle} style={{ color: "#ffc107", fontSize: "18px", marginTop: "2px" }} />
-                                <p style={{ fontSize: "13px", color: "#ffe082", margin: 0, lineHeight: "1.4" }}>
+                                <p style={{ fontSize: "13px", color: "#ffe082", margin: 0, lineHeight: "1.4", fontWeight: "600" }}>
                                     <strong>Important for Rapido Delivery:</strong> Please wait until Burger Bhau confirms that your order status is <strong>READY FOR PICKUP</strong> before booking your Rapido Parcel rider.
                                 </p>
                             </div>
                         )}
 
-                        <div style={{ backgroundColor: "#1a1a1a", border: "1px solid #333", borderRadius: "14px", padding: "20px", marginBottom: "20px", textAlign: "center" }}>
-                            <h3 style={{ fontSize: "18px", fontWeight: "700", color: "#ff8c00", marginBottom: "8px" }}>
+                        <div style={{ backgroundColor: "rgba(18, 14, 10, 0.76)", backdropFilter: "blur(20px) saturate(180%)", WebkitBackdropFilter: "blur(20px) saturate(180%)", border: "1px solid rgba(255, 255, 255, 0.12)", borderRadius: "14px", padding: "20px", marginBottom: "20px", textAlign: "center", boxShadow: "0 12px 40px rgba(6, 5, 4, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.12)", color: "#fff" }}>
+                            <h3 style={{ fontSize: "18px", fontWeight: "800", color: "#FF9F1C", marginBottom: "8px" }}>
                                 Scan & Pay via UPI
                             </h3>
 
@@ -437,15 +460,15 @@ export default function CheckoutPage() {
                                 <img src={settings.qr_code_url} alt="UPI QR Code" style={{ width: "180px", height: "180px", objectFit: "contain" }} />
                             </div>
 
-                            <div style={{ backgroundColor: "#262626", borderRadius: "10px", padding: "12px", display: "flex", flexDirection: "column", gap: "6px" }}>
-                                <div style={{ fontSize: "13px", color: "#aaa" }}>Account Name: <strong style={{ color: "#fff" }}>{settings.upi_name || settings.shop_name}</strong></div>
-                                <div style={{ fontSize: "14px", color: "#ff8c00", fontWeight: "700" }}>UPI ID: {settings.upi_id}</div>
-                                <div style={{ fontSize: "18px", fontWeight: "800", color: "#fff", marginTop: "4px" }}>Amount to Pay: ₹{cartTotal}</div>
+                            <div style={{ backgroundColor: "rgba(255,255,255,0.08)", borderRadius: "10px", padding: "14px", display: "flex", flexDirection: "column", gap: "6px" }}>
+                                <div style={{ fontSize: "14px", color: "#e2e8f0", fontWeight: "600" }}>Account Name: <strong style={{ color: "#ffffff" }}>{settings.upi_name || settings.shop_name}</strong></div>
+                                <div style={{ fontSize: "15px", color: "#FF9F1C", fontWeight: "800" }}>UPI ID: {settings.upi_id}</div>
+                                <div style={{ fontSize: "20px", fontWeight: "800", color: "#ffffff", marginTop: "4px" }}>Amount to Pay: <span style={{ color: "#FF9F1C" }}>₹{cartTotal}</span></div>
                             </div>
                         </div>
 
-                        <div style={{ backgroundColor: "#1a1a1a", border: "1px solid #333", borderRadius: "14px", padding: "20px", marginBottom: "20px" }}>
-                            <label style={{ display: "block", fontSize: "14px", fontWeight: "700", color: "#fff", marginBottom: "6px" }}>
+                        <div style={{ backgroundColor: "rgba(18, 14, 10, 0.76)", backdropFilter: "blur(20px) saturate(180%)", WebkitBackdropFilter: "blur(20px) saturate(180%)", border: "1px solid rgba(255, 255, 255, 0.12)", borderRadius: "14px", padding: "20px", marginBottom: "20px", boxShadow: "0 12px 40px rgba(6, 5, 4, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.12)", color: "#fff" }}>
+                            <label style={{ display: "block", fontSize: "14px", fontWeight: "800", color: "#ffffff", marginBottom: "6px" }}>
                                 Enter Transaction ID (UTR / Ref No.) *
                             </label>
                             <input
@@ -454,11 +477,11 @@ export default function CheckoutPage() {
                                 placeholder="e.g. 4231XXXX5432"
                                 value={utr}
                                 onChange={(e) => setUtr(e.target.value)}
-                                style={{ width: "100%", padding: "14px", backgroundColor: "#262626", border: "1px solid #555", borderRadius: "10px", color: "#fff", fontSize: "16px", fontWeight: "600", outline: "none" }}
+                                style={{ width: "100%", padding: "14px", backgroundColor: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "10px", color: "#ffffff", fontSize: "16px", fontWeight: "700", outline: "none" }}
                             />
                         </div>
 
-                        <button type="submit" disabled={submitting} style={{ width: "100%", padding: "16px", backgroundColor: "#ff8c00", color: "#000", border: "none", borderRadius: "12px", fontSize: "16px", fontWeight: "800", cursor: submitting ? "not-allowed" : "pointer", opacity: submitting ? 0.7 : 1 }}>
+                        <button type="submit" disabled={submitting} style={{ width: "100%", padding: "16px", backgroundColor: "#FF9F1C", color: "#060504", border: "none", borderRadius: "12px", fontSize: "16px", fontWeight: "800", cursor: submitting ? "not-allowed" : "pointer", opacity: submitting ? 0.7 : 1, boxShadow: "0 6px 20px rgba(255, 159, 28, 0.4)" }}>
                             {submitting ? "Creating Order..." : "Confirm & Submit Order"}
                         </button>
                     </form>

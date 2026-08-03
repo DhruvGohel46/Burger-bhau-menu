@@ -12,7 +12,7 @@ import { supabase } from "@/lib/supabase";
 import { ShopSettings } from "@/lib/types";
 import styles from "./DeliveryChecker.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { faLocationDot, faExclamationTriangle, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 type DeliveryStatus = "idle" | "loading" | "available" | "too_far" | "low_cart" | "error";
 
@@ -110,7 +110,7 @@ export default function DeliveryChecker({
     if (cartTotal < minOrderAmount) {
         return (
             <div className={`${styles.badge} ${styles.unavailable}`}>
-                <span className={styles.icon}>⚠️</span>
+                <span className={styles.icon}><FontAwesomeIcon icon={faExclamationTriangle} style={{ color: "#ff8c00" }} /></span>
                 <div>
                     <strong>Minimum ₹{minOrderAmount} cart required for delivery</strong>
                     <span className={styles.sub}>
@@ -142,7 +142,7 @@ export default function DeliveryChecker({
     if (status === "available" && distance !== null) {
         return (
             <div className={`${styles.badge} ${styles.available}`}>
-                <span className={styles.icon}>✅</span>
+                <span className={styles.icon}><FontAwesomeIcon icon={faCheckCircle} style={{ color: "#28a745" }} /></span>
                 <div>
                     <strong>Home Delivery Available</strong>
                     <span className={styles.sub}>
@@ -156,7 +156,7 @@ export default function DeliveryChecker({
     if (status === "error") {
         return (
             <div className={`${styles.badge} ${styles.unavailable}`}>
-                <span className={styles.icon}>📍</span>
+                <span className={styles.icon}><FontAwesomeIcon icon={faLocationDot} style={{ color: "#ff4444" }} /></span>
                 <div>
                     <strong>Location unavailable</strong>
                     <span className={styles.sub}>
@@ -170,7 +170,7 @@ export default function DeliveryChecker({
 
     return (
         <div className={`${styles.badge} ${styles.unavailable}`}>
-            <span className={styles.icon}>⚠️</span>
+            <span className={styles.icon}><FontAwesomeIcon icon={faExclamationTriangle} style={{ color: "#ff4444" }} /></span>
             <div>
                 <strong>Delivery Unavailable</strong>
                 <span className={styles.sub}>

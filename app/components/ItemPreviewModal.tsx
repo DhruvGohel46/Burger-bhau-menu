@@ -3,7 +3,7 @@
 import { AnimatePresence, motion, type PanInfo } from "framer-motion";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClock, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faClock, faXmark, faFire, faThumbsUp, faRibbon, faStar } from "@fortawesome/free-solid-svg-icons";
 import styles from "./ItemPreviewModal.module.css";
 import type { MenuExtra, MenuItem, MenuVariant } from "@/app/data/menu";
 
@@ -127,6 +127,34 @@ export default function ItemPreviewModal({
                 <div className={styles.content}>
                     <div className={styles.headerRow}>
                         <div style={{ minWidth: 0 }}>
+                            {(item.is_bestseller || item.is_recommended || item.is_new || item.is_popular) && (
+                                <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "6px" }}>
+                                    {item.is_bestseller && (
+                                        <span style={{ padding: "3px 8px", backgroundColor: "rgba(255, 140, 0, 0.15)", border: "1px solid #ff8c00", color: "#ff8c00", fontSize: "11px", fontWeight: "800", borderRadius: "6px", textTransform: "uppercase", display: "inline-flex", alignItems: "center", gap: "5px" }}>
+                                            <FontAwesomeIcon icon={faFire} style={{ fontSize: "11px" }} />
+                                            Bestseller
+                                        </span>
+                                    )}
+                                    {item.is_recommended && (
+                                        <span style={{ padding: "3px 8px", backgroundColor: "rgba(23, 162, 184, 0.15)", border: "1px solid #17a2b8", color: "#38d39f", fontSize: "11px", fontWeight: "800", borderRadius: "6px", textTransform: "uppercase", display: "inline-flex", alignItems: "center", gap: "5px" }}>
+                                            <FontAwesomeIcon icon={faThumbsUp} style={{ fontSize: "11px" }} />
+                                            Recommended
+                                        </span>
+                                    )}
+                                    {item.is_new && (
+                                        <span style={{ padding: "3px 8px", backgroundColor: "rgba(40, 167, 69, 0.15)", border: "1px solid #28a745", color: "#5dd579", fontSize: "11px", fontWeight: "800", borderRadius: "6px", textTransform: "uppercase", display: "inline-flex", alignItems: "center", gap: "5px" }}>
+                                            <FontAwesomeIcon icon={faRibbon} style={{ fontSize: "11px" }} />
+                                            New
+                                        </span>
+                                    )}
+                                    {item.is_popular && (
+                                        <span style={{ padding: "3px 8px", backgroundColor: "rgba(255, 193, 7, 0.15)", border: "1px solid #ffc107", color: "#ffd54f", fontSize: "11px", fontWeight: "800", borderRadius: "6px", textTransform: "uppercase", display: "inline-flex", alignItems: "center", gap: "5px" }}>
+                                            <FontAwesomeIcon icon={faStar} style={{ fontSize: "11px" }} />
+                                            Popular
+                                        </span>
+                                    )}
+                                </div>
+                            )}
                             <h2 className={styles.title}>{item.name}</h2>
                             {item.description ? <div className={styles.desc}>{item.description}</div> : null}
 

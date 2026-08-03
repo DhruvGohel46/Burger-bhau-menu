@@ -1,8 +1,10 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { selectCartCount, selectCartTotal, useCartStore } from "@/app/store/cartStore";
+import { supabase } from "@/lib/supabase";
 import styles from "./CartDrawer.module.css";
 import CartItem from "./CartItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,10 +18,28 @@ export default function CartDrawer() {
     const cartCount = useCartStore(selectCartCount);
 
     const router = useRouter();
+    const [minOrder, setMinOrder] = useState<number | null>(null);
+
+    useEffect(() => {
+        async function loadShopSettings() {
+            try {
+                const { data } = await supabase.from("shop_settings").select("min_order_for_delivery").eq("id", 1).single();
+                if (data && typeof data.min_order_for_delivery === "number") {
+                    setMinOrder(data.min_order_for_delivery);
+                }
+            } catch (err) {}
+        }
+        loadShopSettings();
+    }, []);
 
     const handleProceedToCheckout = () => {
         setIsCartOpen(false);
-        router.push("/checkout");
+        try {
+            router.push("/checkout");
+        } catch (err) {}
+        if (typeof window !== "undefined") {
+            window.location.href = "/checkout";
+        }
     };
 
     return (
@@ -103,6 +123,12 @@ export default function CartDrawer() {
                                         ₹{cartTotal}
                                     </span>
                                 </div>
+
+                                {minOrder !== null && cartTotal < minOrder && (
+                                    <div style={{ fontSize: "12px", color: "#FF9F1C", marginBottom: "10px", fontWeight: "700", textAlign: "center" }}>
+                                        💡 Store min delivery order: ₹{minOrder} (Current: ₹{cartTotal}). Self Pickup is available for all orders!
+                                    </div>
+                                )}
 
                                 {/* CTA Button */}
                                 <motion.button

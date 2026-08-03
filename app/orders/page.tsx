@@ -74,7 +74,7 @@ export default function MyOrdersPage() {
 
     if (isLoading || loadingOrders) {
         return (
-            <div style={{ minHeight: "100vh", backgroundColor: "#0f0f0f", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ minHeight: "100vh", backgroundColor: "#F0E8C7", color: "#060504", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <p>Loading your orders...</p>
             </div>
         );
@@ -83,8 +83,8 @@ export default function MyOrdersPage() {
     return (
         <div style={{
             minHeight: "100vh",
-            backgroundColor: "#0f0f0f",
-            color: "#fff",
+            backgroundColor: "#F0E8C7",
+            color: "#060504",
             padding: "20px 16px 40px 16px",
             fontFamily: "var(--font-jakarta), sans-serif",
         }}>
@@ -93,35 +93,39 @@ export default function MyOrdersPage() {
                 {/* Header */}
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "24px" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                        <Link href="/" style={{ color: "#ff8c00", fontSize: "18px" }}>
+                        <Link href="/" style={{ color: "#CF4B13", fontSize: "18px" }}>
                             <FontAwesomeIcon icon={faArrowLeft} />
                         </Link>
-                        <h1 style={{ fontSize: "24px", fontWeight: "800", margin: 0, color: "#fff" }}>
+                        <h1 style={{ fontSize: "24px", fontWeight: "800", margin: 0, color: "#060504" }}>
                             My Orders
                         </h1>
                     </div>
-                    <Link href="/profile" style={{ fontSize: "13px", color: "#aaa", textDecoration: "underline" }}>
+                    <Link href="/profile" style={{ fontSize: "13px", color: "#666", textDecoration: "underline" }}>
                         My Profile
                     </Link>
                 </div>
 
                 {orders.length === 0 ? (
                     <div style={{
-                        backgroundColor: "#1a1a1a",
-                        border: "1px solid #333",
+                        backgroundColor: "rgba(18, 14, 10, 0.76)",
+                        backdropFilter: "blur(20px) saturate(180%)",
+                        WebkitBackdropFilter: "blur(20px) saturate(180%)",
+                        border: "1px solid rgba(255, 255, 255, 0.12)",
                         borderRadius: "16px",
                         padding: "40px 20px",
                         textAlign: "center",
+                        boxShadow: "0 12px 40px rgba(6, 5, 4, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.12)",
+                        color: "#fff",
                     }}>
-                        <FontAwesomeIcon icon={faBoxOpen} style={{ fontSize: "48px", color: "#444", marginBottom: "16px" }} />
+                        <FontAwesomeIcon icon={faBoxOpen} style={{ fontSize: "48px", color: "#666", marginBottom: "16px" }} />
                         <h2 style={{ fontSize: "20px", fontWeight: "700", marginBottom: "8px" }}>No orders placed yet</h2>
                         <p style={{ fontSize: "14px", color: "#aaa", marginBottom: "20px" }}>
                             Explore our delicious burgers and snacks on the menu.
                         </p>
                         <Link href="/" style={{
                             padding: "12px 24px",
-                            backgroundColor: "#ff8c00",
-                            color: "#000",
+                            backgroundColor: "#CF4B13",
+                            color: "#fff",
                             borderRadius: "8px",
                             fontWeight: "700",
                             textDecoration: "none",
@@ -136,10 +140,13 @@ export default function MyOrdersPage() {
                                 key={order.id}
                                 href={`/orders/${order.id}`}
                                 style={{
-                                    backgroundColor: "#1a1a1a",
-                                    border: "1px solid #333",
+                                    backgroundColor: "rgba(18, 14, 10, 0.76)",
+                                    backdropFilter: "blur(20px) saturate(180%)",
+                                    WebkitBackdropFilter: "blur(20px) saturate(180%)",
+                                    border: "1px solid rgba(255, 255, 255, 0.12)",
                                     borderRadius: "16px",
                                     padding: "20px",
+                                    boxShadow: "0 12px 40px rgba(6, 5, 4, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.12)",
                                     textDecoration: "none",
                                     color: "#fff",
                                     transition: "border-color 0.2s",

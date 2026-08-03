@@ -90,7 +90,7 @@ export default function ProfilePage() {
 
     if (isLoading || !user) {
         return (
-            <div style={{ minHeight: "100vh", backgroundColor: "#0f0f0f", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ minHeight: "100vh", backgroundColor: "#F0E8C7", color: "#060504", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <p>Loading profile...</p>
             </div>
         );
@@ -99,8 +99,8 @@ export default function ProfilePage() {
     return (
         <div style={{
             minHeight: "100vh",
-            backgroundColor: "#0f0f0f",
-            color: "#fff",
+            backgroundColor: "#F0E8C7",
+            color: "#060504",
             padding: "24px 16px",
             fontFamily: "var(--font-jakarta), sans-serif",
         }}>
@@ -108,10 +108,10 @@ export default function ProfilePage() {
                 {/* Header */}
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "24px" }}>
                     <div>
-                        <h1 style={{ fontSize: "24px", fontWeight: "800", color: "#ff8c00" }}>My Account Profile</h1>
-                        <p style={{ fontSize: "14px", color: "#aaa" }}>Manage personal details & default delivery address</p>
+                        <h1 style={{ fontSize: "24px", fontWeight: "800", color: "#CF4B13" }}>My Account Profile</h1>
+                        <p style={{ fontSize: "14px", color: "#666" }}>Manage personal details & default delivery address</p>
                     </div>
-                    <Link href="/" style={{ padding: "8px 14px", backgroundColor: "#222", color: "#fff", borderRadius: "8px", textDecoration: "none", fontSize: "14px", border: "1px solid #444" }}>
+                    <Link href="/" style={{ padding: "8px 14px", backgroundColor: "#060504", color: "#fff", borderRadius: "8px", textDecoration: "none", fontSize: "14px", border: "1px solid rgba(6,5,4,0.15)" }}>
                         ← Menu
                     </Link>
                 </div>
@@ -121,11 +121,13 @@ export default function ProfilePage() {
                     <Link href="/orders" style={{
                         flex: 1,
                         padding: "12px",
-                        backgroundColor: "#222",
-                        border: "1px solid #333",
+                        backgroundColor: "rgba(18, 14, 10, 0.76)",
+                        backdropFilter: "blur(20px) saturate(180%)",
+                        WebkitBackdropFilter: "blur(20px) saturate(180%)",
+                        border: "1px solid rgba(255, 255, 255, 0.12)",
                         borderRadius: "10px",
                         textAlign: "center",
-                        color: "#ff8c00",
+                        color: "#CF4B13",
                         fontWeight: "600",
                         textDecoration: "none",
                     }}>
@@ -135,11 +137,11 @@ export default function ProfilePage() {
                         <Link href="/admin" style={{
                             flex: 1,
                             padding: "12px",
-                            backgroundColor: "rgba(255, 140, 0, 0.15)",
-                            border: "1px solid #ff8c00",
+                            backgroundColor: "rgba(207, 75, 19, 0.15)",
+                            border: "1px solid #CF4B13",
                             borderRadius: "10px",
                             textAlign: "center",
-                            color: "#ff8c00",
+                            color: "#CF4B13",
                             fontWeight: "700",
                             textDecoration: "none",
                         }}>
@@ -150,11 +152,15 @@ export default function ProfilePage() {
 
                 {/* Form Card */}
                 <div style={{
-                    backgroundColor: "#1a1a1a",
-                    border: "1px solid #333",
+                    backgroundColor: "rgba(18, 14, 10, 0.76)",
+                    backdropFilter: "blur(20px) saturate(180%)",
+                    WebkitBackdropFilter: "blur(20px) saturate(180%)",
+                    border: "1px solid rgba(255, 255, 255, 0.12)",
                     borderRadius: "16px",
                     padding: "24px",
                     marginBottom: "24px",
+                    boxShadow: "0 12px 40px rgba(6, 5, 4, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.12)",
+                    color: "#fff",
                 }}>
                     {msg && (
                         <div style={{

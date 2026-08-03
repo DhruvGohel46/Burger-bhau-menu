@@ -39,7 +39,9 @@ export default function FloatingCartBar() {
                         </div>
 
                         <div className={styles.right}>
-                            <span className={styles.total}>₹{cartTotal}</span>
+                            <span className={styles.subtotal}>
+                                Total Amount: <span className={styles.total}>₹{cartTotal}</span>
+                            </span>
                             <span className={styles.view}>
                                 View Cart <FontAwesomeIcon icon={faChevronRight} width={12} height={12} />
                             </span>

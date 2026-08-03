@@ -69,8 +69,8 @@ export default function RegisterPage() {
     return (
         <div style={{
             minHeight: "100vh",
-            backgroundColor: "#0f0f0f",
-            color: "#fff",
+            backgroundColor: "#F0E8C7",
+            color: "#060504",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -81,14 +81,16 @@ export default function RegisterPage() {
             <div style={{
                 width: "100%",
                 maxWidth: "440px",
-                backgroundColor: "#1a1a1a",
-                border: "1px solid #333",
+                backgroundColor: "rgba(18, 14, 10, 0.76)",
+                backdropFilter: "blur(20px) saturate(180%)",
+                WebkitBackdropFilter: "blur(20px) saturate(180%)",
+                border: "1px solid rgba(255, 255, 255, 0.12)",
                 borderRadius: "16px",
                 padding: "32px 24px",
-                boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
+                boxShadow: "0 12px 40px rgba(6, 5, 4, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.12)",
             }}>
                 <div style={{ textAlign: "center", marginBottom: "24px" }}>
-                    <h1 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "8px", color: "#ff8c00" }}>
+                    <h1 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "8px", color: "#CF4B13" }}>
                         Create Account
                     </h1>
                     <p style={{ fontSize: "14px", color: "#aaa" }}>
@@ -124,8 +126,8 @@ export default function RegisterPage() {
                             style={{
                                 width: "100%",
                                 padding: "10px 12px",
-                                backgroundColor: "#262626",
-                                border: "1px solid #444",
+                                backgroundColor: "rgba(255, 255, 255, 0.08)",
+                                border: "1px solid rgba(255, 255, 255, 0.18)",
                                 borderRadius: "8px",
                                 color: "#fff",
                                 fontSize: "14px",
@@ -147,8 +149,8 @@ export default function RegisterPage() {
                             style={{
                                 width: "100%",
                                 padding: "10px 12px",
-                                backgroundColor: "#262626",
-                                border: "1px solid #444",
+                                backgroundColor: "rgba(255, 255, 255, 0.08)",
+                                border: "1px solid rgba(255, 255, 255, 0.18)",
                                 borderRadius: "8px",
                                 color: "#fff",
                                 fontSize: "14px",
@@ -170,8 +172,8 @@ export default function RegisterPage() {
                             style={{
                                 width: "100%",
                                 padding: "10px 12px",
-                                backgroundColor: "#262626",
-                                border: "1px solid #444",
+                                backgroundColor: "rgba(255, 255, 255, 0.08)",
+                                border: "1px solid rgba(255, 255, 255, 0.18)",
                                 borderRadius: "8px",
                                 color: "#fff",
                                 fontSize: "14px",
@@ -193,8 +195,8 @@ export default function RegisterPage() {
                             style={{
                                 width: "100%",
                                 padding: "10px 12px",
-                                backgroundColor: "#262626",
-                                border: "1px solid #444",
+                                backgroundColor: "rgba(255, 255, 255, 0.08)",
+                                border: "1px solid rgba(255, 255, 255, 0.18)",
                                 borderRadius: "8px",
                                 color: "#fff",
                                 fontSize: "14px",
@@ -218,8 +220,8 @@ export default function RegisterPage() {
                             style={{
                                 width: "100%",
                                 padding: "10px 12px",
-                                backgroundColor: "#262626",
-                                border: "1px solid #444",
+                                backgroundColor: "rgba(255, 255, 255, 0.08)",
+                                border: "1px solid rgba(255, 255, 255, 0.18)",
                                 borderRadius: "8px",
                                 color: "#fff",
                                 fontSize: "14px",
@@ -234,8 +236,8 @@ export default function RegisterPage() {
                         style={{
                             width: "100%",
                             padding: "14px",
-                            backgroundColor: "#ff8c00",
-                            color: "#000",
+                            backgroundColor: "#CF4B13",
+                            color: "#fff",
                             border: "none",
                             borderRadius: "8px",
                             fontSize: "15px",
@@ -251,7 +253,7 @@ export default function RegisterPage() {
 
                 <div style={{ marginTop: "20px", textAlign: "center", fontSize: "14px", color: "#aaa" }}>
                     Already have an account?{" "}
-                    <Link href="/login" style={{ color: "#ff8c00", fontWeight: "600", textDecoration: "underline" }}>
+                    <Link href="/login" style={{ color: "#CF4B13", fontWeight: "600", textDecoration: "underline" }}>
                         Sign In
                     </Link>
                 </div>
