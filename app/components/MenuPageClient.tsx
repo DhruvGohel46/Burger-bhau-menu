@@ -168,36 +168,18 @@ export default function MenuPageClient({
                     boxShadow: "0 12px 32px rgba(6, 5, 4, 0.12)",
                     color: "#fff",
                 }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                         <div>
                             <h3 style={{ fontSize: "18px", fontWeight: "800", color: "#FF9F1C", margin: 0 }}>
-                                📸 Photo Gallery Highlights
+                                📸 Photo Gallery
                             </h3>
                             <p style={{ fontSize: "12px", color: "#aaaaaa", margin: "2px 0 0 0" }}>
-                                Real photos from our kitchen, burgers & shop
+                                Authentic photos of our burgers, kitchen & store
                             </p>
                         </div>
-                        <a href="/gallery" style={{ fontSize: "13px", fontWeight: "800", color: "#CF4B13", textDecoration: "none" }}>
-                            View Gallery →
+                        <a href="/gallery" style={{ fontSize: "13px", fontWeight: "800", color: "#CF4B13", textDecoration: "none", padding: "8px 16px", backgroundColor: "rgba(207, 75, 19, 0.15)", borderRadius: "99px", border: "1px solid #CF4B13" }}>
+                            Explore Gallery →
                         </a>
-                    </div>
-
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(130px, 1fr))", gap: "12px" }}>
-                        {[
-                            { id: "1", title: "Aalu Tikki Burger", url: "/productimage/burger/aalu-tikki-burger.jpg", alt: "Aalu Tikki Burger" },
-                            { id: "2", title: "Tandoori Tadka", url: "/productimage/burger/burger-tandoori-tadka.jpg", alt: "Tandoori Tadka Burger" },
-                            { id: "3", title: "Loaded Fries", url: "/productimage/frenchfries/fries-loaded.jpg", alt: "Loaded Cheesy Fries" },
-                            { id: "4", title: "Bhau Special", url: "/productimage/burger/burger-bhau-special.jpg", alt: "Bhau Special Open Burger" },
-                        ].map((item) => (
-                            <a key={item.id} href="/gallery" style={{ textDecoration: "none" }}>
-                                <div style={{ position: "relative", borderRadius: "12px", overflow: "hidden", aspectRatio: "4/3", border: "1px solid rgba(255, 255, 255, 0.15)" }}>
-                                    <img src={item.url} alt={item.alt} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 30%, rgba(6,5,4,0.85) 100%)", padding: "6px", display: "flex", alignItems: "flex-end" }}>
-                                        <span style={{ fontSize: "11px", fontWeight: "700", color: "#fff", textShadow: "0 1px 3px rgba(0,0,0,0.8)" }}>{item.title}</span>
-                                    </div>
-                                </div>
-                            </a>
-                        ))}
                     </div>
                 </div>
             </div>
