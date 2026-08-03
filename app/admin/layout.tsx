@@ -61,28 +61,47 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div style={{
             display: "flex",
             minHeight: "100vh",
-            backgroundColor: "#0a0a0a",
-            color: "#fff",
-            fontFamily: "var(--font-jakarta), sans-serif",
+            backgroundColor: "#0d0a08",
+            backgroundImage: "radial-gradient(ellipse at 20% 0%, rgba(207, 75, 19, 0.12) 0%, transparent 60%), radial-gradient(ellipse at 80% 100%, rgba(255, 140, 0, 0.08) 0%, transparent 60%)",
+            color: "#f5f5f5",
+            fontFamily: "var(--font-jakarta), 'Plus Jakarta Sans', system-ui, sans-serif",
         }}>
             {/* Sidebar */}
             <aside style={{
-                width: "260px",
-                backgroundColor: "#121212",
-                borderRight: "1px solid #222",
+                width: "270px",
+                backgroundColor: "rgba(18, 14, 10, 0.94)",
+                backdropFilter: "blur(20px)",
+                borderRight: "1px solid rgba(207, 75, 19, 0.20)",
                 display: "flex",
                 flexDirection: "column",
                 padding: "24px 16px",
                 flexShrink: 0,
+                boxShadow: "4px 0 24px rgba(0, 0, 0, 0.4)",
             }}>
-                {/* Brand Logo */}
-                <div style={{ marginBottom: "32px", padding: "0 8px" }}>
-                    <div style={{ fontSize: "20px", fontWeight: "800", color: "#ff8c00", display: "flex", alignItems: "center", gap: "8px" }}>
-                        <FontAwesomeIcon icon={faStore} /> Burger Bhau
+                {/* Brand Logo Header */}
+                <div style={{ marginBottom: "28px", padding: "0 8px", display: "flex", alignItems: "center", gap: "12px" }}>
+                    <div style={{
+                        width: "44px",
+                        height: "44px",
+                        borderRadius: "12px",
+                        backgroundColor: "#16120e",
+                        border: "1px solid rgba(207, 75, 19, 0.35)",
+                        overflow: "hidden",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        boxShadow: "0 4px 12px rgba(207, 75, 19, 0.25)",
+                    }}>
+                        <img src="/BURGER-BHAU-logo.webp" alt="Burger Bhau" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                     </div>
-                    <span style={{ fontSize: "11px", color: "#888", fontWeight: "600", letterSpacing: "1px", textTransform: "uppercase" }}>
-                        ADMIN DASHBOARD
-                    </span>
+                    <div>
+                        <div style={{ fontSize: "20px", fontWeight: "700", fontFamily: "var(--font-playfair), 'Playfair Display', serif", color: "#F0E8C7", letterSpacing: "-0.01em" }}>
+                            BURGER <span style={{ color: "#ff8c00" }}>BHAU</span>
+                        </div>
+                        <span style={{ fontSize: "10px", color: "rgba(240, 232, 199, 0.6)", fontWeight: "700", letterSpacing: "1.2px", textTransform: "uppercase" }}>
+                            ADMIN PORTAL
+                        </span>
+                    </div>
                 </div>
 
                 {/* Nav Links */}
@@ -98,16 +117,27 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                                     alignItems: "center",
                                     gap: "12px",
                                     padding: "12px 14px",
-                                    borderRadius: "10px",
+                                    borderRadius: "12px",
                                     fontSize: "14px",
                                     fontWeight: isActive ? "700" : "500",
-                                    color: isActive ? "#000" : "#ccc",
-                                    backgroundColor: isActive ? "#ff8c00" : "transparent",
+                                    color: isActive ? "#ffffff" : "#d4cbb0",
+                                    background: isActive
+                                        ? "linear-gradient(135deg, #CF4B13 0%, #ff8c00 100%)"
+                                        : "transparent",
+                                    border: isActive ? "1px solid rgba(255, 255, 255, 0.2)" : "1px solid transparent",
+                                    boxShadow: isActive ? "0 4px 16px rgba(207, 75, 19, 0.40)" : "none",
                                     textDecoration: "none",
-                                    transition: "all 0.15s ease",
+                                    transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
                                 }}
                             >
-                                <FontAwesomeIcon icon={item.icon} style={{ fontSize: "16px", width: "18px" }} />
+                                <FontAwesomeIcon
+                                    icon={item.icon}
+                                    style={{
+                                        fontSize: "16px",
+                                        width: "18px",
+                                        color: isActive ? "#ffffff" : "#CF4B13",
+                                    }}
+                                />
                                 {item.label}
                             </Link>
                         );
@@ -115,12 +145,19 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 </nav>
 
                 {/* Bottom User Controls */}
-                <div style={{ borderTop: "1px solid #222", paddingTop: "16px", marginTop: "16px" }}>
-                    <div style={{ fontSize: "13px", color: "#fff", fontWeight: "600", marginBottom: "2px" }}>
+                <div style={{
+                    borderTop: "1px solid rgba(207, 75, 19, 0.18)",
+                    paddingTop: "16px",
+                    marginTop: "16px",
+                    backgroundColor: "rgba(240, 232, 199, 0.04)",
+                    borderRadius: "14px",
+                    padding: "14px",
+                }}>
+                    <div style={{ fontSize: "13px", color: "#F0E8C7", fontWeight: "700", marginBottom: "2px", overflow: "hidden", textOverflow: "ellipsis" }}>
                         {profile?.name || user?.email}
                     </div>
                     <div style={{ fontSize: "11px", color: "#ff8c00", fontWeight: "700", marginBottom: "12px" }}>
-                        Role: Administrator
+                        Role: Store Administrator
                     </div>
                     <button
                         onClick={() => {
@@ -130,17 +167,18 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                         style={{
                             width: "100%",
                             padding: "10px",
-                            backgroundColor: "#1e1e1e",
-                            border: "1px solid #333",
-                            borderRadius: "8px",
+                            backgroundColor: "rgba(239, 68, 68, 0.12)",
+                            border: "1px solid rgba(239, 68, 68, 0.35)",
+                            borderRadius: "10px",
                             color: "#ff6b6b",
                             fontSize: "13px",
-                            fontWeight: "600",
+                            fontWeight: "700",
                             cursor: "pointer",
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
                             gap: "8px",
+                            transition: "all 0.2s ease",
                         }}
                     >
                         <FontAwesomeIcon icon={faSignOutAlt} /> Sign Out

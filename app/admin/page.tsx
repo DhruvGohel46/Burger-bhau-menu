@@ -68,11 +68,18 @@ export default function AdminDashboardPage() {
         <div>
             {/* Header */}
             <div style={{ marginBottom: "28px" }}>
-                <h1 style={{ fontSize: "28px", fontWeight: "800", margin: 0, color: "#fff" }}>
-                    Dashboard Overview
+                <h1 style={{
+                    fontSize: "32px",
+                    fontWeight: "700",
+                    margin: 0,
+                    color: "#F0E8C7",
+                    fontFamily: "var(--font-playfair), 'Playfair Display', serif",
+                    letterSpacing: "-0.01em",
+                }}>
+                    Dashboard <span style={{ color: "#ff8c00" }}>Overview</span>
                 </h1>
-                <p style={{ fontSize: "14px", color: "#888", marginTop: "4px" }}>
-                    Real-time operational summary and customer stats for Burger Bhau.
+                <p style={{ fontSize: "14px", color: "rgba(240, 232, 199, 0.7)", marginTop: "6px" }}>
+                    Real-time operational summary and customer stats for Burger Bhau (Kothariya).
                 </p>
             </div>
 
@@ -80,62 +87,117 @@ export default function AdminDashboardPage() {
             <div style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-                gap: "16px",
+                gap: "18px",
                 marginBottom: "32px",
             }}>
-                <div style={{ backgroundColor: "#161616", border: "1px solid #282828", borderRadius: "14px", padding: "20px" }}>
+                <div style={{
+                    backgroundColor: "rgba(22, 17, 13, 0.80)",
+                    border: "1px solid rgba(207, 75, 19, 0.25)",
+                    borderRadius: "16px",
+                    padding: "22px",
+                    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.3)",
+                    backdropFilter: "blur(12px)",
+                }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
-                        <span style={{ fontSize: "13px", color: "#aaa", fontWeight: "600" }}>Today's Orders</span>
-                        <FontAwesomeIcon icon={faShoppingBag} style={{ color: "#ff8c00", fontSize: "18px" }} />
+                        <span style={{ fontSize: "13px", color: "rgba(240, 232, 199, 0.7)", fontWeight: "600" }}>Today's Orders</span>
+                        <FontAwesomeIcon icon={faShoppingBag} style={{ color: "#ff8c00", fontSize: "20px" }} />
                     </div>
-                    <div style={{ fontSize: "28px", fontWeight: "800", color: "#fff" }}>{todayOrders.length}</div>
+                    <div style={{ fontSize: "32px", fontWeight: "800", color: "#F0E8C7", fontFamily: "var(--font-playfair), serif" }}>{todayOrders.length}</div>
                 </div>
 
-                <div style={{ backgroundColor: "#161616", border: "1px solid #282828", borderRadius: "14px", padding: "20px" }}>
+                <div style={{
+                    backgroundColor: "rgba(22, 17, 13, 0.80)",
+                    border: "1px solid rgba(34, 197, 94, 0.30)",
+                    borderRadius: "16px",
+                    padding: "22px",
+                    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.3)",
+                    backdropFilter: "blur(12px)",
+                }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
-                        <span style={{ fontSize: "13px", color: "#aaa", fontWeight: "600" }}>Today's Revenue</span>
-                        <FontAwesomeIcon icon={faRupeeSign} style={{ color: "#28a745", fontSize: "18px" }} />
+                        <span style={{ fontSize: "13px", color: "rgba(240, 232, 199, 0.7)", fontWeight: "600" }}>Today's Revenue</span>
+                        <FontAwesomeIcon icon={faRupeeSign} style={{ color: "#22c55e", fontSize: "20px" }} />
                     </div>
-                    <div style={{ fontSize: "28px", fontWeight: "800", color: "#28a745" }}>₹{todayRevenue}</div>
+                    <div style={{ fontSize: "32px", fontWeight: "800", color: "#22c55e", fontFamily: "var(--font-playfair), serif" }}>₹{todayRevenue}</div>
                 </div>
 
-                <div style={{ backgroundColor: "#161616", border: "1px solid #282828", borderRadius: "14px", padding: "20px" }}>
+                <div style={{
+                    backgroundColor: "rgba(22, 17, 13, 0.80)",
+                    border: "1px solid rgba(255, 193, 7, 0.30)",
+                    borderRadius: "16px",
+                    padding: "22px",
+                    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.3)",
+                    backdropFilter: "blur(12px)",
+                }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
-                        <span style={{ fontSize: "13px", color: "#aaa", fontWeight: "600" }}>Pending Orders</span>
-                        <FontAwesomeIcon icon={faClock} style={{ color: "#ffc107", fontSize: "18px" }} />
+                        <span style={{ fontSize: "13px", color: "rgba(240, 232, 199, 0.7)", fontWeight: "600" }}>Pending Orders</span>
+                        <FontAwesomeIcon icon={faClock} style={{ color: "#ffc107", fontSize: "20px" }} />
                     </div>
-                    <div style={{ fontSize: "28px", fontWeight: "800", color: "#ffc107" }}>{pendingOrders.length}</div>
+                    <div style={{ fontSize: "32px", fontWeight: "800", color: "#ffc107", fontFamily: "var(--font-playfair), serif" }}>{pendingOrders.length}</div>
                 </div>
 
-                <div style={{ backgroundColor: "#161616", border: "1px solid #282828", borderRadius: "14px", padding: "20px" }}>
+                <div style={{
+                    backgroundColor: "rgba(22, 17, 13, 0.80)",
+                    border: "1px solid rgba(207, 75, 19, 0.25)",
+                    borderRadius: "16px",
+                    padding: "22px",
+                    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.3)",
+                    backdropFilter: "blur(12px)",
+                }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
-                        <span style={{ fontSize: "13px", color: "#aaa", fontWeight: "600" }}>Completed Orders</span>
-                        <FontAwesomeIcon icon={faCheckCircle} style={{ color: "#17a2b8", fontSize: "18px" }} />
+                        <span style={{ fontSize: "13px", color: "rgba(240, 232, 199, 0.7)", fontWeight: "600" }}>Completed Orders</span>
+                        <FontAwesomeIcon icon={faCheckCircle} style={{ color: "#38bdf8", fontSize: "20px" }} />
                     </div>
-                    <div style={{ fontSize: "28px", fontWeight: "800", color: "#fff" }}>{completedOrders.length}</div>
+                    <div style={{ fontSize: "32px", fontWeight: "800", color: "#F0E8C7", fontFamily: "var(--font-playfair), serif" }}>{completedOrders.length}</div>
                 </div>
 
-                <div style={{ backgroundColor: "#161616", border: "1px solid #282828", borderRadius: "14px", padding: "20px" }}>
+                <div style={{
+                    backgroundColor: "rgba(22, 17, 13, 0.80)",
+                    border: "1px solid rgba(207, 75, 19, 0.25)",
+                    borderRadius: "16px",
+                    padding: "22px",
+                    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.3)",
+                    backdropFilter: "blur(12px)",
+                }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
-                        <span style={{ fontSize: "13px", color: "#aaa", fontWeight: "600" }}>Total Customers</span>
-                        <FontAwesomeIcon icon={faUsers} style={{ color: "#9c27b0", fontSize: "18px" }} />
+                        <span style={{ fontSize: "13px", color: "rgba(240, 232, 199, 0.7)", fontWeight: "600" }}>Total Customers</span>
+                        <FontAwesomeIcon icon={faUsers} style={{ color: "#c084fc", fontSize: "20px" }} />
                     </div>
-                    <div style={{ fontSize: "28px", fontWeight: "800", color: "#fff" }}>{totalCustomers}</div>
+                    <div style={{ fontSize: "32px", fontWeight: "800", color: "#F0E8C7", fontFamily: "var(--font-playfair), serif" }}>{totalCustomers}</div>
                 </div>
             </div>
 
             {/* Recent Orders Section */}
             <div style={{
-                backgroundColor: "#141414",
-                border: "1px solid #282828",
-                borderRadius: "16px",
+                backgroundColor: "rgba(22, 17, 13, 0.85)",
+                border: "1px solid rgba(207, 75, 19, 0.25)",
+                borderRadius: "20px",
                 padding: "24px",
+                boxShadow: "0 12px 32px rgba(0, 0, 0, 0.4)",
+                backdropFilter: "blur(16px)",
             }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
-                    <h2 style={{ fontSize: "18px", fontWeight: "800", color: "#fff", margin: 0 }}>
+                    <h2 style={{
+                        fontSize: "20px",
+                        fontWeight: "700",
+                        color: "#F0E8C7",
+                        margin: 0,
+                        fontFamily: "var(--font-playfair), 'Playfair Display', serif",
+                    }}>
                         Recent Orders
                     </h2>
-                    <Link href="/admin/orders" style={{ fontSize: "13px", color: "#ff8c00", fontWeight: "700", textDecoration: "none", display: "flex", alignItems: "center", gap: "6px" }}>
+                    <Link href="/admin/orders" style={{
+                        fontSize: "13px",
+                        color: "#ff8c00",
+                        fontWeight: "700",
+                        textDecoration: "none",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "6px",
+                        padding: "6px 14px",
+                        backgroundColor: "rgba(207, 75, 19, 0.12)",
+                        border: "1px solid rgba(207, 75, 19, 0.3)",
+                        borderRadius: "10px",
+                    }}>
                         View All Orders <FontAwesomeIcon icon={faArrowRight} />
                     </Link>
                 </div>
@@ -146,24 +208,24 @@ export default function AdminDashboardPage() {
                     <div style={{ overflowX: "auto" }}>
                         <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontSize: "14px" }}>
                             <thead>
-                                <tr style={{ borderBottom: "1px solid #2a2a2a", color: "#888", fontSize: "12px", textTransform: "uppercase" }}>
-                                    <th style={{ padding: "12px" }}>Order ID</th>
-                                    <th style={{ padding: "12px" }}>Customer</th>
-                                    <th style={{ padding: "12px" }}>Method</th>
-                                    <th style={{ padding: "12px" }}>Payment</th>
-                                    <th style={{ padding: "12px" }}>Status</th>
-                                    <th style={{ padding: "12px" }}>Total</th>
+                                <tr style={{ borderBottom: "1px solid rgba(207, 75, 19, 0.2)", color: "rgba(240, 232, 199, 0.6)", fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                                    <th style={{ padding: "14px 12px" }}>Order ID</th>
+                                    <th style={{ padding: "14px 12px" }}>Customer</th>
+                                    <th style={{ padding: "14px 12px" }}>Method</th>
+                                    <th style={{ padding: "14px 12px" }}>Payment</th>
+                                    <th style={{ padding: "14px 12px" }}>Status</th>
+                                    <th style={{ padding: "14px 12px" }}>Total</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {orders.slice(0, 5).map((o) => (
-                                    <tr key={o.id} style={{ borderBottom: "1px solid #1f1f1f" }}>
-                                        <td style={{ padding: "12px", fontFamily: "monospace" }}>#{o.id.slice(0, 8)}</td>
-                                        <td style={{ padding: "12px", fontWeight: "600" }}>{o.customer_name}</td>
-                                        <td style={{ padding: "12px", textTransform: "capitalize" }}>{o.delivery_method}</td>
-                                        <td style={{ padding: "12px", color: o.payment_status === "Approved" ? "#28a745" : "#ffc107" }}>{o.payment_status}</td>
-                                        <td style={{ padding: "12px", fontWeight: "600", color: "#ff8c00" }}>{o.status}</td>
-                                        <td style={{ padding: "12px", fontWeight: "700" }}>₹{o.total}</td>
+                                    <tr key={o.id} style={{ borderBottom: "1px solid rgba(255, 255, 255, 0.05)" }}>
+                                        <td style={{ padding: "14px 12px", fontFamily: "monospace", color: "#ff8c00", fontWeight: "700" }}>#{o.id.slice(0, 8)}</td>
+                                        <td style={{ padding: "14px 12px", fontWeight: "600", color: "#F0E8C7" }}>{o.customer_name}</td>
+                                        <td style={{ padding: "14px 12px", textTransform: "capitalize", color: "#d4cbb0" }}>{o.delivery_method}</td>
+                                        <td style={{ padding: "14px 12px", color: o.payment_status === "Approved" ? "#22c55e" : "#ffc107", fontWeight: "700" }}>{o.payment_status}</td>
+                                        <td style={{ padding: "14px 12px", fontWeight: "600", color: "#ff8c00" }}>{o.status}</td>
+                                        <td style={{ padding: "14px 12px", fontWeight: "700", color: "#F0E8C7", fontFamily: "var(--font-playfair), serif", fontSize: "16px" }}>₹{o.total}</td>
                                     </tr>
                                 ))}
                             </tbody>

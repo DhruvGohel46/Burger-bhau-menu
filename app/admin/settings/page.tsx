@@ -64,13 +64,35 @@ export default function AdminSettingsPage() {
         setMsg(null);
 
         try {
-            const { error } = await supabase
+            const cleanPhones = (settings.additional_phones || []).map((p) => p.trim()).filter(Boolean);
+            const cleanWhatsapps = (settings.additional_whatsapps || []).map((w) => w.trim()).filter(Boolean);
+
+            const payload: any = {
+                ...settings,
+                id: 1,
+                additional_phones: cleanPhones,
+                additional_whatsapps: cleanWhatsapps,
+                updated_at: new Date().toISOString(),
+            };
+
+            let { error } = await supabase
                 .from("shop_settings")
-                .upsert({
-                    ...settings,
-                    id: 1,
-                    updated_at: new Date().toISOString(),
-                });
+                .upsert(payload);
+
+            if (error && (error.message.includes("additional_phones") || error.message.includes("additional_whatsapps") || error.message.includes("schema cache"))) {
+                delete payload.additional_phones;
+                delete payload.additional_whatsapps;
+                const retry = await supabase.from("shop_settings").upsert(payload);
+                error = retry.error;
+                if (!error) {
+                    setMsg({
+                        type: "success",
+                        text: "Store settings updated! Note: Please run the migration SQL script in Supabase to add backup phone lines.",
+                    });
+                    setSaving(false);
+                    return;
+                }
+            }
 
             if (error) {
                 setMsg({ type: "error", text: error.message });
@@ -89,24 +111,32 @@ export default function AdminSettingsPage() {
     }
 
     return (
-        <div style={{ maxWidth: "680px" }}>
+        <div style={{ maxWidth: "720px" }}>
             <div style={{ marginBottom: "28px" }}>
-                <h1 style={{ fontSize: "28px", fontWeight: "800", margin: 0, color: "#fff" }}>
-                    Store Business Settings
+                <h1 style={{
+                    fontSize: "32px",
+                    fontWeight: "700",
+                    margin: 0,
+                    color: "#F0E8C7",
+                    fontFamily: "var(--font-playfair), 'Playfair Display', serif",
+                    letterSpacing: "-0.01em",
+                }}>
+                    Store Business <span style={{ color: "#ff8c00" }}>Settings</span>
                 </h1>
-                <p style={{ fontSize: "14px", color: "#888", marginTop: "4px" }}>
+                <p style={{ fontSize: "14px", color: "rgba(240, 232, 199, 0.7)", marginTop: "6px" }}>
                     Manage QR Code upload, UPI payment info, logo, theme, and delivery policies.
                 </p>
             </div>
 
             {msg && (
                 <div style={{
-                    backgroundColor: msg.type === "success" ? "rgba(40, 167, 69, 0.2)" : "rgba(255, 68, 68, 0.2)",
-                    border: `1px solid ${msg.type === "success" ? "#28a745" : "#ff4444"}`,
-                    color: msg.type === "success" ? "#5dd579" : "#ff6b6b",
-                    padding: "14px",
-                    borderRadius: "10px",
+                    backgroundColor: msg.type === "success" ? "rgba(34, 197, 94, 0.15)" : "rgba(239, 68, 68, 0.15)",
+                    border: `1px solid ${msg.type === "success" ? "#22c55e" : "#ef4444"}`,
+                    color: msg.type === "success" ? "#4ade80" : "#fca5a5",
+                    padding: "14px 18px",
+                    borderRadius: "14px",
                     fontSize: "14px",
+                    fontWeight: "600",
                     marginBottom: "20px",
                 }}>
                     {msg.text}
@@ -114,13 +144,15 @@ export default function AdminSettingsPage() {
             )}
 
             <form onSubmit={handleSave} style={{
-                backgroundColor: "#141414",
-                border: "1px solid #282828",
-                borderRadius: "16px",
-                padding: "24px",
+                backgroundColor: "rgba(22, 17, 13, 0.85)",
+                border: "1px solid rgba(207, 75, 19, 0.25)",
+                borderRadius: "20px",
+                padding: "28px",
                 display: "flex",
                 flexDirection: "column",
-                gap: "16px",
+                gap: "18px",
+                boxShadow: "0 12px 32px rgba(0, 0, 0, 0.4)",
+                backdropFilter: "blur(16px)",
             }}>
 
                 {/* QR Code Upload Section */}

@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { GalleryImage, GalleryCategory } from "@/lib/types";
+import { getDynamicGalleryImages } from "@/app/data/galleryData";
 import Header from "@/app/components/Header";
 import FloatingActions from "@/app/components/FloatingActions";
 import FloatingCartBar from "@/app/components/FloatingCartBar";
@@ -22,9 +23,27 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function GalleryClient({ initialImages }: { initialImages: GalleryImage[] }) {
-    const [images] = useState<GalleryImage[]>(initialImages);
+    const [images, setImages] = useState<GalleryImage[]>(initialImages);
+    const [loading, setLoading] = useState<boolean>(initialImages.length === 0);
     const [selectedCategory, setSelectedCategory] = useState<"all" | GalleryCategory>("all");
     const [activeLightboxIndex, setActiveLightboxIndex] = useState<number | null>(null);
+
+    // Dynamic background fetch from Supabase to ensure static builds stay updated
+    useEffect(() => {
+        async function fetchLatestImages() {
+            try {
+                const latest = await getDynamicGalleryImages();
+                if (latest && latest.length > 0) {
+                    setImages(latest);
+                }
+            } catch (err) {
+                console.error("Error fetching dynamic gallery images:", err);
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchLatestImages();
+    }, []);
 
     // Touch Swipe handling for mobile lightbox
     const touchStartX = useRef<number | null>(null);
@@ -114,7 +133,12 @@ export default function GalleryClient({ initialImages }: { initialImages: Galler
                 </div>
 
                 {/* Photo Grid */}
-                {filteredImages.length === 0 ? (
+                {loading && filteredImages.length === 0 ? (
+                    <div className={styles.empty}>
+                        <h3>Loading photo gallery...</h3>
+                        <p>Fetching authentic food & store photos from Burger Bhau...</p>
+                    </div>
+                ) : filteredImages.length === 0 ? (
                     <div className={styles.empty}>
                         <h3>No photos found in this category</h3>
                         <p>Check back soon for new photos from Burger Bhau!</p>

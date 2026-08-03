@@ -10,6 +10,41 @@
     <loc>https://burgerbhau.netlify.app/gallery</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://hblsadtgtrdtbqresppg.supabase.co/storage/v1/object/public/burger-bhau-assets/gallery/1785755845724-9qfj409dup6.webp</image:loc>
+      <image:title>Cheese Corn Pizza</image:title>
+      <image:caption>Cheese ni rivers, corn no sweetness, ane crispy base. Bas aa j che perfect Cheese Corn Pizza! Ek bite, full satisfaction.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://hblsadtgtrdtbqresppg.supabase.co/storage/v1/object/public/burger-bhau-assets/gallery/1785764071092-o7zja35rh2c.webp</image:loc>
+      <image:title>7 Cheese Pizza</image:title>
+      <image:caption>7 cheese pizza with extra cheese dollops and crispy crust at Burger Bhau Kothariya</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://hblsadtgtrdtbqresppg.supabase.co/storage/v1/object/public/burger-bhau-assets/gallery/1785764166217-rue0h2n1hb.webp</image:loc>
+      <image:title>Burger</image:title>
+      <image:caption>Crispy veg burger with creamy sauce and fresh vegetables at Burger Bhau Kothariya</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://hblsadtgtrdtbqresppg.supabase.co/storage/v1/object/public/burger-bhau-assets/gallery/1785764284462-6ff832o0uis.webp</image:loc>
+      <image:title>Veg Loaded Garlic Bread</image:title>
+      <image:caption>Veg loaded garlic bread topped with cheese corn and olives at Burger Bhau</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://hblsadtgtrdtbqresppg.supabase.co/storage/v1/object/public/burger-bhau-assets/gallery/1785764343201-n3ze7da4uq.webp</image:loc>
+      <image:title>Veg Pizza</image:title>
+      <image:caption>Loaded veg pizza topped with mayo drizzle chili flakes and corn at Burger Bhau Kothariya</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://hblsadtgtrdtbqresppg.supabase.co/storage/v1/object/public/burger-bhau-assets/gallery/1785764524698-hjvupc4xpbl.webp</image:loc>
+      <image:title>Cheese Garlic Bread</image:title>
+      <image:caption>Toasted cheese garlic bread slices served with tangy red dip at Burger Bhau Kothariya</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://hblsadtgtrdtbqresppg.supabase.co/storage/v1/object/public/burger-bhau-assets/gallery/1785764909473-gk6tv8a9hj9.webp</image:loc>
+      <image:title>Loaded French Fries</image:title>
+      <image:caption>Crispy loaded French fries drizzled with mayonnaise and cheese sauce at Burger Bhau Rajkot</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://burgerbhau.netlify.app/checkout</loc>

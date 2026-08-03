@@ -172,22 +172,32 @@ export default function AdminGalleryPage() {
     return (
         <div style={{ maxWidth: "1000px" }}>
             <div style={{ marginBottom: "28px" }}>
-                <h1 style={{ fontSize: "28px", fontWeight: "800", margin: 0, color: "#fff", display: "flex", alignItems: "center", gap: "10px" }}>
-                    <FontAwesomeIcon icon={faImages} color="#ff8c00" /> Photo Gallery Management
+                <h1 style={{
+                    fontSize: "32px",
+                    fontWeight: "700",
+                    margin: 0,
+                    color: "#F0E8C7",
+                    fontFamily: "var(--font-playfair), 'Playfair Display', serif",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "12px",
+                }}>
+                    <FontAwesomeIcon icon={faImages} color="#ff8c00" /> Photo Gallery <span style={{ color: "#ff8c00" }}>Management</span>
                 </h1>
-                <p style={{ fontSize: "14px", color: "#888", marginTop: "4px" }}>
+                <p style={{ fontSize: "14px", color: "rgba(240, 232, 199, 0.7)", marginTop: "6px" }}>
                     Upload shop photos, food dishes, ambience, and events. WebP auto-compression and SEO alt tags are enforced.
                 </p>
             </div>
 
             {msg && (
                 <div style={{
-                    backgroundColor: msg.type === "success" ? "rgba(40, 167, 69, 0.2)" : "rgba(255, 68, 68, 0.2)",
-                    border: `1px solid ${msg.type === "success" ? "#28a745" : "#ff4444"}`,
-                    color: msg.type === "success" ? "#5dd579" : "#ff6b6b",
-                    padding: "14px",
-                    borderRadius: "10px",
+                    backgroundColor: msg.type === "success" ? "rgba(34, 197, 94, 0.15)" : "rgba(239, 68, 68, 0.15)",
+                    border: `1px solid ${msg.type === "success" ? "#22c55e" : "#ef4444"}`,
+                    color: msg.type === "success" ? "#4ade80" : "#fca5a5",
+                    padding: "14px 18px",
+                    borderRadius: "14px",
                     fontSize: "14px",
+                    fontWeight: "600",
                     marginBottom: "20px",
                 }}>
                     {msg.text}
@@ -196,16 +206,18 @@ export default function AdminGalleryPage() {
 
             {/* Upload Form */}
             <form onSubmit={handleUpload} style={{
-                backgroundColor: "#141414",
-                border: "1px solid #282828",
-                borderRadius: "16px",
-                padding: "24px",
+                backgroundColor: "rgba(22, 17, 13, 0.85)",
+                border: "1px solid rgba(207, 75, 19, 0.25)",
+                borderRadius: "20px",
+                padding: "26px",
                 marginBottom: "32px",
                 display: "flex",
                 flexDirection: "column",
-                gap: "16px",
+                gap: "18px",
+                boxShadow: "0 12px 32px rgba(0, 0, 0, 0.4)",
+                backdropFilter: "blur(16px)",
             }}>
-                <h3 style={{ fontSize: "16px", fontWeight: "700", color: "#ff8c00", margin: 0, display: "flex", alignItems: "center", gap: "8px" }}>
+                <h3 style={{ fontSize: "18px", fontWeight: "700", color: "#ff8c00", margin: 0, fontFamily: "var(--font-playfair), serif", display: "flex", alignItems: "center", gap: "10px" }}>
                     <FontAwesomeIcon icon={faCloudUploadAlt} /> Add New Gallery Photo
                 </h3>
 
