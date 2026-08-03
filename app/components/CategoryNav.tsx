@@ -108,17 +108,6 @@ export default function CategoryNav() {
                         </button>
                     );
                 })}
-
-                <a
-                    href="/gallery"
-                    className={styles.pill}
-                    style={{ textDecoration: "none" }}
-                >
-                    <span className={styles.icon} aria-hidden="true">
-                        📸
-                    </span>
-                    Gallery
-                </a>
             </div>
         </div>
     );

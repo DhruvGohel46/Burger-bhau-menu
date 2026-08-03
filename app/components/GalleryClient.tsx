@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 import { GalleryImage, GalleryCategory } from "@/lib/types";
 import Header from "@/app/components/Header";
@@ -26,6 +26,10 @@ export default function GalleryClient({ initialImages }: { initialImages: Galler
     const [selectedCategory, setSelectedCategory] = useState<"all" | GalleryCategory>("all");
     const [activeLightboxIndex, setActiveLightboxIndex] = useState<number | null>(null);
 
+    // Touch Swipe handling for mobile lightbox
+    const touchStartX = useRef<number | null>(null);
+    const touchEndX = useRef<number | null>(null);
+
     const filteredImages = selectedCategory === "all"
         ? images
         : images.filter((img) => img.category === selectedCategory);
@@ -38,6 +42,30 @@ export default function GalleryClient({ initialImages }: { initialImages: Galler
     const handleNext = () => {
         if (activeLightboxIndex === null) return;
         setActiveLightboxIndex((prev) => (prev! === filteredImages.length - 1 ? 0 : prev! + 1));
+    };
+
+    const handleTouchStart = (e: React.TouchEvent) => {
+        touchStartX.current = e.targetTouches[0].clientX;
+    };
+
+    const handleTouchMove = (e: React.TouchEvent) => {
+        touchEndX.current = e.targetTouches[0].clientX;
+    };
+
+    const handleTouchEnd = () => {
+        if (!touchStartX.current || !touchEndX.current) return;
+        const distance = touchStartX.current - touchEndX.current;
+        const isLeftSwipe = distance > 50;
+        const isRightSwipe = distance < -50;
+
+        if (isLeftSwipe) {
+            handleNext();
+        } else if (isRightSwipe) {
+            handlePrev();
+        }
+
+        touchStartX.current = null;
+        touchEndX.current = null;
     };
 
     const activeImage = activeLightboxIndex !== null ? filteredImages[activeLightboxIndex] : null;
@@ -108,7 +136,7 @@ export default function GalleryClient({ initialImages }: { initialImages: Galler
                                     <img
                                         src={img.public_url}
                                         alt={img.alt_text}
-                                        loading={idx < 3 ? "eager" : "lazy"}
+                                        loading={idx < 4 ? "eager" : "lazy"}
                                         className={styles.img}
                                     />
                                     <div className={styles.overlay}>
@@ -122,9 +150,15 @@ export default function GalleryClient({ initialImages }: { initialImages: Galler
                 )}
             </div>
 
-            {/* Lightbox Modal */}
+            {/* Mobile Touch & Lightbox Modal */}
             {activeImage && (
-                <div className={styles.lightboxBackdrop} onClick={() => setActiveLightboxIndex(null)}>
+                <div
+                    className={styles.lightboxBackdrop}
+                    onClick={() => setActiveLightboxIndex(null)}
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleTouchEnd}
+                >
                     <div className={styles.lightboxContent} onClick={(e) => e.stopPropagation()}>
                         <button
                             className={styles.lightboxClose}
@@ -154,7 +188,7 @@ export default function GalleryClient({ initialImages }: { initialImages: Galler
                             <div className={styles.lightboxHeader}>
                                 <span className={styles.categoryBadge}>{activeImage.category}</span>
                                 <span className={styles.counter}>
-                                    {activeLightboxIndex! + 1} of {filteredImages.length}
+                                    {activeLightboxIndex! + 1} of {filteredImages.length} (Swipe ↔)
                                 </span>
                             </div>
                             <h2 className={styles.lightboxTitle}>{activeImage.title}</h2>
