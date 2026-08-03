@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import Link from "next/link";
 import { getDynamicCategories, getDynamicMenuItems, MenuItem, MenuCategory } from "@/app/data/menu";
 import Header from "@/app/components/Header";
 import CategoryNav from "@/app/components/CategoryNav";
@@ -12,7 +13,7 @@ import GlobalItemPreview from "@/app/components/GlobalItemPreview";
 import styles from "@/app/page.module.css";
 import { useCartStore } from "@/app/store/cartStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faCamera } from "@fortawesome/free-solid-svg-icons";
 
 export default function MenuPageClient({
     initialCategories,
@@ -108,9 +109,9 @@ export default function MenuPageClient({
 
             {/* Main Content */}
             <div className={styles.content}>
-                {/* Instant Menu Search Bar */}
-                <div style={{ marginBottom: "20px" }}>
-                    <div style={{ position: "relative", width: "100%" }}>
+                {/* Instant Menu Search Bar & Inline Gallery Button */}
+                <div style={{ marginBottom: "20px", display: "flex", gap: "10px", alignItems: "center" }}>
+                    <div style={{ position: "relative", flex: 1 }}>
                         <FontAwesomeIcon
                             icon={faSearch}
                             style={{
@@ -142,6 +143,32 @@ export default function MenuPageClient({
                             }}
                         />
                     </div>
+
+                    <Link
+                        href="/gallery"
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "8px",
+                            padding: "12px 16px",
+                            backgroundColor: "rgba(18, 14, 10, 0.76)",
+                            backdropFilter: "blur(20px)",
+                            WebkitBackdropFilter: "blur(20px)",
+                            border: "1px solid rgba(207, 75, 19, 0.40)",
+                            borderRadius: "16px",
+                            color: "#ffffff",
+                            fontSize: "14px",
+                            fontWeight: "700",
+                            textDecoration: "none",
+                            boxShadow: "0 4px 14px rgba(6, 5, 4, 0.08)",
+                            whiteSpace: "nowrap",
+                            cursor: "pointer",
+                            flexShrink: 0,
+                        }}
+                    >
+                        <FontAwesomeIcon icon={faCamera} color="#CF4B13" style={{ fontSize: "15px" }} />
+                        <span>Gallery</span>
+                    </Link>
                 </div>
 
                 {groupedItems.length === 0 ? (

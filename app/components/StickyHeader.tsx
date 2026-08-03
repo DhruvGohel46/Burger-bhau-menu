@@ -8,7 +8,7 @@ import { useAuthStore } from "@/store/authStore";
 import { SHOP_NAME, WEBSITE_URL } from "@/app/data/shopConfig";
 import styles from "./StickyHeader.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBagShopping, faShareNodes, faUser, faBoxOpen, faCamera } from "@fortawesome/free-solid-svg-icons";
+import { faBagShopping, faShareNodes, faUser, faBoxOpen } from "@fortawesome/free-solid-svg-icons";
 
 export default function StickyHeader() {
     const { user } = useAuthStore();
@@ -58,17 +58,6 @@ export default function StickyHeader() {
 
                 {/* Actions */}
                 <div className={styles.actions}>
-                    {/* Gallery Link */}
-                    <Link
-                        href="/gallery"
-                        className={styles.actionBtn}
-                        aria-label="Photo Gallery"
-                        style={{ display: "flex", alignItems: "center", gap: "6px", textDecoration: "none", color: "#fff" }}
-                    >
-                        <FontAwesomeIcon icon={faCamera} width={16} height={16} color="var(--accent)" />
-                        <span className={styles.actionLabel}>Gallery</span>
-                    </Link>
-
                     {/* Orders / Profile Link */}
                     <Link
                         href={user ? "/profile" : "/login"}
