@@ -136,7 +136,7 @@ export default function AdminMenuPage() {
             category: prodCat,
             name: prodName,
             description: prodDesc,
-            image: prodImage,
+            image: prodImage && prodImage.trim() !== "" ? prodImage.trim() : "/BURGER-BHAU-logo.webp",
             price: computedPrice,
             variants: prodVariants,
             is_bestseller: isBestseller,

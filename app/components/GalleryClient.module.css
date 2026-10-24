@@ -12,6 +12,27 @@
   padding: calc(var(--header-height, 64px) + 20px) 16px 40px 16px;
 }
 
+@media (min-width: 768px) {
+  .container {
+    max-width: 100%;
+    padding: calc(var(--header-height, 64px) + 24px) 24px 40px 24px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    padding-left: 36px;
+    padding-right: 36px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .container {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+}
+
 .titleBar {
   display: flex;
   align-items: center;

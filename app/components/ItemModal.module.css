@@ -120,8 +120,8 @@
 .option {
   height: 56px;
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(6, 5, 4, 0.20);
-  background: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  background: #141414;
   padding: 0 18px;
   display: flex;
   align-items: center;
@@ -131,7 +131,7 @@
 }
 
 .option:active {
-  background: #f5f5f5;
+  background: #1f1f1f;
 }
 
 .optionLeft {
@@ -145,7 +145,7 @@
   width: 18px;
   height: 18px;
   border-radius: 999px;
-  border: 2px solid rgba(6, 5, 4, 0.30);
+  border: 2px solid rgba(255, 255, 255, 0.30);
   background: transparent;
   flex: 0 0 auto;
   transition: border-color var(--duration-fast) ease, background-color var(--duration-fast) ease;
@@ -161,7 +161,7 @@
   width: 22px;
   height: 22px;
   border-radius: 8px;
-  border: 2px solid rgba(6, 5, 4, 0.30);
+  border: 2px solid rgba(255, 255, 255, 0.30);
   background: transparent;
   flex: 0 0 auto;
   transition: border-color var(--duration-fast) ease, background-color var(--duration-fast) ease;
@@ -177,7 +177,7 @@
   font-family: var(--font-jakarta, "Plus Jakarta Sans", sans-serif);
   font-weight: 600;
   font-size: 15px;
-  color: #060504;
+  color: #ffffff;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -202,9 +202,9 @@
   flex: 1;
   height: 56px;
   border-radius: var(--radius-full);
-  border: 1px solid rgba(6, 5, 4, 0.20);
-  background: #ffffff;
-  color: #060504;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #181818;
+  color: #ffffff;
   font-weight: 600;
   font-size: 15px;
   font-family: var(--font-jakarta, "Plus Jakarta Sans", sans-serif);
@@ -212,7 +212,7 @@
 }
 
 .secondary:active {
-  background: #f5f5f5;
+  background: #242424;
 }
 
 .primary {

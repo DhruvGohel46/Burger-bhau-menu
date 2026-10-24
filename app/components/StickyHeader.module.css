@@ -24,6 +24,25 @@
   justify-content: space-between;
 }
 
+@media (min-width: 768px) {
+  .inner {
+    max-width: 100%;
+    padding: 0 24px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .inner {
+    padding: 0 36px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .inner {
+    padding: 0 48px;
+  }
+}
+
 .logoLink {
   text-decoration: none;
   color: inherit;

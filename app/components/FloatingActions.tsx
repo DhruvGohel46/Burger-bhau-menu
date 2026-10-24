@@ -60,14 +60,15 @@ export default function FloatingActions() {
 
     return (
         <>
-            <div className={styles.wrap}>
+            <div className={`${styles.wrap} ${cartItems.length > 0 ? styles.wrapWithCart : ""}`}>
                 <a
                     href={buildCallUrl(phoneList[0])}
                     onClick={handleCallClick}
                     className={`${styles.fab} ${styles.call}`}
                     aria-label="Call shop"
                 >
-                    <FontAwesomeIcon icon={faPhone} width={20} height={20} />
+                    <FontAwesomeIcon icon={faPhone} width={18} height={18} />
+                    <span>Call Us</span>
                 </a>
                 <a
                     href={buildWhatsAppUrl(cartItems, cartTotal, customerName, customerAddress, customerPhone, whatsappList[0])}
@@ -77,7 +78,8 @@ export default function FloatingActions() {
                     className={`${styles.fab} ${styles.whatsapp}`}
                     aria-label="Order on WhatsApp"
                 >
-                    <FontAwesomeIcon icon={faWhatsapp} width={22} height={22} />
+                    <FontAwesomeIcon icon={faWhatsapp} width={20} height={20} />
+                    <span>WhatsApp</span>
                 </a>
             </div>
 

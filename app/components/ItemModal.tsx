@@ -105,7 +105,7 @@ export default function ItemModal({
                 <div className={styles.heroSection}>
                     <div className={styles.heroImage}>
                         <Image
-                            src={item.image}
+                            src={item.image && item.image.trim() !== "" ? item.image.trim() : "/BURGER-BHAU-logo.webp"}
                             alt={item.name}
                             fill
                             className={styles.heroImg}

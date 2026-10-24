@@ -1,7 +1,7 @@
 /* Burger Bhau MenuSite - Premium Menu Section */
 .section {
   margin-bottom: var(--space-4);
-  scroll-margin-top: calc(var(--header-height) + var(--category-height) + 8px);
+  scroll-margin-top: 172px;
 }
 
 .titleRow {
@@ -20,8 +20,9 @@
   gap: 10px;
   color: #060504;
   white-space: nowrap;
-  font-family: var(--font-playfair, "Playfair Display", serif);
-  font-weight: 500;
+  font-family: var(--font-claude-serif), 'Newsreader', 'Tiempos Headline', Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 .titleIcon {
@@ -40,4 +41,31 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+/* Desktop: Multi-column responsive grid covering the screen */
+@media (min-width: 768px) {
+  .list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .title {
+    font-size: 26px;
+  }
+}
+
+@media (min-width: 1120px) {
+  .list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .list {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { categories } from "@/app/data/menu";
+import { categories, type MenuCategory } from "@/app/data/menu";
 import { useEffect, useRef, useState } from "react";
 import styles from "./CategoryNav.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -32,20 +32,20 @@ function categoryIcon(iconKey: string) {
     }
 }
 
-export default function CategoryNav() {
-    const [activeCategory, setActiveCategory] = useState(categories[0].id);
+export default function CategoryNav({ categories: navCategories = categories }: { categories?: MenuCategory[] }) {
+    const [activeCategory, setActiveCategory] = useState(navCategories[0]?.id || "burger");
     const scrollRef = useRef<HTMLDivElement>(null);
     const buttonRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 
     // Scroll spy: highlight category based on viewport position
     useEffect(() => {
         const handleScroll = () => {
-            const scrollPosition = window.scrollY + 140; // offset for sticky header + category bar
+            const scrollPosition = window.scrollY + 175; // offset for compact fixed stack (header + category + search)
 
-            for (let i = categories.length - 1; i >= 0; i--) {
-                const section = document.getElementById(`section-${categories[i].id}`);
+            for (let i = navCategories.length - 1; i >= 0; i--) {
+                const section = document.getElementById(`section-${navCategories[i].id}`);
                 if (section && section.offsetTop <= scrollPosition) {
-                    setActiveCategory(categories[i].id);
+                    setActiveCategory(navCategories[i].id);
                     break;
                 }
             }
@@ -53,7 +53,7 @@ export default function CategoryNav() {
 
         window.addEventListener("scroll", handleScroll, { passive: true });
         return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    }, [navCategories]);
 
     // Auto-scroll the chip bar to keep active category visible
     useEffect(() => {
@@ -84,7 +84,7 @@ export default function CategoryNav() {
                 ref={scrollRef}
                 className={styles.scroller}
             >
-                {categories.map((cat) => {
+                {navCategories.map((cat) => {
                     const isActive = activeCategory === cat.id;
                     return (
                         <button

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import MenuCard from "./MenuCard";
 import type { MenuCategory, MenuItem } from "@/app/data/menu";
 import styles from "./MenuSection.module.css";
@@ -32,16 +32,7 @@ function categoryIcon(iconKey: string) {
     }
 }
 
-const sectionVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.06,
-            delayChildren: 0.1,
-        },
-    },
-};
+
 
 export default function MenuSection({
     category,
@@ -75,17 +66,11 @@ export default function MenuSection({
             </motion.div>
 
             {/* Menu Cards Stack */}
-            <motion.div
-                className={styles.list}
-                variants={sectionVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-30px" }}
-            >
+            <div className={styles.list}>
                 {items.map((item) => (
                     <MenuCard key={item.id} item={item} />
                 ))}
-            </motion.div>
+            </div>
         </section>
     );
 }

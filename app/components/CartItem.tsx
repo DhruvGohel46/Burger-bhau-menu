@@ -30,7 +30,7 @@ export default function CartItem({ item }: { item: CartItemType }) {
             {/* Image */}
             <div className={styles.image}>
                 <Image
-                    src={item.image}
+                    src={item.image && item.image.trim() !== "" ? item.image.trim() : "/BURGER-BHAU-logo.webp"}
                     alt={item.name}
                     fill
                     className={""}

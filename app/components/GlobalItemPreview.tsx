@@ -5,8 +5,8 @@ import { useCartStore, buildCartLineId } from "@/app/store/cartStore";
 import { extras as globalExtras } from "@/app/data/menu";
 import ItemPreviewModal, { type ItemPreviewSelection } from "./ItemPreviewModal";
 
-function displayVariantLabel(category: string, variantId: string | undefined, fallbackLabel: string | undefined) {
-    const cat = category.toLowerCase();
+function displayVariantLabel(category: string | undefined, variantId: string | undefined, fallbackLabel: string | undefined) {
+    const cat = (category || "").toLowerCase();
 
     if (cat === "pizza") {
         if (variantId === "regular") return "Dine-in";
@@ -41,14 +41,14 @@ export default function GlobalItemPreview() {
         }
     }, [previewItem]);
 
-    if (!previewItem) return null;
-
     const isExtrasAllowed = 
-        previewItem.category.toLowerCase() === "burger" || 
-        previewItem.category.toLowerCase() === "sandwich";
+        previewItem?.category?.toLowerCase() === "burger" || 
+        previewItem?.category?.toLowerCase() === "sandwich";
     const allowedExtras = isExtrasAllowed ? globalExtras : [];
 
     const handleConfirm = () => {
+        if (!previewItem) return;
+
         const selectedVariant = previewItem.variants?.find((v) => v.id === selection.variantId);
         const basePrice = selectedVariant?.price ?? previewItem.price ?? 0;
         const selectedExtras = allowedExtras.filter((e) => selection.extras.includes(e.id));
@@ -79,7 +79,7 @@ export default function GlobalItemPreview() {
 
     return (
         <ItemPreviewModal
-            open={!!previewItem}
+            open={Boolean(previewItem)}
             item={previewItem}
             availableExtras={allowedExtras}
             selection={selection}

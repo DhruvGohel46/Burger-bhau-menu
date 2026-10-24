@@ -13,7 +13,7 @@ import GlobalItemPreview from "@/app/components/GlobalItemPreview";
 import styles from "@/app/page.module.css";
 import { useCartStore } from "@/app/store/cartStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faCamera } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faCamera, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 export default function MenuPageClient({
     initialCategories,
@@ -52,31 +52,26 @@ export default function MenuPageClient({
         refreshMenu();
     }, []);
 
-    // Handle Mobile Back Button interaction
+    // Handle Mobile Hardware Back Button safely without triggering programmatic router conflicts
     useEffect(() => {
-        const timeoutId = setTimeout(() => {
-            const isAnyOpen = isCartOpen || isOrderSummaryOpen || !!previewItem;
-            if (isAnyOpen && !lastOverlayRef.current) {
+        const isAnyOpen = isCartOpen || isOrderSummaryOpen || !!previewItem;
+        if (isAnyOpen && !lastOverlayRef.current) {
+            try {
                 window.history.pushState({ overlay: true }, "");
-            } else if (!isAnyOpen && lastOverlayRef.current) {
-                if (window.history.state?.overlay) {
-                    window.history.back();
-                }
-            }
-            lastOverlayRef.current = isAnyOpen;
-        }, 150);
-
-        return () => clearTimeout(timeoutId);
+            } catch (e) {}
+            lastOverlayRef.current = true;
+        } else if (!isAnyOpen) {
+            lastOverlayRef.current = false;
+        }
     }, [isCartOpen, isOrderSummaryOpen, previewItem]);
 
-    // Listener for hardware back button
+    // Listener for hardware back button popstate
     useEffect(() => {
-        const handlePopState = (e: PopStateEvent) => {
-            if (!e.state?.overlay) {
-                setIsCartOpen(false);
-                setIsOrderSummaryOpen(false);
-                setPreviewItem(null);
-            }
+        const handlePopState = () => {
+            setIsCartOpen(false);
+            setIsOrderSummaryOpen(false);
+            setPreviewItem(null);
+            lastOverlayRef.current = false;
         };
 
         window.addEventListener("popstate", handlePopState);
@@ -91,86 +86,84 @@ export default function MenuPageClient({
         );
     });
 
-    // Group items by category
-    const groupedItems = allCategories
+    // Group items by category (case-insensitive & trimmed)
+    const categoriesMap = new Map<string, MenuCategory>();
+    allCategories.forEach((c) => categoriesMap.set(c.name.trim().toLowerCase(), c));
+
+    // Ensure any category attached to items is recognized
+    allItems.forEach((item) => {
+        const catKey = item.category?.trim().toLowerCase();
+        if (catKey && !categoriesMap.has(catKey)) {
+            categoriesMap.set(catKey, {
+                id: item.category.trim().toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""),
+                name: item.category.trim(),
+                icon: item.category.trim().toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""),
+            });
+        }
+    });
+
+    const activeCategories = Array.from(categoriesMap.values());
+
+    const groupedItems = activeCategories
         .map((cat) => ({
             ...cat,
-            items: filteredItems.filter((item) => item.category === cat.name),
+            items: filteredItems.filter(
+                (item) => item.category?.trim().toLowerCase() === cat.name?.trim().toLowerCase()
+            ),
         }))
         .filter((group) => group.items.length > 0);
 
     return (
         <main className={styles.main}>
-            {/* Fixed Header */}
-            <Header />
+            {/* Fixed Top Stack (Header + Categories + Search & Gallery) */}
+            <div className={styles.topFixedStack}>
+                <Header />
+                <CategoryNav categories={activeCategories} />
+                <div className={styles.searchFixedWrap}>
+                    <div className={styles.searchRow}>
+                        <div className={styles.searchBox}>
+                            <FontAwesomeIcon
+                                icon={faSearch}
+                                width={15}
+                                height={15}
+                                className={styles.searchIcon}
+                            />
+                            <input
+                                type="text"
+                                placeholder="Search burgers, pizzas, snacks..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className={styles.searchInput}
+                                aria-label="Search menu"
+                            />
+                            {searchQuery && (
+                                <button
+                                    type="button"
+                                    onClick={() => setSearchQuery("")}
+                                    className={styles.searchClear}
+                                    aria-label="Clear search"
+                                >
+                                    <FontAwesomeIcon icon={faTimes} />
+                                </button>
+                            )}
+                        </div>
 
-            {/* Sticky Category Nav */}
-            <CategoryNav />
+                        <Link
+                            href="/gallery"
+                            className={styles.galleryBtn}
+                            aria-label="Explore Photo Gallery"
+                        >
+                            <div className={styles.galleryIconWrap}>
+                                <FontAwesomeIcon icon={faCamera} />
+                            </div>
+                            <span className={styles.galleryText}>Gallery</span>
+                        </Link>
+                    </div>
+                </div>
+            </div>
 
             {/* Main Content */}
             <div className={styles.content}>
-                {/* Instant Menu Search Bar & Inline Gallery Button */}
-                <div style={{ marginBottom: "20px", display: "flex", gap: "10px", alignItems: "center" }}>
-                    <div style={{ position: "relative", flex: 1 }}>
-                        <FontAwesomeIcon
-                            icon={faSearch}
-                            style={{
-                                position: "absolute",
-                                left: "16px",
-                                top: "50%",
-                                transform: "translateY(-50%)",
-                                color: "#CF4B13",
-                                fontSize: "14px",
-                            }}
-                        />
-                        <input
-                            type="text"
-                            placeholder="Search burgers, fries, sandwiches..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            style={{
-                                width: "100%",
-                                padding: "12px 16px 12px 42px",
-                                backgroundColor: "rgba(18, 14, 10, 0.76)",
-                                backdropFilter: "blur(20px)",
-                                WebkitBackdropFilter: "blur(20px)",
-                                border: "1px solid rgba(255, 255, 255, 0.12)",
-                                borderRadius: "16px",
-                                color: "#ffffff",
-                                fontSize: "14px",
-                                outline: "none",
-                                boxShadow: "0 4px 14px rgba(6, 5, 4, 0.08)",
-                            }}
-                        />
-                    </div>
-
-                    <Link
-                        href="/gallery"
-                        style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "8px",
-                            padding: "12px 16px",
-                            backgroundColor: "rgba(18, 14, 10, 0.76)",
-                            backdropFilter: "blur(20px)",
-                            WebkitBackdropFilter: "blur(20px)",
-                            border: "1px solid rgba(207, 75, 19, 0.40)",
-                            borderRadius: "16px",
-                            color: "#ffffff",
-                            fontSize: "14px",
-                            fontWeight: "700",
-                            textDecoration: "none",
-                            boxShadow: "0 4px 14px rgba(6, 5, 4, 0.08)",
-                            whiteSpace: "nowrap",
-                            cursor: "pointer",
-                            flexShrink: 0,
-                        }}
-                    >
-                        <FontAwesomeIcon icon={faCamera} color="#CF4B13" style={{ fontSize: "15px" }} />
-                        <span>Gallery</span>
-                    </Link>
-                </div>
-
                 {groupedItems.length === 0 ? (
                     <div style={{ padding: "60px 16px", textAlign: "center", color: "#666" }}>
                         <h3 style={{ fontSize: "18px", fontWeight: "700", color: "#060504", marginBottom: "6px" }}>No items found</h3>
@@ -183,30 +176,29 @@ export default function MenuPageClient({
                 )}
 
                 {/* Homepage Featured Photo Gallery Teaser */}
-                <div style={{
-                    marginTop: "32px",
-                    marginBottom: "24px",
-                    backgroundColor: "rgba(18, 14, 10, 0.76)",
-                    backdropFilter: "blur(20px)",
-                    WebkitBackdropFilter: "blur(20px)",
-                    border: "1px solid rgba(255, 255, 255, 0.12)",
-                    borderRadius: "20px",
-                    padding: "20px",
-                    boxShadow: "0 12px 32px rgba(6, 5, 4, 0.12)",
-                    color: "#fff",
-                }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div className={styles.galleryTeaser}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "14px", flexWrap: "wrap" }}>
                         <div>
-                            <h3 style={{ fontSize: "18px", fontWeight: "800", color: "#FF9F1C", margin: 0 }}>
-                                📸 Photo Gallery
+                            <h3 style={{
+                                fontSize: "20px",
+                                fontWeight: "800",
+                                color: "#FF9F1C",
+                                margin: 0,
+                                fontFamily: "var(--font-claude-serif), Georgia, serif",
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: "10px",
+                            }}>
+                                <FontAwesomeIcon icon={faCamera} style={{ fontSize: "20px", color: "#FF9F1C" }} />
+                                <span>Photo Gallery</span>
                             </h3>
-                            <p style={{ fontSize: "12px", color: "#aaaaaa", margin: "2px 0 0 0" }}>
+                            <p style={{ fontSize: "12px", color: "rgba(255, 255, 255, 0.70)", margin: "4px 0 0 0", fontFamily: "var(--font-claude-sans), Inter, sans-serif" }}>
                                 Authentic photos of our burgers, kitchen & store
                             </p>
                         </div>
-                        <a href="/gallery" style={{ fontSize: "13px", fontWeight: "800", color: "#CF4B13", textDecoration: "none", padding: "8px 16px", backgroundColor: "rgba(207, 75, 19, 0.15)", borderRadius: "99px", border: "1px solid #CF4B13" }}>
+                        <Link href="/gallery" style={{ fontSize: "13px", fontWeight: "700", color: "#ffffff", textDecoration: "none", padding: "8px 18px", backgroundColor: "var(--accent)", borderRadius: "99px", boxShadow: "0 4px 12px rgba(207, 75, 19, 0.30)", transition: "all 0.2s ease", whiteSpace: "nowrap" }}>
                             Explore Gallery →
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>

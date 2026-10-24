@@ -45,6 +45,26 @@
       <image:title>Loaded French Fries</image:title>
       <image:caption>Crispy loaded French fries drizzled with mayonnaise and cheese sauce at Burger Bhau Rajkot</image:caption>
     </image:image>
+    <image:image>
+      <image:loc>https://hblsadtgtrdtbqresppg.supabase.co/storage/v1/object/public/burger-bhau-assets/gallery/1785773932224-kwyr2wthj9s.webp</image:loc>
+      <image:title>Grand Opening Crowd at Burger Bhau Kothariya</image:title>
+      <image:caption>Excited crowd gathering at the grand opening of Burger Bhau fast food outlet in Kothariya Rajkot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://hblsadtgtrdtbqresppg.supabase.co/storage/v1/object/public/burger-bhau-assets/gallery/1785774033553-4kyddaezbtk.webp</image:loc>
+      <image:title>Burger Bhau Outlet Storefront</image:title>
+      <image:caption>Front view of Burger Bhau fast food shop decorated with yellow and black balloon arch in Kothariya Rajkot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://hblsadtgtrdtbqresppg.supabase.co/storage/v1/object/public/burger-bhau-assets/gallery/1785774125952-sn4m6jq0doc.webp</image:loc>
+      <image:title>Burger Bhau Grand Opening Celebration</image:title>
+      <image:caption>Customers enjoying fast food during opening day at Burger Bhau Kothariya Rajkot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://hblsadtgtrdtbqresppg.supabase.co/storage/v1/object/public/burger-bhau-assets/gallery/1785774219743-x08gd3x8gm.webp</image:loc>
+      <image:title>Bhau Building Exterior View</image:title>
+      <image:caption>Exterior commercial view of Burger Bhau outlet located near Axis Bank on Rolex Road Rajkot</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://burgerbhau.netlify.app/checkout</loc>

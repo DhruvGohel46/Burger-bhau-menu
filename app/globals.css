@@ -8,8 +8,14 @@
   /* Surfaces - Premium warm minimalist palette */
   --bg: #F0E8C7; /* Soft cream background */
   --bg-secondary: #E8DFB8;
-  --card: rgba(18, 14, 10, 0.76); /* Translucent liquid glass dark cards */
-  --card-hover: rgba(28, 22, 16, 0.85);
+  --card: #0a0a0a; /* Dark black product card */
+  --card-hover: #121212;
+
+  /* Claude Typography System */
+  --font-claude-serif: var(--font-newsreader, 'Newsreader', 'Tiempos Headline', Georgia, serif);
+  --font-claude-sans: var(--font-inter, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  --font-playfair: var(--font-claude-serif);
+  --font-jakarta: var(--font-claude-sans);
 
   /* Text */
   --text: #ffffff;
@@ -34,7 +40,7 @@
   --glass-border: rgba(240, 232, 199, 0.90);
   --glass-blur: 24px;
   --glass-shadow: 0 8px 32px rgba(6, 5, 4, 0.12);
-  --glass-inner: rgba(228, 179, 158, 0.559);
+  --glass-inner: rgba(20, 20, 20, 0.85);
 
   /* Depth / Shadows */
   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
@@ -75,8 +81,9 @@
   --whatsapp: #25d366;
 
   /* Misc */
-  --header-height: 56px;
-  --category-height: 56px;
+  --header-height: 64px;
+  --category-height: 60px;
+  --search-bar-height: 60px;
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-top: env(safe-area-inset-top, 0px);
 
@@ -87,8 +94,8 @@
 .dark {
   --bg: #0f0f0f;
   --bg-secondary: #161616;
-  --card: #1b1b1b;
-  --card-hover: #222222;
+  --card: #0a0a0a;
+  --card-hover: #121212;
 
   --text: #f5f5f5;
   --text-secondary: #a0a0a0;
@@ -145,7 +152,7 @@ html .dark body {
 
 body {
   margin: 0;
-  font-family: var(--font-jakarta, "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif);
+  font-family: var(--font-claude-sans), 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background: var(--bg);
   color: var(--text);
   min-height: 100dvh;
@@ -153,15 +160,16 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.5;
+  letter-spacing: -0.011em;
 }
 
 /* ─── Typography ──────────────────────────────────────────── */
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
-  font-family: var(--font-playfair, "Playfair Display", serif);
+  font-family: var(--font-claude-serif), 'Newsreader', 'Tiempos Headline', Georgia, serif;
   font-weight: 500;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
 }
 
 p {
@@ -175,6 +183,18 @@ button {
 
 a {
   color: inherit;
+}
+
+/* ─── FontAwesome Icon Flash Fix ──────────────────────────── */
+svg:not(:root).svg-inline--fa,
+svg.svg-inline--fa {
+  display: inline-block;
+  height: 1em;
+  width: 1em;
+  max-width: 1em;
+  max-height: 1em;
+  overflow: visible;
+  vertical-align: -0.125em;
 }
 
 /* ─── Selection ───────────────────────────────────────────── */

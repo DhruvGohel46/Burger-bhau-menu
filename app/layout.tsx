@@ -1,33 +1,30 @@
 // Burger Bhau MenuSite - Root layout with theme support and SEO
 import type { Metadata, Viewport } from 'next';
-import { Plus_Jakarta_Sans, Outfit, Kalam, Playfair_Display } from 'next/font/google';
+import { Lora, Inter, Outfit } from 'next/font/google';
+import { config } from '@fortawesome/fontawesome-svg-core';
+import '@fortawesome/fontawesome-svg-core/styles.css';
 import './globals.css';
 
-const jakarta = Plus_Jakarta_Sans({
+config.autoAddCss = false;
+
+const lora = Lora({
     subsets: ['latin'],
-    weight: ['400', '500', '600', '700', '800'],
-    variable: '--font-jakarta',
+    weight: ['500', '600', '700'],
+    variable: '--font-newsreader',
+    display: 'swap',
+});
+
+const inter = Inter({
+    subsets: ['latin'],
+    weight: ['400', '500', '600', '700'],
+    variable: '--font-inter',
     display: 'swap',
 });
 
 const outfit = Outfit({
     subsets: ['latin'],
-    weight: ['400', '500', '600', '700', '800'],
+    weight: ['700', '800'],
     variable: '--font-outfit',
-    display: 'swap',
-});
-
-const kalam = Kalam({
-    subsets: ['latin'],
-    weight: ['400', '700'],
-    variable: '--font-kalam',
-    display: 'swap',
-});
-
-const playfair = Playfair_Display({
-    subsets: ['latin'],
-    weight: ['400', '500', '600', '700'],
-    variable: '--font-playfair',
     display: 'swap',
 });
 
@@ -79,13 +76,38 @@ export const metadata: Metadata = {
     },
 };
 
-// Inline script to set light theme as default — prevents FOUC
+// Inline script to set light theme and protect against Webpack HMR / React removeChild race conditions
 const themeScript = `
 (function(){
   try {
     document.documentElement.classList.remove('dark');
     localStorage.setItem('bb-theme', 'light');
   } catch(e) {}
+
+  if (typeof window !== 'undefined' && typeof Node !== 'undefined') {
+    var origRemoveChild = Node.prototype.removeChild;
+    Node.prototype.removeChild = function(child) {
+      if (!child) return null;
+      if (child.parentNode !== this) {
+        if (child.parentNode) {
+          return child.parentNode.removeChild(child);
+        }
+        return child;
+      }
+      return origRemoveChild.apply(this, arguments);
+    };
+
+    var origInsertBefore = Node.prototype.insertBefore;
+    Node.prototype.insertBefore = function(newNode, refNode) {
+      if (refNode && refNode.parentNode !== this) {
+        if (refNode.parentNode) {
+          return refNode.parentNode.insertBefore(newNode, refNode);
+        }
+        return this.appendChild(newNode);
+      }
+      return origInsertBefore.apply(this, arguments);
+    };
+  }
 })();
 `;
 
@@ -93,7 +115,7 @@ import AuthProvider from '@/app/components/AuthProvider';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en" className={`${jakarta.variable} ${outfit.variable} ${kalam.variable} ${playfair.variable}`} suppressHydrationWarning>
+        <html lang="en" className={`${lora.variable} ${inter.variable} ${outfit.variable}`} suppressHydrationWarning>
             <head>
                 <script
                     dangerouslySetInnerHTML={{ __html: themeScript }}

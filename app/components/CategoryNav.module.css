@@ -1,27 +1,47 @@
 /* Burger Bhau MenuSite - Premium Glass Category Navigation */
 .wrap {
-  position: fixed;
-  top: var(--header-height);
-  left: 0;
-  right: 0;
+  position: relative;
+  width: 100%;
   z-index: 45;
-  background: rgba(240, 232, 199, 0.95);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border-bottom: 1px solid rgba(6, 5, 4, 0.08);
-  box-shadow: 0 4px 20px rgba(6, 5, 4, 0.08);
-  transition: background-color 0.4s ease, border-color 0.3s ease;
+  background: transparent;
+  padding: 2px 0;
+  transition: background-color 0.4s ease;
 }
 
 .scroller {
   max-width: 640px;
   margin: 0 auto;
-  padding: 10px var(--space-2);
+  height: 44px;
+  padding: 0 var(--space-2);
   display: flex;
+  align-items: center;
   gap: 8px;
   overflow-x: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .scroller {
+    max-width: 100%;
+    padding: 0 24px;
+    gap: 10px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .scroller {
+    padding: 0 36px;
+    gap: 12px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .scroller {
+    padding: 0 48px;
+    gap: 12px;
+  }
 }
 
 .scroller::-webkit-scrollbar {
@@ -41,7 +61,7 @@
   white-space: nowrap;
   cursor: pointer;
   transition: color var(--duration-fast) ease, border-color var(--duration-fast) ease, background-color var(--duration-fast) ease;
-  font-family: var(--font-jakarta, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--font-claude-sans), var(--font-jakarta, "Plus Jakarta Sans", sans-serif);
 }
 
 .pill:active {
@@ -56,9 +76,13 @@
 }
 
 .pillActive {
-  color: #ffffff;
+  color: #000000;
   border-color: var(--accent);
-  font-weight: 600;
+  font-weight: 700;
+}
+
+.pillActive .icon {
+  color: #000000;
 }
 
 .activeBg {

@@ -37,8 +37,8 @@
 .content {
   position: relative;
   z-index: 1;
-  padding-top: calc(var(--header-height) + var(--category-height) + 14px);
-  padding-bottom: 104px;
+  padding-top: 168px;
+  padding-bottom: 110px;
   padding-left: var(--space-2);
   padding-right: var(--space-2);
   margin: 0 auto;
@@ -47,13 +47,275 @@
 
 @media (max-width: 360px) {
   .content {
+    padding-top: 164px;
     padding-left: var(--space-1);
     padding-right: var(--space-1);
+    padding-bottom: 100px;
   }
 }
 
-@media (min-width: 641px) {
+@media (min-width: 768px) {
   .content {
-    padding-top: calc(var(--header-height) + var(--category-height) + 16px);
+    max-width: 100%;
+    padding-top: 172px;
+    padding-left: 24px;
+    padding-right: 24px;
   }
+}
+
+@media (min-width: 1200px) {
+  .content {
+    padding-left: 36px;
+    padding-right: 36px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .content {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+}
+
+/* Top Fixed Stack - Unified Header, Categories, and Search */
+.topFixedStack {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: rgba(240, 232, 199, 0.96);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid rgba(6, 5, 4, 0.08);
+  box-shadow: 0 4px 18px rgba(6, 5, 4, 0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+.topFixedStack header {
+  position: relative !important;
+  top: auto !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* Fixed Search Bar & Gallery Button Wrapper */
+.searchFixedWrap {
+  position: relative;
+  width: 100%;
+  padding-top: 4px;
+  padding-bottom: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.searchRow {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+@media (max-width: 360px) {
+  .searchRow {
+    padding: 0 12px;
+    gap: 8px;
+  }
+}
+
+@media (min-width: 768px) {
+  .searchRow {
+    max-width: 100%;
+    padding: 0 24px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .searchRow {
+    padding: 0 36px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .searchRow {
+    padding: 0 48px;
+  }
+}
+
+.searchBox {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 15px;
+  color: var(--accent);
+  font-size: 14px;
+  pointer-events: none;
+  transition: transform 0.2s ease, color 0.2s ease;
+  z-index: 2;
+}
+
+.searchBox:focus-within .searchIcon {
+  color: #ff7a3d;
+  transform: scale(1.08);
+}
+
+.searchInput {
+  width: 100%;
+  height: 44px;
+  padding: 0 38px 0 42px;
+  background: #0a0a0a;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-full);
+  color: #ffffff;
+  font-size: 13.5px;
+  font-weight: 500;
+  font-family: var(--font-claude-sans), 'Inter', sans-serif;
+  outline: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.30);
+  transition:
+    border-color var(--duration-fast) ease,
+    box-shadow var(--duration-fast) ease,
+    background-color var(--duration-fast) ease;
+}
+
+.searchInput::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.searchInput:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: #111111;
+}
+
+.searchInput:focus {
+  border-color: var(--accent);
+  background: #121212;
+  box-shadow: 0 6px 20px rgba(207, 75, 19, 0.25), 0 0 0 3px rgba(207, 75, 19, 0.18);
+}
+
+.searchClear {
+  position: absolute;
+  right: 12px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  z-index: 2;
+}
+
+.searchClear:hover {
+  background: var(--accent);
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+/* Attractive Gallery Button */
+.galleryBtn {
+  height: 44px;
+  padding: 0 14px 0 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #0a0a0a;
+  border: 1.5px solid rgba(207, 75, 19, 0.50);
+  border-radius: var(--radius-full);
+  color: #ffffff;
+  font-size: 13.5px;
+  font-weight: 700;
+  font-family: var(--font-claude-sans), 'Inter', sans-serif;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.30), 0 0 14px rgba(207, 75, 19, 0.12);
+  transition:
+    transform var(--duration-fast) ease,
+    box-shadow var(--duration-fast) ease,
+    border-color var(--duration-fast) ease,
+    background-color var(--duration-fast) ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.galleryBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, transparent 100%);
+  border-radius: var(--radius-full) var(--radius-full) 0 0;
+  pointer-events: none;
+}
+
+.galleryIconWrap {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(207, 75, 19, 0.18);
+  border: 1px solid rgba(207, 75, 19, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff7a3d;
+  font-size: 13px;
+  transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+}
+
+.galleryText {
+  letter-spacing: 0.01em;
+  color: #ffffff;
+}
+
+@media (hover: hover) {
+  .galleryBtn:hover {
+    background: #141414;
+    border-color: var(--accent);
+    box-shadow: 0 8px 28px rgba(207, 75, 19, 0.35), 0 0 22px rgba(207, 75, 19, 0.25);
+    transform: translateY(-2px);
+  }
+
+  .galleryBtn:hover .galleryIconWrap {
+    background: var(--accent);
+    color: #ffffff;
+    transform: rotate(-8deg) scale(1.08);
+  }
+}
+
+.galleryBtn:active {
+  transform: scale(0.96);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.30);
+}
+
+/* Featured Photo Gallery Teaser */
+.galleryTeaser {
+  margin-top: 32px;
+  margin-bottom: 24px;
+  background: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.50), 0 2px 6px rgba(0, 0, 0, 0.35);
+  color: #ffffff;
 }
