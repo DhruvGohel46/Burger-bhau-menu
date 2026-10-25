@@ -172,19 +172,52 @@ export default function CheckoutPage() {
         return (
             <div style={{
                 minHeight: "100vh",
-                backgroundColor: "#F0E8C7",
-                color: "#060504",
+                backgroundColor: "#0c0a09",
+                backgroundImage: "radial-gradient(circle at 50% 0%, rgba(255, 140, 0, 0.1) 0%, transparent 60%)",
+                color: "#ffffff",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                padding: "20px",
+                padding: "24px",
                 fontFamily: "var(--font-jakarta), sans-serif",
                 textAlign: "center"
             }}>
-                <FontAwesomeIcon icon={faCheckCircle} style={{ fontSize: "56px", color: "#28a745", marginBottom: "16px" }} />
-                <h2 style={{ fontSize: "24px", fontWeight: "800", color: "#060504", marginBottom: "8px" }}>Order Placed Successfully!</h2>
-                <p style={{ color: "#666", fontSize: "15px", maxWidth: "420px" }}>Taking you to your live order tracking page...</p>
+                <div style={{
+                    width: "80px",
+                    height: "80px",
+                    borderRadius: "50%",
+                    backgroundColor: "rgba(34, 197, 94, 0.15)",
+                    border: "2px solid #22c55e",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginBottom: "20px",
+                    boxShadow: "0 0 30px rgba(34, 197, 94, 0.4)",
+                    color: "#22c55e",
+                    fontSize: "36px",
+                }}>
+                    <FontAwesomeIcon icon={faCheckCircle} />
+                </div>
+                <h2 style={{ fontSize: "26px", fontWeight: "800", color: "#ffffff", marginBottom: "8px" }}>
+                    Order Placed Successfully! 🎉
+                </h2>
+                <p style={{ color: "#a8a29e", fontSize: "15px", maxWidth: "420px", marginBottom: "20px", lineHeight: "1.5" }}>
+                    Opening your live kitchen order tracking page...
+                </p>
+                <div style={{
+                    width: "36px",
+                    height: "36px",
+                    borderRadius: "50%",
+                    border: "3px solid rgba(255, 140, 0, 0.2)",
+                    borderTopColor: "#ff8c00",
+                    animation: "spin 0.8s linear infinite",
+                }} />
+                <style jsx>{`
+                    @keyframes spin {
+                        to { transform: rotate(360deg); }
+                    }
+                `}</style>
             </div>
         );
     }
@@ -193,20 +226,47 @@ export default function CheckoutPage() {
         return (
             <div style={{
                 minHeight: "100vh",
-                backgroundColor: "#F0E8C7",
-                color: "#060504",
+                backgroundColor: "#0c0a09",
+                backgroundImage: "radial-gradient(circle at 50% 0%, rgba(255, 140, 0, 0.08) 0%, transparent 60%)",
+                color: "#ffffff",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                padding: "20px",
+                padding: "24px",
                 fontFamily: "var(--font-jakarta), sans-serif",
             }}>
-                <div style={{ textAlign: "center" }}>
-                    <h2 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "8px", color: "#060504" }}>Your Cart is Empty</h2>
-                    <p style={{ color: "#666", marginBottom: "20px" }}>Add items from our menu before proceeding to checkout.</p>
-                    <Link href="/" style={{ padding: "12px 24px", backgroundColor: "#CF4B13", color: "#fff", borderRadius: "8px", fontWeight: "700", textDecoration: "none" }}>
-                        Browse Menu
+                <div style={{
+                    backgroundColor: "#161311",
+                    border: "1px solid rgba(255, 255, 255, 0.08)",
+                    borderRadius: "20px",
+                    padding: "48px 24px",
+                    textAlign: "center",
+                    maxWidth: "420px",
+                    width: "100%",
+                    boxShadow: "0 10px 30px rgba(0, 0, 0, 0.4)",
+                }}>
+                    <h2 style={{ fontSize: "22px", fontWeight: "800", marginBottom: "8px", color: "#ffffff" }}>
+                        Your Cart is Empty
+                    </h2>
+                    <p style={{ color: "#a8a29e", fontSize: "14px", marginBottom: "24px" }}>
+                        Add delicious burgers and snacks before proceeding to checkout.
+                    </p>
+                    <Link
+                        href="/"
+                        style={{
+                            display: "inline-block",
+                            padding: "14px 28px",
+                            backgroundColor: "#ff8c00",
+                            color: "#0c0a09",
+                            borderRadius: "12px",
+                            fontWeight: "800",
+                            textDecoration: "none",
+                            fontSize: "15px",
+                            boxShadow: "0 6px 20px rgba(255, 140, 0, 0.35)",
+                        }}
+                    >
+                        Browse Gourmet Menu
                     </Link>
                 </div>
             </div>
@@ -322,8 +382,9 @@ export default function CheckoutPage() {
     return (
         <div style={{
             minHeight: "100vh",
-            backgroundColor: "#F0E8C7",
-            color: "#060504",
+            backgroundColor: "#0c0a09",
+            backgroundImage: "radial-gradient(circle at 50% 0%, rgba(255, 140, 0, 0.08) 0%, transparent 60%)",
+            color: "#ffffff",
             padding: "20px 16px 40px 16px",
             fontFamily: "var(--font-jakarta), sans-serif",
         }}>
@@ -336,11 +397,19 @@ export default function CheckoutPage() {
                             if (step === 2) setStep(1);
                             else router.push("/");
                         }}
-                        style={{ background: "none", border: "none", color: "#CF4B13", fontSize: "18px", cursor: "pointer", padding: "8px" }}
+                        style={{
+                            background: "rgba(255, 140, 0, 0.1)",
+                            border: "1px solid rgba(255, 140, 0, 0.3)",
+                            color: "#ff8c00",
+                            fontSize: "16px",
+                            cursor: "pointer",
+                            padding: "8px 12px",
+                            borderRadius: "10px",
+                        }}
                     >
                         <FontAwesomeIcon icon={faArrowLeft} />
                     </button>
-                    <h1 style={{ fontSize: "22px", fontWeight: "800", color: "#060504", margin: 0 }}>
+                    <h1 style={{ fontSize: "22px", fontWeight: "800", color: "#ffffff", margin: 0 }}>
                         Checkout ({step === 1 ? "Step 1 of 2: Details" : "Step 2 of 2: Payment"})
                     </h1>
                 </div>

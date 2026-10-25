@@ -18,7 +18,6 @@ import {
     faCheck,
     faCheckCircle,
     faTimes,
-    faPrint,
     faExclamationTriangle,
     faSpinner,
     faReceipt,
@@ -50,28 +49,58 @@ function playOrderAlarm() {
         }
 
         const now = ctx.currentTime;
-        // Two-tone bright restaurant order siren (A5 880Hz -> D6 1175Hz)
-        const osc1 = ctx.createOscillator();
-        const gain1 = ctx.createGain();
-        osc1.type = "sine";
-        osc1.frequency.setValueAtTime(880, now);
-        gain1.gain.setValueAtTime(0.4, now);
-        gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
-        osc1.connect(gain1);
-        gain1.connect(ctx.destination);
-        osc1.start(now);
-        osc1.stop(now + 0.3);
 
-        const osc2 = ctx.createOscillator();
-        const gain2 = ctx.createGain();
-        osc2.type = "sine";
-        osc2.frequency.setValueAtTime(1174.66, now + 0.15);
-        gain2.gain.setValueAtTime(0.45, now + 0.15);
-        gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.55);
-        osc2.connect(gain2);
-        gain2.connect(ctx.destination);
-        osc2.start(now + 0.15);
-        osc2.stop(now + 0.55);
+        // Dynamics compressor to maximize loudness and prevent distortion
+        const compressor = ctx.createDynamicsCompressor();
+        compressor.threshold.setValueAtTime(-10, now);
+        compressor.knee.setValueAtTime(30, now);
+        compressor.ratio.setValueAtTime(14, now);
+        compressor.attack.setValueAtTime(0.003, now);
+        compressor.release.setValueAtTime(0.20, now);
+
+        const masterGain = ctx.createGain();
+        masterGain.gain.setValueAtTime(0.95, now);
+
+        masterGain.connect(compressor);
+        compressor.connect(ctx.destination);
+
+        // Piercing commercial restaurant kitchen chime sequence (B5 -> E6 -> A6, pause, E6 -> A6)
+        const beeps = [
+            { freq: 987.77, start: 0.0, dur: 0.13 },
+            { freq: 1318.51, start: 0.15, dur: 0.13 },
+            { freq: 1760.00, start: 0.30, dur: 0.20 },
+            { freq: 1318.51, start: 0.55, dur: 0.13 },
+            { freq: 1760.00, start: 0.70, dur: 0.25 },
+        ];
+
+        beeps.forEach(({ freq, start, dur }) => {
+            const tStart = now + start;
+            const tEnd = tStart + dur;
+
+            // 1. Triangle wave: high acoustic energy body
+            const osc1 = ctx.createOscillator();
+            const gain1 = ctx.createGain();
+            osc1.type = "triangle";
+            osc1.frequency.setValueAtTime(freq, tStart);
+            gain1.gain.setValueAtTime(0.85, tStart);
+            gain1.gain.exponentialRampToValueAtTime(0.01, tEnd);
+            osc1.connect(gain1);
+            gain1.connect(masterGain);
+            osc1.start(tStart);
+            osc1.stop(tEnd);
+
+            // 2. Square harmonic: sharp cutting edge for noisy kitchen environments
+            const osc2 = ctx.createOscillator();
+            const gain2 = ctx.createGain();
+            osc2.type = "square";
+            osc2.frequency.setValueAtTime(freq * 1.5, tStart);
+            gain2.gain.setValueAtTime(0.3, tStart);
+            gain2.gain.exponentialRampToValueAtTime(0.008, tEnd);
+            osc2.connect(gain2);
+            gain2.connect(masterGain);
+            osc2.start(tStart);
+            osc2.stop(tEnd);
+        });
     } catch (e) {
         console.error("Audio error:", e);
     }
@@ -117,7 +146,7 @@ export default function AdminOrdersPage() {
     const [actionLoading, setActionLoading] = useState(false);
     const [actionFeedback, setActionFeedback] = useState<{ type: "success" | "error"; message: string } | null>(null);
     const [copiedUtr, setCopiedUtr] = useState(false);
-
+    const [silencedOrderIds, setSilencedOrderIds] = useState<string[]>([]);
 
     const requestWebNotification = () => {
         if ("Notification" in window) {
@@ -210,10 +239,13 @@ export default function AdminOrdersPage() {
         };
     }, []);
 
-    // Active unhandled incoming orders awaiting admin action
-    const unhandledOrders = orders.filter(
-        (o) => o.status === "Pending Payment Verification" && o.payment_status === "Pending"
-    );
+    // Active unhandled incoming orders awaiting admin action (excludes any approved, cancelled, or silenced orders)
+    const unhandledOrders = orders.filter((o) => {
+        if (silencedOrderIds.includes(o.id)) return false;
+        const isPendingStatus = o.status === "Pending Payment Verification";
+        const isPendingPayment = o.payment_status === "Pending";
+        return isPendingStatus && isPendingPayment;
+    });
     const hasPendingAlert = unhandledOrders.length > 0;
 
     // Persistent siren: repeatedly rings every 3.5 seconds until admin accepts or rejects!
@@ -261,72 +293,12 @@ export default function AdminOrdersPage() {
         setTimeout(() => setCopiedUtr(false), 2000);
     };
 
-    const handlePrintReceipt = (order: Order) => {
-        const printWindow = window.open("", "_blank");
-        if (!printWindow) return;
-        printWindow.document.write(`
-            <!DOCTYPE html>
-            <html>
-                <head>
-                    <title>Receipt - Order #${order.order_number || order.id.slice(0, 6)}</title>
-                    <style>
-                        body { font-family: 'Courier New', monospace; padding: 16px; max-width: 300px; margin: 0 auto; color: #000; font-size: 13px; }
-                        .center { text-align: center; }
-                        .line { border-top: 1px dashed #000; margin: 8px 0; }
-                        .flex { display: flex; justify-content: space-between; margin-bottom: 4px; }
-                        h2 { margin: 0 0 4px 0; font-size: 18px; font-weight: 800; }
-                        p { margin: 2px 0; font-size: 12px; }
-                        .bold { font-weight: bold; }
-                    </style>
-                </head>
-                <body>
-                    <div class="center">
-                        <h2>BURGER BHAU</h2>
-                        <p>Rolex road, Kothariya, Rajkot</p>
-                        <p>Ph: +91 95589 41555</p>
-                    </div>
-                    <div class="line"></div>
-                    <div class="flex">
-                        <span class="bold">Order #${order.order_number || order.id.slice(0, 6)}</span>
-                        <span>${order.delivery_method ? order.delivery_method.toUpperCase() : "PICKUP"}</span>
-                    </div>
-                    <p>Date: ${new Date(order.created_at).toLocaleString("en-IN", { dateStyle: "short", timeStyle: "short" })}</p>
-                    <p>Customer: ${order.customer_name}</p>
-                    <p>Phone: ${order.customer_phone}</p>
-                    ${order.customer_address ? `<p>Address: ${order.customer_address}</p>` : ""}
-                    <div class="line"></div>
-                    <div class="bold" style="margin-bottom: 6px;">ITEMS:</div>
-                    ${(order.order_items || []).map(i => `
-                        <div class="flex">
-                            <span>${i.quantity}x ${i.name} ${i.variant_label ? `(${i.variant_label})` : ""}</span>
-                            <span>₹${i.price * i.quantity}</span>
-                        </div>
-                    `).join("")}
-                    <div class="line"></div>
-                    <div class="flex bold" style="font-size: 15px;">
-                        <span>TOTAL:</span>
-                        <span>₹${order.total}</span>
-                    </div>
-                    <div class="line"></div>
-                    <p>Payment: <span class="bold">${order.payment_status}</span></p>
-                    <p>UTR: ${order.utr}</p>
-                    <p>Status: <span class="bold">${order.status}</span></p>
-                    <div class="line"></div>
-                    <div class="center">
-                        <p>Thank You! Visit Again!</p>
-                    </div>
-                </body>
-            </html>
-        `);
-        printWindow.document.close();
-        printWindow.focus();
-        setTimeout(() => {
-            printWindow.print();
-            printWindow.close();
-        }, 250);
-    };
+
 
     const updateOrderStatus = async (orderId: string, newStatus: OrderStatus) => {
+        if (newStatus !== "Pending Payment Verification") {
+            setSilencedOrderIds((prev) => Array.from(new Set([...prev, orderId])));
+        }
         setActionLoading(true);
         setActionFeedback(null);
         try {
@@ -390,21 +362,28 @@ export default function AdminOrdersPage() {
     };
 
     const updatePaymentStatus = async (orderId: string, newPaymentStatus: PaymentStatus) => {
+        // Immediately silence alert for this order
+        setSilencedOrderIds((prev) => Array.from(new Set([...prev, orderId])));
         setActionLoading(true);
         setActionFeedback(null);
         try {
+            const currentOrder = orders.find((o) => o.id === orderId) || selectedOrder;
             const updateData: any = {
                 payment_status: newPaymentStatus,
                 updated_at: new Date().toISOString(),
             };
 
-            // If approving payment, advance status to "Accepted" only if currently pending
+            // If approving payment, advance status to "Accepted"
             if (newPaymentStatus === "Approved") {
                 updateData.payment_verified_at = new Date().toISOString();
-                if (selectedOrder?.status === "Pending Payment Verification") {
+                if (!currentOrder || currentOrder.status === "Pending Payment Verification") {
                     updateData.status = "Accepted";
                     updateData.accepted_at = new Date().toISOString();
                 }
+            } else if (newPaymentStatus === "Rejected") {
+                // If payment rejected, advance status to "Cancelled"
+                updateData.status = "Cancelled";
+                updateData.cancelled_at = new Date().toISOString();
             }
 
             const { error } = await supabase
@@ -570,11 +549,28 @@ export default function AdminOrdersPage() {
                         </div>
                     </div>
 
-                    <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                    <div style={{ display: "flex", gap: "10px", alignItems: "center", flexWrap: "wrap" }}>
+                        <button
+                            onClick={() => updatePaymentStatus(unhandledOrders[0].id, "Approved")}
+                            disabled={actionLoading}
+                            style={{
+                                padding: "10px 16px",
+                                backgroundColor: "#28a745",
+                                color: "#fff",
+                                fontWeight: "800",
+                                borderRadius: "8px",
+                                border: "none",
+                                cursor: "pointer",
+                                fontSize: "13px",
+                                boxShadow: "0 4px 12px rgba(40,167,69,0.35)",
+                            }}
+                        >
+                            ✓ Approve #{unhandledOrders[0].order_number || unhandledOrders[0].id.slice(0, 5)}
+                        </button>
                         <button
                             onClick={() => setSelectedOrder(unhandledOrders[0])}
                             style={{
-                                padding: "10px 18px",
+                                padding: "10px 16px",
                                 backgroundColor: "#fff",
                                 color: "#d32f2f",
                                 fontWeight: "800",
@@ -585,7 +581,26 @@ export default function AdminOrdersPage() {
                                 boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
                             }}
                         >
-                            Review Order Now
+                            Review Order
+                        </button>
+                        <button
+                            onClick={() => setSilencedOrderIds(orders.map((o) => o.id))}
+                            title="Silence alarm for all currently pending orders"
+                            style={{
+                                padding: "10px 14px",
+                                backgroundColor: "rgba(0,0,0,0.4)",
+                                color: "#ffe082",
+                                fontWeight: "700",
+                                borderRadius: "8px",
+                                border: "1px solid #ffe082",
+                                cursor: "pointer",
+                                fontSize: "12px",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "6px",
+                            }}
+                        >
+                            <FontAwesomeIcon icon={faVolumeMute} /> Silence Alarm
                         </button>
                         <button
                             onClick={() => setSoundEnabled(!soundEnabled)}
@@ -604,7 +619,7 @@ export default function AdminOrdersPage() {
                             }}
                         >
                             <FontAwesomeIcon icon={soundEnabled ? faVolumeMute : faVolumeHigh} />
-                            {soundEnabled ? "Mute Siren" : "Unmute"}
+                            {soundEnabled ? "Mute All" : "Unmute"}
                         </button>
                     </div>
                 </div>
@@ -720,21 +735,60 @@ export default function AdminOrdersPage() {
                                     <td style={{ padding: "14px", fontWeight: "700", color: "#fff" }}>{o.status}</td>
                                     <td style={{ padding: "14px", fontWeight: "800", color: "#28a745" }}>₹{o.total}</td>
                                     <td style={{ padding: "14px" }}>
-                                        <button
-                                            onClick={() => setSelectedOrder(o)}
-                                            style={{
-                                                padding: "6px 12px",
-                                                backgroundColor: "#ff8c00",
-                                                color: "#000",
-                                                border: "none",
-                                                borderRadius: "6px",
-                                                fontWeight: "700",
-                                                cursor: "pointer",
-                                                fontSize: "12px",
-                                            }}
-                                        >
-                                            Manage
-                                        </button>
+                                        <div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
+                                            {o.status === "Pending Payment Verification" && o.payment_status === "Pending" && (
+                                                <button
+                                                    onClick={() => updatePaymentStatus(o.id, "Approved")}
+                                                    title="Quick Approve Payment and Accept Order"
+                                                    style={{
+                                                        padding: "6px 10px",
+                                                        backgroundColor: "#28a745",
+                                                        color: "#fff",
+                                                        border: "none",
+                                                        borderRadius: "6px",
+                                                        fontWeight: "800",
+                                                        cursor: "pointer",
+                                                        fontSize: "11px",
+                                                        whiteSpace: "nowrap",
+                                                    }}
+                                                >
+                                                    ✓ Approve
+                                                </button>
+                                            )}
+                                            <button
+                                                onClick={() => setSelectedOrder(o)}
+                                                style={{
+                                                    padding: "6px 12px",
+                                                    backgroundColor: "#ff8c00",
+                                                    color: "#000",
+                                                    border: "none",
+                                                    borderRadius: "6px",
+                                                    fontWeight: "700",
+                                                    cursor: "pointer",
+                                                    fontSize: "12px",
+                                                }}
+                                            >
+                                                Manage
+                                            </button>
+                                            {o.status === "Pending Payment Verification" && !silencedOrderIds.includes(o.id) && (
+                                                <button
+                                                    onClick={() => setSilencedOrderIds(prev => [...prev, o.id])}
+                                                    title="Mute siren for this specific order"
+                                                    style={{
+                                                        padding: "6px 8px",
+                                                        backgroundColor: "rgba(255,255,255,0.08)",
+                                                        color: "#aaa",
+                                                        border: "1px solid #444",
+                                                        borderRadius: "6px",
+                                                        fontWeight: "600",
+                                                        cursor: "pointer",
+                                                        fontSize: "11px",
+                                                    }}
+                                                >
+                                                    <FontAwesomeIcon icon={faVolumeMute} />
+                                                </button>
+                                            )}
+                                        </div>
                                     </td>
                                 </tr>
                             ))}
@@ -795,25 +849,7 @@ export default function AdminOrdersPage() {
                                 )}
                             </div>
                             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                                <button
-                                    onClick={() => handlePrintReceipt(selectedOrder)}
-                                    title="Print Kitchen Order Ticket (KOT)"
-                                    style={{
-                                        padding: "8px 12px",
-                                        backgroundColor: "rgba(255, 140, 0, 0.15)",
-                                        border: "1px solid #ff8c00",
-                                        borderRadius: "8px",
-                                        color: "#ff8c00",
-                                        fontSize: "12px",
-                                        fontWeight: "700",
-                                        cursor: "pointer",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        gap: "6px",
-                                    }}
-                                >
-                                    <FontAwesomeIcon icon={faPrint} /> Print KOT
-                                </button>
+
                                 <button
                                     onClick={() => {
                                         setSelectedOrder(null);
