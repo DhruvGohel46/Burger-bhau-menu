@@ -39,7 +39,10 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
     metadataBase: new URL('https://burgerbhau.netlify.app'),
-    title: 'Burger Bhau (Kothariya) | Premium Fast Food Menu',
+    title: {
+        default: 'Burger Bhau (Kothariya) | Premium Fast Food Menu',
+        template: '%s | Burger Bhau (Kothariya)',
+    },
     description: 'Order handcrafted burgers, pizzas, and more from Burger Bhau (Kothariya). Fresh, delicious, and premium fast food in Rajkot.',
     applicationName: 'Burger Bhau (Kothariya)',
     keywords: ['burger bhau', 'burger bhau rajkot', 'burger bhau kothariya', 'best burgers rajkot', 'fast food rajkot', 'pizza rajkot', 'sandwich rajkot'],
@@ -50,14 +53,8 @@ export const metadata: Metadata = {
         ],
         apple: '/favicon.ico',
     },
-    alternates: {
-        canonical: '/',
-    },
     openGraph: {
-        title: 'Burger Bhau (Kothariya) – Premium Handcrafted Fast Food',
-        description: 'Order handcrafted burgers, pizzas, and more from Burger Bhau (Kothariya).',
         siteName: 'Burger Bhau',
-        url: 'https://burgerbhau.netlify.app',
         images: [
             {
                 url: '/BURGER-BHAU-logo.webp',
@@ -70,8 +67,6 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Burger Bhau (Kothariya) – Premium Fast Food',
-        description: 'Order handcrafted burgers, pizzas, and more from Burger Bhau (Kothariya).',
         images: ['/BURGER-BHAU-logo.webp'],
     },
 };

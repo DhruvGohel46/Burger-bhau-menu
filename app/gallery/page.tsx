@@ -5,10 +5,14 @@ import GalleryClient from "@/app/components/GalleryClient";
 export const metadata: Metadata = {
     title: "Photo Gallery | Burger Bhau (Kothariya) - Real Food & Shop Photos",
     description: "Browse authentic photos of handcrafted burgers, garlic bread, fries, and store ambience at Burger Bhau (Kothariya) in Rajkot.",
+    alternates: {
+        canonical: "/gallery/",
+    },
     openGraph: {
         title: "Photo Gallery – Burger Bhau (Kothariya)",
         description: "Explore real food photos, burgers, pizzas, and store ambience at Burger Bhau Rajkot.",
-        url: "https://burgerbhau.netlify.app/gallery",
+        url: "https://burgerbhau.netlify.app/gallery/",
+        type: "website",
         images: [
             {
                 url: "/productimage/burger/aalu-tikki-burger.jpg",

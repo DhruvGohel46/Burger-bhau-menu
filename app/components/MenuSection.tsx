@@ -46,7 +46,7 @@ export default function MenuSection({
     return (
         <section
             id={`section-${category.id}`}
-            className={styles.section}
+            className={`${styles.section}${index === 0 ? ` ${styles.sectionFirst}` : ""}`}
         >
             {/* Section Title */}
             <motion.div

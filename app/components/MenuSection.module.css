@@ -4,6 +4,10 @@
   scroll-margin-top: 172px;
 }
 
+.sectionFirst {
+  padding-top: var(--space-2);
+}
+
 .titleRow {
   display: flex;
   align-items: center;
