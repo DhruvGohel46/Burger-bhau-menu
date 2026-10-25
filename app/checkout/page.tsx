@@ -145,10 +145,10 @@ export default function CheckoutPage() {
                         Please log in or create an account to complete your order.
                     </p>
                     <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                        <Link href="/login" style={{ padding: "14px", backgroundColor: "#CF4B13", color: "#fff", borderRadius: "8px", fontWeight: "700", textDecoration: "none" }}>
+                        <Link href="/login/" style={{ padding: "14px", backgroundColor: "#CF4B13", color: "#fff", borderRadius: "8px", fontWeight: "700", textDecoration: "none" }}>
                             Sign In
                         </Link>
-                        <Link href="/register" style={{ padding: "14px", backgroundColor: "rgba(255, 255, 255, 0.08)", border: "1px solid rgba(255, 255, 255, 0.2)", color: "#fff", borderRadius: "8px", fontWeight: "600", textDecoration: "none" }}>
+                        <Link href="/register/" style={{ padding: "14px", backgroundColor: "rgba(255, 255, 255, 0.08)", border: "1px solid rgba(255, 255, 255, 0.2)", color: "#fff", borderRadius: "8px", fontWeight: "600", textDecoration: "none" }}>
                             Create New Account
                         </Link>
                     </div>
@@ -275,7 +275,7 @@ export default function CheckoutPage() {
             await supabase.from("order_items").insert(itemsToInsert);
 
             clearCart();
-            router.push(`/orders/${orderData.id}`);
+            router.push(`/orders/${orderData.id}/`);
         } catch (err: any) {
             setErrorMsg(err?.message || "An unexpected error occurred during checkout.");
             setSubmitting(false);

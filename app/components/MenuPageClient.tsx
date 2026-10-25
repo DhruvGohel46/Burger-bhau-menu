@@ -149,7 +149,7 @@ export default function MenuPageClient({
                         </div>
 
                         <Link
-                            href="/gallery"
+                            href="/gallery/"
                             className={styles.galleryBtn}
                             aria-label="Explore Photo Gallery"
                         >
@@ -196,7 +196,7 @@ export default function MenuPageClient({
                                 Authentic photos of our burgers, kitchen & store
                             </p>
                         </div>
-                        <Link href="/gallery" style={{ fontSize: "13px", fontWeight: "700", color: "#ffffff", textDecoration: "none", padding: "8px 18px", backgroundColor: "var(--accent)", borderRadius: "99px", boxShadow: "0 4px 12px rgba(207, 75, 19, 0.30)", transition: "all 0.2s ease", whiteSpace: "nowrap" }}>
+                        <Link href="/gallery/" style={{ fontSize: "13px", fontWeight: "700", color: "#ffffff", textDecoration: "none", padding: "8px 18px", backgroundColor: "var(--accent)", borderRadius: "99px", boxShadow: "0 4px 12px rgba(207, 75, 19, 0.30)", transition: "all 0.2s ease", whiteSpace: "nowrap" }}>
                             Explore Gallery →
                         </Link>
                     </div>

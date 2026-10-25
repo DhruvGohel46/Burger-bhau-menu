@@ -19,14 +19,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const NAV_ITEMS = [
-    { label: "Dashboard", href: "/admin", icon: faChartLine },
-    { label: "Orders", href: "/admin/orders", icon: faReceipt },
-    { label: "Customers", href: "/admin/customers", icon: faUsers },
-    { label: "Menu Management", href: "/admin/menu", icon: faUtensils },
-    { label: "Photo Gallery", href: "/admin/gallery", icon: faImages },
-    { label: "Analytics", href: "/admin/analytics", icon: faChartPie },
-    { label: "Store Settings", href: "/admin/settings", icon: faCog },
-    { label: "Admin Profile", href: "/admin/profile", icon: faUserShield },
+    { label: "Dashboard", href: "/admin/", icon: faChartLine },
+    { label: "Orders", href: "/admin/orders/", icon: faReceipt },
+    { label: "Customers", href: "/admin/customers/", icon: faUsers },
+    { label: "Menu Management", href: "/admin/menu/", icon: faUtensils },
+    { label: "Photo Gallery", href: "/admin/gallery/", icon: faImages },
+    { label: "Analytics", href: "/admin/analytics/", icon: faChartPie },
+    { label: "Store Settings", href: "/admin/settings/", icon: faCog },
+    { label: "Admin Profile", href: "/admin/profile/", icon: faUserShield },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

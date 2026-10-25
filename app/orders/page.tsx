@@ -100,7 +100,7 @@ export default function MyOrdersPage() {
                             My Orders
                         </h1>
                     </div>
-                    <Link href="/profile" style={{ fontSize: "13px", color: "#666", textDecoration: "underline" }}>
+                    <Link href="/profile/" style={{ fontSize: "13px", color: "#666", textDecoration: "underline" }}>
                         My Profile
                     </Link>
                 </div>
@@ -138,7 +138,7 @@ export default function MyOrdersPage() {
                         {orders.map((order) => (
                             <Link
                                 key={order.id}
-                                href={`/orders/${order.id}`}
+                                href={`/orders/${order.id}/`}
                                 style={{
                                     backgroundColor: "rgba(18, 14, 10, 0.76)",
                                     backdropFilter: "blur(20px) saturate(180%)",

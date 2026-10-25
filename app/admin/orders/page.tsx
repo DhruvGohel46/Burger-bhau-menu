@@ -13,7 +13,17 @@ import {
     faVolumeMute,
     faBell,
     faHistory,
+    faPhone,
+    faCopy,
+    faCheck,
+    faCheckCircle,
+    faTimes,
+    faPrint,
+    faExclamationTriangle,
+    faSpinner,
+    faReceipt,
 } from "@fortawesome/free-solid-svg-icons";
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 
 // Web Audio API Chime Synthesizer
 function playOrderChimeSound() {
@@ -42,6 +52,32 @@ function playOrderChimeSound() {
     }
 }
 
+function buildCustomerWhatsAppUrl(order: Order, customText?: string) {
+    const cleanPhone = (order.customer_phone || "").replace(/[^0-9]/g, "");
+    const phoneWithCountry = cleanPhone.startsWith("91") ? cleanPhone : `91${cleanPhone}`;
+    let text = customText;
+    if (!text) {
+        if (order.status === "Ready For Pickup") {
+            text = `Hi ${order.customer_name}! Your Burger Bhau Order #${order.order_number || order.id.slice(0, 6)} is FRESH & READY FOR PICKUP at our counter! 🍔 Pickup location: Rolex Road, Kothariya, Rajkot. See you soon!`;
+        } else if (order.status === "Accepted") {
+            text = `Hi ${order.customer_name}! Your Burger Bhau Order #${order.order_number || order.id.slice(0, 6)} has been ACCEPTED by our kitchen. We are preparing it fresh for you! 🍟`;
+        } else if (order.status === "Preparing") {
+            text = `Hi ${order.customer_name}! Your Burger Bhau Order #${order.order_number || order.id.slice(0, 6)} is currently being prepared hot & fresh in our kitchen!`;
+        } else if (order.status === "Delivered") {
+            text = `Hi ${order.customer_name}! Your Burger Bhau Order #${order.order_number || order.id.slice(0, 6)} has been completed/delivered. Thank you for ordering from Burger Bhau! Enjoy your meal!`;
+        } else if (order.status === "Cancelled") {
+            text = `Hi ${order.customer_name}, your Burger Bhau Order #${order.order_number || order.id.slice(0, 6)} has been cancelled. For queries, please contact us at +919558941555.`;
+        } else if (order.payment_status === "Approved") {
+            text = `Hi ${order.customer_name}! Your payment for Order #${order.order_number || order.id.slice(0, 6)} (Total: ₹${order.total}, UTR: ${order.utr}) has been VERIFIED & APPROVED! Thank you!`;
+        } else if (order.payment_status === "Rejected") {
+            text = `Hi ${order.customer_name}, we were unable to verify your payment UTR (${order.utr}) for Order #${order.order_number || order.id.slice(0, 6)}. Please check your transaction or send the correct UTR to confirm your order.`;
+        } else {
+            text = `Hi ${order.customer_name}, regarding your Burger Bhau Order #${order.order_number || order.id.slice(0, 6)}:`;
+        }
+    }
+    return `https://wa.me/${phoneWithCountry}?text=${encodeURIComponent(text)}`;
+}
+
 export default function AdminOrdersPage() {
     const { user } = useAuthStore();
     const [orders, setOrders] = useState<Order[]>([]);
@@ -51,6 +87,12 @@ export default function AdminOrdersPage() {
     const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
     const [soundEnabled, setSoundEnabled] = useState(true);
     const [notifPermission, setNotifPermission] = useState<string>("default");
+
+    // Modal action feedback & states
+    const [actionLoading, setActionLoading] = useState(false);
+    const [actionFeedback, setActionFeedback] = useState<{ type: "success" | "error"; message: string } | null>(null);
+    const [copiedUtr, setCopiedUtr] = useState(false);
+
 
     const requestWebNotification = () => {
         if ("Notification" in window) {
@@ -115,65 +157,195 @@ export default function AdminOrdersPage() {
         };
     }, [soundEnabled]);
 
+    const handleCopyUtr = (utr: string) => {
+        if (!utr) return;
+        navigator.clipboard.writeText(utr);
+        setCopiedUtr(true);
+        setTimeout(() => setCopiedUtr(false), 2000);
+    };
+
+    const handlePrintReceipt = (order: Order) => {
+        const printWindow = window.open("", "_blank");
+        if (!printWindow) return;
+        printWindow.document.write(`
+            <!DOCTYPE html>
+            <html>
+                <head>
+                    <title>Receipt - Order #${order.order_number || order.id.slice(0, 6)}</title>
+                    <style>
+                        body { font-family: 'Courier New', monospace; padding: 16px; max-width: 300px; margin: 0 auto; color: #000; font-size: 13px; }
+                        .center { text-align: center; }
+                        .line { border-top: 1px dashed #000; margin: 8px 0; }
+                        .flex { display: flex; justify-content: space-between; margin-bottom: 4px; }
+                        h2 { margin: 0 0 4px 0; font-size: 18px; font-weight: 800; }
+                        p { margin: 2px 0; font-size: 12px; }
+                        .bold { font-weight: bold; }
+                    </style>
+                </head>
+                <body>
+                    <div class="center">
+                        <h2>BURGER BHAU</h2>
+                        <p>Rolex road, Kothariya, Rajkot</p>
+                        <p>Ph: +91 95589 41555</p>
+                    </div>
+                    <div class="line"></div>
+                    <div class="flex">
+                        <span class="bold">Order #${order.order_number || order.id.slice(0, 6)}</span>
+                        <span>${order.delivery_method ? order.delivery_method.toUpperCase() : "PICKUP"}</span>
+                    </div>
+                    <p>Date: ${new Date(order.created_at).toLocaleString("en-IN", { dateStyle: "short", timeStyle: "short" })}</p>
+                    <p>Customer: ${order.customer_name}</p>
+                    <p>Phone: ${order.customer_phone}</p>
+                    ${order.customer_address ? `<p>Address: ${order.customer_address}</p>` : ""}
+                    <div class="line"></div>
+                    <div class="bold" style="margin-bottom: 6px;">ITEMS:</div>
+                    ${(order.order_items || []).map(i => `
+                        <div class="flex">
+                            <span>${i.quantity}x ${i.name} ${i.variant_label ? `(${i.variant_label})` : ""}</span>
+                            <span>₹${i.price * i.quantity}</span>
+                        </div>
+                    `).join("")}
+                    <div class="line"></div>
+                    <div class="flex bold" style="font-size: 15px;">
+                        <span>TOTAL:</span>
+                        <span>₹${order.total}</span>
+                    </div>
+                    <div class="line"></div>
+                    <p>Payment: <span class="bold">${order.payment_status}</span></p>
+                    <p>UTR: ${order.utr}</p>
+                    <p>Status: <span class="bold">${order.status}</span></p>
+                    <div class="line"></div>
+                    <div class="center">
+                        <p>Thank You! Visit Again!</p>
+                    </div>
+                </body>
+            </html>
+        `);
+        printWindow.document.close();
+        printWindow.focus();
+        setTimeout(() => {
+            printWindow.print();
+            printWindow.close();
+        }, 250);
+    };
+
     const updateOrderStatus = async (orderId: string, newStatus: OrderStatus) => {
-        const timestampMap: Record<string, string> = {
-            updated_at: new Date().toISOString(),
-        };
+        setActionLoading(true);
+        setActionFeedback(null);
+        try {
+            const updateData: any = {
+                status: newStatus,
+                updated_at: new Date().toISOString(),
+            };
 
-        if (newStatus === "Payment Verified") timestampMap.payment_verified_at = new Date().toISOString();
-        if (newStatus === "Accepted") timestampMap.accepted_at = new Date().toISOString();
-        if (newStatus === "Preparing") timestampMap.preparing_at = new Date().toISOString();
-        if (newStatus === "Ready For Pickup") timestampMap.ready_at = new Date().toISOString();
-        if (newStatus === "Cancelled") timestampMap.cancelled_at = new Date().toISOString();
+            // If marking Payment Verified, automatically approve payment status as well
+            if (newStatus === "Payment Verified") {
+                updateData.payment_verified_at = new Date().toISOString();
+                updateData.payment_status = "Approved";
+            }
+            if (newStatus === "Accepted") updateData.accepted_at = new Date().toISOString();
+            if (newStatus === "Preparing") updateData.preparing_at = new Date().toISOString();
+            if (newStatus === "Ready For Pickup") updateData.ready_at = new Date().toISOString();
+            if (newStatus === "Cancelled") updateData.cancelled_at = new Date().toISOString();
 
-        const { error } = await supabase
-            .from("orders")
-            .update({ status: newStatus, ...timestampMap })
-            .eq("id", orderId);
+            const { error } = await supabase
+                .from("orders")
+                .update(updateData)
+                .eq("id", orderId);
 
-        if (!error) {
-            // Write Audit Log into activity_logs table
-            await supabase.from("activity_logs").insert({
-                order_id: orderId,
-                admin_id: user?.id,
-                action: `Updated Status to ${newStatus}`,
-                details: { newStatus, timestamp: new Date().toISOString() },
-            });
+            if (error) throw error;
 
+            // Log activity in background
+            try {
+                await supabase.from("activity_logs").insert({
+                    order_id: orderId,
+                    admin_id: user?.id,
+                    action: `Updated Status to ${newStatus}`,
+                    details: { newStatus, timestamp: new Date().toISOString() },
+                });
+            } catch (e) {
+                console.warn("Activity log insert failed:", e);
+            }
+
+            // Immediately update state in table and in active modal
             setOrders((prev) =>
-                prev.map((o) => (o.id === orderId ? { ...o, status: newStatus, ...timestampMap } : o))
+                prev.map((o) => (o.id === orderId ? { ...o, ...updateData } : o))
             );
             if (selectedOrder && selectedOrder.id === orderId) {
-                setSelectedOrder((prev) => (prev ? { ...prev, status: newStatus, ...timestampMap } : null));
+                setSelectedOrder((prev) => (prev ? { ...prev, ...updateData } : null));
             }
+
+            setActionFeedback({
+                type: "success",
+                message: `Status updated to "${newStatus}"!`,
+            });
+        } catch (err: any) {
+            console.error("Order status update error:", err);
+            setActionFeedback({
+                type: "error",
+                message: err?.message || "Failed to update order status.",
+            });
+        } finally {
+            setActionLoading(false);
         }
     };
 
     const updatePaymentStatus = async (orderId: string, newPaymentStatus: PaymentStatus) => {
-        const updateData: any = {
-            payment_status: newPaymentStatus,
-            updated_at: new Date().toISOString(),
-        };
-        if (newPaymentStatus === "Approved") {
-            updateData.status = "Payment Verified";
-            updateData.payment_verified_at = new Date().toISOString();
-        }
+        setActionLoading(true);
+        setActionFeedback(null);
+        try {
+            const updateData: any = {
+                payment_status: newPaymentStatus,
+                updated_at: new Date().toISOString(),
+            };
 
-        const { error } = await supabase
-            .from("orders")
-            .update(updateData)
-            .eq("id", orderId);
+            // If approving payment, advance status to "Payment Verified" only if currently pending
+            if (newPaymentStatus === "Approved") {
+                if (selectedOrder?.status === "Pending Payment Verification") {
+                    updateData.status = "Payment Verified";
+                    updateData.payment_verified_at = new Date().toISOString();
+                }
+            }
 
-        if (!error) {
-            // Write Audit Log
-            await supabase.from("activity_logs").insert({
-                order_id: orderId,
-                admin_id: user?.id,
-                action: `Payment ${newPaymentStatus}`,
-                details: { newPaymentStatus, timestamp: new Date().toISOString() },
+            const { error } = await supabase
+                .from("orders")
+                .update(updateData)
+                .eq("id", orderId);
+
+            if (error) throw error;
+
+            // Log activity
+            try {
+                await supabase.from("activity_logs").insert({
+                    order_id: orderId,
+                    admin_id: user?.id,
+                    action: `Payment ${newPaymentStatus}`,
+                    details: { newPaymentStatus, timestamp: new Date().toISOString() },
+                });
+            } catch (e) {
+                console.warn("Activity log insert failed:", e);
+            }
+
+            // Immediately update state in table and in active modal
+            setOrders((prev) =>
+                prev.map((o) => (o.id === orderId ? { ...o, ...updateData } : o))
+            );
+            if (selectedOrder && selectedOrder.id === orderId) {
+                setSelectedOrder((prev) => (prev ? { ...prev, ...updateData } : null));
+            }
+
+            setActionFeedback({
+                type: "success",
+                message: newPaymentStatus === "Approved" ? "Payment Approved Successfully!" : "Payment Marked as Rejected.",
             });
-
-            fetchOrders();
+        } catch (err: any) {
+            console.error("Payment status update error:", err);
+            setActionFeedback({
+                type: "error",
+                message: err?.message || "Failed to update payment status.",
+            });
+        } finally {
+            setActionLoading(false);
         }
     };
 
@@ -417,84 +589,328 @@ export default function AdminOrdersPage() {
                         backgroundColor: "#161616",
                         border: "1px solid #333",
                         borderRadius: "16px",
-                        padding: "28px",
-                        maxWidth: "600px",
+                        padding: "24px",
+                        maxWidth: "620px",
                         width: "100%",
-                        maxHeight: "90vh",
+                        maxHeight: "92vh",
                         overflowY: "auto",
+                        boxShadow: "0 20px 60px rgba(0,0,0,0.8)",
                     }}>
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
-                            <h2 style={{ fontSize: "20px", fontWeight: "800", color: "#ff8c00", margin: 0 }}>
-                                Order #{selectedOrder.order_number || selectedOrder.id.slice(0, 8)}
-                            </h2>
-                            <button onClick={() => setSelectedOrder(null)} style={{ background: "none", border: "none", color: "#fff", fontSize: "20px", cursor: "pointer" }}>✕</button>
-                        </div>
-
-                        {/* Customer Info */}
-                        <div style={{ backgroundColor: "#202020", borderRadius: "10px", padding: "14px", marginBottom: "16px", fontSize: "14px" }}>
-                            <div style={{ fontWeight: "700", color: "#fff", marginBottom: "4px" }}>{selectedOrder.customer_name} ({selectedOrder.customer_phone})</div>
-                            <div style={{ color: "#aaa", fontSize: "13px" }}>Address: {selectedOrder.customer_address}</div>
-                            <div style={{ color: "#ff8c00", fontSize: "13px", marginTop: "4px" }}>Delivery Method: <strong style={{ textTransform: "capitalize" }}>{selectedOrder.delivery_method}</strong></div>
-                        </div>
-
-                        {/* UTR Verification */}
-                        <div style={{ backgroundColor: "#202020", borderRadius: "10px", padding: "14px", marginBottom: "16px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                        {/* Modal Header */}
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "16px" }}>
                             <div>
-                                <div style={{ fontSize: "12px", color: "#aaa" }}>Transaction UTR:</div>
-                                <div style={{ fontFamily: "monospace", fontSize: "16px", fontWeight: "700", color: "#fff" }}>{selectedOrder.utr}</div>
+                                <h2 style={{ fontSize: "22px", fontWeight: "800", color: "#ff8c00", margin: "0 0 4px 0" }}>
+                                    Order #{selectedOrder.order_number || selectedOrder.id.slice(0, 8)}
+                                </h2>
+                                <div style={{ fontSize: "12px", color: "#aaa" }}>
+                                    Placed on: {new Date(selectedOrder.created_at).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" })}
+                                </div>
                             </div>
-                            <div style={{ display: "flex", gap: "8px" }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                                <button
+                                    onClick={() => handlePrintReceipt(selectedOrder)}
+                                    title="Print Kitchen Order Ticket (KOT)"
+                                    style={{
+                                        padding: "8px 12px",
+                                        backgroundColor: "rgba(255, 140, 0, 0.15)",
+                                        border: "1px solid #ff8c00",
+                                        borderRadius: "8px",
+                                        color: "#ff8c00",
+                                        fontSize: "12px",
+                                        fontWeight: "700",
+                                        cursor: "pointer",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: "6px",
+                                    }}
+                                >
+                                    <FontAwesomeIcon icon={faPrint} /> Print KOT
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        setSelectedOrder(null);
+                                        setActionFeedback(null);
+                                    }}
+                                    style={{
+                                        background: "none",
+                                        border: "none",
+                                        color: "#aaa",
+                                        fontSize: "20px",
+                                        cursor: "pointer",
+                                        padding: "4px 8px",
+                                    }}
+                                    aria-label="Close modal"
+                                >
+                                    <FontAwesomeIcon icon={faTimes} />
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Action Feedback Banner */}
+                        {actionFeedback && (
+                            <div style={{
+                                padding: "12px 16px",
+                                borderRadius: "10px",
+                                marginBottom: "16px",
+                                fontSize: "13px",
+                                fontWeight: "700",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "10px",
+                                backgroundColor: actionFeedback.type === "success" ? "rgba(40, 167, 69, 0.2)" : "rgba(220, 53, 69, 0.2)",
+                                border: `1px solid ${actionFeedback.type === "success" ? "#28a745" : "#dc3545"}`,
+                                color: actionFeedback.type === "success" ? "#5dd579" : "#ff6b6b",
+                            }}>
+                                <FontAwesomeIcon icon={actionFeedback.type === "success" ? faCheckCircle : faExclamationTriangle} />
+                                <span>{actionFeedback.message}</span>
+                            </div>
+                        )}
+
+                        {/* Customer Info Card */}
+                        <div style={{ backgroundColor: "#202020", borderRadius: "12px", padding: "16px", marginBottom: "16px", border: "1px solid #2d2d2d" }}>
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "10px" }}>
+                                <div>
+                                    <div style={{ fontWeight: "800", color: "#fff", fontSize: "15px", marginBottom: "4px" }}>
+                                        {selectedOrder.customer_name}
+                                    </div>
+                                    <div style={{ color: "#aaa", fontSize: "13px", marginBottom: "6px" }}>
+                                        Address: {selectedOrder.customer_address || "None provided"}
+                                    </div>
+                                    <div style={{ color: "#ff8c00", fontSize: "12px", fontWeight: "700" }}>
+                                        Delivery Method: <span style={{ textTransform: "uppercase", backgroundColor: "rgba(255, 140, 0, 0.15)", padding: "2px 8px", borderRadius: "4px" }}>{selectedOrder.delivery_method}</span>
+                                    </div>
+                                </div>
+                                <div style={{ display: "flex", gap: "8px" }}>
+                                    <a
+                                        href={`tel:+${selectedOrder.customer_phone.replace(/[^0-9]/g, "")}`}
+                                        style={{
+                                            padding: "8px 12px",
+                                            backgroundColor: "rgba(255, 255, 255, 0.08)",
+                                            border: "1px solid #444",
+                                            borderRadius: "8px",
+                                            color: "#fff",
+                                            textDecoration: "none",
+                                            fontSize: "12px",
+                                            fontWeight: "700",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            gap: "6px",
+                                        }}
+                                    >
+                                        <FontAwesomeIcon icon={faPhone} /> Call
+                                    </a>
+                                    <a
+                                        href={buildCustomerWhatsAppUrl(selectedOrder)}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        style={{
+                                            padding: "8px 12px",
+                                            backgroundColor: "rgba(37, 211, 102, 0.15)",
+                                            border: "1px solid #25d366",
+                                            borderRadius: "8px",
+                                            color: "#25d366",
+                                            textDecoration: "none",
+                                            fontSize: "12px",
+                                            fontWeight: "700",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            gap: "6px",
+                                        }}
+                                    >
+                                        <FontAwesomeIcon icon={faWhatsapp} /> WhatsApp
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* UTR Verification & Payment Management Card */}
+                        <div style={{ backgroundColor: "#202020", borderRadius: "12px", padding: "16px", marginBottom: "16px", border: "1px solid #2d2d2d" }}>
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px", flexWrap: "wrap", gap: "10px" }}>
+                                <div>
+                                    <div style={{ fontSize: "12px", color: "#aaa" }}>Transaction ID (UTR / Ref):</div>
+                                    <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "2px" }}>
+                                        <span style={{ fontFamily: "monospace", fontSize: "15px", fontWeight: "700", color: "#fff", wordBreak: "break-all" }}>
+                                            {selectedOrder.utr}
+                                        </span>
+                                        <button
+                                            onClick={() => handleCopyUtr(selectedOrder.utr)}
+                                            style={{
+                                                background: "none",
+                                                border: "1px solid #444",
+                                                color: copiedUtr ? "#28a745" : "#aaa",
+                                                borderRadius: "4px",
+                                                padding: "2px 6px",
+                                                fontSize: "11px",
+                                                cursor: "pointer",
+                                            }}
+                                        >
+                                            <FontAwesomeIcon icon={copiedUtr ? faCheck : faCopy} /> {copiedUtr ? "Copied!" : "Copy"}
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {/* Current Payment Status Badge */}
+                                <div style={{
+                                    padding: "6px 12px",
+                                    borderRadius: "8px",
+                                    fontSize: "12px",
+                                    fontWeight: "800",
+                                    color: selectedOrder.payment_status === "Approved" ? "#28a745" : selectedOrder.payment_status === "Rejected" ? "#ff4444" : "#ffc107",
+                                    backgroundColor: selectedOrder.payment_status === "Approved" ? "rgba(40,167,69,0.15)" : selectedOrder.payment_status === "Rejected" ? "rgba(255,68,68,0.15)" : "rgba(255,193,7,0.15)",
+                                    border: `1px solid ${selectedOrder.payment_status === "Approved" ? "#28a745" : selectedOrder.payment_status === "Rejected" ? "#ff4444" : "#ffc107"}`,
+                                }}>
+                                    {selectedOrder.payment_status === "Approved" && "✓ Payment: Approved"}
+                                    {selectedOrder.payment_status === "Rejected" && "✕ Payment: Rejected"}
+                                    {selectedOrder.payment_status === "Pending" && "⏳ Payment: Pending Verification"}
+                                </div>
+                            </div>
+
+                            {/* Payment Role Action Buttons */}
+                            <div style={{ display: "flex", gap: "10px" }}>
                                 <button
                                     onClick={() => updatePaymentStatus(selectedOrder.id, "Approved")}
-                                    style={{ padding: "8px 12px", backgroundColor: "#28a745", color: "#fff", border: "none", borderRadius: "6px", fontWeight: "700", fontSize: "12px", cursor: "pointer" }}
+                                    disabled={actionLoading}
+                                    style={{
+                                        flex: 1,
+                                        padding: "10px",
+                                        backgroundColor: selectedOrder.payment_status === "Approved" ? "#28a745" : "rgba(40, 167, 69, 0.2)",
+                                        border: `2px solid ${selectedOrder.payment_status === "Approved" ? "#5dd579" : "#28a745"}`,
+                                        color: selectedOrder.payment_status === "Approved" ? "#000" : "#5dd579",
+                                        borderRadius: "8px",
+                                        fontWeight: "800",
+                                        fontSize: "13px",
+                                        cursor: actionLoading ? "not-allowed" : "pointer",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        gap: "8px",
+                                        boxShadow: selectedOrder.payment_status === "Approved" ? "0 0 12px rgba(40,167,69,0.4)" : "none",
+                                    }}
                                 >
-                                    Approve Payment
+                                    <FontAwesomeIcon icon={actionLoading ? faSpinner : faCheck} spin={actionLoading} />
+                                    {selectedOrder.payment_status === "Approved" ? "Payment Approved ✓" : "Approve Payment"}
                                 </button>
                                 <button
                                     onClick={() => updatePaymentStatus(selectedOrder.id, "Rejected")}
-                                    style={{ padding: "8px 12px", backgroundColor: "#dc3545", color: "#fff", border: "none", borderRadius: "6px", fontWeight: "700", fontSize: "12px", cursor: "pointer" }}
+                                    disabled={actionLoading}
+                                    style={{
+                                        flex: 1,
+                                        padding: "10px",
+                                        backgroundColor: selectedOrder.payment_status === "Rejected" ? "#dc3545" : "rgba(220, 53, 69, 0.2)",
+                                        border: `2px solid ${selectedOrder.payment_status === "Rejected" ? "#ff6b6b" : "#dc3545"}`,
+                                        color: selectedOrder.payment_status === "Rejected" ? "#fff" : "#ff6b6b",
+                                        borderRadius: "8px",
+                                        fontWeight: "800",
+                                        fontSize: "13px",
+                                        cursor: actionLoading ? "not-allowed" : "pointer",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        gap: "8px",
+                                        boxShadow: selectedOrder.payment_status === "Rejected" ? "0 0 12px rgba(220,53,69,0.4)" : "none",
+                                    }}
                                 >
-                                    Reject Payment
+                                    <FontAwesomeIcon icon={actionLoading ? faSpinner : faTimes} spin={actionLoading} />
+                                    {selectedOrder.payment_status === "Rejected" ? "Payment Rejected ✕" : "Reject Payment"}
                                 </button>
                             </div>
                         </div>
 
                         {/* Order Items */}
-                        <div style={{ backgroundColor: "#202020", borderRadius: "10px", padding: "14px", marginBottom: "20px" }}>
-                            <div style={{ fontSize: "13px", fontWeight: "700", color: "#aaa", marginBottom: "8px" }}>Items:</div>
+                        <div style={{ backgroundColor: "#202020", borderRadius: "12px", padding: "16px", marginBottom: "16px", border: "1px solid #2d2d2d" }}>
+                            <div style={{ fontSize: "13px", fontWeight: "800", color: "#aaa", marginBottom: "8px", textTransform: "uppercase" }}>
+                                Order Items ({(selectedOrder.order_items || []).length}):
+                            </div>
                             {selectedOrder.order_items && selectedOrder.order_items.map((item) => (
-                                <div key={item.id} style={{ display: "flex", justifyContent: "space-between", fontSize: "14px", marginBottom: "6px" }}>
-                                    <span>{item.quantity}x {item.name} {item.variant_label ? `(${item.variant_label})` : ""}</span>
-                                    <span>₹{item.price * item.quantity}</span>
+                                <div key={item.id} style={{ display: "flex", justifyContent: "space-between", fontSize: "14px", marginBottom: "6px", color: "#fff" }}>
+                                    <span>
+                                        {item.quantity}x {item.name} {item.variant_label ? `(${item.variant_label})` : ""}
+                                    </span>
+                                    <span style={{ fontWeight: "700" }}>₹{item.price * item.quantity}</span>
                                 </div>
                             ))}
-                            <div style={{ borderTop: "1px solid #333", paddingTop: "8px", marginTop: "8px", display: "flex", justifyContent: "space-between", fontWeight: "800", fontSize: "16px" }}>
-                                <span>Total</span>
-                                <span style={{ color: "#28a745" }}>₹{selectedOrder.total}</span>
+                            <div style={{ borderTop: "1px solid #333", paddingTop: "10px", marginTop: "10px", display: "flex", justifyContent: "space-between", fontWeight: "800", fontSize: "16px" }}>
+                                <span style={{ color: "#fff" }}>Total Payable</span>
+                                <span style={{ color: "#28a745", fontSize: "18px" }}>₹{selectedOrder.total}</span>
                             </div>
                         </div>
 
                         {/* Status Change Controls */}
-                        <div style={{ fontSize: "14px", fontWeight: "700", color: "#fff", marginBottom: "10px" }}>Update Order Status:</div>
-                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
-                            {(["Pending Payment Verification", "Payment Verified", "Accepted", "Preparing", "Ready For Pickup", "Delivered", "Cancelled"] as OrderStatus[]).map((status) => (
-                                <button
-                                    key={status}
-                                    onClick={() => updateOrderStatus(selectedOrder.id, status)}
+                        <div style={{ backgroundColor: "#202020", borderRadius: "12px", padding: "16px", border: "1px solid #2d2d2d" }}>
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px" }}>
+                                <div style={{ fontSize: "14px", fontWeight: "800", color: "#fff" }}>
+                                    Update Order Status:
+                                </div>
+                                <span style={{ fontSize: "11px", color: "#aaa" }}>Click to update live tracking</span>
+                            </div>
+
+                            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
+                                {(["Pending Payment Verification", "Payment Verified", "Accepted", "Preparing", "Ready For Pickup", "Delivered", "Cancelled"] as OrderStatus[]).map((status) => {
+                                    const isCurrent = selectedOrder.status === status;
+                                    return (
+                                        <button
+                                            key={status}
+                                            onClick={() => updateOrderStatus(selectedOrder.id, status)}
+                                            disabled={actionLoading}
+                                            style={{
+                                                padding: "12px 10px",
+                                                backgroundColor: isCurrent ? "#ff8c00" : "#262626",
+                                                color: isCurrent ? "#000" : "#fff",
+                                                border: `2px solid ${isCurrent ? "#ff8c00" : "#383838"}`,
+                                                borderRadius: "10px",
+                                                fontWeight: isCurrent ? "800" : "600",
+                                                fontSize: "12px",
+                                                cursor: actionLoading ? "not-allowed" : "pointer",
+                                                transition: "all 0.15s ease",
+                                                boxShadow: isCurrent ? "0 0 16px rgba(255,140,0,0.4)" : "none",
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                                gap: "6px",
+                                            }}
+                                        >
+                                            {isCurrent && <FontAwesomeIcon icon={faCheckCircle} />}
+                                            {status}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+
+                            {/* Contextual WhatsApp Quick Action based on current status */}
+                            <div style={{ marginTop: "14px", paddingTop: "12px", borderTop: "1px solid #333" }}>
+                                <a
+                                    href={buildCustomerWhatsAppUrl(selectedOrder)}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     style={{
+                                        width: "100%",
                                         padding: "10px",
-                                        backgroundColor: selectedOrder.status === status ? "#ff8c00" : "#262626",
-                                        color: selectedOrder.status === status ? "#000" : "#fff",
-                                        border: "1px solid #444",
+                                        backgroundColor: "rgba(37, 211, 102, 0.15)",
+                                        border: "1px solid #25d366",
                                         borderRadius: "8px",
+                                        color: "#25d366",
+                                        textDecoration: "none",
+                                        fontSize: "13px",
                                         fontWeight: "700",
-                                        fontSize: "12px",
-                                        cursor: "pointer",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        gap: "8px",
+                                        boxSizing: "border-box",
                                     }}
                                 >
-                                    {status}
-                                </button>
-                            ))}
+                                    <FontAwesomeIcon icon={faWhatsapp} />
+                                    <span>
+                                        {selectedOrder.status === "Ready For Pickup" && "📲 WhatsApp Customer: Order Ready For Pickup!"}
+                                        {selectedOrder.status === "Accepted" && "📲 WhatsApp Customer: Order Accepted by Kitchen!"}
+                                        {selectedOrder.status === "Delivered" && "📲 WhatsApp Customer: Thank You Message!"}
+                                        {selectedOrder.status === "Preparing" && "📲 WhatsApp Customer: Food is Being Prepared!"}
+                                        {selectedOrder.status === "Pending Payment Verification" && "📲 WhatsApp Customer: Send Payment Reminder"}
+                                        {selectedOrder.status === "Payment Verified" && "📲 WhatsApp Customer: Payment Confirmed!"}
+                                        {selectedOrder.status === "Cancelled" && "📲 WhatsApp Customer: Order Cancellation Note"}
+                                    </span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

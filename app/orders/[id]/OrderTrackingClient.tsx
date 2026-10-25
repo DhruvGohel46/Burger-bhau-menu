@@ -115,7 +115,7 @@ export default function OrderTrackingClient({ params }: { params: Promise<{ id: 
         return (
             <div style={{ minHeight: "100vh", backgroundColor: "#F0E8C7", color: "#060504", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "20px" }}>
                 <h2 style={{ fontSize: "20px", color: "#ff4444", marginBottom: "12px" }}>{error || "Order Not Found"}</h2>
-                <Link href="/orders" style={{ padding: "10px 20px", backgroundColor: "#CF4B13", color: "#fff", borderRadius: "8px", fontWeight: "700", textDecoration: "none" }}>
+                <Link href="/orders/" style={{ padding: "10px 20px", backgroundColor: "#CF4B13", color: "#fff", borderRadius: "8px", fontWeight: "700", textDecoration: "none" }}>
                     Back to My Orders
                 </Link>
             </div>
@@ -141,7 +141,7 @@ export default function OrderTrackingClient({ params }: { params: Promise<{ id: 
 
                 {/* Header */}
                 <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
-                    <Link href="/orders" style={{ color: "#CF4B13", fontSize: "18px" }}>
+                    <Link href="/orders/" style={{ color: "#CF4B13", fontSize: "18px" }}>
                         <FontAwesomeIcon icon={faArrowLeft} />
                     </Link>
                     <div>

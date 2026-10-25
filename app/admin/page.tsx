@@ -185,7 +185,7 @@ export default function AdminDashboardPage() {
                     }}>
                         Recent Orders
                     </h2>
-                    <Link href="/admin/orders" style={{
+                    <Link href="/admin/orders/" style={{
                         fontSize: "13px",
                         color: "#ff8c00",
                         fontWeight: "700",

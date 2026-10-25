@@ -118,7 +118,7 @@ export default function ProfilePage() {
 
                 {/* Account Navigation Pill */}
                 <div style={{ display: "flex", gap: "12px", marginBottom: "24px" }}>
-                    <Link href="/orders" style={{
+                    <Link href="/orders/" style={{
                         flex: 1,
                         padding: "12px",
                         backgroundColor: "rgba(18, 14, 10, 0.76)",
@@ -134,7 +134,7 @@ export default function ProfilePage() {
                         📦 View My Orders
                     </Link>
                     {profile?.role === "admin" && (
-                        <Link href="/admin" style={{
+                        <Link href="/admin/" style={{
                             flex: 1,
                             padding: "12px",
                             backgroundColor: "rgba(207, 75, 19, 0.15)",

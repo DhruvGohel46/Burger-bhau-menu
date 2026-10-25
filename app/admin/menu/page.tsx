@@ -18,14 +18,28 @@ export default function AdminMenuPage() {
     const [isProductModalOpen, setIsProductModalOpen] = useState(false);
     const [uploadingImg, setUploadingImg] = useState(false);
 
+    // Variant form type to support empty string when typing/deleting
+    type VariantFormItem = {
+        id: string;
+        label: string;
+        price: number | string;
+    };
+
+    const cleanNumberInput = (val: string): string => {
+        if (val === "") return "";
+        const numOnly = val.replace(/[^0-9]/g, "");
+        if (numOnly === "") return "";
+        return numOnly.replace(/^0+(?=\d)/, "");
+    };
+
     // Form fields for product
     const [prodId, setProdId] = useState("");
     const [prodName, setProdName] = useState("");
     const [prodCat, setProdCat] = useState("");
     const [prodDesc, setProdDesc] = useState("");
     const [prodImage, setProdImage] = useState("");
-    const [prodPrice, setProdPrice] = useState<number>(0);
-    const [prodVariants, setProdVariants] = useState<MenuVariant[]>([]);
+    const [prodPrice, setProdPrice] = useState<number | string>(40);
+    const [prodVariants, setProdVariants] = useState<VariantFormItem[]>([]);
     const [isBestseller, setIsBestseller] = useState(false);
     const [isRecommended, setIsRecommended] = useState(false);
     const [isNew, setIsNew] = useState(false);
@@ -82,8 +96,12 @@ export default function AdminMenuPage() {
             setProdCat(product.category);
             setProdDesc(product.description || "");
             setProdImage(product.image || "");
-            setProdPrice(product.price || 0);
-            setProdVariants(product.variants ? [...product.variants] : []);
+            setProdPrice(product.price ?? 40);
+            setProdVariants(
+                product.variants && product.variants.length > 0
+                    ? product.variants.map((v) => ({ ...v, price: v.price ?? "" }))
+                    : []
+            );
             setIsBestseller(product.is_bestseller ?? false);
             setIsRecommended(product.is_recommended ?? false);
             setIsNew(product.is_new ?? false);
@@ -109,14 +127,18 @@ export default function AdminMenuPage() {
     const handleAddVariant = () => {
         setProdVariants((prev) => [
             ...prev,
-            { id: `variant-${Date.now()}`, label: "New Option", price: 50 },
+            { id: `variant-${Date.now()}`, label: "New Option", price: "" },
         ]);
     };
 
-    const handleUpdateVariant = (index: number, key: keyof MenuVariant, value: string | number) => {
+    const handleUpdateVariant = (index: number, key: keyof VariantFormItem, value: string | number) => {
         setProdVariants((prev) => {
             const updated = [...prev];
-            updated[index] = { ...updated[index], [key]: value };
+            let finalValue = value;
+            if (key === "price" && typeof value === "string") {
+                finalValue = cleanNumberInput(value);
+            }
+            updated[index] = { ...updated[index], [key]: finalValue };
             return updated;
         });
     };
@@ -128,8 +150,19 @@ export default function AdminMenuPage() {
     const handleSaveProduct = async (e: React.FormEvent) => {
         e.preventDefault();
 
+        const cleanVariants: MenuVariant[] = prodVariants.map((v) => ({
+            id: v.id || `var-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
+            label: v.label.trim() || "Regular",
+            price: v.price === "" ? 0 : Number(v.price) || 0,
+        }));
+
         // Base price calculation from variants if variants exist
-        const computedPrice = prodVariants.length > 0 ? prodVariants[0].price : Number(prodPrice);
+        const computedPrice =
+            cleanVariants.length > 0
+                ? cleanVariants[0].price
+                : prodPrice === ""
+                ? 0
+                : Number(prodPrice) || 0;
 
         const { error } = await supabase.from("products").upsert({
             id: prodId,
@@ -138,7 +171,7 @@ export default function AdminMenuPage() {
             description: prodDesc,
             image: prodImage && prodImage.trim() !== "" ? prodImage.trim() : "/BURGER-BHAU-logo.webp",
             price: computedPrice,
-            variants: prodVariants,
+            variants: cleanVariants,
             is_bestseller: isBestseller,
             is_recommended: isRecommended,
             is_new: isNew,
@@ -291,7 +324,15 @@ export default function AdminMenuPage() {
                                 </div>
                                 <div>
                                     <label style={{ display: "block", fontSize: "12px", color: "#aaa", marginBottom: "4px" }}>Base Price (₹)</label>
-                                    <input type="number" required value={prodPrice} onChange={(e) => setProdPrice(Number(e.target.value))} style={{ width: "100%", padding: "10px", backgroundColor: "#202020", border: "1px solid #444", borderRadius: "6px", color: "#fff" }} />
+                                    <input
+                                        type="number"
+                                        required
+                                        placeholder="0"
+                                        value={prodPrice}
+                                        onFocus={(e) => e.target.select()}
+                                        onChange={(e) => setProdPrice(cleanNumberInput(e.target.value))}
+                                        style={{ width: "100%", padding: "10px", backgroundColor: "#202020", border: "1px solid #444", borderRadius: "6px", color: "#fff" }}
+                                    />
                                 </div>
                             </div>
 
@@ -311,7 +352,7 @@ export default function AdminMenuPage() {
                                 </div>
 
                                 {prodVariants.length === 0 ? (
-                                    <p style={{ fontSize: "12px", color: "#777", margin: 0 }}>No price variants configured. Standard single price (₹{prodPrice}) will apply.</p>
+                                    <p style={{ fontSize: "12px", color: "#777", margin: 0 }}>No price variants configured. Standard single price (₹{prodPrice || 0}) will apply.</p>
                                 ) : (
                                     <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                                         {prodVariants.map((variant, idx) => (
@@ -327,7 +368,8 @@ export default function AdminMenuPage() {
                                                     type="number"
                                                     placeholder="Price (₹)"
                                                     value={variant.price}
-                                                    onChange={(e) => handleUpdateVariant(idx, "price", Number(e.target.value))}
+                                                    onFocus={(e) => e.target.select()}
+                                                    onChange={(e) => handleUpdateVariant(idx, "price", e.target.value)}
                                                     style={{ flex: 1, padding: "8px", backgroundColor: "#141414", border: "1px solid #444", borderRadius: "6px", color: "#fff", fontSize: "12px" }}
                                                 />
                                                 <button

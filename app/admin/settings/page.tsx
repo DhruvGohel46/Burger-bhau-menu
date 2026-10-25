@@ -6,6 +6,13 @@ import { uploadImageToSupabase } from "@/lib/storage";
 import { ShopSettings } from "@/lib/types";
 
 export default function AdminSettingsPage() {
+    const cleanNumberInput = (val: string): string => {
+        if (val === "") return "";
+        const numOnly = val.replace(/[^0-9]/g, "");
+        if (numOnly === "") return "";
+        return numOnly.replace(/^0+(?=\d)/, "");
+    };
+
     const [settings, setSettings] = useState<ShopSettings>({
         id: 1,
         shop_name: "Burger Bhau (Kothariya)",
@@ -70,6 +77,8 @@ export default function AdminSettingsPage() {
             const payload: any = {
                 ...settings,
                 id: 1,
+                delivery_radius_meters: Number(settings.delivery_radius_meters) || 0,
+                min_order_for_delivery: Number(settings.min_order_for_delivery) || 0,
                 additional_phones: cleanPhones,
                 additional_whatsapps: cleanWhatsapps,
                 updated_at: new Date().toISOString(),
@@ -384,11 +393,27 @@ export default function AdminSettingsPage() {
                     </div>
                     <div>
                         <label style={{ display: "block", fontSize: "12px", fontWeight: "700", color: "#aaa", marginBottom: "4px" }}>Max Radius (Meters)</label>
-                        <input type="number" required value={settings.delivery_radius_meters} onChange={(e) => setSettings({ ...settings, delivery_radius_meters: Number(e.target.value) })} style={{ width: "100%", padding: "12px", backgroundColor: "#202020", border: "1px solid #333", borderRadius: "8px", color: "#fff", fontSize: "14px" }} />
+                        <input
+                            type="number"
+                            required
+                            placeholder="0"
+                            value={settings.delivery_radius_meters ?? ""}
+                            onFocus={(e) => e.target.select()}
+                            onChange={(e) => setSettings({ ...settings, delivery_radius_meters: cleanNumberInput(e.target.value) as any })}
+                            style={{ width: "100%", padding: "12px", backgroundColor: "#202020", border: "1px solid #333", borderRadius: "8px", color: "#fff", fontSize: "14px" }}
+                        />
                     </div>
                     <div>
                         <label style={{ display: "block", fontSize: "12px", fontWeight: "700", color: "#aaa", marginBottom: "4px" }}>Min Order Amount (₹)</label>
-                        <input type="number" required value={settings.min_order_for_delivery} onChange={(e) => setSettings({ ...settings, min_order_for_delivery: Number(e.target.value) })} style={{ width: "100%", padding: "12px", backgroundColor: "#202020", border: "1px solid #333", borderRadius: "8px", color: "#fff", fontSize: "14px" }} />
+                        <input
+                            type="number"
+                            required
+                            placeholder="0"
+                            value={settings.min_order_for_delivery ?? ""}
+                            onFocus={(e) => e.target.select()}
+                            onChange={(e) => setSettings({ ...settings, min_order_for_delivery: cleanNumberInput(e.target.value) as any })}
+                            style={{ width: "100%", padding: "12px", backgroundColor: "#202020", border: "1px solid #333", borderRadius: "8px", color: "#fff", fontSize: "14px" }}
+                        />
                     </div>
                 </div>
 

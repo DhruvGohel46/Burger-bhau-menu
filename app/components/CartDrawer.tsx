@@ -35,10 +35,10 @@ export default function CartDrawer() {
     const handleProceedToCheckout = () => {
         setIsCartOpen(false);
         try {
-            router.push("/checkout");
+            router.push("/checkout/");
         } catch (err) {}
         if (typeof window !== "undefined") {
-            window.location.href = "/checkout";
+            window.location.href = "/checkout/";
         }
     };
 

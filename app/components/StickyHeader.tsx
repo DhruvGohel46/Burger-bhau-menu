@@ -60,7 +60,7 @@ export default function StickyHeader() {
                 <div className={styles.actions}>
                     {/* Orders / Profile Link */}
                     <Link
-                        href={user ? "/profile" : "/login"}
+                        href={user ? "/profile/" : "/login/"}
                         className={styles.actionBtn}
                         aria-label="User profile or login"
                         style={{ display: "flex", alignItems: "center", gap: "6px", textDecoration: "none", color: "#fff" }}
@@ -71,7 +71,7 @@ export default function StickyHeader() {
 
                     {user && (
                         <Link
-                            href="/orders"
+                            href="/orders/"
                             className={styles.actionBtn}
                             aria-label="My orders"
                             style={{ display: "flex", alignItems: "center", gap: "6px", textDecoration: "none", color: "#fff" }}
