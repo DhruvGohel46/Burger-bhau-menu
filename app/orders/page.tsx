@@ -139,6 +139,7 @@ export default function MyOrdersPage() {
                             <Link
                                 key={order.id}
                                 href={`/orders/${order.id}/`}
+                                prefetch={false}
                                 style={{
                                     backgroundColor: "rgba(18, 14, 10, 0.76)",
                                     backdropFilter: "blur(20px) saturate(180%)",

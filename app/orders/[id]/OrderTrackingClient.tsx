@@ -22,7 +22,6 @@ import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 
 const STATUS_STEPS: { status: OrderStatus; label: string; timeKey?: keyof Order }[] = [
     { status: "Pending Payment Verification", label: "Order Received & UTR Submitted", timeKey: "created_at" },
-    { status: "Payment Verified", label: "Payment Verified by Cashier", timeKey: "payment_verified_at" },
     { status: "Accepted", label: "Order Accepted by Kitchen", timeKey: "accepted_at" },
     { status: "Preparing", label: "Preparing Fresh Food", timeKey: "preparing_at" },
     { status: "Ready For Pickup", label: "Ready For Pickup / Delivery", timeKey: "ready_at" },
@@ -30,7 +29,21 @@ const STATUS_STEPS: { status: OrderStatus; label: string; timeKey?: keyof Order 
 ];
 
 export default function OrderTrackingClient({ params }: { params: Promise<{ id: string }> }) {
-    const { id } = use(params);
+    const resolvedParams = use(params);
+    const paramId = resolvedParams?.id || "";
+
+    const [orderId, setOrderId] = useState<string>(() => {
+        if (typeof window !== "undefined") {
+            const parts = window.location.pathname.replace(/^\/|\/$/g, "").split("/");
+            if (parts.length >= 2 && parts[0] === "orders" && parts[1] !== "placeholder") {
+                return parts[1];
+            }
+            const queryId = new URLSearchParams(window.location.search).get("id");
+            if (queryId) return queryId;
+        }
+        return paramId && paramId !== "placeholder" ? paramId : "";
+    });
+
     const router = useRouter();
     const { user, isLoading: authLoading } = useAuthStore();
 
@@ -39,6 +52,24 @@ export default function OrderTrackingClient({ params }: { params: Promise<{ id: 
     const [error, setError] = useState("");
     const [shopPhone, setShopPhone] = useState("919558941555");
     const [whatsappNum, setWhatsappNum] = useState("919558941555");
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const parts = window.location.pathname.replace(/^\/|\/$/g, "").split("/");
+            if (parts.length >= 2 && parts[0] === "orders" && parts[1] !== "placeholder") {
+                setOrderId(parts[1]);
+                return;
+            }
+            const queryId = new URLSearchParams(window.location.search).get("id");
+            if (queryId) {
+                setOrderId(queryId);
+                return;
+            }
+        }
+        if (paramId && paramId !== "placeholder") {
+            setOrderId(paramId);
+        }
+    }, [paramId]);
 
     useEffect(() => {
         async function fetchSettings() {
@@ -60,11 +91,17 @@ export default function OrderTrackingClient({ params }: { params: Promise<{ id: 
         }
 
         async function fetchOrder() {
+            if (!orderId) {
+                setLoading(false);
+                setError("Order not found. No valid order ID was provided.");
+                return;
+            }
+
             setLoading(true);
             const { data, error: err } = await supabase
                 .from("orders")
                 .select("*, order_items(*)")
-                .eq("id", id)
+                .eq("id", orderId)
                 .single();
 
             if (err || !data) {
@@ -75,33 +112,40 @@ export default function OrderTrackingClient({ params }: { params: Promise<{ id: 
             setLoading(false);
         }
 
-        if (id) {
+        if (orderId) {
             fetchOrder();
+        } else if (!authLoading) {
+            setLoading(false);
         }
 
         // Subscribe to Supabase Realtime updates on this order
-        const channel = supabase
-            .channel(`order-tracking-${id}`)
-            .on(
-                "postgres_changes",
-                {
-                    event: "UPDATE",
-                    schema: "public",
-                    table: "orders",
-                    filter: `id=eq.${id}`,
-                },
-                (payload) => {
-                    if (payload.new) {
-                        setOrder((prev) => (prev ? { ...prev, ...(payload.new as Order) } : null));
+        let channel: any = null;
+        if (orderId) {
+            channel = supabase
+                .channel(`order-tracking-${orderId}`)
+                .on(
+                    "postgres_changes",
+                    {
+                        event: "UPDATE",
+                        schema: "public",
+                        table: "orders",
+                        filter: `id=eq.${orderId}`,
+                    },
+                    (payload) => {
+                        if (payload.new) {
+                            setOrder((prev) => (prev ? { ...prev, ...(payload.new as Order) } : null));
+                        }
                     }
-                }
-            )
-            .subscribe();
+                )
+                .subscribe();
+        }
 
         return () => {
-            supabase.removeChannel(channel);
+            if (channel) {
+                supabase.removeChannel(channel);
+            }
         };
-    }, [id, user, authLoading, router]);
+    }, [orderId, user, authLoading, router]);
 
     if (loading || authLoading) {
         return (
@@ -171,7 +215,7 @@ export default function OrderTrackingClient({ params }: { params: Promise<{ id: 
                                     Please Contact Us to Confirm Your Order!
                                 </h3>
                                 <p style={{ fontSize: "13px", color: "#ddd", margin: "0 0 14px 0", lineHeight: "1.5" }}>
-                                    Your order with Transaction UTR <strong style={{ color: "#ff8c00" }}>{order.utr}</strong> has been submitted. Please send a quick message on WhatsApp or call our cashier to fast-track your order verification and kitchen preparation.
+                                    Your order with Transaction UTR <strong style={{ color: "#ff8c00", wordBreak: "break-all" }}>{order.utr}</strong> has been submitted. Please send a quick message on WhatsApp or call our cashier to fast-track your order verification and kitchen preparation.
                                 </p>
 
                                 <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
@@ -352,9 +396,9 @@ export default function OrderTrackingClient({ params }: { params: Promise<{ id: 
                             </span>
                         </div>
 
-                        <div style={{ display: "flex", justifyContent: "space-between" }}>
-                            <span style={{ color: "#aaa" }}>Transaction UTR:</span>
-                            <span style={{ fontFamily: "monospace", color: "#fff", fontWeight: "600" }}>{order.utr}</span>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "10px" }}>
+                            <span style={{ color: "#aaa", flexShrink: 0 }}>Transaction UTR:</span>
+                            <span style={{ fontFamily: "monospace", color: "#fff", fontWeight: "600", wordBreak: "break-all", textAlign: "right", maxWidth: "65%" }}>{order.utr}</span>
                         </div>
 
                         <div style={{ display: "flex", justifyContent: "space-between" }}>

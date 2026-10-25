@@ -20,6 +20,7 @@ import {
     faExclamationTriangle,
     faMapMarkerAlt,
     faClock,
+    faCopy,
 } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 
@@ -32,6 +33,16 @@ export default function CheckoutPage() {
 
     // Step state: 1 = Details & Delivery, 2 = Payment & UTR
     const [step, setStep] = useState<1 | 2>(1);
+    const [copiedUpi, setCopiedUpi] = useState(false);
+    const [isOrderPlaced, setIsOrderPlaced] = useState(false);
+
+    const handleCopyUpi = () => {
+        if (settings.upi_id && typeof navigator !== "undefined" && navigator.clipboard) {
+            navigator.clipboard.writeText(settings.upi_id);
+            setCopiedUpi(true);
+            setTimeout(() => setCopiedUpi(false), 2000);
+        }
+    };
 
     // Profile & Structured Address Fields
     const [name, setName] = useState("");
@@ -157,6 +168,27 @@ export default function CheckoutPage() {
         );
     }
 
+    if (isOrderPlaced) {
+        return (
+            <div style={{
+                minHeight: "100vh",
+                backgroundColor: "#F0E8C7",
+                color: "#060504",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "20px",
+                fontFamily: "var(--font-jakarta), sans-serif",
+                textAlign: "center"
+            }}>
+                <FontAwesomeIcon icon={faCheckCircle} style={{ fontSize: "56px", color: "#28a745", marginBottom: "16px" }} />
+                <h2 style={{ fontSize: "24px", fontWeight: "800", color: "#060504", marginBottom: "8px" }}>Order Placed Successfully!</h2>
+                <p style={{ color: "#666", fontSize: "15px", maxWidth: "420px" }}>Taking you to your live order tracking page...</p>
+            </div>
+        );
+    }
+
     if (cartItems.length === 0) {
         return (
             <div style={{
@@ -274,8 +306,13 @@ export default function CheckoutPage() {
 
             await supabase.from("order_items").insert(itemsToInsert);
 
+            setIsOrderPlaced(true);
             clearCart();
-            router.push(`/orders/${orderData.id}/`);
+            if (typeof window !== "undefined") {
+                window.location.assign(`/orders/${orderData.id}/`);
+            } else {
+                router.push(`/orders/${orderData.id}/`);
+            }
         } catch (err: any) {
             setErrorMsg(err?.message || "An unexpected error occurred during checkout.");
             setSubmitting(false);
@@ -451,7 +488,7 @@ export default function CheckoutPage() {
                             </div>
                         )}
 
-                        <div style={{ backgroundColor: "rgba(18, 14, 10, 0.76)", backdropFilter: "blur(20px) saturate(180%)", WebkitBackdropFilter: "blur(20px) saturate(180%)", border: "1px solid rgba(255, 255, 255, 0.12)", borderRadius: "14px", padding: "20px", marginBottom: "20px", textAlign: "center", boxShadow: "0 12px 40px rgba(6, 5, 4, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.12)", color: "#fff" }}>
+                        <div style={{ backgroundColor: "rgba(18, 14, 10, 0.76)", backdropFilter: "blur(20px) saturate(180%)", WebkitBackdropFilter: "blur(20px) saturate(180%)", border: "1px solid rgba(255, 255, 255, 0.12)", borderRadius: "14px", padding: "20px", marginBottom: "20px", textAlign: "center", boxShadow: "0 12px 40px rgba(6, 5, 4, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.12)", color: "#fff", maxWidth: "100%", boxSizing: "border-box", overflow: "hidden" }}>
                             <h3 style={{ fontSize: "18px", fontWeight: "800", color: "#FF9F1C", marginBottom: "8px" }}>
                                 Scan & Pay via UPI
                             </h3>
@@ -460,10 +497,65 @@ export default function CheckoutPage() {
                                 <img src={settings.qr_code_url} alt="UPI QR Code" style={{ width: "180px", height: "180px", objectFit: "contain" }} />
                             </div>
 
-                            <div style={{ backgroundColor: "rgba(255,255,255,0.08)", borderRadius: "10px", padding: "14px", display: "flex", flexDirection: "column", gap: "6px" }}>
-                                <div style={{ fontSize: "14px", color: "#e2e8f0", fontWeight: "600" }}>Account Name: <strong style={{ color: "#ffffff" }}>{settings.upi_name || settings.shop_name}</strong></div>
-                                <div style={{ fontSize: "15px", color: "#FF9F1C", fontWeight: "800" }}>UPI ID: {settings.upi_id}</div>
-                                <div style={{ fontSize: "20px", fontWeight: "800", color: "#ffffff", marginTop: "4px" }}>Amount to Pay: <span style={{ color: "#FF9F1C" }}>₹{cartTotal}</span></div>
+                            <div style={{ backgroundColor: "rgba(255,255,255,0.08)", borderRadius: "10px", padding: "14px", display: "flex", flexDirection: "column", gap: "10px", maxWidth: "100%", boxSizing: "border-box" }}>
+                                <div style={{ fontSize: "14px", color: "#e2e8f0", fontWeight: "600", wordBreak: "break-word" }}>
+                                    Account Name: <strong style={{ color: "#ffffff" }}>{settings.upi_name || settings.shop_name}</strong>
+                                </div>
+                                
+                                <div style={{ 
+                                    display: "flex", 
+                                    alignItems: "center", 
+                                    justifyContent: "space-between", 
+                                    flexWrap: "wrap", 
+                                    gap: "8px",
+                                    backgroundColor: "rgba(0,0,0,0.35)",
+                                    padding: "10px 14px",
+                                    borderRadius: "8px",
+                                    border: "1px dashed rgba(255, 159, 28, 0.45)",
+                                    boxSizing: "border-box",
+                                    maxWidth: "100%"
+                                }}>
+                                    <div style={{ 
+                                        fontSize: "14px", 
+                                        color: "#FF9F1C", 
+                                        fontWeight: "800",
+                                        wordBreak: "break-all",
+                                        overflowWrap: "anywhere",
+                                        lineHeight: "1.4",
+                                        flex: "1 1 180px",
+                                        textAlign: "left"
+                                    }}>
+                                        <span style={{ color: "#aaa", fontSize: "12px", fontWeight: "600", display: "block" }}>UPI ID:</span>
+                                        <span style={{ color: "#ffffff", userSelect: "all" }}>{settings.upi_id}</span>
+                                    </div>
+
+                                    <button
+                                        type="button"
+                                        onClick={handleCopyUpi}
+                                        style={{
+                                            padding: "6px 12px",
+                                            fontSize: "12px",
+                                            fontWeight: "700",
+                                            backgroundColor: copiedUpi ? "#28a745" : "rgba(255, 159, 28, 0.18)",
+                                            color: copiedUpi ? "#ffffff" : "#FF9F1C",
+                                            border: `1px solid ${copiedUpi ? "#28a745" : "#FF9F1C"}`,
+                                            borderRadius: "6px",
+                                            cursor: "pointer",
+                                            display: "inline-flex",
+                                            alignItems: "center",
+                                            gap: "6px",
+                                            transition: "all 0.2s ease",
+                                            whiteSpace: "nowrap",
+                                            flexShrink: 0,
+                                        }}
+                                        title="Copy UPI ID"
+                                    >
+                                        <FontAwesomeIcon icon={copiedUpi ? faCheckCircle : faCopy} />
+                                        {copiedUpi ? "Copied!" : "Copy"}
+                                    </button>
+                                </div>
+
+                                <div style={{ fontSize: "20px", fontWeight: "800", color: "#ffffff", marginTop: "2px" }}>Amount to Pay: <span style={{ color: "#FF9F1C" }}>₹{cartTotal}</span></div>
                             </div>
                         </div>
 

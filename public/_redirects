@@ -1,0 +1,2 @@
+# Netlify static export redirects
+/orders/*  /orders/placeholder/index.html  200

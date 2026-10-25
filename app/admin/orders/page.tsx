@@ -25,28 +25,53 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 
-// Web Audio API Chime Synthesizer
-function playOrderChimeSound() {
+// Global Web Audio Context Synthesizer for Persistent Order Alarm
+let sharedAudioCtx: AudioContext | null = null;
+
+function getAudioContext(): AudioContext | null {
+    if (typeof window === "undefined") return null;
+    const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+    if (!AudioCtx) return null;
+    if (!sharedAudioCtx) {
+        sharedAudioCtx = new AudioCtx();
+    }
+    if (sharedAudioCtx.state === "suspended") {
+        sharedAudioCtx.resume();
+    }
+    return sharedAudioCtx;
+}
+
+function playOrderAlarm() {
     try {
-        const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
-        if (!AudioContext) return;
-        const ctx = new AudioContext();
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        if (ctx.state === "suspended") {
+            ctx.resume();
+        }
 
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
+        const now = ctx.currentTime;
+        // Two-tone bright restaurant order siren (A5 880Hz -> D6 1175Hz)
+        const osc1 = ctx.createOscillator();
+        const gain1 = ctx.createGain();
+        osc1.type = "sine";
+        osc1.frequency.setValueAtTime(880, now);
+        gain1.gain.setValueAtTime(0.4, now);
+        gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+        osc1.connect(gain1);
+        gain1.connect(ctx.destination);
+        osc1.start(now);
+        osc1.stop(now + 0.3);
 
-        osc.type = "sine";
-        osc.frequency.setValueAtTime(587.33, ctx.currentTime); // D5
-        osc.frequency.setValueAtTime(880, ctx.currentTime + 0.15); // A5
-
-        gain.gain.setValueAtTime(0.3, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-
-        osc.start();
-        osc.stop(ctx.currentTime + 0.6);
+        const osc2 = ctx.createOscillator();
+        const gain2 = ctx.createGain();
+        osc2.type = "sine";
+        osc2.frequency.setValueAtTime(1174.66, now + 0.15);
+        gain2.gain.setValueAtTime(0.45, now + 0.15);
+        gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.55);
+        osc2.connect(gain2);
+        gain2.connect(ctx.destination);
+        osc2.start(now + 0.15);
+        osc2.stop(now + 0.55);
     } catch (e) {
         console.error("Audio error:", e);
     }
@@ -106,25 +131,53 @@ export default function AdminOrdersPage() {
         if ("Notification" in window) {
             setNotifPermission(Notification.permission);
         }
+
+        // Unlock browser audio autoplay policy on any user interaction
+        const unlockAudio = () => {
+            getAudioContext();
+        };
+        window.addEventListener("click", unlockAudio, { passive: true });
+        window.addEventListener("touchstart", unlockAudio, { passive: true });
+        return () => {
+            window.removeEventListener("click", unlockAudio);
+            window.removeEventListener("touchstart", unlockAudio);
+        };
     }, []);
 
-    const fetchOrders = async () => {
-        setLoading(true);
-        const { data } = await supabase
-            .from("orders")
-            .select("*, order_items(*)")
-            .order("created_at", { ascending: false });
+    const fetchOrders = async (showSpinner = false) => {
+        if (showSpinner) setLoading(true);
+        try {
+            const { data } = await supabase
+                .from("orders")
+                .select("*, order_items(*)")
+                .order("created_at", { ascending: false });
 
-        if (data) {
-            setOrders(data as Order[]);
+            if (data) {
+                setOrders(data as Order[]);
+            }
+        } catch (err) {
+            console.error("Error fetching orders:", err);
+        } finally {
+            if (showSpinner) setLoading(false);
         }
-        setLoading(false);
     };
 
+    // Auto-sync polling every 4 seconds + Supabase Realtime WebSocket push
     useEffect(() => {
-        fetchOrders();
+        fetchOrders(true);
 
-        // Subscribe to Realtime inserts & updates
+        // 1. Fallback background auto-sync poll every 4 seconds
+        const pollInterval = setInterval(() => {
+            fetchOrders(false);
+        }, 4000);
+
+        // 2. Immediate sync when user refocuses browser tab
+        const onWindowFocus = () => {
+            fetchOrders(false);
+        };
+        window.addEventListener("focus", onWindowFocus);
+
+        // 3. Supabase Realtime WebSocket subscription for instant push
         const channel = supabase
             .channel("admin-orders-live")
             .on(
@@ -132,30 +185,74 @@ export default function AdminOrdersPage() {
                 { event: "INSERT", schema: "public", table: "orders" },
                 (payload) => {
                     const newOrder = payload.new as Order;
-                    if (soundEnabled) playOrderChimeSound();
-
                     if ("Notification" in window && Notification.permission === "granted") {
                         new Notification("🍔 NEW ORDER RECEIVED!", {
                             body: `Order #${newOrder.order_number || "New"} - Total ₹${newOrder.total} by ${newOrder.customer_name}`,
                             icon: "/BURGER-BHAU-logo.webp",
                         });
                     }
-                    fetchOrders();
+                    fetchOrders(false);
                 }
             )
             .on(
                 "postgres_changes",
                 { event: "UPDATE", schema: "public", table: "orders" },
                 () => {
-                    fetchOrders();
+                    fetchOrders(false);
                 }
             )
             .subscribe();
 
         return () => {
+            clearInterval(pollInterval);
+            window.removeEventListener("focus", onWindowFocus);
             supabase.removeChannel(channel);
         };
-    }, [soundEnabled]);
+    }, []);
+
+    // Active unhandled incoming orders awaiting admin action
+    const unhandledOrders = orders.filter(
+        (o) => o.status === "Pending Payment Verification" && o.payment_status === "Pending"
+    );
+    const hasPendingAlert = unhandledOrders.length > 0;
+
+    // Persistent siren: repeatedly rings every 3.5 seconds until admin accepts or rejects!
+    useEffect(() => {
+        if (!soundEnabled || !hasPendingAlert) return;
+
+        // Play immediate siren
+        playOrderAlarm();
+
+        // Repeat ringing every 3.5 seconds
+        const alarmInterval = setInterval(() => {
+            playOrderAlarm();
+        }, 3500);
+
+        return () => {
+            clearInterval(alarmInterval);
+        };
+    }, [soundEnabled, hasPendingAlert]);
+
+    // Flashing browser title when pending orders exist
+    useEffect(() => {
+        if (!hasPendingAlert) {
+            document.title = "Orders Management | Burger Bhau Admin";
+            return;
+        }
+
+        let flip = false;
+        const titleInterval = setInterval(() => {
+            flip = !flip;
+            document.title = flip
+                ? `🚨 (${unhandledOrders.length}) NEW ORDER! - Burger Bhau`
+                : `⚡ ACTION REQUIRED - Burger Bhau`;
+        }, 1000);
+
+        return () => {
+            clearInterval(titleInterval);
+            document.title = "Orders Management | Burger Bhau Admin";
+        };
+    }, [hasPendingAlert, unhandledOrders.length]);
 
     const handleCopyUtr = (utr: string) => {
         if (!utr) return;
@@ -238,12 +335,14 @@ export default function AdminOrdersPage() {
                 updated_at: new Date().toISOString(),
             };
 
-            // If marking Payment Verified, automatically approve payment status as well
-            if (newStatus === "Payment Verified") {
-                updateData.payment_verified_at = new Date().toISOString();
-                updateData.payment_status = "Approved";
+            // If marking Accepted, automatically approve payment status as well if pending
+            if (newStatus === "Accepted") {
+                updateData.accepted_at = new Date().toISOString();
+                if (selectedOrder?.payment_status === "Pending") {
+                    updateData.payment_verified_at = new Date().toISOString();
+                    updateData.payment_status = "Approved";
+                }
             }
-            if (newStatus === "Accepted") updateData.accepted_at = new Date().toISOString();
             if (newStatus === "Preparing") updateData.preparing_at = new Date().toISOString();
             if (newStatus === "Ready For Pickup") updateData.ready_at = new Date().toISOString();
             if (newStatus === "Cancelled") updateData.cancelled_at = new Date().toISOString();
@@ -299,11 +398,12 @@ export default function AdminOrdersPage() {
                 updated_at: new Date().toISOString(),
             };
 
-            // If approving payment, advance status to "Payment Verified" only if currently pending
+            // If approving payment, advance status to "Accepted" only if currently pending
             if (newPaymentStatus === "Approved") {
+                updateData.payment_verified_at = new Date().toISOString();
                 if (selectedOrder?.status === "Pending Payment Verification") {
-                    updateData.status = "Payment Verified";
-                    updateData.payment_verified_at = new Date().toISOString();
+                    updateData.status = "Accepted";
+                    updateData.accepted_at = new Date().toISOString();
                 }
             }
 
@@ -420,7 +520,7 @@ export default function AdminOrdersPage() {
                     )}
 
                     <button
-                        onClick={fetchOrders}
+                        onClick={() => fetchOrders(true)}
                         style={{
                             padding: "10px 16px",
                             backgroundColor: "#1e1e1e",
@@ -438,6 +538,77 @@ export default function AdminOrdersPage() {
                     </button>
                 </div>
             </div>
+
+            {/* Urgent Persistent Alert Banner for unaccepted orders */}
+            {hasPendingAlert && (
+                <div style={{
+                    backgroundColor: "rgba(220, 53, 69, 0.95)",
+                    border: "2px solid #ff4444",
+                    borderRadius: "14px",
+                    padding: "16px 20px",
+                    marginBottom: "20px",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    flexWrap: "wrap",
+                    gap: "14px",
+                    boxShadow: "0 0 25px rgba(220, 53, 69, 0.55)",
+                    color: "#fff",
+                }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
+                        <FontAwesomeIcon icon={faExclamationTriangle} style={{ fontSize: "30px", color: "#ffe082" }} />
+                        <div>
+                            <div style={{ fontSize: "16px", fontWeight: "800", letterSpacing: "0.5px" }}>
+                                🚨 {unhandledOrders.length} NEW ORDER{unhandledOrders.length > 1 ? "S" : ""} AWAITING APPROVAL / REJECTION!
+                            </div>
+                            <div style={{ fontSize: "13px", color: "#ffebee", marginTop: "2px" }}>
+                                Latest: #{unhandledOrders[0].order_number || unhandledOrders[0].id.slice(0, 6)} ({unhandledOrders[0].customer_name} • ₹{unhandledOrders[0].total}) • UTR: {unhandledOrders[0].utr}
+                                <span style={{ marginLeft: "8px", color: "#ffe082", fontWeight: "700" }}>
+                                    (Alert siren will ring until you Accept or Reject this order)
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                        <button
+                            onClick={() => setSelectedOrder(unhandledOrders[0])}
+                            style={{
+                                padding: "10px 18px",
+                                backgroundColor: "#fff",
+                                color: "#d32f2f",
+                                fontWeight: "800",
+                                borderRadius: "8px",
+                                border: "none",
+                                cursor: "pointer",
+                                fontSize: "13px",
+                                boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
+                            }}
+                        >
+                            Review Order Now
+                        </button>
+                        <button
+                            onClick={() => setSoundEnabled(!soundEnabled)}
+                            style={{
+                                padding: "10px 14px",
+                                backgroundColor: "rgba(0,0,0,0.35)",
+                                color: "#fff",
+                                fontWeight: "700",
+                                borderRadius: "8px",
+                                border: "1px solid rgba(255,255,255,0.4)",
+                                cursor: "pointer",
+                                fontSize: "12px",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "6px",
+                            }}
+                        >
+                            <FontAwesomeIcon icon={soundEnabled ? faVolumeMute : faVolumeHigh} />
+                            {soundEnabled ? "Mute Siren" : "Unmute"}
+                        </button>
+                    </div>
+                </div>
+            )}
 
             {/* Filter & Search Bar */}
             <div style={{
@@ -487,7 +658,6 @@ export default function AdminOrdersPage() {
                     >
                         <option value="ALL">All Statuses</option>
                         <option value="Pending Payment Verification">Pending Payment</option>
-                        <option value="Payment Verified">Payment Verified</option>
                         <option value="Accepted">Accepted</option>
                         <option value="Preparing">Preparing</option>
                         <option value="Ready For Pickup">Ready For Pickup</option>
@@ -605,6 +775,24 @@ export default function AdminOrdersPage() {
                                 <div style={{ fontSize: "12px", color: "#aaa" }}>
                                     Placed on: {new Date(selectedOrder.created_at).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" })}
                                 </div>
+                                {selectedOrder.status === "Pending Payment Verification" && selectedOrder.payment_status === "Pending" && (
+                                    <div style={{
+                                        marginTop: "8px",
+                                        padding: "6px 10px",
+                                        backgroundColor: "rgba(220, 53, 69, 0.2)",
+                                        border: "1px solid #dc3545",
+                                        borderRadius: "6px",
+                                        color: "#ff8080",
+                                        fontSize: "11px",
+                                        fontWeight: "700",
+                                        display: "inline-flex",
+                                        alignItems: "center",
+                                        gap: "6px"
+                                    }}>
+                                        <FontAwesomeIcon icon={faExclamationTriangle} />
+                                        <span>Awaiting Action: Approve or Reject payment below to clear alert</span>
+                                    </div>
+                                )}
                             </div>
                             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                                 <button
@@ -845,7 +1033,7 @@ export default function AdminOrdersPage() {
                             </div>
 
                             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
-                                {(["Pending Payment Verification", "Payment Verified", "Accepted", "Preparing", "Ready For Pickup", "Delivered", "Cancelled"] as OrderStatus[]).map((status) => {
+                                {(["Pending Payment Verification", "Accepted", "Preparing", "Ready For Pickup", "Delivered", "Cancelled"] as OrderStatus[]).map((status) => {
                                     const isCurrent = selectedOrder.status === status;
                                     return (
                                         <button
@@ -906,7 +1094,6 @@ export default function AdminOrdersPage() {
                                         {selectedOrder.status === "Delivered" && "📲 WhatsApp Customer: Thank You Message!"}
                                         {selectedOrder.status === "Preparing" && "📲 WhatsApp Customer: Food is Being Prepared!"}
                                         {selectedOrder.status === "Pending Payment Verification" && "📲 WhatsApp Customer: Send Payment Reminder"}
-                                        {selectedOrder.status === "Payment Verified" && "📲 WhatsApp Customer: Payment Confirmed!"}
                                         {selectedOrder.status === "Cancelled" && "📲 WhatsApp Customer: Order Cancellation Note"}
                                     </span>
                                 </a>

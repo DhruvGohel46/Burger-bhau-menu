@@ -39,7 +39,6 @@ export type PaymentStatus = "Pending" | "Approved" | "Rejected";
 
 export type OrderStatus =
     | "Pending Payment Verification"
-    | "Payment Verified"
     | "Accepted"
     | "Preparing"
     | "Ready For Pickup"
