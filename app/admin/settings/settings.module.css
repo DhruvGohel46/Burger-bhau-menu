@@ -1,0 +1,378 @@
+/* Hallmark · polish · app/admin/settings · zero-slop settings form */
+/* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V5 · weakest: S, utility screen; clean tokens and tactile feedback */
+
+.container {
+  --settings-canvas: #12100e;
+  --settings-card: #181411;
+  --settings-card-border: rgba(207, 75, 19, 0.32);
+  --settings-subcard: #1f1b17;
+  --settings-subcard-border: #322b24;
+  --settings-input-bg: #24201c;
+  --settings-input-border: #3c342c;
+  --settings-input-focus: #ff931e;
+  --settings-ink: #f7f3ea;
+  --settings-ink-muted: #d0c7b6;
+  --settings-ink-subtle: #968e82;
+  --settings-accent: #ff8c00;
+  --settings-accent-hover: #e07b00;
+  --settings-accent-active: #c76b00;
+  --settings-accent-bg: rgba(255, 140, 0, 0.16);
+  --settings-accent-bg-hover: rgba(255, 140, 0, 0.28);
+  --settings-accent-bg-active: rgba(255, 140, 0, 0.36);
+  --settings-success: #22c55e;
+  --settings-success-bg: rgba(34, 197, 94, 0.16);
+  --settings-success-ink: #4ade80;
+  --settings-danger: #ef4444;
+  --settings-danger-bg: rgba(239, 68, 68, 0.16);
+  --settings-danger-bg-hover: rgba(239, 68, 68, 0.28);
+  --settings-danger-bg-active: rgba(239, 68, 68, 0.36);
+  --settings-danger-ink: #fca5a5;
+  --settings-whatsapp: #25d366;
+  --settings-whatsapp-bg: rgba(37, 211, 102, 0.16);
+  --settings-whatsapp-bg-hover: rgba(37, 211, 102, 0.28);
+  --settings-whatsapp-bg-active: rgba(37, 211, 102, 0.36);
+  --settings-ring: #ff931e;
+  --settings-qr-bg: #f9f7f4;
+  --settings-btn-ink: #12100e;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .container,
+  .container * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+.container {
+  max-width: 720px;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  margin-bottom: 28px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--settings-ink);
+  font-family: var(--font-playfair), "Playfair Display", serif;
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--settings-ink-muted);
+  margin-top: 8px;
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+.messageBanner {
+  padding: 16px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.messageSuccess {
+  background-color: var(--settings-success-bg);
+  border-color: var(--settings-success);
+  color: var(--settings-success-ink);
+}
+
+.messageError {
+  background-color: var(--settings-danger-bg);
+  border-color: var(--settings-danger);
+  color: var(--settings-danger-ink);
+}
+
+.form {
+  background-color: var(--settings-card);
+  border: 1px solid var(--settings-card-border);
+  border-radius: 20px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sectionCard {
+  background-color: var(--settings-subcard);
+  border: 1px solid var(--settings-subcard-border);
+  border-radius: 12px;
+  padding: 16px;
+  color: var(--settings-ink);
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--settings-accent);
+  margin: 0;
+}
+
+.sectionTitleWhatsApp {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--settings-whatsapp);
+  margin: 0;
+}
+
+.sectionDescription {
+  font-size: 12px;
+  color: var(--settings-ink-subtle);
+  margin: 4px 0 0 0;
+  line-height: 1.4;
+}
+
+.qrRow {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.qrImage {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  background-color: var(--settings-qr-bg);
+  padding: 4px;
+  border-radius: 8px;
+  border: 1px solid var(--settings-subcard-border);
+}
+
+.qrUploadArea {
+  flex: 1;
+}
+
+.fileInput {
+  font-size: 13px;
+  color: var(--settings-ink-muted);
+}
+
+.fileInput:focus-visible {
+  outline: 2px solid var(--settings-ring);
+  outline-offset: 2px;
+}
+
+.helperText {
+  font-size: 12px;
+  color: var(--settings-ink-subtle);
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
+.rowTwoCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.rowThreeCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--settings-ink-muted);
+  margin-bottom: 4px;
+}
+
+.labelSubtle {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--settings-ink-subtle);
+  margin-bottom: 4px;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--settings-input-bg);
+  border: 1px solid var(--settings-input-border);
+  border-radius: 8px;
+  color: var(--settings-ink);
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.input:focus-visible,
+.textarea:focus-visible {
+  outline: 2px solid var(--settings-ring);
+  outline-offset: 1px;
+  border-color: var(--settings-input-focus);
+}
+
+.input:disabled,
+.textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.addBtnPhone {
+  padding: 8px 12px;
+  background-color: var(--settings-accent-bg);
+  border: 1px solid var(--settings-accent);
+  color: var(--settings-accent);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+
+.addBtnPhone:hover {
+  background-color: var(--settings-accent-bg-hover);
+}
+
+.addBtnPhone:active {
+  background-color: var(--settings-accent-bg-active);
+  transform: scale(0.98);
+}
+
+.addBtnPhone:focus-visible {
+  outline: 2px solid var(--settings-ring);
+  outline-offset: 2px;
+}
+
+.addBtnPhone:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.addBtnWhatsApp {
+  padding: 8px 12px;
+  background-color: var(--settings-whatsapp-bg);
+  border: 1px solid var(--settings-whatsapp);
+  color: var(--settings-whatsapp);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+
+.addBtnWhatsApp:hover {
+  background-color: var(--settings-whatsapp-bg-hover);
+}
+
+.addBtnWhatsApp:active {
+  background-color: var(--settings-whatsapp-bg-active);
+  transform: scale(0.98);
+}
+
+.addBtnWhatsApp:focus-visible {
+  outline: 2px solid var(--settings-whatsapp);
+  outline-offset: 2px;
+}
+
+.addBtnWhatsApp:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.repeaterList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.repeaterRow {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.removeBtn {
+  margin-top: 16px;
+  padding: 8px 12px;
+  background-color: var(--settings-danger-bg);
+  border: 1px solid var(--settings-danger);
+  color: var(--settings-danger-ink);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.removeBtn:hover {
+  background-color: var(--settings-danger-bg-hover);
+}
+
+.removeBtn:active {
+  background-color: var(--settings-danger-bg-active);
+  transform: scale(0.96);
+}
+
+.removeBtn:focus-visible {
+  outline: 2px solid var(--settings-danger);
+  outline-offset: 2px;
+}
+
+.removeBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.submitBtn {
+  margin-top: 12px;
+  padding: 12px 20px;
+  background-color: var(--settings-accent);
+  color: var(--settings-btn-ink);
+  border: none;
+  border-radius: 10px;
+  font-weight: 800;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, opacity 0.15s ease, transform 0.1s ease;
+}
+
+.submitBtn:hover:not(:disabled) {
+  background-color: var(--settings-accent-hover);
+}
+
+.submitBtn:active:not(:disabled) {
+  background-color: var(--settings-accent-active);
+  transform: scale(0.99);
+}
+
+.submitBtn:focus-visible {
+  outline: 2px solid var(--settings-ring);
+  outline-offset: 2px;
+}
+
+.submitBtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.loadingText {
+  color: var(--settings-ink-muted);
+  font-size: 15px;
+}

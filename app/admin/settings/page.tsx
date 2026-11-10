@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { uploadImageToSupabase } from "@/lib/storage";
 import { ShopSettings } from "@/lib/types";
+import styles from "./settings.module.css";
 
 export default function AdminSettingsPage() {
     const cleanNumberInput = (val: string): string => {
@@ -116,98 +117,96 @@ export default function AdminSettingsPage() {
     };
 
     if (loading) {
-        return <p>Loading shop settings...</p>;
+        return <p className={styles.loadingText}>Loading shop settings…</p>;
     }
 
     return (
-        <div style={{ maxWidth: "720px" }}>
-            <div style={{ marginBottom: "28px" }}>
-                <h1 style={{
-                    fontSize: "32px",
-                    fontWeight: "700",
-                    margin: 0,
-                    color: "#F0E8C7",
-                    fontFamily: "var(--font-playfair), 'Playfair Display', serif",
-                    letterSpacing: "-0.01em",
-                }}>
-                    Store Business <span style={{ color: "#ff8c00" }}>Settings</span>
+        <div className={styles.container}>
+            <div className={styles.header}>
+                <h1 className={styles.title}>
+                    Store Business Settings
                 </h1>
-                <p style={{ fontSize: "14px", color: "rgba(240, 232, 199, 0.7)", marginTop: "6px" }}>
+                <p className={styles.subtitle}>
                     Manage QR Code upload, UPI payment info, logo, theme, and delivery policies.
                 </p>
             </div>
 
             {msg && (
-                <div style={{
-                    backgroundColor: msg.type === "success" ? "rgba(34, 197, 94, 0.15)" : "rgba(239, 68, 68, 0.15)",
-                    border: `1px solid ${msg.type === "success" ? "#22c55e" : "#ef4444"}`,
-                    color: msg.type === "success" ? "#4ade80" : "#fca5a5",
-                    padding: "14px 18px",
-                    borderRadius: "14px",
-                    fontSize: "14px",
-                    fontWeight: "600",
-                    marginBottom: "20px",
-                }}>
+                <div className={`${styles.messageBanner} ${msg.type === "success" ? styles.messageSuccess : styles.messageError}`}>
                     {msg.text}
                 </div>
             )}
 
-            <form onSubmit={handleSave} style={{
-                backgroundColor: "rgba(22, 17, 13, 0.85)",
-                border: "1px solid rgba(207, 75, 19, 0.25)",
-                borderRadius: "20px",
-                padding: "28px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "18px",
-                boxShadow: "0 12px 32px rgba(0, 0, 0, 0.4)",
-                backdropFilter: "blur(16px)",
-            }}>
+            <form onSubmit={handleSave} className={styles.form}>
 
                 {/* QR Code Upload Section */}
-                <div style={{ backgroundColor: "#202020", border: "1px solid #333", borderRadius: "12px", padding: "16px" }}>
-                    <h3 style={{ fontSize: "15px", fontWeight: "700", color: "#ff8c00", marginBottom: "10px" }}>
+                <div className={styles.sectionCard}>
+                    <h3 className={styles.sectionTitle}>
                         Upload UPI QR Code (Supabase Storage)
                     </h3>
-                    <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
-                        <img src={settings.qr_code_url} alt="QR Code" style={{ width: "100px", height: "100px", objectFit: "contain", backgroundColor: "#fff", padding: "4px", borderRadius: "8px" }} />
-                        <div style={{ flex: 1 }}>
-                            <input type="file" accept="image/*" onChange={handleQrUpload} disabled={uploadingQr} style={{ fontSize: "13px", color: "#aaa" }} />
-                            <p style={{ fontSize: "12px", color: "#777", marginTop: "6px" }}>{uploadingQr ? "Uploading..." : "Upload QR image file directly to Supabase Storage"}</p>
+                    <div className={styles.qrRow}>
+                        <img src={settings.qr_code_url} alt="QR Code" className={styles.qrImage} />
+                        <div className={styles.qrUploadArea}>
+                            <input type="file" accept="image/*" onChange={handleQrUpload} disabled={uploadingQr} className={styles.fileInput} />
+                            <p className={styles.helperText}>{uploadingQr ? "Uploading…" : "Upload QR image file directly to Supabase Storage"}</p>
                         </div>
                     </div>
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
-                    <div>
-                        <label style={{ display: "block", fontSize: "13px", fontWeight: "700", color: "#aaa", marginBottom: "4px" }}>Restaurant Name</label>
-                        <input type="text" required value={settings.restaurant_name || settings.shop_name} onChange={(e) => setSettings({ ...settings, restaurant_name: e.target.value, shop_name: e.target.value })} style={{ width: "100%", padding: "12px", backgroundColor: "#202020", border: "1px solid #333", borderRadius: "8px", color: "#fff", fontSize: "14px" }} />
+                <div className={styles.rowTwoCol}>
+                    <div className={styles.fieldGroup}>
+                        <label className={styles.label}>Restaurant Name</label>
+                        <input
+                            type="text"
+                            required
+                            value={settings.restaurant_name || settings.shop_name}
+                            onChange={(e) => setSettings({ ...settings, restaurant_name: e.target.value, shop_name: e.target.value })}
+                            className={styles.input}
+                        />
                     </div>
-                    <div>
-                        <label style={{ display: "block", fontSize: "13px", fontWeight: "700", color: "#aaa", marginBottom: "4px" }}>GST Number (Optional)</label>
-                        <input type="text" value={settings.gst_number || ""} onChange={(e) => setSettings({ ...settings, gst_number: e.target.value })} placeholder="e.g. 24AAAAA0000A1Z5" style={{ width: "100%", padding: "12px", backgroundColor: "#202020", border: "1px solid #333", borderRadius: "8px", color: "#fff", fontSize: "14px" }} />
+                    <div className={styles.fieldGroup}>
+                        <label className={styles.label}>GST Number (Optional)</label>
+                        <input
+                            type="text"
+                            value={settings.gst_number || ""}
+                            onChange={(e) => setSettings({ ...settings, gst_number: e.target.value })}
+                            placeholder="e.g. 24AAAAA0000A1Z5"
+                            className={styles.input}
+                        />
                     </div>
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
-                    <div>
-                        <label style={{ display: "block", fontSize: "13px", fontWeight: "700", color: "#aaa", marginBottom: "4px" }}>UPI ID</label>
-                        <input type="text" required value={settings.upi_id} onChange={(e) => setSettings({ ...settings, upi_id: e.target.value })} style={{ width: "100%", padding: "12px", backgroundColor: "#202020", border: "1px solid #333", borderRadius: "8px", color: "#fff", fontSize: "14px" }} />
+                <div className={styles.rowTwoCol}>
+                    <div className={styles.fieldGroup}>
+                        <label className={styles.label}>UPI ID</label>
+                        <input
+                            type="text"
+                            required
+                            value={settings.upi_id}
+                            onChange={(e) => setSettings({ ...settings, upi_id: e.target.value })}
+                            className={styles.input}
+                        />
                     </div>
-                    <div>
-                        <label style={{ display: "block", fontSize: "13px", fontWeight: "700", color: "#aaa", marginBottom: "4px" }}>UPI Account Name</label>
-                        <input type="text" value={settings.upi_name || ""} onChange={(e) => setSettings({ ...settings, upi_name: e.target.value })} placeholder="Burger Bhau Fast Food" style={{ width: "100%", padding: "12px", backgroundColor: "#202020", border: "1px solid #333", borderRadius: "8px", color: "#fff", fontSize: "14px" }} />
+                    <div className={styles.fieldGroup}>
+                        <label className={styles.label}>UPI Account Name</label>
+                        <input
+                            type="text"
+                            value={settings.upi_name || ""}
+                            onChange={(e) => setSettings({ ...settings, upi_name: e.target.value })}
+                            placeholder="Burger Bhau Fast Food"
+                            className={styles.input}
+                        />
                     </div>
                 </div>
 
                 {/* Phone Numbers Section */}
-                <div style={{ backgroundColor: "#1e1e1e", border: "1px solid #333", borderRadius: "12px", padding: "16px" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
+                <div className={styles.sectionCard}>
+                    <div className={styles.sectionHeader}>
                         <div>
-                            <h3 style={{ fontSize: "14px", fontWeight: "700", color: "#ff8c00", margin: 0 }}>
+                            <h3 className={styles.sectionTitle}>
                                 Phone Calling Lines (Voice Call)
                             </h3>
-                            <p style={{ fontSize: "12px", color: "#888", margin: "2px 0 0 0" }}>
+                            <p className={styles.sectionDescription}>
                                 Primary number will be called first. Add backup phone lines for high order volume.
                             </p>
                         </div>
@@ -217,24 +216,15 @@ export default function AdminSettingsPage() {
                                 ...prev,
                                 additional_phones: [...(prev.additional_phones || []), ""],
                             }))}
-                            style={{
-                                padding: "6px 12px",
-                                backgroundColor: "rgba(255, 140, 0, 0.15)",
-                                border: "1px solid #ff8c00",
-                                color: "#ff8c00",
-                                borderRadius: "6px",
-                                fontSize: "12px",
-                                fontWeight: "700",
-                                cursor: "pointer",
-                            }}
+                            className={styles.addBtnPhone}
                         >
                             + Add Phone Line
                         </button>
                     </div>
 
-                    <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                        <div>
-                            <label style={{ display: "block", fontSize: "12px", fontWeight: "600", color: "#aaa", marginBottom: "4px" }}>
+                    <div className={styles.repeaterList}>
+                        <div className={styles.fieldGroup}>
+                            <label className={styles.labelSubtle}>
                                 Primary Phone Number *
                             </label>
                             <input
@@ -242,14 +232,14 @@ export default function AdminSettingsPage() {
                                 required
                                 value={settings.shop_phone}
                                 onChange={(e) => setSettings({ ...settings, shop_phone: e.target.value })}
-                                style={{ width: "100%", padding: "10px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "8px", color: "#fff", fontSize: "14px" }}
+                                className={styles.input}
                             />
                         </div>
 
                         {(settings.additional_phones || []).map((num, idx) => (
-                            <div key={idx} style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-                                <div style={{ flex: 1 }}>
-                                    <label style={{ display: "block", fontSize: "11px", fontWeight: "600", color: "#888", marginBottom: "2px" }}>
+                            <div key={idx} className={styles.repeaterRow}>
+                                <div className={styles.fieldGroup} style={{ flex: 1 }}>
+                                    <label className={styles.labelSubtle}>
                                         Backup Phone #{idx + 2}
                                     </label>
                                     <input
@@ -261,7 +251,7 @@ export default function AdminSettingsPage() {
                                             setSettings({ ...settings, additional_phones: updated });
                                         }}
                                         placeholder="e.g. 919876543210"
-                                        style={{ width: "100%", padding: "10px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "8px", color: "#fff", fontSize: "14px" }}
+                                        className={styles.input}
                                     />
                                 </div>
                                 <button
@@ -270,16 +260,8 @@ export default function AdminSettingsPage() {
                                         const updated = (settings.additional_phones || []).filter((_, i) => i !== idx);
                                         setSettings({ ...settings, additional_phones: updated });
                                     }}
-                                    style={{
-                                        marginTop: "16px",
-                                        padding: "8px 12px",
-                                        backgroundColor: "rgba(255, 68, 68, 0.15)",
-                                        border: "1px solid #ff4444",
-                                        color: "#ff6b6b",
-                                        borderRadius: "8px",
-                                        cursor: "pointer",
-                                        fontSize: "13px",
-                                    }}
+                                    className={styles.removeBtn}
+                                    aria-label="Remove phone line"
                                 >
                                     ✕
                                 </button>
@@ -289,13 +271,13 @@ export default function AdminSettingsPage() {
                 </div>
 
                 {/* WhatsApp Numbers Section */}
-                <div style={{ backgroundColor: "#1e1e1e", border: "1px solid #333", borderRadius: "12px", padding: "16px" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
+                <div className={styles.sectionCard}>
+                    <div className={styles.sectionHeader}>
                         <div>
-                            <h3 style={{ fontSize: "14px", fontWeight: "700", color: "#25d366", margin: 0 }}>
+                            <h3 className={styles.sectionTitleWhatsApp}>
                                 WhatsApp Order Lines
                             </h3>
-                            <p style={{ fontSize: "12px", color: "#888", margin: "2px 0 0 0" }}>
+                            <p className={styles.sectionDescription}>
                                 Primary WhatsApp receives instant orders. Add additional lines for store managers or counters.
                             </p>
                         </div>
@@ -305,24 +287,15 @@ export default function AdminSettingsPage() {
                                 ...prev,
                                 additional_whatsapps: [...(prev.additional_whatsapps || []), ""],
                             }))}
-                            style={{
-                                padding: "6px 12px",
-                                backgroundColor: "rgba(37, 211, 102, 0.15)",
-                                border: "1px solid #25d366",
-                                color: "#25d366",
-                                borderRadius: "6px",
-                                fontSize: "12px",
-                                fontWeight: "700",
-                                cursor: "pointer",
-                            }}
+                            className={styles.addBtnWhatsApp}
                         >
                             + Add WhatsApp Line
                         </button>
                     </div>
 
-                    <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                        <div>
-                            <label style={{ display: "block", fontSize: "12px", fontWeight: "600", color: "#aaa", marginBottom: "4px" }}>
+                    <div className={styles.repeaterList}>
+                        <div className={styles.fieldGroup}>
+                            <label className={styles.labelSubtle}>
                                 Primary WhatsApp Number *
                             </label>
                             <input
@@ -330,14 +303,14 @@ export default function AdminSettingsPage() {
                                 required
                                 value={settings.whatsapp_number}
                                 onChange={(e) => setSettings({ ...settings, whatsapp_number: e.target.value })}
-                                style={{ width: "100%", padding: "10px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "8px", color: "#fff", fontSize: "14px" }}
+                                className={styles.input}
                             />
                         </div>
 
                         {(settings.additional_whatsapps || []).map((num, idx) => (
-                            <div key={idx} style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-                                <div style={{ flex: 1 }}>
-                                    <label style={{ display: "block", fontSize: "11px", fontWeight: "600", color: "#888", marginBottom: "2px" }}>
+                            <div key={idx} className={styles.repeaterRow}>
+                                <div className={styles.fieldGroup} style={{ flex: 1 }}>
+                                    <label className={styles.labelSubtle}>
                                         Additional WhatsApp Line #{idx + 2}
                                     </label>
                                     <input
@@ -349,7 +322,7 @@ export default function AdminSettingsPage() {
                                             setSettings({ ...settings, additional_whatsapps: updated });
                                         }}
                                         placeholder="e.g. 919876543210"
-                                        style={{ width: "100%", padding: "10px", backgroundColor: "#262626", border: "1px solid #444", borderRadius: "8px", color: "#fff", fontSize: "14px" }}
+                                        className={styles.input}
                                     />
                                 </div>
                                 <button
@@ -358,16 +331,8 @@ export default function AdminSettingsPage() {
                                         const updated = (settings.additional_whatsapps || []).filter((_, i) => i !== idx);
                                         setSettings({ ...settings, additional_whatsapps: updated });
                                     }}
-                                    style={{
-                                        marginTop: "16px",
-                                        padding: "8px 12px",
-                                        backgroundColor: "rgba(255, 68, 68, 0.15)",
-                                        border: "1px solid #ff4444",
-                                        color: "#ff6b6b",
-                                        borderRadius: "8px",
-                                        cursor: "pointer",
-                                        fontSize: "13px",
-                                    }}
+                                    className={styles.removeBtn}
+                                    aria-label="Remove WhatsApp line"
                                 >
                                     ✕
                                 </button>
@@ -376,23 +341,41 @@ export default function AdminSettingsPage() {
                     </div>
                 </div>
 
-                <div>
-                    <label style={{ display: "block", fontSize: "13px", fontWeight: "700", color: "#aaa", marginBottom: "4px" }}>Store Address</label>
-                    <textarea rows={2} required value={settings.address} onChange={(e) => setSettings({ ...settings, address: e.target.value })} style={{ width: "100%", padding: "12px", backgroundColor: "#202020", border: "1px solid #333", borderRadius: "8px", color: "#fff", fontSize: "14px" }} />
+                <div className={styles.fieldGroup}>
+                    <label className={styles.label}>Store Address</label>
+                    <textarea
+                        rows={2}
+                        required
+                        value={settings.address}
+                        onChange={(e) => setSettings({ ...settings, address: e.target.value })}
+                        className={styles.textarea}
+                    />
                 </div>
 
-                <div>
-                    <label style={{ display: "block", fontSize: "13px", fontWeight: "700", color: "#aaa", marginBottom: "4px" }}>Google Maps Embed URL</label>
-                    <input type="text" required value={settings.google_maps_url} onChange={(e) => setSettings({ ...settings, google_maps_url: e.target.value })} style={{ width: "100%", padding: "12px", backgroundColor: "#202020", border: "1px solid #333", borderRadius: "8px", color: "#fff", fontSize: "14px" }} />
+                <div className={styles.fieldGroup}>
+                    <label className={styles.label}>Google Maps Embed URL</label>
+                    <input
+                        type="text"
+                        required
+                        value={settings.google_maps_url}
+                        onChange={(e) => setSettings({ ...settings, google_maps_url: e.target.value })}
+                        className={styles.input}
+                    />
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "16px" }}>
-                    <div>
-                        <label style={{ display: "block", fontSize: "12px", fontWeight: "700", color: "#aaa", marginBottom: "4px" }}>Working Hours</label>
-                        <input type="text" required value={settings.opening_hours} onChange={(e) => setSettings({ ...settings, opening_hours: e.target.value })} style={{ width: "100%", padding: "12px", backgroundColor: "#202020", border: "1px solid #333", borderRadius: "8px", color: "#fff", fontSize: "14px" }} />
+                <div className={styles.rowThreeCol}>
+                    <div className={styles.fieldGroup}>
+                        <label className={styles.label}>Working Hours</label>
+                        <input
+                            type="text"
+                            required
+                            value={settings.opening_hours}
+                            onChange={(e) => setSettings({ ...settings, opening_hours: e.target.value })}
+                            className={styles.input}
+                        />
                     </div>
-                    <div>
-                        <label style={{ display: "block", fontSize: "12px", fontWeight: "700", color: "#aaa", marginBottom: "4px" }}>Max Radius (Meters)</label>
+                    <div className={styles.fieldGroup}>
+                        <label className={styles.label}>Max Radius (Meters)</label>
                         <input
                             type="number"
                             required
@@ -400,11 +383,11 @@ export default function AdminSettingsPage() {
                             value={settings.delivery_radius_meters ?? ""}
                             onFocus={(e) => e.target.select()}
                             onChange={(e) => setSettings({ ...settings, delivery_radius_meters: cleanNumberInput(e.target.value) as any })}
-                            style={{ width: "100%", padding: "12px", backgroundColor: "#202020", border: "1px solid #333", borderRadius: "8px", color: "#fff", fontSize: "14px" }}
+                            className={styles.input}
                         />
                     </div>
-                    <div>
-                        <label style={{ display: "block", fontSize: "12px", fontWeight: "700", color: "#aaa", marginBottom: "4px" }}>Min Order Amount (₹)</label>
+                    <div className={styles.fieldGroup}>
+                        <label className={styles.label}>Min Order Amount (₹)</label>
                         <input
                             type="number"
                             required
@@ -412,13 +395,17 @@ export default function AdminSettingsPage() {
                             value={settings.min_order_for_delivery ?? ""}
                             onFocus={(e) => e.target.select()}
                             onChange={(e) => setSettings({ ...settings, min_order_for_delivery: cleanNumberInput(e.target.value) as any })}
-                            style={{ width: "100%", padding: "12px", backgroundColor: "#202020", border: "1px solid #333", borderRadius: "8px", color: "#fff", fontSize: "14px" }}
+                            className={styles.input}
                         />
                     </div>
                 </div>
 
-                <button type="submit" disabled={saving} style={{ marginTop: "12px", padding: "14px", backgroundColor: "#ff8c00", color: "#000", border: "none", borderRadius: "10px", fontWeight: "800", fontSize: "15px", cursor: saving ? "not-allowed" : "pointer", opacity: saving ? 0.7 : 1 }}>
-                    {saving ? "Saving Changes..." : "Save Business Settings"}
+                <button
+                    type="submit"
+                    disabled={saving}
+                    className={styles.submitBtn}
+                >
+                    {saving ? "Saving Changes…" : "Save Business Settings"}
                 </button>
             </form>
         </div>
