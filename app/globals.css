@@ -1,77 +1,77 @@
 /* ═══════════════════════════════════════════════════════════════
-   Burger Bhau MenuSite — Premium Design System
-   Dual-theme (light/dark) · Liquid Glass · 3D Depth · Rounded
+   Burger Bhau MenuSite — Design System
+   Warm cream paper, espresso ink, terracotta accent
    ═══════════════════════════════════════════════════════════════ */
 
 /* ─── Light Theme (default) ──────────────────────────────── */
 :root {
-  /* Surfaces - Premium warm minimalist palette */
-  --bg: #F0E8C7; /* Soft cream background */
-  --bg-secondary: #E8DFB8;
-  --card: #0a0a0a; /* Dark black product card */
-  --card-hover: #121212;
+  /* Surfaces - Warm cream paper ramp */
+  --bg: #F0E8C7;
+  --bg-secondary: #E7DDB8;
+  --card: #FAF6E8;
+  --card-hover: #F5EED6;
 
-  /* Claude Typography System */
-  --font-claude-serif: var(--font-newsreader, 'Newsreader', 'Tiempos Headline', Georgia, serif);
+  /* Typography System */
+  --font-claude-serif: var(--font-newsreader, 'Lora', Georgia, serif);
   --font-claude-sans: var(--font-inter, 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
   --font-playfair: var(--font-claude-serif);
   --font-jakarta: var(--font-claude-sans);
 
-  /* Text */
-  --text: #ffffff;
-  --text-secondary: #ffffff;
-  --muted: rgb(255, 255, 255);
-  --muted-2: rgb(255, 255, 255);
+  /* Text - Espresso ink ramp */
+  --text: #1A1612;
+  --text-secondary: #4D4438;
+  --muted: #6E6354;
+  --muted-2: #8A7F6E;
 
-  /* Borders & Dividers */
-  --border: rgba(6, 5, 4, 0.08);
-  --border-strong: rgba(6, 5, 4, 0.15);
+  /* Borders & Dividers - Quiet hairlines */
+  --border: rgba(26, 22, 18, 0.10);
+  --border-strong: rgba(26, 22, 18, 0.18);
 
-  /* Brand accent - Warm terracotta orange */
+  /* Brand accent - Charred terracotta */
   --accent: #CF4B13;
-  --accent-hover: #b83d10;
-  --accent-soft: rgba(207, 75, 19, 0.12);
-  --accent-border: rgba(207, 75, 19, 0.30);
-  --accent-glow: rgba(207, 75, 19, 0.20);
+  --accent-hover: #B83D10;
+  --accent-soft: rgba(207, 75, 19, 0.10);
+  --accent-border: rgba(207, 75, 19, 0.25);
+  --accent-glow: rgba(207, 75, 19, 0.12);
   --accent-text: #ffffff;
 
-  /* Glass system - Warm cream glass */
-  --glass-bg: rgba(240, 232, 199, 0.85);
-  --glass-border: rgba(240, 232, 199, 0.90);
-  --glass-blur: 24px;
-  --glass-shadow: 0 8px 32px rgba(6, 5, 4, 0.12);
-  --glass-inner: rgba(20, 20, 20, 0.85);
+  /* Glass system - Warm cream */
+  --glass-bg: rgba(240, 232, 199, 0.94);
+  --glass-border: rgba(26, 22, 18, 0.10);
+  --glass-blur: 16px;
+  --glass-shadow: 0 4px 16px rgba(26, 22, 18, 0.08);
+  --glass-inner: rgba(26, 22, 18, 0.04);
 
-  /* Depth / Shadows */
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.10), 0 2px 8px rgba(0, 0, 0, 0.04);
-  --shadow-float: 0 16px 48px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06);
-  --shadow-sheet: 0 -16px 60px rgba(0, 0, 0, 0.15);
+  /* Depth / Shadows - Quiet neutral */
+  --shadow-xs: 0 1px 2px rgba(26, 22, 18, 0.04);
+  --shadow-sm: 0 2px 6px rgba(26, 22, 18, 0.05);
+  --shadow-md: 0 4px 12px rgba(26, 22, 18, 0.07);
+  --shadow-lg: 0 8px 24px rgba(26, 22, 18, 0.09);
+  --shadow-float: 0 12px 32px rgba(26, 22, 18, 0.12);
+  --shadow-sheet: 0 -8px 32px rgba(26, 22, 18, 0.12);
 
-  /* Rounded corners - Premium smooth rounded */
-  --radius-xs: 8px;
-  --radius-sm: 12px;
-  --radius-md: 18px;
-  --radius-lg: 24px;
-  --radius-xl: 32px;
+  /* Rounded corners - Sized by element */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
   --radius-full: 999px;
 
-  /* Spacing */
+  /* Spacing - 4px scale */
   --space-1: 8px;
   --space-2: 16px;
   --space-3: 24px;
   --space-4: 32px;
   --space-5: 48px;
 
-  /* Motion */
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Motion - Single ease-out curve */
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --duration-fast: 0.15s;
-  --duration-normal: 0.3s;
-  --duration-slow: 0.5s;
+  --duration-normal: 0.22s;
+  --duration-slow: 0.35s;
 
   /* Status */
   --success: #22c55e;
@@ -160,16 +160,21 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.5;
-  letter-spacing: -0.011em;
+  letter-spacing: 0;
 }
 
 /* ─── Typography ──────────────────────────────────────────── */
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
-  font-family: var(--font-claude-serif), 'Newsreader', 'Tiempos Headline', Georgia, serif;
+  font-family: var(--font-claude-serif), 'Lora', Georgia, serif;
   font-weight: 500;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.015em;
   line-height: 1.15;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 p {
@@ -259,7 +264,7 @@ svg.svg-inline--fa {
 @keyframes fade-up {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -268,38 +273,7 @@ svg.svg-inline--fa {
 }
 
 .animate-fade-up {
-  animation: fade-up 0.6s ease-out forwards;
-}
-
-@keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 0 0 var(--accent-glow);
-  }
-  50% {
-    box-shadow: 0 0 0 8px rgba(255, 140, 0, 0);
-  }
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-4px);
-  }
+  animation: fade-up 0.35s var(--ease-out) forwards;
 }
 
 /* ─── Reduced Motion ──────────────────────────────────────── */

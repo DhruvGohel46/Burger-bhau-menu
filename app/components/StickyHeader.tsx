@@ -19,7 +19,7 @@ export default function StickyHeader() {
     const handleShare = async () => {
         const shareData = {
             title: `${SHOP_NAME} Menu`,
-            text: `🍔 Check out ${SHOP_NAME} Menu!\n\nDelicious burgers, fries and quick snacks.\n\nOrder here:`,
+            text: `Check out ${SHOP_NAME} Menu — freshly made burgers, pizzas, and snacks in Kothariya, Rajkot.`,
             url: WEBSITE_URL,
         };
 
@@ -52,7 +52,7 @@ export default function StickyHeader() {
                         className={styles.logoImage}
                     />
                     <h1 className={styles.brand}>
-                        BURGER <span className={styles.brandAccent}>BHAU</span>
+                        Burger <span className={styles.brandAccent}>Bhau</span>
                     </h1>
                 </div>
 
@@ -63,9 +63,8 @@ export default function StickyHeader() {
                         href={user ? "/profile/" : "/login/"}
                         className={styles.actionBtn}
                         aria-label="User profile or login"
-                        style={{ display: "flex", alignItems: "center", gap: "6px", textDecoration: "none", color: "#fff" }}
                     >
-                        <FontAwesomeIcon icon={faUser} width={16} height={16} color="var(--accent)" />
+                        <FontAwesomeIcon icon={faUser} width={16} height={16} />
                         <span className={styles.actionLabel}>{user ? "Profile" : "Login"}</span>
                     </Link>
 
@@ -74,9 +73,8 @@ export default function StickyHeader() {
                             href="/orders/"
                             className={styles.actionBtn}
                             aria-label="My orders"
-                            style={{ display: "flex", alignItems: "center", gap: "6px", textDecoration: "none", color: "#fff" }}
                         >
-                            <FontAwesomeIcon icon={faBoxOpen} width={16} height={16} color="var(--accent)" />
+                            <FontAwesomeIcon icon={faBoxOpen} width={16} height={16} />
                             <span className={styles.actionLabel}>Orders</span>
                         </Link>
                     )}
@@ -89,7 +87,7 @@ export default function StickyHeader() {
                     >
                         <FontAwesomeIcon icon={faShareNodes} width={16} height={16} />
                         <span className={styles.actionLabel}>Share</span>
-                        {copied && <span className={styles.copiedToast}>Copied!</span>}
+                        {copied && <span className={styles.copiedToast}>Copied</span>}
                     </button>
                 </div>
             </div>

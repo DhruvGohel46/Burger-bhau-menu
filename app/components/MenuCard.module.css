@@ -1,47 +1,41 @@
-/* Burger Bhau MenuSite - Premium Dark Black Menu Card with Claude Typography */
+/* Burger Bhau MenuSite - Menu Card */
 .card {
   display: flex;
   gap: 12px;
-  padding: 12px 14px;
-  border-radius: var(--radius-md);
-  background: #0a0a0a;
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.30);
+  padding: 12px;
+  border-radius: 14px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-xs);
   overflow: hidden;
   cursor: pointer;
   transition:
-    box-shadow var(--duration-normal) var(--ease-out),
-    transform var(--duration-normal) var(--ease-out),
-    background-color var(--duration-normal) ease,
-    border-color var(--duration-normal) ease;
+    box-shadow var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
 }
 
-/* Desktop hover: 3D lift */
 @media (hover: hover) {
   .card:hover {
-    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.70), 0 0 18px rgba(207, 75, 19, 0.16);
-    border-color: rgba(255, 255, 255, 0.18);
-    background: #121212;
-    transform: translateY(-3px);
+    box-shadow: var(--shadow-sm);
+    border-color: var(--border-strong);
+    background: #ffffff;
   }
 }
 
-/* Mobile tap */
 .card:active {
-  transform: scale(0.98);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.40);
+  background: var(--card-hover);
 }
 
 .imageWrap {
   position: relative;
-  width: 72px;
-  height: 72px;
-  border-radius: 12px;
+  width: 76px;
+  height: 76px;
+  border-radius: 8px;
   overflow: hidden;
   flex: 0 0 auto;
-  background: #000000;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
 }
 
 .imageWrap :global(img) {
@@ -54,24 +48,24 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 1px 0;
+  padding: 0;
 }
 
 .title {
-  font-size: 14.5px;
+  font-size: 15px;
   font-weight: 600;
-  line-height: 1.25;
+  line-height: 1.3;
   margin: 0;
-  color: #ffffff;
-  font-family: var(--font-claude-serif), 'Newsreader', 'Tiempos Headline', Georgia, serif;
-  letter-spacing: -0.015em;
+  color: var(--text);
+  font-family: var(--font-claude-serif), 'Lora', Georgia, serif;
+  letter-spacing: 0;
 }
 
 .desc {
   margin-top: 4px;
-  font-size: 11.5px;
-  line-height: 1.38;
-  color: rgba(255, 255, 255, 0.70);
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--text-secondary);
   font-family: var(--font-claude-sans), 'Inter', sans-serif;
   overflow: hidden;
   display: -webkit-box;
@@ -80,75 +74,72 @@
   -webkit-box-orient: vertical;
 }
 
-/* 3. Right section: vertical stack (first price on top, then underneath add button) */
 .actionColumn {
   flex: 0 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  gap: 6px;
-  padding-left: 4px;
+  gap: 8px;
+  padding-left: 8px;
 }
 
 .price {
-  font-size: 13.5px;
-  font-weight: 700;
-  color: var(--accent);
+  font-size: 14px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
   font-family: var(--font-claude-sans), 'Inter', sans-serif;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
   line-height: 1.2;
-  text-align: center;
+  text-align: right;
 }
 
 .addButton {
-  height: 30px;
-  padding: 0 15px;
-  border-radius: var(--radius-full);
+  height: 32px;
+  padding: 0 12px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--accent);
   background: var(--accent);
   color: #ffffff;
-  font-weight: 700;
-  font-size: 12px;
+  font-weight: 500;
+  font-size: 13px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   white-space: nowrap;
-  box-shadow: 0 3px 10px rgba(207, 75, 19, 0.28);
   transition:
-    background-color var(--duration-fast) ease,
-    box-shadow var(--duration-fast) ease,
-    transform var(--duration-fast) ease;
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
   font-family: var(--font-claude-sans), 'Inter', sans-serif;
 }
 
 @media (hover: hover) {
   .addButton:hover {
     background: var(--accent-hover);
-    box-shadow: 0 6px 16px rgba(207, 75, 19, 0.40);
     border-color: var(--accent-hover);
   }
 }
 
 .addButton:active {
-  transform: scale(0.94);
+  transform: scale(0.97);
 }
 
 .qty {
-  height: 30px;
+  height: 32px;
   display: inline-flex;
   align-items: center;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-sm);
   border: 1px solid var(--accent);
   background: var(--accent);
   overflow: hidden;
-  box-shadow: 0 3px 10px rgba(207, 75, 19, 0.28);
 }
 
 .qtyBtn {
-  width: 26px;
-  height: 30px;
+  width: 28px;
+  height: 32px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -156,7 +147,7 @@
   background: transparent;
   color: #ffffff;
   cursor: pointer;
-  transition: background-color var(--duration-fast) ease;
+  transition: background-color var(--duration-fast) var(--ease-out);
 }
 
 @media (hover: hover) {

@@ -6,7 +6,7 @@ import { MenuItem, extras as globalExtras } from "@/app/data/menu";
 import { buildCartLineId, useCartStore } from "@/app/store/cartStore";
 import styles from "./MenuCard.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMinus, faPlus, faFire, faThumbsUp, faRibbon, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useMemo } from "react";
 
 function displayVariantLabel(category: string, variantId: string | undefined, fallbackLabel: string | undefined) {
@@ -71,12 +71,7 @@ export default function MenuCard({ item }: { item: MenuItem }) {
 
     return (
         <>
-            <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
-                whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                whileTap={{ scale: 0.98 }}
+            <div
                 className={styles.card}
                 role="button"
                 tabIndex={0}
@@ -91,7 +86,7 @@ export default function MenuCard({ item }: { item: MenuItem }) {
                         src={imageSrc}
                         alt={`${item.name} - Burger Bhau Kothariya`}
                         fill
-                        sizes="82px"
+                        sizes="76px"
                         loading="lazy"
                     />
                 </div>
@@ -99,80 +94,52 @@ export default function MenuCard({ item }: { item: MenuItem }) {
                 {/* 2. Center Section: Title & Text */}
                 <div className={styles.centerContent}>
                     {(item.is_bestseller || item.is_recommended || item.is_new || item.is_popular) && (
-                        <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "4px" }}>
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "4px" }}>
                             {item.is_bestseller && (
                                 <span style={{
-                                    padding: "2px 7px",
-                                    backgroundColor: "rgba(255, 140, 0, 0.15)",
-                                    border: "1px solid #ff8c00",
-                                    color: "#ff8c00",
-                                    fontSize: "10px",
-                                    fontWeight: "800",
-                                    borderRadius: "5px",
-                                    textTransform: "uppercase",
-                                    letterSpacing: "0.04em",
-                                    display: "inline-flex",
-                                    alignItems: "center",
-                                    gap: "4px",
+                                    padding: "2px 8px",
+                                    backgroundColor: "var(--accent-soft)",
+                                    color: "var(--accent)",
+                                    fontSize: "12px",
+                                    fontWeight: "500",
+                                    borderRadius: "4px",
                                 }}>
-                                    <FontAwesomeIcon icon={faFire} style={{ fontSize: "9px" }} />
                                     Bestseller
                                 </span>
                             )}
                             {item.is_recommended && (
                                 <span style={{
-                                    padding: "2px 7px",
-                                    backgroundColor: "rgba(23, 162, 184, 0.15)",
-                                    border: "1px solid #17a2b8",
-                                    color: "#38d39f",
-                                    fontSize: "10px",
-                                    fontWeight: "800",
-                                    borderRadius: "5px",
-                                    textTransform: "uppercase",
-                                    letterSpacing: "0.04em",
-                                    display: "inline-flex",
-                                    alignItems: "center",
-                                    gap: "4px",
+                                    padding: "2px 8px",
+                                    backgroundColor: "var(--bg-secondary)",
+                                    color: "var(--text-secondary)",
+                                    fontSize: "12px",
+                                    fontWeight: "500",
+                                    borderRadius: "4px",
                                 }}>
-                                    <FontAwesomeIcon icon={faThumbsUp} style={{ fontSize: "9px" }} />
                                     Recommended
                                 </span>
                             )}
                             {item.is_new && (
                                 <span style={{
-                                    padding: "2px 7px",
-                                    backgroundColor: "rgba(40, 167, 69, 0.15)",
-                                    border: "1px solid #28a745",
-                                    color: "#5dd579",
-                                    fontSize: "10px",
-                                    fontWeight: "800",
-                                    borderRadius: "5px",
-                                    textTransform: "uppercase",
-                                    letterSpacing: "0.04em",
-                                    display: "inline-flex",
-                                    alignItems: "center",
-                                    gap: "4px",
+                                    padding: "2px 8px",
+                                    backgroundColor: "var(--bg-secondary)",
+                                    color: "var(--text-secondary)",
+                                    fontSize: "12px",
+                                    fontWeight: "500",
+                                    borderRadius: "4px",
                                 }}>
-                                    <FontAwesomeIcon icon={faRibbon} style={{ fontSize: "9px" }} />
                                     New
                                 </span>
                             )}
                             {item.is_popular && (
                                 <span style={{
-                                    padding: "2px 7px",
-                                    backgroundColor: "rgba(255, 193, 7, 0.15)",
-                                    border: "1px solid #ffc107",
-                                    color: "#ffd54f",
-                                    fontSize: "10px",
-                                    fontWeight: "800",
-                                    borderRadius: "5px",
-                                    textTransform: "uppercase",
-                                    letterSpacing: "0.04em",
-                                    display: "inline-flex",
-                                    alignItems: "center",
-                                    gap: "4px",
+                                    padding: "2px 8px",
+                                    backgroundColor: "var(--bg-secondary)",
+                                    color: "var(--text-secondary)",
+                                    fontSize: "12px",
+                                    fontWeight: "500",
+                                    borderRadius: "4px",
                                 }}>
-                                    <FontAwesomeIcon icon={faStar} style={{ fontSize: "9px" }} />
                                     Popular
                                 </span>
                             )}
@@ -231,7 +198,7 @@ export default function MenuCard({ item }: { item: MenuItem }) {
                         </div>
                     )}
                 </div>
-            </motion.div>
+            </div>
         </>
     );
 }

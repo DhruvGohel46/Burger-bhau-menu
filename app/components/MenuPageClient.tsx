@@ -124,13 +124,13 @@ export default function MenuPageClient({
                         <div className={styles.searchBox}>
                             <FontAwesomeIcon
                                 icon={faSearch}
-                                width={15}
-                                height={15}
+                                width={16}
+                                height={16}
                                 className={styles.searchIcon}
                             />
                             <input
                                 type="text"
-                                placeholder="Search burgers, pizzas, snacks..."
+                                placeholder="Search menu"
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 className={styles.searchInput}
@@ -165,9 +165,9 @@ export default function MenuPageClient({
             {/* Main Content */}
             <div className={styles.content}>
                 {groupedItems.length === 0 ? (
-                    <div style={{ padding: "60px 16px", textAlign: "center", color: "#666" }}>
-                        <h3 style={{ fontSize: "18px", fontWeight: "700", color: "#060504", marginBottom: "6px" }}>No items found</h3>
-                        <p style={{ fontSize: "14px", color: "#666666" }}>Try searching for another item on the menu.</p>
+                    <div style={{ padding: "64px 16px", textAlign: "center", color: "var(--muted)" }}>
+                        <h3 style={{ fontSize: "18px", fontWeight: "500", color: "var(--text)", marginBottom: "8px" }}>No items found</h3>
+                        <p style={{ fontSize: "14px", color: "var(--text-secondary)" }}>Try searching for another item on the menu.</p>
                     </div>
                 ) : (
                     groupedItems.map((group, index) => (
@@ -177,27 +177,27 @@ export default function MenuPageClient({
 
                 {/* Homepage Featured Photo Gallery Teaser */}
                 <div className={styles.galleryTeaser}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "14px", flexWrap: "wrap" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "16px", flexWrap: "wrap" }}>
                         <div>
                             <h3 style={{
                                 fontSize: "20px",
-                                fontWeight: "800",
-                                color: "#FF9F1C",
+                                fontWeight: "500",
+                                color: "var(--text)",
                                 margin: 0,
                                 fontFamily: "var(--font-claude-serif), Georgia, serif",
                                 display: "inline-flex",
                                 alignItems: "center",
-                                gap: "10px",
+                                gap: "8px",
                             }}>
-                                <FontAwesomeIcon icon={faCamera} style={{ fontSize: "20px", color: "#FF9F1C" }} />
+                                <FontAwesomeIcon icon={faCamera} style={{ fontSize: "18px", color: "var(--accent)" }} />
                                 <span>Photo Gallery</span>
                             </h3>
-                            <p style={{ fontSize: "12px", color: "rgba(255, 255, 255, 0.70)", margin: "4px 0 0 0", fontFamily: "var(--font-claude-sans), Inter, sans-serif" }}>
-                                Authentic photos of our burgers, kitchen & store
+                            <p style={{ fontSize: "13px", color: "var(--text-secondary)", margin: "4px 0 0 0", fontFamily: "var(--font-claude-sans), Inter, sans-serif" }}>
+                                Photos of our burgers, kitchen and store in Kothariya
                             </p>
                         </div>
-                        <Link href="/gallery/" style={{ fontSize: "13px", fontWeight: "700", color: "#ffffff", textDecoration: "none", padding: "8px 18px", backgroundColor: "var(--accent)", borderRadius: "99px", boxShadow: "0 4px 12px rgba(207, 75, 19, 0.30)", transition: "all 0.2s ease", whiteSpace: "nowrap" }}>
-                            Explore Gallery →
+                        <Link href="/gallery/" style={{ fontSize: "14px", fontWeight: "500", color: "#ffffff", textDecoration: "none", padding: "8px 16px", backgroundColor: "var(--accent)", borderRadius: "8px", whiteSpace: "nowrap" }}>
+                            Explore Gallery
                         </Link>
                     </div>
                 </div>

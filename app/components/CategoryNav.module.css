@@ -50,50 +50,58 @@
 
 .pill {
   position: relative;
-  height: 40px;
-  padding: 0 18px;
-  border-radius: var(--radius-full);
-  border: 1px solid rgba(6, 5, 4, 0.15);
-  background: rgba(255, 255, 255, 0.7);
-  color: #060504;
+  isolation: isolate;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text-secondary);
   font-size: 14px;
   font-weight: 500;
   white-space: nowrap;
   cursor: pointer;
-  transition: color var(--duration-fast) ease, border-color var(--duration-fast) ease, background-color var(--duration-fast) ease;
-  font-family: var(--font-claude-sans), var(--font-jakarta, "Plus Jakarta Sans", sans-serif);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out);
+  font-family: var(--font-claude-sans), 'Inter', sans-serif;
 }
 
 .pill:active {
-  transform: translateY(0.5px);
+  transform: scale(0.98);
 }
 
 @media (hover: hover) {
   .pill:hover:not(.pillActive) {
-    background: rgba(255, 255, 255, 0.85);
-    border-color: rgba(6, 5, 4, 0.20);
+    background: #ffffff;
+    border-color: var(--border-strong);
+    color: var(--text);
   }
 }
 
 .pillActive {
-  color: #000000;
+  background: transparent;
+  color: #ffffff;
   border-color: var(--accent);
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .pillActive .icon {
-  color: #000000;
+  color: #ffffff;
 }
 
 .activeBg {
   position: absolute;
   inset: 0;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-sm);
   background: var(--accent);
-  box-shadow: 0 6px 20px rgba(207, 75, 19, 0.35);
   z-index: -1;
 }
 
 .icon {
-  margin-right: 6px;
+  margin-right: 0;
 }

@@ -1,6 +1,6 @@
 // Burger Bhau MenuSite - Root layout with theme support and SEO
 import type { Metadata, Viewport } from 'next';
-import { Lora, Inter, Outfit } from 'next/font/google';
+import { Lora, Inter } from 'next/font/google';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import './globals.css';
@@ -9,22 +9,15 @@ config.autoAddCss = false;
 
 const lora = Lora({
     subsets: ['latin'],
-    weight: ['500', '600', '700'],
+    weight: ['500', '600'],
     variable: '--font-newsreader',
     display: 'swap',
 });
 
 const inter = Inter({
     subsets: ['latin'],
-    weight: ['400', '500', '600', '700'],
+    weight: ['400', '500', '600'],
     variable: '--font-inter',
-    display: 'swap',
-});
-
-const outfit = Outfit({
-    subsets: ['latin'],
-    weight: ['700', '800'],
-    variable: '--font-outfit',
     display: 'swap',
 });
 
@@ -110,7 +103,7 @@ import AuthProvider from '@/app/components/AuthProvider';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en" className={`${lora.variable} ${inter.variable} ${outfit.variable}`} suppressHydrationWarning>
+        <html lang="en" className={`${lora.variable} ${inter.variable}`} suppressHydrationWarning>
             <head>
                 <script
                     dangerouslySetInnerHTML={{ __html: themeScript }}

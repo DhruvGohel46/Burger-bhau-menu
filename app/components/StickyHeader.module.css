@@ -65,70 +65,72 @@
 }
 
 .brand {
-  font-size: 24px;
+  font-size: 18px;
   line-height: 1;
-  letter-spacing: 0.02em;
+  letter-spacing: -0.01em;
   margin: 0;
-  font-weight: 800;
-  font-family: var(--font-outfit, sans-serif);
-  color: #060504;
+  font-weight: 600;
+  font-family: var(--font-claude-serif), Georgia, serif;
+  color: var(--text);
 }
 
 .brandAccent {
   color: var(--accent);
-  font-weight: 800;
+  font-weight: 600;
 }
 
 .actions {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
 }
 
 .actionBtn {
   position: relative;
-  height: 42px;
-  padding: 0 8px;
+  height: 36px;
+  padding: 0 12px;
   display: inline-flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 3px;
-  border-radius: 10px;
-  border: 1px solid rgba(6, 5, 4, 0.06);
-  background: rgba(6, 5, 4, 0.04);
-  color: #060504;
+  gap: 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
   text-decoration: none;
   cursor: pointer;
-  transition: all var(--duration-fast) ease;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
 }
 
 .actionBtn:active {
-  background: rgba(6, 5, 4, 0.12);
-  transform: scale(0.96);
+  background: var(--bg-secondary);
+  transform: scale(0.98);
 }
 
 @media (hover: hover) {
   .actionBtn:hover {
-    background: rgba(6, 5, 4, 0.08);
-    border-color: rgba(6, 5, 4, 0.12);
+    background: #ffffff;
+    border-color: var(--border-strong);
   }
 }
 
 .shareBtn {
-  background: rgba(207, 75, 19, 0.08);
-  border: 1px solid rgba(207, 75, 19, 0.20);
-  color: #CF4B13;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-border);
+  color: var(--accent);
 }
 
 .actionLabel {
-  font-size: 9px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  color: #060504;
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--text);
   line-height: 1;
-  opacity: 0.85;
   text-decoration: none;
 }
 
