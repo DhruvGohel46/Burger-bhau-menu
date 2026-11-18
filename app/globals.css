@@ -1,3 +1,4 @@
+/* Hallmark: v2.0.0 · theme: custom (Burger Bhau) · genre: editorial · job: visit */
 /* ═══════════════════════════════════════════════════════════════
    Burger Bhau MenuSite — Design System
    Warm cream paper, espresso ink, terracotta accent
@@ -79,6 +80,63 @@
   --danger: #ef4444;
   --danger-soft: rgba(239, 68, 68, 0.12);
   --whatsapp: #25d366;
+  --star: #eab308;
+  --overlay-dark: rgba(26, 22, 18, 0.78);
+
+  /* Admin Portal & Settings Theme Tokens (Warm Cream Light Theme matching User Site) */
+  --admin-bg: #F0E8C7;
+  --admin-sidebar-bg: #FAF6E8;
+  --admin-card: #FAF6E8;
+  --admin-card-hover: #F5EED6;
+  --admin-card-border: rgba(26, 22, 18, 0.12);
+  --admin-subcard: #F5EED6;
+  --admin-subcard-border: rgba(26, 22, 18, 0.14);
+  --admin-input-bg: #FFFFFF;
+  --admin-input-border: rgba(26, 22, 18, 0.20);
+  --admin-input-focus: #CF4B13;
+  --admin-ink: #1A1612;
+  --admin-ink-muted: #4D4438;
+  --admin-ink-subtle: #6E6354;
+  --admin-accent: #CF4B13;
+  --admin-accent-hover: #B83D10;
+  --admin-accent-active: #99320C;
+  --admin-accent-soft: rgba(207, 75, 19, 0.10);
+  --admin-accent-border: rgba(207, 75, 19, 0.25);
+  --admin-accent-text: #ffffff;
+
+  --settings-canvas: #F0E8C7;
+  --settings-card: #FAF6E8;
+  --settings-card-border: rgba(26, 22, 18, 0.12);
+  --settings-subcard: #F5EED6;
+  --settings-subcard-border: rgba(26, 22, 18, 0.14);
+  --settings-input-bg: #FFFFFF;
+  --settings-input-border: rgba(26, 22, 18, 0.20);
+  --settings-input-focus: #CF4B13;
+  --settings-ink: #1A1612;
+  --settings-ink-muted: #4D4438;
+  --settings-ink-subtle: #6E6354;
+  --settings-accent: #CF4B13;
+  --settings-accent-hover: #B83D10;
+  --settings-accent-active: #99320C;
+  --settings-accent-bg: rgba(207, 75, 19, 0.10);
+  --settings-accent-bg-hover: rgba(207, 75, 19, 0.18);
+  --settings-accent-bg-active: rgba(207, 75, 19, 0.26);
+  --settings-success: #16a34a;
+  --settings-success-bg: rgba(22, 163, 74, 0.10);
+  --settings-success-ink: #15803d;
+  --settings-danger: #dc2626;
+  --settings-danger-bg: rgba(220, 38, 38, 0.10);
+  --settings-danger-bg-hover: rgba(220, 38, 38, 0.18);
+  --settings-danger-bg-active: rgba(220, 38, 38, 0.26);
+  --settings-danger-ink: #b91c1c;
+  --settings-whatsapp: #15803d;
+  --settings-whatsapp-bg: rgba(21, 128, 61, 0.10);
+  --settings-whatsapp-bg-hover: rgba(21, 128, 61, 0.18);
+  --settings-whatsapp-bg-active: rgba(21, 128, 61, 0.26);
+  --settings-ring: #CF4B13;
+  --settings-qr-bg: #FAF6E8;
+  --settings-btn-bg: #CF4B13;
+  --settings-btn-ink: #FFFFFF;
 
   /* Misc */
   --header-height: 64px;
@@ -139,6 +197,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 /* Smooth theme transitions */
@@ -156,7 +215,7 @@ body {
   background: var(--bg);
   color: var(--text);
   min-height: 100dvh;
-  overflow-x: hidden;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.5;

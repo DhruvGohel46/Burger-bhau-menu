@@ -7,6 +7,7 @@ import { triggerNetlifyBuildHook } from "@/lib/netlify";
 import { GalleryImage, GalleryCategory } from "@/lib/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash, faArrowUp, faArrowDown, faStar, faImages, faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons";
+import styles from "./galleryAdmin.module.css";
 
 export default function AdminGalleryPage() {
     const [images, setImages] = useState<GalleryImage[]>([]);
@@ -170,100 +171,71 @@ export default function AdminGalleryPage() {
         : images.filter((i) => i.category === selectedTab);
 
     return (
-        <div style={{ maxWidth: "1000px" }}>
-            <div style={{ marginBottom: "28px" }}>
-                <h1 style={{
-                    fontSize: "32px",
-                    fontWeight: "700",
-                    margin: 0,
-                    color: "#F0E8C7",
-                    fontFamily: "var(--font-playfair), 'Playfair Display', serif",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "12px",
-                }}>
-                    <FontAwesomeIcon icon={faImages} color="#ff8c00" /> Photo Gallery <span style={{ color: "#ff8c00" }}>Management</span>
+        <div className={styles.container}>
+            <div className={styles.header}>
+                <h1 className={styles.title}>
+                    <FontAwesomeIcon icon={faImages} className={styles.titleAccent} /> Photo Gallery <span className={styles.titleAccent}>Management</span>
                 </h1>
-                <p style={{ fontSize: "14px", color: "rgba(240, 232, 199, 0.7)", marginTop: "6px" }}>
+                <p className={styles.subtitle}>
                     Upload shop photos, food dishes, ambience, and events. WebP auto-compression and SEO alt tags are enforced.
                 </p>
             </div>
 
             {msg && (
-                <div style={{
-                    backgroundColor: msg.type === "success" ? "rgba(34, 197, 94, 0.15)" : "rgba(239, 68, 68, 0.15)",
-                    border: `1px solid ${msg.type === "success" ? "#22c55e" : "#ef4444"}`,
-                    color: msg.type === "success" ? "#4ade80" : "#fca5a5",
-                    padding: "14px 18px",
-                    borderRadius: "14px",
-                    fontSize: "14px",
-                    fontWeight: "600",
-                    marginBottom: "20px",
-                }}>
+                <div className={msg.type === "success" ? styles.msgSuccess : styles.msgError}>
                     {msg.text}
                 </div>
             )}
 
             {/* Upload Form */}
-            <form onSubmit={handleUpload} style={{
-                backgroundColor: "rgba(22, 17, 13, 0.85)",
-                border: "1px solid rgba(207, 75, 19, 0.25)",
-                borderRadius: "20px",
-                padding: "26px",
-                marginBottom: "32px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "18px",
-                boxShadow: "0 12px 32px rgba(0, 0, 0, 0.4)",
-                backdropFilter: "blur(16px)",
-            }}>
-                <h3 style={{ fontSize: "18px", fontWeight: "700", color: "#ff8c00", margin: 0, fontFamily: "var(--font-playfair), serif", display: "flex", alignItems: "center", gap: "10px" }}>
+            <form onSubmit={handleUpload} className={styles.uploadCard}>
+                <h3 className={styles.cardHeading}>
                     <FontAwesomeIcon icon={faCloudUploadAlt} /> Add New Gallery Photo
                 </h3>
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
-                    <div>
-                        <label style={{ display: "block", fontSize: "13px", fontWeight: "700", color: "#aaa", marginBottom: "6px" }}>Select Photo *</label>
+                <div className={styles.formGrid}>
+                    <div className={styles.field}>
+                        <label className={styles.label}>Select Photo *</label>
                         <input
                             type="file"
                             accept="image/*"
                             required
                             onChange={(e) => setFile(e.target.files?.[0] || null)}
-                            style={{ fontSize: "13px", color: "#aaa", width: "100%" }}
+                            className={styles.fileInput}
                         />
-                        <p style={{ fontSize: "11px", color: "#777", marginTop: "4px" }}>Auto-compressed to WebP format for fast page loads.</p>
+                        <p className={styles.fieldHint}>Auto-compressed to WebP format for fast page loads.</p>
                     </div>
 
-                    <div>
-                        <label style={{ display: "block", fontSize: "13px", fontWeight: "700", color: "#aaa", marginBottom: "6px" }}>Category *</label>
+                    <div className={styles.field}>
+                        <label className={styles.label}>Category *</label>
                         <select
                             value={category}
                             onChange={(e) => setCategory(e.target.value as GalleryCategory)}
-                            style={{ width: "100%", padding: "12px", backgroundColor: "#202020", border: "1px solid #333", borderRadius: "8px", color: "#fff", fontSize: "14px" }}
+                            className={styles.select}
                         >
-                            <option value="food">Food & Dishes</option>
-                            <option value="shop">Shop & Counter</option>
-                            <option value="interior">Interior & Ambience</option>
-                            <option value="event">Events & Celebrations</option>
+                            <option value="food">Food &amp; Dishes</option>
+                            <option value="shop">Shop &amp; Counter</option>
+                            <option value="interior">Interior &amp; Ambience</option>
+                            <option value="event">Events &amp; Celebrations</option>
                         </select>
                     </div>
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
-                    <div>
-                        <label style={{ display: "block", fontSize: "13px", fontWeight: "700", color: "#aaa", marginBottom: "6px" }}>Photo Title *</label>
+                <div className={styles.formGrid}>
+                    <div className={styles.field}>
+                        <label className={styles.label}>Photo Title *</label>
                         <input
                             type="text"
                             required
                             placeholder="e.g. Aalu Tikki Burger"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            style={{ width: "100%", padding: "12px", backgroundColor: "#202020", border: "1px solid #333", borderRadius: "8px", color: "#fff", fontSize: "14px" }}
+                            className={styles.input}
                         />
                     </div>
 
-                    <div>
-                        <label style={{ display: "block", fontSize: "13px", fontWeight: "700", color: "#ff8c00", marginBottom: "6px" }}>
+                    <div className={styles.field}>
+                        <label className={`${styles.label} ${styles.labelAccent}`}>
                             Google SEO Alt Text * (Required)
                         </label>
                         <input
@@ -272,31 +244,31 @@ export default function AdminGalleryPage() {
                             placeholder="e.g. Aalu Tikki Burger with crispy patty at Burger Bhau Kothariya Rajkot"
                             value={altText}
                             onChange={(e) => setAltText(e.target.value)}
-                            style={{ width: "100%", padding: "12px", backgroundColor: "#202020", border: "1px solid #ff8c00", borderRadius: "8px", color: "#fff", fontSize: "14px" }}
+                            className={`${styles.input} ${styles.inputAccent}`}
                         />
                     </div>
                 </div>
 
-                <div>
-                    <label style={{ display: "block", fontSize: "13px", fontWeight: "700", color: "#aaa", marginBottom: "6px" }}>Caption (Optional)</label>
+                <div className={styles.field}>
+                    <label className={styles.label}>Caption (Optional)</label>
                     <input
                         type="text"
                         placeholder="Detailed story or description shown in photo lightbox..."
                         value={caption}
                         onChange={(e) => setCaption(e.target.value)}
-                        style={{ width: "100%", padding: "12px", backgroundColor: "#202020", border: "1px solid #333", borderRadius: "8px", color: "#fff", fontSize: "14px" }}
+                        className={styles.input}
                     />
                 </div>
 
-                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "4px" }}>
+                <div className={styles.checkboxRow}>
                     <input
                         type="checkbox"
                         id="featured-check"
                         checked={isFeatured}
                         onChange={(e) => setIsFeatured(e.target.checked)}
-                        style={{ width: "18px", height: "18px", accentColor: "#ff8c00", cursor: "pointer" }}
+                        className={styles.checkbox}
                     />
-                    <label htmlFor="featured-check" style={{ fontSize: "14px", fontWeight: "600", color: "#fff", cursor: "pointer" }}>
+                    <label htmlFor="featured-check" className={styles.checkboxLabel}>
                         Feature on Homepage Teaser Strip
                     </label>
                 </div>
@@ -304,21 +276,7 @@ export default function AdminGalleryPage() {
                 <button
                     type="submit"
                     disabled={uploading}
-                    style={{
-                        padding: "14px",
-                        backgroundColor: "#ff8c00",
-                        color: "#000",
-                        border: "none",
-                        borderRadius: "10px",
-                        fontWeight: "800",
-                        fontSize: "15px",
-                        cursor: uploading ? "not-allowed" : "pointer",
-                        opacity: uploading ? 0.7 : 1,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        gap: "8px",
-                    }}
+                    className={styles.submitBtn}
                 >
                     <FontAwesomeIcon icon={faPlus} />
                     {uploading ? "Uploading & Compressing..." : "Upload & Publish Photo"}
@@ -326,22 +284,13 @@ export default function AdminGalleryPage() {
             </form>
 
             {/* Gallery Category Tabs */}
-            <div style={{ display: "flex", gap: "10px", marginBottom: "20px", flexWrap: "wrap" }}>
+            <div className={styles.tabsRow}>
                 {(["all", "food", "shop", "interior", "event"] as const).map((tab) => (
                     <button
                         key={tab}
+                        type="button"
                         onClick={() => setSelectedTab(tab)}
-                        style={{
-                            padding: "8px 16px",
-                            borderRadius: "20px",
-                            border: `1px solid ${selectedTab === tab ? "#ff8c00" : "#333"}`,
-                            backgroundColor: selectedTab === tab ? "#ff8c00" : "#1a1a1a",
-                            color: selectedTab === tab ? "#000" : "#ccc",
-                            fontWeight: "700",
-                            fontSize: "13px",
-                            cursor: "pointer",
-                            textTransform: "capitalize",
-                        }}
+                        className={selectedTab === tab ? styles.tabBtnActive : styles.tabBtn}
                     >
                         {tab === "all" ? "All Photos" : tab}
                     </button>
@@ -350,78 +299,75 @@ export default function AdminGalleryPage() {
 
             {/* Photo Grid */}
             {loading ? (
-                <p style={{ color: "#aaa" }}>Loading gallery photos...</p>
+                <p className={styles.fieldHint}>Loading gallery photos...</p>
             ) : filteredImages.length === 0 ? (
-                <p style={{ color: "#888", textAlign: "center", padding: "40px 0" }}>No photos found in this category. Upload your first photo above!</p>
+                <p className={styles.emptyText}>No photos found in this category. Upload your first photo above!</p>
             ) : (
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "18px" }}>
+                <div className={styles.photoGrid}>
                     {filteredImages.map((img, idx) => (
                         <div
                             key={img.id}
-                            style={{
-                                backgroundColor: "#181818",
-                                border: "1px solid #2a2a2a",
-                                borderRadius: "12px",
-                                overflow: "hidden",
-                                display: "flex",
-                                flexDirection: "column",
-                            }}
+                            className={styles.photoCard}
                         >
-                            <div style={{ position: "relative", width: "100%", height: "160px", backgroundColor: "#000" }}>
+                            <div className={styles.photoThumbWrap}>
                                 <img
                                     src={img.public_url}
                                     alt={img.alt_text}
-                                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                                    className={styles.photoThumb}
                                 />
                                 {img.is_featured && (
-                                    <span style={{ position: "absolute", top: "8px", right: "8px", backgroundColor: "#ff8c00", color: "#000", fontSize: "10px", fontWeight: "800", padding: "2px 6px", borderRadius: "4px" }}>
+                                    <span className={styles.featuredBadge}>
                                         Featured
                                     </span>
                                 )}
                             </div>
 
-                            <div style={{ padding: "12px", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                            <div className={styles.photoDetails}>
                                 <div>
-                                    <h4 style={{ fontSize: "14px", fontWeight: "700", color: "#fff", margin: "0 0 4px 0" }}>
+                                    <h4 className={styles.photoTitle}>
                                         {img.title}
                                     </h4>
-                                    <span style={{ fontSize: "11px", color: "#888", textTransform: "uppercase", fontWeight: "600" }}>
+                                    <span className={styles.photoCategory}>
                                         {img.category}
                                     </span>
-                                    <p style={{ fontSize: "11px", color: "#aaa", marginTop: "4px", margin: "4px 0 0 0" }}>
+                                    <p className={styles.photoAlt}>
                                         <strong>Alt:</strong> {img.alt_text}
                                     </p>
                                 </div>
 
-                                <div style={{ display: "flex", gap: "6px", marginTop: "12px", borderTop: "1px solid #282828", paddingTop: "8px" }}>
+                                <div className={styles.photoActions}>
                                     <button
+                                        type="button"
                                         onClick={() => moveOrder(idx, "up")}
                                         disabled={idx === 0}
-                                        style={{ padding: "6px 8px", backgroundColor: "#262626", border: "1px solid #333", color: "#fff", borderRadius: "6px", cursor: idx === 0 ? "not-allowed" : "pointer" }}
+                                        className={styles.actionBtn}
                                         title="Move Up"
                                     >
-                                        <FontAwesomeIcon icon={faArrowUp} style={{ fontSize: "11px" }} />
+                                        <FontAwesomeIcon icon={faArrowUp} />
                                     </button>
                                     <button
+                                        type="button"
                                         onClick={() => moveOrder(idx, "down")}
                                         disabled={idx === filteredImages.length - 1}
-                                        style={{ padding: "6px 8px", backgroundColor: "#262626", border: "1px solid #333", color: "#fff", borderRadius: "6px", cursor: idx === filteredImages.length - 1 ? "not-allowed" : "pointer" }}
+                                        className={styles.actionBtn}
                                         title="Move Down"
                                     >
-                                        <FontAwesomeIcon icon={faArrowDown} style={{ fontSize: "11px" }} />
+                                        <FontAwesomeIcon icon={faArrowDown} />
                                     </button>
                                     <button
+                                        type="button"
                                         onClick={() => toggleFeatured(img)}
-                                        style={{ padding: "6px 8px", backgroundColor: img.is_featured ? "rgba(255, 140, 0, 0.2)" : "#262626", border: `1px solid ${img.is_featured ? "#ff8c00" : "#333"}`, color: img.is_featured ? "#ff8c00" : "#888", borderRadius: "6px", cursor: "pointer", flex: 1, fontSize: "11px", fontWeight: "700" }}
+                                        className={img.is_featured ? styles.featuredBtnActive : styles.featuredBtn}
                                     >
                                         <FontAwesomeIcon icon={faStar} /> {img.is_featured ? "Featured" : "Feature"}
                                     </button>
                                     <button
+                                        type="button"
                                         onClick={() => handleDelete(img.id)}
-                                        style={{ padding: "6px 8px", backgroundColor: "rgba(255, 68, 68, 0.2)", border: "1px solid #ff4444", color: "#ff6b6b", borderRadius: "6px", cursor: "pointer" }}
+                                        className={styles.deleteBtn}
                                         title="Delete Photo"
                                     >
-                                        <FontAwesomeIcon icon={faTrash} style={{ fontSize: "11px" }} />
+                                        <FontAwesomeIcon icon={faTrash} />
                                     </button>
                                 </div>
                             </div>

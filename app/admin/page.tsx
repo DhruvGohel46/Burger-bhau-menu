@@ -12,7 +12,12 @@ import {
     faCheckCircle,
     faUsers,
     faArrowRight,
+    faUtensils,
+    faMoon,
+    faQrcode,
+    faChartPie,
 } from "@fortawesome/free-solid-svg-icons";
+import styles from "./dashboard.module.css";
 
 export default function AdminDashboardPage() {
     const [orders, setOrders] = useState<Order[]>([]);
@@ -52,182 +57,200 @@ export default function AdminDashboardPage() {
         .filter((o) => o.payment_status === "Approved" || o.status === "Delivered")
         .reduce((sum, o) => sum + o.total, 0);
 
-    const pendingOrders = orders.filter((o) => o.status === "Pending Payment Verification" || o.status === "Accepted" || o.status === "Preparing");
+    const pendingOrders = orders.filter(
+        (o) =>
+            o.status === "Pending Payment Verification" ||
+            o.status === "Accepted" ||
+            o.status === "Preparing"
+    );
     const completedOrders = orders.filter((o) => o.status === "Delivered");
 
     if (loading) {
         return (
-            <div>
-                <h1 style={{ fontSize: "28px", fontWeight: "800", marginBottom: "24px" }}>Dashboard Overview</h1>
-                <p>Loading analytics data...</p>
+            <div className={styles.container}>
+                <div className={styles.header}>
+                    <h1 className={styles.title}>Dashboard Overview</h1>
+                    <p className={styles.subtitle}>Loading real-time store metrics…</p>
+                </div>
             </div>
         );
     }
 
     return (
-        <div>
+        <div className={styles.container}>
             {/* Header */}
-            <div style={{ marginBottom: "28px" }}>
-                <h1 style={{
-                    fontSize: "32px",
-                    fontWeight: "700",
-                    margin: 0,
-                    color: "#F0E8C7",
-                    fontFamily: "var(--font-playfair), 'Playfair Display', serif",
-                    letterSpacing: "-0.01em",
-                }}>
-                    Dashboard <span style={{ color: "#ff8c00" }}>Overview</span>
+            <div className={styles.header}>
+                <h1 className={styles.title}>
+                    Dashboard <span className={styles.accent}>Overview</span>
                 </h1>
-                <p style={{ fontSize: "14px", color: "rgba(240, 232, 199, 0.7)", marginTop: "6px" }}>
-                    Real-time operational summary and customer stats for Burger Bhau (Kothariya).
+                <p className={styles.subtitle}>
+                    Real-time operational summary, live order flow, and customer stats for Burger Bhau (Kothariya).
                 </p>
             </div>
 
             {/* Metric Cards Grid */}
-            <div style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-                gap: "18px",
-                marginBottom: "32px",
-            }}>
-                <div style={{
-                    backgroundColor: "rgba(22, 17, 13, 0.80)",
-                    border: "1px solid rgba(207, 75, 19, 0.25)",
-                    borderRadius: "16px",
-                    padding: "22px",
-                    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.3)",
-                    backdropFilter: "blur(12px)",
-                }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
-                        <span style={{ fontSize: "13px", color: "rgba(240, 232, 199, 0.7)", fontWeight: "600" }}>Today's Orders</span>
-                        <FontAwesomeIcon icon={faShoppingBag} style={{ color: "#ff8c00", fontSize: "20px" }} />
+            <div className={styles.metricsGrid}>
+                <div className={styles.metricCard}>
+                    <div className={styles.metricHeader}>
+                        <span className={styles.metricLabel}>Today&apos;s Revenue</span>
+                        <div className={styles.metricIconCircle}>
+                            <FontAwesomeIcon icon={faRupeeSign} />
+                        </div>
                     </div>
-                    <div style={{ fontSize: "32px", fontWeight: "800", color: "#F0E8C7", fontFamily: "var(--font-playfair), serif" }}>{todayOrders.length}</div>
+                    <div className={styles.metricValue}>₹{todayRevenue}</div>
+                    <span className={styles.metricFooter}>{todayOrders.length} orders today</span>
                 </div>
 
-                <div style={{
-                    backgroundColor: "rgba(22, 17, 13, 0.80)",
-                    border: "1px solid rgba(34, 197, 94, 0.30)",
-                    borderRadius: "16px",
-                    padding: "22px",
-                    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.3)",
-                    backdropFilter: "blur(12px)",
-                }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
-                        <span style={{ fontSize: "13px", color: "rgba(240, 232, 199, 0.7)", fontWeight: "600" }}>Today's Revenue</span>
-                        <FontAwesomeIcon icon={faRupeeSign} style={{ color: "#22c55e", fontSize: "20px" }} />
+                <div className={styles.metricCard}>
+                    <div className={styles.metricHeader}>
+                        <span className={styles.metricLabel}>Pending Action</span>
+                        <div className={styles.metricIconCircle}>
+                            <FontAwesomeIcon icon={faClock} />
+                        </div>
                     </div>
-                    <div style={{ fontSize: "32px", fontWeight: "800", color: "#22c55e", fontFamily: "var(--font-playfair), serif" }}>₹{todayRevenue}</div>
+                    <div className={styles.metricValue}>{pendingOrders.length}</div>
+                    <span className={styles.metricFooter}>Awaiting prep or verification</span>
                 </div>
 
-                <div style={{
-                    backgroundColor: "rgba(22, 17, 13, 0.80)",
-                    border: "1px solid rgba(255, 193, 7, 0.30)",
-                    borderRadius: "16px",
-                    padding: "22px",
-                    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.3)",
-                    backdropFilter: "blur(12px)",
-                }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
-                        <span style={{ fontSize: "13px", color: "rgba(240, 232, 199, 0.7)", fontWeight: "600" }}>Pending Orders</span>
-                        <FontAwesomeIcon icon={faClock} style={{ color: "#ffc107", fontSize: "20px" }} />
+                <div className={styles.metricCard}>
+                    <div className={styles.metricHeader}>
+                        <span className={styles.metricLabel}>Today&apos;s Completed</span>
+                        <div className={styles.metricIconCircle}>
+                            <FontAwesomeIcon icon={faCheckCircle} />
+                        </div>
                     </div>
-                    <div style={{ fontSize: "32px", fontWeight: "800", color: "#ffc107", fontFamily: "var(--font-playfair), serif" }}>{pendingOrders.length}</div>
+                    <div className={styles.metricValue}>{completedOrders.length}</div>
+                    <span className={styles.metricFooter}>Delivered orders</span>
                 </div>
 
-                <div style={{
-                    backgroundColor: "rgba(22, 17, 13, 0.80)",
-                    border: "1px solid rgba(207, 75, 19, 0.25)",
-                    borderRadius: "16px",
-                    padding: "22px",
-                    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.3)",
-                    backdropFilter: "blur(12px)",
-                }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
-                        <span style={{ fontSize: "13px", color: "rgba(240, 232, 199, 0.7)", fontWeight: "600" }}>Completed Orders</span>
-                        <FontAwesomeIcon icon={faCheckCircle} style={{ color: "#38bdf8", fontSize: "20px" }} />
+                <div className={styles.metricCard}>
+                    <div className={styles.metricHeader}>
+                        <span className={styles.metricLabel}>Total Customers</span>
+                        <div className={styles.metricIconCircle}>
+                            <FontAwesomeIcon icon={faUsers} />
+                        </div>
                     </div>
-                    <div style={{ fontSize: "32px", fontWeight: "800", color: "#F0E8C7", fontFamily: "var(--font-playfair), serif" }}>{completedOrders.length}</div>
-                </div>
-
-                <div style={{
-                    backgroundColor: "rgba(22, 17, 13, 0.80)",
-                    border: "1px solid rgba(207, 75, 19, 0.25)",
-                    borderRadius: "16px",
-                    padding: "22px",
-                    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.3)",
-                    backdropFilter: "blur(12px)",
-                }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
-                        <span style={{ fontSize: "13px", color: "rgba(240, 232, 199, 0.7)", fontWeight: "600" }}>Total Customers</span>
-                        <FontAwesomeIcon icon={faUsers} style={{ color: "#c084fc", fontSize: "20px" }} />
-                    </div>
-                    <div style={{ fontSize: "32px", fontWeight: "800", color: "#F0E8C7", fontFamily: "var(--font-playfair), serif" }}>{totalCustomers}</div>
+                    <div className={styles.metricValue}>{totalCustomers}</div>
+                    <span className={styles.metricFooter}>Registered accounts</span>
                 </div>
             </div>
 
+            {/* Quick Management Shortcuts */}
+            <div className={styles.shortcutsGrid}>
+                <Link href="/admin/orders/" className={styles.shortcutCard}>
+                    <span className={styles.shortcutIcon} aria-hidden="true">📋</span>
+                    <div className={styles.shortcutMeta}>
+                        <span className={styles.shortcutTitle}>Live Kitchen Orders</span>
+                        <span className={styles.shortcutDesc}>Verify UTR & status</span>
+                    </div>
+                </Link>
+
+                <Link href="/admin/menu/" className={styles.shortcutCard}>
+                    <span className={styles.shortcutIcon} aria-hidden="true">🍔</span>
+                    <div className={styles.shortcutMeta}>
+                        <span className={styles.shortcutTitle}>Menu & Prices</span>
+                        <span className={styles.shortcutDesc}>Items, stock & badges</span>
+                    </div>
+                </Link>
+
+                <Link href="/admin/settings/" className={styles.shortcutCard}>
+                    <span className={styles.shortcutIcon} aria-hidden="true">🌙</span>
+                    <div className={styles.shortcutMeta}>
+                        <span className={styles.shortcutTitle}>Special Night Hours</span>
+                        <span className={styles.shortcutDesc}>Extend closing to 2 AM</span>
+                    </div>
+                </Link>
+
+                <Link href="/admin/analytics/" className={styles.shortcutCard}>
+                    <span className={styles.shortcutIcon} aria-hidden="true">📊</span>
+                    <div className={styles.shortcutMeta}>
+                        <span className={styles.shortcutTitle}>Sales Analytics</span>
+                        <span className={styles.shortcutDesc}>Revenue & top sellers</span>
+                    </div>
+                </Link>
+
+                <Link href="/admin/qr/" className={styles.shortcutCard}>
+                    <span className={styles.shortcutIcon} aria-hidden="true">📱</span>
+                    <div className={styles.shortcutMeta}>
+                        <span className={styles.shortcutTitle}>Store QR Codes</span>
+                        <span className={styles.shortcutDesc}>UPI & table stands</span>
+                    </div>
+                </Link>
+            </div>
+
             {/* Recent Orders Section */}
-            <div style={{
-                backgroundColor: "rgba(22, 17, 13, 0.85)",
-                border: "1px solid rgba(207, 75, 19, 0.25)",
-                borderRadius: "20px",
-                padding: "24px",
-                boxShadow: "0 12px 32px rgba(0, 0, 0, 0.4)",
-                backdropFilter: "blur(16px)",
-            }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
-                    <h2 style={{
-                        fontSize: "20px",
-                        fontWeight: "700",
-                        color: "#F0E8C7",
-                        margin: 0,
-                        fontFamily: "var(--font-playfair), 'Playfair Display', serif",
-                    }}>
-                        Recent Orders
-                    </h2>
-                    <Link href="/admin/orders/" style={{
-                        fontSize: "13px",
-                        color: "#ff8c00",
-                        fontWeight: "700",
-                        textDecoration: "none",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "6px",
-                        padding: "6px 14px",
-                        backgroundColor: "rgba(207, 75, 19, 0.12)",
-                        border: "1px solid rgba(207, 75, 19, 0.3)",
-                        borderRadius: "10px",
-                    }}>
-                        View All Orders <FontAwesomeIcon icon={faArrowRight} />
+            <div className={styles.sectionCard}>
+                <div className={styles.sectionHeader}>
+                    <h2 className={styles.sectionTitle}>Recent Orders</h2>
+                    <Link href="/admin/orders/" className={styles.viewAllLink}>
+                        <span>View All Orders</span>
+                        <FontAwesomeIcon icon={faArrowRight} />
                     </Link>
                 </div>
 
                 {orders.length === 0 ? (
-                    <p style={{ color: "#888", fontSize: "14px" }}>No orders recorded yet.</p>
+                    <p className={styles.emptyText}>No orders recorded yet.</p>
                 ) : (
-                    <div style={{ overflowX: "auto" }}>
-                        <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontSize: "14px" }}>
+                    <div className={styles.tableWrap}>
+                        <table className={styles.table}>
                             <thead>
-                                <tr style={{ borderBottom: "1px solid rgba(207, 75, 19, 0.2)", color: "rgba(240, 232, 199, 0.6)", fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.5px" }}>
-                                    <th style={{ padding: "14px 12px" }}>Order ID</th>
-                                    <th style={{ padding: "14px 12px" }}>Customer</th>
-                                    <th style={{ padding: "14px 12px" }}>Method</th>
-                                    <th style={{ padding: "14px 12px" }}>Payment</th>
-                                    <th style={{ padding: "14px 12px" }}>Status</th>
-                                    <th style={{ padding: "14px 12px" }}>Total</th>
+                                <tr>
+                                    <th className={styles.th}>Order ID</th>
+                                    <th className={styles.th}>Customer</th>
+                                    <th className={styles.th}>Method</th>
+                                    <th className={styles.th}>Payment</th>
+                                    <th className={styles.th}>Status</th>
+                                    <th className={styles.th}>Total</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {orders.slice(0, 5).map((o) => (
-                                    <tr key={o.id} style={{ borderBottom: "1px solid rgba(255, 255, 255, 0.05)" }}>
-                                        <td style={{ padding: "14px 12px", fontFamily: "monospace", color: "#ff8c00", fontWeight: "700" }}>#{o.id.slice(0, 8)}</td>
-                                        <td style={{ padding: "14px 12px", fontWeight: "600", color: "#F0E8C7" }}>{o.customer_name}</td>
-                                        <td style={{ padding: "14px 12px", textTransform: "capitalize", color: "#d4cbb0" }}>{o.delivery_method}</td>
-                                        <td style={{ padding: "14px 12px", color: o.payment_status === "Approved" ? "#22c55e" : "#ffc107", fontWeight: "700" }}>{o.payment_status}</td>
-                                        <td style={{ padding: "14px 12px", fontWeight: "600", color: "#ff8c00" }}>{o.status}</td>
-                                        <td style={{ padding: "14px 12px", fontWeight: "700", color: "#F0E8C7", fontFamily: "var(--font-playfair), serif", fontSize: "16px" }}>₹{o.total}</td>
-                                    </tr>
-                                ))}
+                                {orders.slice(0, 6).map((o) => {
+                                    const isPending =
+                                        o.status === "Pending Payment Verification" ||
+                                        o.payment_status === "Pending";
+                                    const isCancelled = o.status === "Cancelled";
+
+                                    return (
+                                        <tr key={o.id} className={styles.tr}>
+                                            <td className={styles.td} style={{ fontFamily: "monospace", fontWeight: 700, color: "var(--accent)" }}>
+                                                #{o.order_number ? o.order_number : o.id.slice(0, 8)}
+                                            </td>
+                                            <td className={styles.td} style={{ fontWeight: 600 }}>
+                                                {o.customer_name}
+                                            </td>
+                                            <td className={styles.td} style={{ textTransform: "capitalize" }}>
+                                                {o.delivery_method}
+                                            </td>
+                                            <td className={styles.td}>
+                                                <span
+                                                    className={`${styles.statusPill} ${
+                                                        o.payment_status === "Approved"
+                                                            ? styles.statusSuccess
+                                                            : styles.statusPending
+                                                    }`}
+                                                >
+                                                    {o.payment_status}
+                                                </span>
+                                            </td>
+                                            <td className={styles.td}>
+                                                <span
+                                                    className={`${styles.statusPill} ${
+                                                        isCancelled
+                                                            ? styles.statusCancelled
+                                                            : isPending
+                                                            ? styles.statusPending
+                                                            : styles.statusSuccess
+                                                    }`}
+                                                >
+                                                    {o.status}
+                                                </span>
+                                            </td>
+                                            <td className={styles.td} style={{ fontWeight: 700, fontVariantNumeric: "tabular-nums" }}>
+                                                ₹{o.total}
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
                             </tbody>
                         </table>
                     </div>

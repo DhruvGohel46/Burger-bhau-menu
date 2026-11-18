@@ -71,6 +71,16 @@ async function generateDynamicSitemap() {
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://burgerbhau.netlify.app/menu/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://burgerbhau.netlify.app/visit/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://burgerbhau.netlify.app/gallery/</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>

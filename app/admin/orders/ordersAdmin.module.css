@@ -1,0 +1,848 @@
+/* Hallmark · polish · app/admin/orders/ordersAdmin · light theme orders management */
+
+@media (prefers-reduced-motion: reduce) {
+  .container,
+  .container * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0;
+  padding-bottom: 50px;
+  color: var(--text);
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.titleArea {
+  flex: 1;
+  min-width: 240px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  font-family: var(--font-playfair), "Playfair Display", serif;
+  color: var(--text);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 6px;
+  margin-bottom: 0;
+  line-height: 1.45;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.actionBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  background-color: var(--card);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background-color 140ms ease, border-color 140ms ease;
+}
+
+.actionBtn:hover {
+  background-color: var(--card-hover);
+  border-color: var(--accent);
+}
+
+.actionBtn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.audioActive {
+  background-color: var(--success-soft);
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.alertActive {
+  background-color: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ─── Urgent Alert Banner ───────────────────────────────── */
+.urgentBanner {
+  background-color: var(--danger-soft);
+  border: 1px solid var(--danger);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  color: var(--text);
+}
+
+.urgentLeft {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.urgentIcon {
+  font-size: 24px;
+  color: var(--danger);
+  flex-shrink: 0;
+}
+
+.urgentTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--danger);
+}
+
+.urgentSub {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.urgentActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.approveUrgentBtn {
+  padding: 8px 14px;
+  background-color: var(--success);
+  color: var(--accent-text);
+  border: 1px solid var(--success);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 140ms ease;
+}
+
+.approveUrgentBtn:hover {
+  transform: translateY(-1px);
+}
+
+.approveUrgentBtn:focus-visible {
+  outline: 2px solid var(--success);
+  outline-offset: 2px;
+}
+
+.reviewUrgentBtn {
+  padding: 8px 14px;
+  background-color: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.reviewUrgentBtn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ─── Search & Filter Toolbar ───────────────────────────── */
+.toolbar {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 24px;
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 14px 18px;
+  box-shadow: var(--shadow-sm);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.searchWrap {
+  flex: 1;
+  min-width: 240px;
+  position: relative;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 13px;
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 10px 14px 10px 36px;
+  background-color: var(--card);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 13.5px;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-soft);
+}
+
+.filterWrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filterSelect {
+  padding: 10px 14px;
+  background-color: var(--card);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 13.5px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.filterSelect:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* ─── Orders Table ──────────────────────────────────────── */
+.tableCard {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+  box-shadow: var(--shadow-sm);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 13.5px;
+}
+
+.th {
+  padding: 12px 14px;
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-weight: 600;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.td {
+  padding: 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+.tr:hover .td {
+  background-color: var(--card-hover);
+}
+
+.orderNum {
+  font-weight: 700;
+  color: var(--accent);
+  font-family: monospace;
+  font-size: 13px;
+}
+
+.custName {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.custPhone {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.methodPill {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: var(--text-secondary);
+}
+
+.badgeSuccess {
+  padding: 3px 8px;
+  border-radius: var(--radius-xs);
+  font-size: 11px;
+  font-weight: 600;
+  background-color: var(--success-soft);
+  color: var(--success);
+  border: 1px solid var(--success);
+}
+
+.badgePending {
+  padding: 3px 8px;
+  border-radius: var(--radius-xs);
+  font-size: 11px;
+  font-weight: 600;
+  background-color: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+}
+
+.badgeDanger {
+  padding: 3px 8px;
+  border-radius: var(--radius-xs);
+  font-size: 11px;
+  font-weight: 600;
+  background-color: var(--danger-soft);
+  color: var(--danger);
+  border: 1px solid var(--danger);
+}
+
+.tableTotal {
+  font-weight: 700;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  font-size: 15px;
+}
+
+.tableBtn {
+  padding: 6px 12px;
+  border-radius: var(--radius-xs);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  font-family: inherit;
+  transition: background-color 140ms ease, border-color 140ms ease;
+}
+
+.tableBtn:hover {
+  background-color: var(--card-hover);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.tableBtn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.quickApproveBtn {
+  padding: 6px 10px;
+  border-radius: var(--radius-xs);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  background-color: var(--success);
+  border: 1px solid var(--success);
+  color: var(--accent-text);
+  font-family: inherit;
+}
+
+.quickApproveBtn:focus-visible {
+  outline: 2px solid var(--success);
+  outline-offset: 2px;
+}
+
+/* ─── Modal ─────────────────────────────────────────────── */
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--overlay-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.modalCard {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 26px;
+  max-width: 620px;
+  width: 100%;
+  max-height: 92vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-float);
+  color: var(--text);
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.modalTitle {
+  font-size: 22px;
+  font-weight: 700;
+  font-family: var(--font-playfair), "Playfair Display", serif;
+  color: var(--text);
+  margin: 0 0 4px 0;
+}
+
+.modalSub {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.modalCloseBtn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 18px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalCloseBtn:hover {
+  color: var(--text);
+}
+
+.modalCloseBtn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.modalFeedback {
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modalFeedbackSuccess {
+  background-color: var(--success-soft);
+  border: 1px solid var(--success);
+  color: var(--success);
+}
+
+.modalFeedbackDanger {
+  background-color: var(--danger-soft);
+  border: 1px solid var(--danger);
+  color: var(--danger);
+}
+
+.modalSectionCard {
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border);
+}
+
+.modalCustomerTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.modalCustomerName {
+  font-weight: 700;
+  color: var(--text);
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.modalCustomerAddress {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.modalDeliveryTag {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.modalDeliveryMethodBadge {
+  background-color: var(--accent-soft);
+  padding: 2px 8px;
+  border-radius: var(--radius-xs);
+  color: var(--accent);
+}
+
+.modalContactActions {
+  display: flex;
+  gap: 8px;
+}
+
+.modalCallBtn {
+  padding: 8px 12px;
+  background-color: var(--card);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 140ms ease, border-color 140ms ease;
+}
+
+.modalCallBtn:hover {
+  background-color: var(--card-hover);
+  border-color: var(--accent);
+}
+
+.modalCallBtn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.modalWhatsappBtn {
+  padding: 8px 12px;
+  background-color: var(--success-soft);
+  border: 1px solid var(--whatsapp);
+  border-radius: var(--radius-sm);
+  color: var(--whatsapp);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 140ms ease;
+}
+
+.modalWhatsappBtn:hover {
+  background-color: var(--success);
+  color: var(--accent-text);
+}
+
+.modalWhatsappBtn:focus-visible {
+  outline: 2px solid var(--whatsapp);
+  outline-offset: 2px;
+}
+
+.modalUtrTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.modalUtrLabel {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.modalUtrRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.modalUtrCode {
+  font-family: monospace;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  word-break: break-all;
+}
+
+.modalCopyBtn {
+  background: var(--card);
+  border: 1px solid var(--border-strong);
+  color: var(--muted);
+  border-radius: var(--radius-xs);
+  padding: 3px 8px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: color 140ms ease, border-color 140ms ease;
+}
+
+.modalCopyBtn:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+.modalCopyBtn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.paymentActionGrid {
+  display: flex;
+  gap: 10px;
+}
+
+.paymentApproveBtn {
+  flex: 1;
+  padding: 10px;
+  background-color: var(--success);
+  border: 2px solid var(--success);
+  color: var(--accent-text);
+  border-radius: var(--radius-sm);
+  font-weight: 800;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: inherit;
+  transition: transform 140ms ease;
+}
+
+.paymentApproveBtnOutline {
+  flex: 1;
+  padding: 10px;
+  background-color: var(--success-soft);
+  border: 2px solid var(--success);
+  color: var(--success);
+  border-radius: var(--radius-sm);
+  font-weight: 800;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: inherit;
+  transition: transform 140ms ease;
+}
+
+.paymentApproveBtn:focus-visible,
+.paymentApproveBtnOutline:focus-visible {
+  outline: 2px solid var(--success);
+  outline-offset: 2px;
+}
+
+.paymentRejectBtn {
+  flex: 1;
+  padding: 10px;
+  background-color: var(--danger);
+  border: 2px solid var(--danger);
+  color: var(--accent-text);
+  border-radius: var(--radius-sm);
+  font-weight: 800;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: inherit;
+  transition: transform 140ms ease;
+}
+
+.paymentRejectBtnOutline {
+  flex: 1;
+  padding: 10px;
+  background-color: var(--danger-soft);
+  border: 2px solid var(--danger);
+  color: var(--danger);
+  border-radius: var(--radius-sm);
+  font-weight: 800;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: inherit;
+  transition: transform 140ms ease;
+}
+
+.paymentRejectBtn:focus-visible,
+.paymentRejectBtnOutline:focus-visible {
+  outline: 2px solid var(--danger);
+  outline-offset: 2px;
+}
+
+.itemsHeader {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.itemLine {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+
+.itemTotalLine {
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--text);
+}
+
+.itemTotalAmount {
+  color: var(--accent);
+  font-size: 18px;
+  font-variant-numeric: tabular-nums;
+}
+
+.statusSectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.statusSectionTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.statusSectionHint {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.statusGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.statusOptionBtn {
+  padding: 12px 10px;
+  background-color: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 140ms ease, border-color 140ms ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: inherit;
+}
+
+.statusOptionBtn:hover {
+  background-color: var(--card-hover);
+  border-color: var(--accent);
+}
+
+.statusOptionBtn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.statusOptionBtnActive {
+  padding: 12px 10px;
+  background-color: var(--accent);
+  color: var(--accent-text);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: inherit;
+  transition: transform 140ms ease;
+}
+
+.statusOptionBtnActive:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.whatsappWideLink {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--success-soft);
+  border: 1px solid var(--whatsapp);
+  border-radius: var(--radius-sm);
+  color: var(--whatsapp);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-sizing: border-box;
+  margin-top: 14px;
+  transition: background-color 140ms ease;
+}
+
+.whatsappWideLink:hover {
+  background-color: var(--success);
+  color: var(--accent-text);
+}
+
+.whatsappWideLink:focus-visible {
+  outline: 2px solid var(--whatsapp);
+  outline-offset: 2px;
+}

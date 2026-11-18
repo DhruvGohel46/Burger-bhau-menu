@@ -100,12 +100,23 @@ export type ActivityLog = {
     created_at: string;
 };
 
+export type SpecialHoursConfig = {
+    enabled: boolean;
+    date: string; // "YYYY-MM-DD" in Asia/Kolkata (e.g. "2026-11-18")
+    close_time: string; // "02:00" in 24-hr format (e.g. 02:00 = 2:00 AM next morning)
+    open_time?: string; // defaults to regular "11:00"
+    label?: string; // e.g. "Special Late Night" or "Festival Night"
+};
+
 export type ShopSettings = {
     id: number;
     shop_name: string;
     restaurant_name?: string;
     logo_url?: string;
     banner_url?: string;
+    hero_image_url?: string;
+    highlighted_items?: string[];
+    special_hours?: SpecialHoursConfig | SpecialHoursConfig[] | null;
     theme_color?: string;
     gst_number?: string;
     shop_phone: string;
@@ -126,6 +137,26 @@ export type ShopSettings = {
 };
 
 export type GalleryCategory = "food" | "shop" | "interior" | "event";
+
+export type GoogleReviewItem = {
+    id: string;
+    reviewer_name: string;
+    reviewer_photo_url?: string;
+    rating: number; // 4 or 5
+    text: string;
+    relative_time_description?: string;
+    create_time: string;
+    review_url?: string;
+};
+
+export type GoogleReviewsData = {
+    average_rating: number;
+    total_reviews: number;
+    last_fetched: string;
+    is_placeholder?: boolean;
+    note?: string;
+    reviews: GoogleReviewItem[];
+};
 
 export type GalleryImage = {
     id: string;

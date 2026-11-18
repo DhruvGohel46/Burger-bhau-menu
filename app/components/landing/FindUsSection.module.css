@@ -1,0 +1,392 @@
+/* Hallmark · polish · app/components/landing/FindUsSection · store location and map */
+
+@media (prefers-reduced-motion: reduce) {
+  .section,
+  .section * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+.section {
+  padding: 56px 16px 64px 16px;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.headBlock {
+  margin-bottom: 32px;
+}
+
+.title {
+  font-family: var(--font-claude-serif), Georgia, serif;
+  font-size: clamp(26px, 3.5vw, 38px);
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.15;
+  margin: 0 0 6px 0;
+  letter-spacing: -0.015em;
+}
+
+.lead {
+  font-family: var(--font-claude-sans), Inter, sans-serif;
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.liveDistanceBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 6px 14px;
+  background: var(--card);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-claude-sans), Inter, sans-serif;
+  font-size: 13px;
+  color: var(--text);
+  box-shadow: var(--shadow-xs);
+}
+
+.pulseDot {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  display: inline-block;
+  flex-shrink: 0;
+  animation: pulseFindUs 2s infinite var(--ease-out);
+}
+
+@keyframes pulseFindUs {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+}
+
+.liveDistanceText strong {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.walkSub {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 32px;
+  }
+}
+
+.mapCard {
+  width: 100%;
+  min-height: 360px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  background: var(--card);
+}
+
+@media (min-width: 900px) {
+  .mapCard {
+    min-height: 480px;
+  }
+}
+
+.mapIframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+}
+
+@media (min-width: 900px) {
+  .mapIframe {
+    min-height: 480px;
+  }
+}
+
+.infoCol {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  box-shadow: var(--shadow-xs);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.cardHeaderWithBadge {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.cardHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.iconCircle {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-soft);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.headerTitles {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.cardTitle {
+  font-family: var(--font-claude-sans), Inter, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+}
+
+.distanceChip {
+  font-family: var(--font-claude-sans), Inter, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.addressText {
+  font-family: var(--font-claude-sans), Inter, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  font-style: normal;
+  margin-bottom: 10px;
+}
+
+.addressText strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.landmark {
+  font-family: var(--font-claude-sans), Inter, sans-serif;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 0 0 10px 0;
+}
+
+.landmarkLabel {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.visitNote {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: var(--radius-xs);
+  background: var(--bg-secondary);
+  color: var(--text);
+  font-family: var(--font-claude-sans), Inter, sans-serif;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.noteIcon {
+  color: var(--accent);
+  font-size: 15px;
+}
+
+.btnRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.primaryBtn,
+.secondaryBtn {
+  flex: 1;
+  min-width: 130px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-claude-sans), Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color var(--duration-fast) var(--ease-out),
+              border-color var(--duration-fast) var(--ease-out),
+              transform var(--duration-fast) var(--ease-out);
+}
+
+.primaryBtn {
+  background: var(--accent);
+  color: var(--accent-text);
+  border: 1px solid var(--accent);
+}
+
+.primaryBtn:hover {
+  background: var(--accent-hover);
+}
+
+.primaryBtn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.primaryBtn:active {
+  transform: scale(0.98);
+}
+
+.secondaryBtn {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+}
+
+.secondaryBtn:hover {
+  background: var(--card-hover);
+  border-color: var(--text-secondary);
+}
+
+.secondaryBtn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.secondaryBtn:active {
+  transform: scale(0.98);
+}
+
+/* Hours Table */
+.hoursTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-claude-sans), Inter, sans-serif;
+  font-size: 13px;
+}
+
+.hourRow,
+.todayRow {
+  border-bottom: 1px solid var(--border);
+}
+
+.todayRow {
+  background: var(--accent-soft);
+  font-weight: 600;
+}
+
+.dayCell {
+  padding: 8px 6px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.todayPill {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+.timeCell {
+  padding: 8px 6px;
+  color: var(--text-secondary);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.todayRow .timeCell {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.specialPill {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
+  background: var(--accent);
+  color: var(--accent-text);
+  margin-left: 6px;
+}
+
+.specialNotice {
+  margin-top: 14px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.specialNoticeIcon {
+  font-size: 14px;
+  flex-shrink: 0;
+}

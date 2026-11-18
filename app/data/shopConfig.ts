@@ -1,16 +1,18 @@
-// Burger Bhau MenuSite - Auto-documented file
-// This configuration file centralizes shop details, location coordinates, delivery policy rules, and WhatsApp message building utilities.
+// Burger Bhau MenuSite — Shop configuration
+// Core values come from storeConfig.ts (the single file you edit).
+// This file re-exports them for backward compatibility and adds business logic.
+import { STORE } from "./storeConfig";
 import { CartItem } from "@/app/store/cartStore";
 
-// ─── Shop Details ───────────────────────────────────────
-export const SHOP_PHONE = "919558941555"; // Prefix with 91 for India if needed for WhatsApp.
-export const SHOP_NAME = "Burger Bhau (Kothariya)";
-export const SHOP_TAGLINE = "Premium Fast Food";
-export const WEBSITE_URL = "https://burgerbhau.netlify.app/";
+// ─── Shop Details (from storeConfig.ts) ─────────────────
+export const SHOP_PHONE = STORE.phone;
+export const SHOP_NAME = `${STORE.name} (${STORE.branch})`;
+export const SHOP_TAGLINE = STORE.tagline;
+export const WEBSITE_URL = STORE.websiteUrl;
 
-// ─── Shop Location (from Google Maps embed) ─────────────
-export const SHOP_LAT = 22.23793791286797;
-export const SHOP_LNG = 70.8121401001821;
+// ─── Shop Location ──────────────────────────────────────
+export const SHOP_LAT = STORE.coordinates.lat;
+export const SHOP_LNG = STORE.coordinates.lng;
 
 // ─── Delivery Policy ────────────────────────────────────
 export const DELIVERY_RADIUS_METERS = 400;
@@ -19,8 +21,7 @@ export const DELIVERY_RADIUS_NEAR = 100;
 export const MIN_ORDER_NEAR = 299;
 
 // ─── Google Maps Embed ──────────────────────────────────
-export const GOOGLE_MAPS_EMBED_URL =
-    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12244.891247087276!2d70.79826304398604!3d22.245888415627523!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3959b530de7af957%3A0x13afca3988e94f96!2sBurger%20Bhau!5e1!3m2!1sen!2sin!4v1774524524083!5m2!1sen!2sin";
+export const GOOGLE_MAPS_EMBED_URL = STORE.mapsEmbedUrl;
 
 // ─── Haversine Distance (meters) ────────────────────────
 export function getHaversineDistance(

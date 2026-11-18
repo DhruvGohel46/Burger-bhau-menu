@@ -1,0 +1,73 @@
+/* Hallmark · polish · app/components/StoreStatusBadge · store operating status badge */
+
+@media (prefers-reduced-motion: reduce) {
+  .badge,
+  .badge * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-claude-sans), Inter, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  width: fit-content;
+  border: 1px solid var(--border);
+  background: var(--card);
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.open {
+  color: var(--text);
+  border-color: var(--success);
+  background: var(--success-soft);
+}
+
+.open .dot {
+  background: var(--success);
+  box-shadow: 0 0 0 2px var(--success-soft);
+}
+
+.openSpecial {
+  color: var(--accent);
+  border-color: var(--accent-border);
+  background: var(--accent-soft);
+}
+
+.openSpecial .dot {
+  background: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-glow);
+}
+
+.closed {
+  color: var(--muted);
+  border-color: var(--border);
+  background: var(--bg-secondary);
+}
+
+.closed .dot {
+  background: var(--muted-2);
+}
+
+.moonIcon {
+  font-size: 12px;
+  line-height: 1;
+  display: inline-block;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.text {
+  line-height: 1;
+}

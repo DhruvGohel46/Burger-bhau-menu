@@ -1,0 +1,270 @@
+/* Hallmark · polish · app/admin/qr/qrAdmin · light theme store QR code manager */
+
+@media (prefers-reduced-motion: reduce) {
+  .container,
+  .container * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+.container {
+  max-width: 1040px;
+  margin: 0;
+  padding: 0 0 40px 0;
+  color: var(--text);
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  font-family: var(--font-playfair), "Playfair Display", serif;
+  color: var(--text);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.titleIcon {
+  color: var(--accent);
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 6px;
+  margin-bottom: 0;
+  line-height: 1.45;
+}
+
+.printBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  background-color: var(--accent);
+  color: var(--accent-text);
+  border: 1px solid var(--accent);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: background-color 140ms ease, transform 140ms ease;
+  font-family: inherit;
+}
+
+.printBtn:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+.printBtn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.printBtn:active {
+  transform: scale(0.98);
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 24px;
+}
+
+.qrCard {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.cardTop {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tagBadge {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 3px 8px;
+  border-radius: var(--radius-xs);
+  width: fit-content;
+}
+
+.cardTitle {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+}
+
+.cardUsage {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.45;
+}
+
+/* Printable QR Frame (white card suitable for printing & scanning) */
+.qrFrame {
+  background: var(--card);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  color: var(--text);
+  box-shadow: var(--shadow-xs);
+}
+
+.brandBadge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.miniLogo {
+  border-radius: 4px;
+}
+
+.brandTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  display: block;
+}
+
+.branchTitle {
+  font-size: 11px;
+  color: var(--muted);
+  display: block;
+}
+
+.qrImage {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.scanNotice {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.scanNotice strong {
+  font-size: 12px;
+  color: var(--text);
+}
+
+.scanNotice span {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.urlBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+}
+
+.urlText {
+  font-family: monospace;
+  font-size: 11px;
+  color: var(--text-secondary);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.copyBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: var(--radius-xs);
+  background-color: var(--card);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+  transition: background-color 140ms ease, color 140ms ease;
+}
+
+.copyBtn:hover {
+  background-color: var(--card-hover);
+  color: var(--accent);
+}
+
+.copyBtn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* 🖨️ Printer Mode */
+@media print {
+  .header,
+  .urlBox,
+  .cardUsage {
+    display: none !important;
+  }
+
+  .container {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  .cardsGrid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+  }
+
+  .qrCard {
+    background: var(--card) !important;
+    border: 1px solid var(--border-strong) !important;
+    break-inside: avoid;
+    box-shadow: none !important;
+    padding: 12px !important;
+  }
+
+  .cardTitle {
+    color: var(--text) !important;
+  }
+
+  .tagBadge {
+    border: 1px solid var(--border-strong) !important;
+    color: var(--text) !important;
+    background: transparent !important;
+  }
+}

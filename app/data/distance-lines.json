@@ -1,0 +1,105 @@
+{
+  "band1": [
+    "Aavo ne bhau! Burger Bhau is just {distance} away. We are waiting to welcome you!",
+    "Kem cho bhai! You are almost here, just {distance} away. Aavi jao!",
+    "Bas {distance} j door chho! Chalo, Burger Bhau ma tamaru swagat chhe!",
+    "Arre wah bhau! You are so close, just {distance} away. Aavo ne!",
+    "Have bas thodu j chalvanu chhe! Burger Bhau is only {distance} away.",
+    "Aavo aavo bhai! Just {distance} to go. Fresh food and a warm welcome await!",
+    "Tame to ekdam najik chho! Burger Bhau is just {distance} away.",
+    "Bas pahochvani j vaar chhe! Only {distance} away. Aavo ne bhau!",
+    "Kem cho tame! Burger Bhau is just around the corner, {distance} away.",
+    "Chalo bhau, have aavi jao! We are just {distance} away from you."
+  ],
+  "band2": [
+    "Aavo ne bhau! Burger Bhau is just {distance} away. Ek nano walk j chhe!",
+    "Kem cho! Only {distance} to go. Bas {walk} nu walking chhe!",
+    "Bas aatlu j door chho! Chalo, Burger Bhau ma maliye!",
+    "Bahu najik chho bhai! Just {distance} away. Aavi jao ne!",
+    "Only {walk} of walking and you will be at our counter. Aavo bhau!",
+    "Tame to ekdam najik chho! Burger Bhau is waiting for you.",
+    "Bas thoda j pagla nu antar chhe! Only {distance} away.",
+    "Chalo chalo bhau! Just {distance} to go. Aavo ne!",
+    "Aatlu najik aavi gaya chho, have Burger Bhau ni mulakat pan thai jaay!",
+    "Thodu j chalvanu chhe bhai! We would love to welcome you."
+  ],
+  "band3": [
+    "Aavo ne bhau! Burger Bhau is just {distance} away. Ek saras walk thai jashe!",
+    "Kem cho tame! Only {distance} away, bas {walk} nu walking chhe.",
+    "Bas {distance} j door chho! Chalta chalta aavi jao ne!",
+    "Burger Bhau is not far away, just {distance} from you. Aavo ne!",
+    "Only {walk} of walking and you will be here. Chalo bhau!",
+    "Najik j chho tame! Just {distance} away. Aavi jao, majja aavshe!",
+    "A little walk, a lot of taste! Burger Bhau is just {distance} away.",
+    "Door nathi bhai! Bas {distance} nu j antar chhe.",
+    "Chalta chalta Burger Bhau sudhi aavi jao! We are waiting for you.",
+    "Tame aavo ne bhau! Just {distance} away from your favourite food stop."
+  ],
+  "band4": [
+    "Aavo ne bhau! Burger Bhau is {distance} away. A nice little walk awaits!",
+    "Kem cho! Just {distance} away. Bas {walk} nu walking chhe!",
+    "Bas {distance} j door chho. Chalo, aaje Burger Bhau ni mulakat thai jaay!",
+    "A little walk, a delicious treat! Aavo ne bhau!",
+    "Just {walk} of walking to reach Burger Bhau. See you soon!",
+    "Kothariya ma Burger Bhau tamari raah joi rahyu chhe. Aavi jao!",
+    "We are right here on Rolex Road, just {distance} away. Aavo ne!",
+    "Bahu door nathi bhai! Chalo, Burger Bhau sudhi aavi jao.",
+    "A little walk is worth a delicious bite. Aavo bhau!",
+    "Bas {distance} j door chho! Fatfat aavi jao ne!"
+  ],
+  "band5": [
+    "Aavo ne bhau! Burger Bhau is just {distance} away. A short trip is all it takes!",
+    "Kem cho tame! We are only {distance} away. Chalo, maliye!",
+    "Bas {distance} nu antar chhe. Burger Bhau ni ek visit thai jaay!",
+    "Just {walk} of walking, and you will reach us. Aavo ne!",
+    "You are not too far away, bhau! Come visit Burger Bhau today.",
+    "Najik aavi jao bhai! We are waiting to serve you something delicious.",
+    "A little journey, a lot of taste! Burger Bhau is {distance} away.",
+    "Short trip chhe bhau! Chalo, Kothariya ma Burger Bhau aavi jao.",
+    "Bas {distance} door chho! Aavo ne, tamaru swagat chhe!",
+    "Burger Bhau sudhi aavi jao bhai. Ahi tamari raah joi rahya chhiye!"
+  ],
+  "band6": [
+    "Aavo ne bhau! Burger Bhau is just {distance} away. A quick ride and you are here!",
+    "Kem cho bhai! Only {distance} away. Chalo, bike par aavi jao!",
+    "Bas {distance} nu j antar chhe. Aaje Burger Bhau ni visit thai jaay!",
+    "Burger Bhau, Kothariya ma, tamari raah joi rahyu chhe. Aavi jao!",
+    "Door nathi bhau! Just {distance} away. Ek quick ride kari lo!",
+    "Gadi start karo bhai! Burger Bhau is waiting for you.",
+    "Just {distance} away from your location. Chalo, maliye Rolex Road par!",
+    "Aavo ne bhai! A quick ride to Burger Bhau is always worth it.",
+    "Have ek saras ride thai jaay! We are waiting for you in Kothariya.",
+    "Tame aavo bhau! Burger Bhau is only {distance} away."
+  ],
+  "band7": [
+    "Aavo ne bhau! Burger Bhau is just {distance} away. Plan a quick visit!",
+    "Kem cho tame! Burger Bhau, Kothariya, is waiting for you.",
+    "Bas {distance} j door chho! Chalo, aaje Burger Bhau aavi jao!",
+    "We are waiting for you on Rolex Road. Just {distance} away!",
+    "A short ride to Burger Bhau and a delicious treat await you!",
+    "Door nathi bhai! Just {distance} away. Aavi jao ne!",
+    "Chalo bhau, aaje Burger Bhau ni visit thai jaay!",
+    "Only {distance} away! Make your way to Burger Bhau, Kothariya.",
+    "Kothariya ma tamaru swagat chhe! Aavo ne bhau!",
+    "Tame aavo, ame tamari raah joi rahya chhiye!"
+  ],
+  "band8": [
+    "Aavo ne bhau! Burger Bhau is {distance} away. We would love to see you!",
+    "Kem cho bhai! Chalo, Burger Bhau, Kothariya ni ek visit thai jaay!",
+    "Bas {distance} nu antar chhe. Plan your visit today!",
+    "Burger Bhau is waiting for you! Aavo ne, bhau!",
+    "A little ride to Kothariya, and you will be at Burger Bhau!",
+    "Door hoy to pan shu thayu bhau! Aavo, ame tamari raah joi rahya chhiye!",
+    "Make a plan and visit Burger Bhau today. Aapnu swagat chhe!",
+    "A short trip, a delicious destination! Aavo ne bhai!",
+    "Kothariya ma Burger Bhau tamari raah joi rahyu chhe. Jarur aavjo!",
+    "Chalo bhau, Burger Bhau ni mulakat thai jaay! We are waiting for you."
+  ],
+  "fallback": [
+    "Aavo ne bhau! Burger Bhau, Kothariya ma tamaru hardik swagat chhe!",
+    "Kem cho tame! Chalo, Burger Bhau ni mulakat lai aavo!",
+    "Tap Get Directions and find your way to Burger Bhau. Aavo ne!",
+    "Burger Bhau, Kothariya ma tamari raah joi rahyu chhe. Jarur aavjo!",
+    "Aaje j plan banavo bhau! Rolex Road par Burger Bhau tamari raah joi rahyu chhe."
+  ]
+}

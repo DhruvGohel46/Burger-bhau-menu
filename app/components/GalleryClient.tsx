@@ -103,7 +103,7 @@ export default function GalleryClient({ initialImages }: { initialImages: Galler
 
             <div className={styles.container}>
                 {/* Back / Title Header */}
-                <div className={styles.titleBar}>
+                <div className={styles.titleHeader}>
                     <Link href="/" className={styles.backBtn} aria-label="Back to Menu">
                         <FontAwesomeIcon icon={faArrowLeft} />
                     </Link>

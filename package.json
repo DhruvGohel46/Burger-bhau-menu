@@ -7,7 +7,9 @@
     "dev": "next dev -p 3131",
     "build": "node scripts/generate-sitemap.js && next build",
     "start": "next start -p 3131",
-    "lint": "next lint"
+    "lint": "next lint",
+    "sync:reviews": "node scripts/fetch-google-reviews.mjs",
+    "setup:reviews": "node scripts/google-oauth-setup.mjs"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.2.0",

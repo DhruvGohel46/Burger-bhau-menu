@@ -73,6 +73,8 @@ export default function AdminMenuPage() {
     const [isBestseller, setIsBestseller] = useState(false);
     const [isRecommended, setIsRecommended] = useState(false);
     const [isNew, setIsNew] = useState(false);
+    const [highlightedIds, setHighlightedIds] = useState<string[]>([]);
+    const [isFeaturedOnLanding, setIsFeaturedOnLanding] = useState(false);
 
     const loadMenuData = async () => {
         setLoading(true);
@@ -97,7 +99,48 @@ export default function AdminMenuPage() {
             setProducts(menuJsonData.items as MenuItem[]);
         }
 
+        try {
+            let hIds: string[] = [];
+            const { data: settingsData } = await supabase.from("shop_settings").select("highlighted_items").eq("id", 1).single();
+            if (settingsData && Array.isArray(settingsData.highlighted_items) && settingsData.highlighted_items.length > 0) {
+                hIds = settingsData.highlighted_items;
+            } else {
+                const local = localStorage.getItem("bb_admin_highlighted_items");
+                if (local) {
+                    const parsed = JSON.parse(local);
+                    if (Array.isArray(parsed)) hIds = parsed;
+                }
+            }
+            setHighlightedIds(hIds);
+        } catch {
+            // Keep empty
+        }
+
         setLoading(false);
+    };
+
+    const handleToggleLandingFeature = async (productId: string) => {
+        const isCurrentlyFeatured = highlightedIds.includes(productId);
+        const updatedIds = isCurrentlyFeatured
+            ? highlightedIds.filter((id) => id !== productId)
+            : [...highlightedIds, productId];
+
+        setHighlightedIds(updatedIds);
+
+        try {
+            localStorage.setItem("bb_admin_highlighted_items", JSON.stringify(updatedIds));
+        } catch {
+            // Ignore localStorage errors
+        }
+
+        try {
+            await supabase
+                .from("shop_settings")
+                .update({ highlighted_items: updatedIds })
+                .eq("id", 1);
+        } catch {
+            // Ignore db error
+        }
     };
 
     useEffect(() => {
@@ -192,6 +235,7 @@ export default function AdminMenuPage() {
             setIsBestseller(product.is_bestseller ?? false);
             setIsRecommended(product.is_recommended ?? false);
             setIsNew(product.is_new ?? false);
+            setIsFeaturedOnLanding(highlightedIds.includes(product.id));
         } else {
             setEditProduct(null);
             setProdId(`item-${Date.now()}`);
@@ -207,6 +251,7 @@ export default function AdminMenuPage() {
             setIsBestseller(false);
             setIsRecommended(false);
             setIsNew(false);
+            setIsFeaturedOnLanding(false);
         }
         setIsProductModalOpen(true);
     };
@@ -266,6 +311,10 @@ export default function AdminMenuPage() {
         });
 
         if (!error) {
+            const wasFeatured = highlightedIds.includes(prodId);
+            if (isFeaturedOnLanding !== wasFeatured) {
+                await handleToggleLandingFeature(prodId);
+            }
             loadMenuData();
             setIsProductModalOpen(false);
         } else {
@@ -300,7 +349,7 @@ export default function AdminMenuPage() {
             <div className={styles.header}>
                 <div className={styles.titleArea}>
                     <h1 className={styles.pageTitle}>
-                        <FontAwesomeIcon icon={faUtensils} style={{ color: "#ff8c00" }} />
+                        <FontAwesomeIcon icon={faUtensils} style={{ color: "var(--accent)" }} />
                         Menu Management
                     </h1>
                     <p className={styles.subtitle}>
@@ -380,7 +429,7 @@ export default function AdminMenuPage() {
                 </div>
             ) : filteredProducts.length === 0 ? (
                 <div className={styles.emptyState}>
-                    <FontAwesomeIcon icon={faSearch} style={{ fontSize: "32px", color: "#666" }} />
+                    <FontAwesomeIcon icon={faSearch} style={{ fontSize: "32px", color: "var(--muted)" }} />
                     <div className={styles.emptyStateTitle}>No Products Found</div>
                     <div className={styles.emptyStateText}>
                         {searchQuery ? `No menu items match "${searchQuery}".` : "No products available in this section."}
@@ -470,6 +519,11 @@ export default function AdminMenuPage() {
                                                     {/* Badges Overlay */}
                                                     <div className={styles.badgeContainer}>
                                                         <div className={styles.badgeGroup}>
+                                                            {highlightedIds.includes(product.id) && (
+                                                                <span className={`${styles.badgePill} ${styles.badgeLandingFeatured}`}>
+                                                                    ⭐ Landing
+                                                                </span>
+                                                            )}
                                                             {product.is_bestseller && (
                                                                 <span className={`${styles.badgePill} ${styles.badgeBestseller}`}>
                                                                     <FontAwesomeIcon icon={faFire} /> Bestseller
@@ -537,11 +591,19 @@ export default function AdminMenuPage() {
                                                             <FontAwesomeIcon icon={faEdit} /> Edit
                                                         </button>
                                                         <button
+                                                            type="button"
+                                                            onClick={() => handleToggleLandingFeature(product.id)}
+                                                            className={highlightedIds.includes(product.id) ? styles.landingBtnActive : styles.landingBtn}
+                                                            title={highlightedIds.includes(product.id) ? "Remove from Landing Page Most Loved" : "Feature on Landing Page Most Loved"}
+                                                        >
+                                                            {highlightedIds.includes(product.id) ? "⭐ On Landing" : "☆ Feature"}
+                                                        </button>
+                                                        <button
                                                             onClick={() => handleDeleteProduct(product.id, product.name)}
                                                             className={styles.deleteBtn}
                                                             title="Delete this product"
                                                         >
-                                                            <FontAwesomeIcon icon={faTrash} /> Delete
+                                                            <FontAwesomeIcon icon={faTrash} />
                                                         </button>
                                                     </div>
                                                 </div>
@@ -572,34 +634,34 @@ export default function AdminMenuPage() {
                             </button>
                         </div>
 
-                        <form onSubmit={handleSaveProduct} style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-                            <div>
-                                <label style={{ display: "block", fontSize: "12px", color: "#aaa", marginBottom: "4px" }}>Item Name</label>
+                        <form onSubmit={handleSaveProduct} className={styles.modalForm}>
+                            <div className={styles.modalField}>
+                                <label className={styles.modalLabel}>Item Name</label>
                                 <input
                                     type="text"
                                     required
                                     value={prodName}
                                     onChange={(e) => setProdName(e.target.value)}
                                     placeholder="e.g. Aalu Tikki Burger"
-                                    style={{ width: "100%", padding: "10px", backgroundColor: "#201a14", border: "1px solid #3d3227", borderRadius: "8px", color: "#fff" }}
+                                    className={styles.modalInput}
                                 />
                             </div>
 
-                            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
-                                <div>
-                                    <label style={{ display: "block", fontSize: "12px", color: "#aaa", marginBottom: "4px" }}>Category Section</label>
+                            <div className={styles.modalRow}>
+                                <div className={styles.modalField}>
+                                    <label className={styles.modalLabel}>Category Section</label>
                                     <select
                                         value={prodCat}
                                         onChange={(e) => setProdCat(e.target.value)}
-                                        style={{ width: "100%", padding: "10px", backgroundColor: "#201a14", border: "1px solid #3d3227", borderRadius: "8px", color: "#fff" }}
+                                        className={styles.modalSelect}
                                     >
                                         {allCategoryNames.map((c) => (
                                             <option key={c} value={c}>{c}</option>
                                         ))}
                                     </select>
                                 </div>
-                                <div>
-                                    <label style={{ display: "block", fontSize: "12px", color: "#aaa", marginBottom: "4px" }}>Base Price (₹)</label>
+                                <div className={styles.modalField}>
+                                    <label className={styles.modalLabel}>Base Price (₹)</label>
                                     <input
                                         type="number"
                                         required
@@ -607,38 +669,38 @@ export default function AdminMenuPage() {
                                         value={prodPrice}
                                         onFocus={(e) => e.target.select()}
                                         onChange={(e) => setProdPrice(cleanNumberInput(e.target.value))}
-                                        style={{ width: "100%", padding: "10px", backgroundColor: "#201a14", border: "1px solid #3d3227", borderRadius: "8px", color: "#fff" }}
+                                        className={styles.modalInput}
                                     />
                                 </div>
                             </div>
 
                             {/* Price Variants Section */}
-                            <div style={{ backgroundColor: "#1e1813", border: "1px solid #382d23", borderRadius: "10px", padding: "14px" }}>
-                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px" }}>
-                                    <label style={{ fontSize: "13px", fontWeight: "700", color: "#ff8c00", display: "flex", alignItems: "center", gap: "6px" }}>
+                            <div className={styles.variantSection}>
+                                <div className={styles.variantHeader}>
+                                    <label className={styles.variantHeadingLabel}>
                                         <FontAwesomeIcon icon={faTag} /> Price Variants (e.g. Without Cheese / With Cheese)
                                     </label>
                                     <button
                                         type="button"
                                         onClick={handleAddVariant}
-                                        style={{ padding: "4px 10px", backgroundColor: "#ff8c00", color: "#000", border: "none", borderRadius: "6px", fontWeight: "700", fontSize: "11px", cursor: "pointer" }}
+                                        className={styles.variantAddBtn}
                                     >
                                         + Add Variant Option
                                     </button>
                                 </div>
 
                                 {prodVariants.length === 0 ? (
-                                    <p style={{ fontSize: "12px", color: "#777", margin: 0 }}>No price variants configured. Standard single price (₹{prodPrice || 0}) will apply.</p>
+                                    <p style={{ fontSize: "12px", color: "var(--muted)", margin: 0 }}>No price variants configured. Standard single price (₹{prodPrice || 0}) will apply.</p>
                                 ) : (
                                     <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                                         {prodVariants.map((variant, idx) => (
-                                            <div key={variant.id || idx} style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+                                            <div key={variant.id || idx} className={styles.variantRow}>
                                                 <input
                                                     type="text"
                                                     placeholder="Variant Label (e.g. With Cheese)"
                                                     value={variant.label}
                                                     onChange={(e) => handleUpdateVariant(idx, "label", e.target.value)}
-                                                    style={{ flex: 2, padding: "8px", backgroundColor: "#14100c", border: "1px solid #3d3227", borderRadius: "6px", color: "#fff", fontSize: "12px" }}
+                                                    className={styles.variantInputLabel}
                                                 />
                                                 <input
                                                     type="number"
@@ -646,12 +708,12 @@ export default function AdminMenuPage() {
                                                     value={variant.price}
                                                     onFocus={(e) => e.target.select()}
                                                     onChange={(e) => handleUpdateVariant(idx, "price", e.target.value)}
-                                                    style={{ flex: 1, padding: "8px", backgroundColor: "#14100c", border: "1px solid #3d3227", borderRadius: "6px", color: "#fff", fontSize: "12px" }}
+                                                    className={styles.variantInputPrice}
                                                 />
                                                 <button
                                                     type="button"
                                                     onClick={() => handleRemoveVariant(idx)}
-                                                    style={{ padding: "8px 10px", backgroundColor: "rgba(255,68,68,0.2)", border: "1px solid #ff4444", color: "#ff6b6b", borderRadius: "6px", cursor: "pointer", fontSize: "12px" }}
+                                                    className={styles.variantDeleteBtn}
                                                     title="Remove variant"
                                                 >
                                                     <FontAwesomeIcon icon={faTrash} />
@@ -663,14 +725,14 @@ export default function AdminMenuPage() {
                             </div>
 
                             {/* Image Upload Control */}
-                            <div>
-                                <label style={{ display: "block", fontSize: "12px", color: "#aaa", marginBottom: "4px" }}>Product Image (Supabase Storage / URL)</label>
-                                <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                            <div className={styles.modalField}>
+                                <label className={styles.modalLabel}>Product Image (Supabase Storage / URL)</label>
+                                <div className={styles.imageUploadWrap}>
                                     <img
                                         src={prodImage || "/BURGER-BHAU-logo.webp"}
                                         alt="Preview"
                                         onError={(e) => { e.currentTarget.src = "/BURGER-BHAU-logo.webp"; }}
-                                        style={{ width: "54px", height: "54px", borderRadius: "8px", objectFit: "cover", border: "1px solid #3d3227" }}
+                                        className={styles.imagePreview}
                                     />
                                     <div style={{ flex: 1 }}>
                                         <input
@@ -678,51 +740,55 @@ export default function AdminMenuPage() {
                                             accept="image/*"
                                             onChange={handleProductImageUpload}
                                             disabled={uploadingImg}
-                                            style={{ fontSize: "12px", color: "#aaa", display: "block", marginBottom: "4px" }}
+                                            style={{ fontSize: "12px", color: "var(--text-secondary)", display: "block", marginBottom: "4px" }}
                                         />
-                                        {uploadingImg && <span style={{ fontSize: "11px", color: "#ff8c00" }}>Uploading image to Supabase...</span>}
+                                        {uploadingImg && <span style={{ fontSize: "11px", color: "var(--accent)" }}>Uploading image to Supabase...</span>}
                                     </div>
                                 </div>
                             </div>
 
                             {/* Badges Toggle */}
-                            <div style={{ backgroundColor: "#1e1813", padding: "12px", borderRadius: "8px", display: "flex", flexDirection: "column", gap: "8px", border: "1px solid #382d23" }}>
-                                <label style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "13px", color: "#fff", cursor: "pointer" }}>
+                            <div className={styles.badgeOptionsGroup}>
+                                <label className={styles.badgeCheckboxLabelAccent}>
+                                    <input type="checkbox" checked={isFeaturedOnLanding} onChange={(e) => setIsFeaturedOnLanding(e.target.checked)} />
+                                    Feature on Landing Page (&quot;Most Loved&quot;) ⭐
+                                </label>
+                                <label className={styles.badgeCheckboxLabel}>
                                     <input type="checkbox" checked={isBestseller} onChange={(e) => setIsBestseller(e.target.checked)} />
                                     Mark as Bestseller ⭐
                                 </label>
-                                <label style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "13px", color: "#fff", cursor: "pointer" }}>
+                                <label className={styles.badgeCheckboxLabel}>
                                     <input type="checkbox" checked={isRecommended} onChange={(e) => setIsRecommended(e.target.checked)} />
                                     Recommended Item 👍
                                 </label>
-                                <label style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "13px", color: "#fff", cursor: "pointer" }}>
+                                <label className={styles.badgeCheckboxLabel}>
                                     <input type="checkbox" checked={isNew} onChange={(e) => setIsNew(e.target.checked)} />
                                     New Arrival ✨
                                 </label>
                             </div>
 
-                            <div>
-                                <label style={{ display: "block", fontSize: "12px", color: "#aaa", marginBottom: "4px" }}>Description</label>
+                            <div className={styles.modalField}>
+                                <label className={styles.modalLabel}>Description</label>
                                 <textarea
                                     rows={3}
                                     value={prodDesc}
                                     onChange={(e) => setProdDesc(e.target.value)}
                                     placeholder="Enter mouth-watering item description..."
-                                    style={{ width: "100%", padding: "10px", backgroundColor: "#201a14", border: "1px solid #3d3227", borderRadius: "8px", color: "#fff" }}
+                                    className={styles.modalInput}
                                 />
                             </div>
 
-                            <div style={{ display: "flex", gap: "10px", marginTop: "8px" }}>
+                            <div className={styles.modalActions}>
                                 <button
                                     type="submit"
-                                    style={{ flex: 1, padding: "12px", backgroundColor: "#ff8c00", color: "#000", border: "none", borderRadius: "8px", fontWeight: "700", cursor: "pointer", fontSize: "14px" }}
+                                    className={styles.modalSaveBtn}
                                 >
                                     Save Product
                                 </button>
                                 <button
                                     type="button"
                                     onClick={() => setIsProductModalOpen(false)}
-                                    style={{ flex: 1, padding: "12px", backgroundColor: "#251e18", border: "1px solid #3d3227", color: "#fff", borderRadius: "8px", fontWeight: "600", cursor: "pointer", fontSize: "14px" }}
+                                    className={styles.modalCancelBtn}
                                 >
                                     Cancel
                                 </button>

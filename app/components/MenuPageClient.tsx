@@ -12,6 +12,8 @@ import CartDrawer from "@/app/components/CartDrawer";
 import GlobalItemPreview from "@/app/components/GlobalItemPreview";
 import styles from "@/app/page.module.css";
 import { useCartStore } from "@/app/store/cartStore";
+import StoreStatusBadge from "@/app/components/StoreStatusBadge";
+import LandingFooter from "@/app/components/landing/LandingFooter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faCamera, faTimes } from "@fortawesome/free-solid-svg-icons";
 
@@ -164,6 +166,37 @@ export default function MenuPageClient({
 
             {/* Main Content */}
             <div className={styles.content}>
+                {/* Store Context & Breadcrumb Banner */}
+                <div className={styles.menuHeroBanner}>
+                    <div className={styles.menuBreadcrumbRow}>
+                        <nav aria-label="Breadcrumb" className={styles.breadcrumbNav}>
+                            <Link href="/" className={styles.breadcrumbHome}>
+                                Home
+                            </Link>
+                            <span className={styles.breadcrumbSep} aria-hidden="true">/</span>
+                            <span className={styles.breadcrumbCurrent}>Full Menu</span>
+                        </nav>
+                        <StoreStatusBadge />
+                    </div>
+                    <div className={styles.menuHeroText}>
+                        <h1 className={styles.menuHeroTitle}>Our Kitchen Menu</h1>
+                        <p className={styles.menuHeroLead}>
+                            Fresh street-style burgers, cheese burst pizzas, loaded fries, and grilled sandwiches. 100% Pure Vegetarian in Kothariya, Rajkot.
+                        </p>
+                        <div className={styles.menuHeroBadges}>
+                            <span className={styles.menuHeroBadge}>
+                                <span className={styles.menuHeroBadgeDot} /> 100% Pure Veg
+                            </span>
+                            <span className={styles.menuHeroBadge}>
+                                <span className={styles.menuHeroBadgeDot} /> Made Fresh on Order
+                            </span>
+                            <span className={styles.menuHeroBadge}>
+                                <span className={styles.menuHeroBadgeDot} /> Besides Axis Bank, Rolex Road
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
                 {groupedItems.length === 0 ? (
                     <div style={{ padding: "64px 16px", textAlign: "center", color: "var(--muted)" }}>
                         <h3 style={{ fontSize: "18px", fontWeight: "500", color: "var(--text)", marginBottom: "8px" }}>No items found</h3>
@@ -193,15 +226,18 @@ export default function MenuPageClient({
                                 <span>Photo Gallery</span>
                             </h3>
                             <p style={{ fontSize: "13px", color: "var(--text-secondary)", margin: "4px 0 0 0", fontFamily: "var(--font-claude-sans), Inter, sans-serif" }}>
-                                Photos of our burgers, kitchen and store in Kothariya
+                                Real photos of our burgers, kitchen and store in Kothariya
                             </p>
                         </div>
-                        <Link href="/gallery/" style={{ fontSize: "14px", fontWeight: "500", color: "#ffffff", textDecoration: "none", padding: "8px 16px", backgroundColor: "var(--accent)", borderRadius: "8px", whiteSpace: "nowrap" }}>
+                        <Link href="/gallery/" style={{ fontSize: "14px", fontWeight: "500", color: "var(--accent-text)", textDecoration: "none", padding: "8px 16px", backgroundColor: "var(--accent)", borderRadius: "8px", whiteSpace: "nowrap" }}>
                             Explore Gallery
                         </Link>
                     </div>
                 </div>
             </div>
+
+            {/* Connected Store Footer */}
+            <LandingFooter />
 
             {/* Floating Action Buttons (Call + WhatsApp) */}
             <FloatingActions />

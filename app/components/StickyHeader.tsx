@@ -2,25 +2,28 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { selectCartCount, useCartStore } from "@/app/store/cartStore";
 import { useAuthStore } from "@/store/authStore";
-import { SHOP_NAME, WEBSITE_URL } from "@/app/data/shopConfig";
+import { STORE } from "@/app/data/storeConfig";
+import { trackEvent } from "@/lib/analytics";
 import styles from "./StickyHeader.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBagShopping, faShareNodes, faUser, faBoxOpen } from "@fortawesome/free-solid-svg-icons";
+import {
+    faArrowLeft,
+    faDiamondTurnRight,
+    faShareNodes,
+    faUser,
+    faBoxOpen,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function StickyHeader() {
     const { user } = useAuthStore();
-    const cartCount = useCartStore(selectCartCount);
-    const setIsCartOpen = useCartStore((s) => s.setIsCartOpen);
     const [copied, setCopied] = useState(false);
 
     const handleShare = async () => {
         const shareData = {
-            title: `${SHOP_NAME} Menu`,
-            text: `Check out ${SHOP_NAME} Menu — freshly made burgers, pizzas, and snacks in Kothariya, Rajkot.`,
-            url: WEBSITE_URL,
+            title: `${STORE.name} Menu`,
+            text: `Check out ${STORE.name} Menu: freshly made burgers, pizzas, and snacks in Kothariya, Rajkot.`,
+            url: STORE.websiteUrl,
         };
 
         if (navigator.share) {
@@ -44,27 +47,54 @@ export default function StickyHeader() {
     return (
         <header className={`${styles.header} safe-top`}>
             <div className={styles.inner}>
-                {/* Logo */}
-                <div className={styles.logo}>
-                    <img
-                        src="/BURGER-BHAU-logo.webp"
-                        alt="Burger Bhau Logo"
-                        className={styles.logoImage}
-                    />
-                    <h1 className={styles.brand}>
-                        Burger <span className={styles.brandAccent}>Bhau</span>
-                    </h1>
+                {/* Left Side: Prominent Back Button & Brand */}
+                <div className={styles.leftGroup}>
+                    {/* Primary Back Button */}
+                    <Link href="/" className={styles.backBtn} aria-label="Back to home page">
+                        <FontAwesomeIcon icon={faArrowLeft} className={styles.backIcon} />
+                        <span className={styles.backText}>Home</span>
+                    </Link>
+
+                    {/* Brand Link matching LandingNav */}
+                    <Link href="/" className={styles.brandLink} aria-label="Burger Bhau Kothariya Home">
+                        <div className={styles.brandWrap}>
+                            <img
+                                src="/BURGER-BHAU-logo.webp"
+                                alt="Burger Bhau Logo"
+                                className={styles.logoImage}
+                            />
+                            <div className={styles.brandText}>
+                                <span className={styles.brandName}>
+                                    Burger <span className={styles.brandAccent}>Bhau</span>
+                                </span>
+                                <span className={styles.brandBranch}>{STORE.branch}, Rajkot</span>
+                            </div>
+                        </div>
+                    </Link>
                 </div>
 
-                {/* Actions */}
+                {/* Right Side Actions */}
                 <div className={styles.actions}>
-                    {/* Orders / Profile Link */}
+                    {/* Directions link */}
+                    <a
+                        href={STORE.mapsDirectionsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => trackEvent("directions_click", { source: "menu_header" })}
+                        className={styles.directionsBtn}
+                        aria-label="Get directions to store"
+                    >
+                        <FontAwesomeIcon icon={faDiamondTurnRight} className={styles.btnIcon} />
+                        <span className={styles.directionsText}>Directions</span>
+                    </a>
+
+                    {/* Profile / Login */}
                     <Link
                         href={user ? "/profile/" : "/login/"}
                         className={styles.actionBtn}
-                        aria-label="User profile or login"
+                        aria-label={user ? "My profile" : "Customer login"}
                     >
-                        <FontAwesomeIcon icon={faUser} width={16} height={16} />
+                        <FontAwesomeIcon icon={faUser} width={13} height={13} />
                         <span className={styles.actionLabel}>{user ? "Profile" : "Login"}</span>
                     </Link>
 
@@ -74,18 +104,19 @@ export default function StickyHeader() {
                             className={styles.actionBtn}
                             aria-label="My orders"
                         >
-                            <FontAwesomeIcon icon={faBoxOpen} width={16} height={16} />
+                            <FontAwesomeIcon icon={faBoxOpen} width={13} height={13} />
                             <span className={styles.actionLabel}>Orders</span>
                         </Link>
                     )}
 
                     {/* Share */}
                     <button
+                        type="button"
                         onClick={handleShare}
                         className={`${styles.actionBtn} ${styles.shareBtn}`}
                         aria-label="Share menu"
                     >
-                        <FontAwesomeIcon icon={faShareNodes} width={16} height={16} />
+                        <FontAwesomeIcon icon={faShareNodes} width={13} height={13} />
                         <span className={styles.actionLabel}>Share</span>
                         {copied && <span className={styles.copiedToast}>Copied</span>}
                     </button>

@@ -33,13 +33,27 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
     metadataBase: new URL('https://burgerbhau.netlify.app'),
     title: {
-        default: 'Burger Bhau (Kothariya) | Premium Fast Food Menu',
+        default: 'Burger Bhau (Kothariya, Rajkot) | Fresh Burgers, Pizza & Fast Food',
         template: '%s | Burger Bhau (Kothariya)',
     },
-    description: 'Order handcrafted burgers, pizzas, and more from Burger Bhau (Kothariya). Fresh, delicious, and premium fast food in Rajkot.',
+    description: 'Visit Burger Bhau Besides Axis Bank, Surbhi Possible 3, Rolex Road, Kothariya, Rajkot. Made fresh when you order: handcrafted burgers, cheese burst pizzas, loaded fries and grilled sandwiches.',
     applicationName: 'Burger Bhau (Kothariya)',
-    keywords: ['burger bhau', 'burger bhau rajkot', 'burger bhau kothariya', 'best burgers rajkot', 'fast food rajkot', 'pizza rajkot', 'sandwich rajkot'],
+    keywords: ['burger bhau', 'burger bhau rajkot', 'burger bhau kothariya', 'burger bhau rolex road', 'burger bhau surbhi possible', 'best burgers rajkot', 'fast food rajkot', 'pizza rajkot', 'sandwich rajkot', 'pure veg burgers rajkot'],
     manifest: '/site.webmanifest',
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            'max-video-preview': -1,
+            'max-image-preview': 'large',
+            'max-snippet': -1,
+        },
+    },
+    other: {
+        'ai-content-declaration': '100% Pure Vegetarian Restaurant in Rajkot, Gujarat',
+    },
     icons: {
         icon: [
             { url: '/favicon.ico', type: 'image/x-icon' },
@@ -100,16 +114,20 @@ const themeScript = `
 `;
 
 import AuthProvider from '@/app/components/AuthProvider';
+import AnalyticsScript from '@/app/components/AnalyticsScript';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en" className={`${lora.variable} ${inter.variable}`} suppressHydrationWarning>
             <head>
+                <link rel="alternate" type="text/markdown" href="/llms.txt" title="LLM Context Summary" />
+                <link rel="alternate" type="text/markdown" href="/llms-full.txt" title="Full LLM Knowledge Catalog" />
                 <script
                     dangerouslySetInnerHTML={{ __html: themeScript }}
                 />
             </head>
             <body>
+                <AnalyticsScript />
                 <AuthProvider>
                     {children}
                 </AuthProvider>

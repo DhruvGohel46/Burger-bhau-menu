@@ -1,0 +1,374 @@
+# Burger Bhau (Kothariya, Rajkot) - Full Knowledge Base & Menu Catalog
+
+> Exhaustive reference catalog of all food products, exact prices, variant pricing, and descriptions at Burger Bhau Kothariya, Rajkot, Gujarat.
+> All items are 100% Pure Vegetarian.
+
+## Store Summary
+- Name: Burger Bhau
+- Address: Besides Axis Bank, Surbhi Possible 3, Rolex Road, Kothariya, Rajkot, Gujarat 360004, India
+- Landmark: Besides Axis Bank, Surbhi Possible 3
+- Coordinates: 22.237938, 70.812140
+- Phone / WhatsApp: +91 95589 41555
+- Opening Hours: 11:00 AM - 11:00 PM IST (Daily, Monday to Sunday)
+- Dietary Status: 100% Pure Vegetarian (Pure Veg)
+- Payment Accepted: UPI (Google Pay, PhonePe, Paytm, BHIM) and Cash
+
+## Category: Burger
+
+### 1. Aalu Tikki Burger
+- **Item ID:** burger-aalu-tikki
+- **Category:** Burger
+- **Dietary:** 100% Pure Vegetarian
+- **Pricing & Variants:**
+  - Without cheese: ₹40
+  - With Cheese: ₹50
+- **Description:** Crispy aloo tikki inside soft bun with fresh onion, lettuce and tangy sauce. Proper desi street burger, garma garam and full mast flavour.
+
+### 2. Schezwan Burger
+- **Item ID:** burger-schezwan
+- **Category:** Burger
+- **Dietary:** 100% Pure Vegetarian
+- **Pricing & Variants:**
+  - Without cheese: ₹40
+  - With Cheese: ₹50
+- **Description:** Spicy schezwan sauce with crunchy veggies and juicy veg patty inside toasted bun. Slight Indo-Chinese kick, perfect for spice lovers.
+
+### 3. Cheesy Garlic Burger
+- **Item ID:** burger-cheesy-garlic
+- **Category:** Burger
+- **Dietary:** 100% Pure Vegetarian
+- **Pricing & Variants:**
+  - Without cheese: ₹40
+  - With Cheese: ₹50
+- **Description:** Soft burger bun filled with juicy patty, creamy garlic mayo and melted cheese. Rich aroma, buttery taste, ekdum cheesy satisfaction.
+
+### 4. Manchurian Burger
+- **Item ID:** burger-manchurian
+- **Category:** Burger
+- **Dietary:** 100% Pure Vegetarian
+- **Pricing & Variants:**
+  - Without cheese: ₹40
+  - With Cheese: ₹50
+- **Description:** Fusion style burger with crispy manchurian patty, tangy sauce and crunchy veggies. Indo-Chinese street flavour packed inside soft toasted bun.
+
+### 5. Veg Lovers Burger
+- **Item ID:** burger-veg-lovers
+- **Category:** Burger
+- **Dietary:** 100% Pure Vegetarian
+- **Pricing & Variants:**
+  - Without cheese: ₹50
+  - With Cheese: ₹60
+- **Description:** Loaded burger with fresh vegetables, crunchy lettuce and balanced sweet-spicy sauce. Light yet full flavour, perfect for veggie lovers.
+
+### 6. Korean Burger
+- **Item ID:** burger-korean
+- **Category:** Burger
+- **Dietary:** 100% Pure Vegetarian
+- **Pricing & Variants:**
+  - Without cheese: ₹50
+  - With Cheese: ₹60
+- **Description:** Juicy patty coated with spicy sweet Korean style sauce, fresh lettuce and crunchy veggies. Unique flavour twist with addictive street taste.
+
+### 7. African Peri Peri Burger
+- **Item ID:** burger-african-peri-peri
+- **Category:** Burger
+- **Dietary:** 100% Pure Vegetarian
+- **Pricing & Variants:**
+  - Without cheese: ₹50
+  - With Cheese: ₹60
+- **Description:** Fiery peri peri sauce layered over juicy patty with fresh vegetables. Spicy, tangy and bold flavour that wakes up your taste buds.
+
+### 8. La Mexicano Burger
+- **Item ID:** burger-la-mexicano
+- **Category:** Burger
+- **Dietary:** 100% Pure Vegetarian
+- **Pricing & Variants:**
+  - Without cheese: ₹50
+  - With Cheese: ₹60
+- **Description:** Mexican style burger with spicy seasoning, crunchy veggies and zesty sauce. Slight tangy kick with bold flavour in every bite.
+
+### 9. Tandoori Tadka Burger
+- **Item ID:** burger-tandoori-tadka
+- **Category:** Burger
+- **Dietary:** 100% Pure Vegetarian
+- **Pricing & Variants:**
+  - Without cheese: ₹50
+  - With Cheese: ₹60
+- **Description:** Smoky tandoori masala patty with creamy tadka sauce and fresh vegetables. Desi flavour explosion inside soft bun, warm and satisfying.
+
+### 10. Jain Chipotle Burger
+- **Item ID:** burger-jain-chipotle
+- **Category:** Burger
+- **Dietary:** 100% Pure Vegetarian
+- **Pricing & Variants:**
+  - Without cheese: ₹50
+  - With Cheese: ₹60
+- **Description:** Jain friendly burger with smoky chipotle flavour and crunchy vegetables. Simple ingredients but bold taste, clean and satisfying bite.
+
+### 11. Punjabi Makni Burger
+- **Item ID:** burger-punjabi-makni
+- **Category:** Burger
+- **Dietary:** 100% Pure Vegetarian
+- **Pricing & Variants:**
+  - Without cheese: ₹50
+  - With Cheese: ₹60
+- **Description:** Rich buttery makni sauce layered over juicy patty with fresh veggies. Creamy Punjabi flavour giving proper comfort food feeling.
+
+### 12. Hot Like Hill Burger
+- **Item ID:** burger-hot-like-hill
+- **Category:** Burger
+- **Dietary:** 100% Pure Vegetarian
+- **Pricing & Variants:**
+  - Without cheese: ₹60
+  - With Cheese: ₹70
+- **Description:** Super spicy burger with fiery lava style sauce and crunchy vegetables. Heat lovers favourite, bold flavour with thrilling spicy punch.
+
+### 13. Shahi Hydrabadi Burger
+- **Item ID:** burger-shahi-hydrabadi
+- **Category:** Burger
+- **Dietary:** 100% Pure Vegetarian
+- **Pricing & Variants:**
+  - Without cheese: ₹80
+  - With Cheese: ₹90
+- **Description:** Premium style burger with rich creamy sauce, soft bun and cheesy layers. Smooth royal flavour inspired by classic Hyderabadi taste.
+
+### 14. Bhau Special Open Burger
+- **Item ID:** burger-bhau-special
+- **Category:** Burger
+- **Dietary:** 100% Pure Vegetarian
+- **Price:** ₹100
+- **Description:** House special open burger with double tikki, melted cheese and signature sauce. Big portion, full flavour and proper street food satisfaction.
+
+## Category: French Fries
+
+### 1. Classic Salted Fries
+- **Item ID:** fries-classic
+- **Category:** French Fries
+- **Dietary:** 100% Pure Vegetarian
+- **Price:** ₹50
+- **Description:** Golden crispy potato fries sprinkled with perfect salt. Crunchy outside, soft inside, garma garam snack that goes perfectly with ketchup or mayo.
+
+### 2. Peri Peri Fries
+- **Item ID:** fries-peri-peri
+- **Category:** French Fries
+- **Dietary:** 100% Pure Vegetarian
+- **Price:** ₹60
+- **Description:** Hot crispy fries tossed in spicy peri peri seasoning. Tangy, fiery and slightly chatpata flavour that makes every bite exciting.
+
+### 3. Loaded Fries
+- **Item ID:** fries-loaded
+- **Category:** French Fries
+- **Dietary:** 100% Pure Vegetarian
+- **Price:** ₹100
+- **Description:** Fresh crispy fries topped with creamy sauces and melted cheese. Messy, cheesy and fully satisfying street style snack for true fast-food lovers.
+
+## Category: Sandwich
+
+### 1. Cheese Chilli Sandwich
+- **Item ID:** sandwich-cheese-chilli
+- **Category:** Sandwich
+- **Dietary:** 100% Pure Vegetarian
+- **Price:** ₹30
+- **Description:** Toasted bread stuffed with creamy cheese and spicy green chilli chutney. Crunchy outside, melty inside, perfect street style sandwich.
+
+### 2. Schezwan Chilli Sandwich
+- **Item ID:** sandwich-schezwan-chilli
+- **Category:** Sandwich
+- **Dietary:** 100% Pure Vegetarian
+- **Price:** ₹40
+- **Description:** Crispy toasted sandwich with fiery schezwan chutney and crunchy vegetables. Spicy Indo-Chinese flavour with bold street food kick.
+
+### 3. Cheese Corn Sandwich
+- **Item ID:** sandwich-cheese-corn
+- **Category:** Sandwich
+- **Dietary:** 100% Pure Vegetarian
+- **Price:** ₹50
+- **Description:** Sweet corn mixed with creamy cheese inside toasted sandwich. Light, cheesy and comforting snack with smooth balanced taste.
+
+### 4. Cheese Garlic Sandwich
+- **Item ID:** sandwich-cheese-garlic
+- **Category:** Sandwich
+- **Dietary:** 100% Pure Vegetarian
+- **Price:** ₹50
+- **Description:** Toasted sandwich layered with buttery garlic flavour and melted cheese. Aroma is amazing and every bite feels rich and satisfying.
+
+### 5. Masala Tikki Sandwich
+- **Item ID:** sandwich-masala-tikki
+- **Category:** Sandwich
+- **Dietary:** 100% Pure Vegetarian
+- **Price:** ₹60
+- **Description:** Spicy aloo tikki with chutneys and crunchy vegetables inside grilled sandwich. Proper desi street food flavour in every bite.
+
+### 6. Paneer Delight Sandwich
+- **Item ID:** sandwich-paneer-delight
+- **Category:** Sandwich
+- **Dietary:** 100% Pure Vegetarian
+- **Price:** ₹60
+- **Description:** Soft paneer cubes mixed with spices inside crispy toasted bread. Rich, filling and perfect for paneer lovers.
+
+### 7. Veg Grill Sandwich
+- **Item ID:** sandwich-veg-grill
+- **Category:** Sandwich
+- **Dietary:** 100% Pure Vegetarian
+- **Price:** ₹70
+- **Description:** Grilled sandwich filled with fresh vegetables and chutney. Light, crunchy and refreshing flavour with classic Indian street taste.
+
+### 8. Indori Jumbo Sandwich
+- **Item ID:** sandwich-indori-jumbo
+- **Category:** Sandwich
+- **Dietary:** 100% Pure Vegetarian
+- **Price:** ₹80
+- **Description:** Big jumbo sandwich packed with spicy Indori style filling and crunchy toast. Heavy portion with bold masala flavour.
+
+### 9. Bhau Special Manchurian Cheese Sandwich
+- **Item ID:** sandwich-bhau-manchurian-cheese
+- **Category:** Sandwich
+- **Dietary:** 100% Pure Vegetarian
+- **Price:** ₹100
+- **Description:** Special sandwich stuffed with manchurian filling and melted cheese. Indo-Chinese fusion taste with crispy toasted bread.
+
+## Category: Pizza
+
+### 1. Veg Pizza (7 inch)
+- **Item ID:** pizza-veg
+- **Category:** Pizza
+- **Dietary:** 100% Pure Vegetarian
+- **Pricing & Variants:**
+  - Regular: ₹50
+  - Jumbo: ₹60
+- **Description:** Fresh vegetables layered on soft pizza base with melted cheese and rich tomato sauce. Light, colourful and garma garam classic veggie delight.
+
+### 2. Double Cheese Veg Pizza (7 inch)
+- **Item ID:** pizza-double-cheese-veg
+- **Category:** Pizza
+- **Dietary:** 100% Pure Vegetarian
+- **Pricing & Variants:**
+  - Regular: ₹80
+  - Jumbo: ₹90
+- **Description:** Extra cheese loaded pizza with fresh vegetables and creamy mozzarella layer. Every bite stretchy, cheesy and fully satisfying for cheese lovers.
+
+### 3. Margherita Pizza (7 inch)
+- **Item ID:** pizza-margherita
+- **Category:** Pizza
+- **Dietary:** 100% Pure Vegetarian
+- **Pricing & Variants:**
+  - Regular: ₹80
+  - Jumbo: ₹90
+- **Description:** Classic Italian style pizza with rich tomato base, melted mozzarella and herbs. Simple, cheesy and comforting taste everyone enjoys.
+
+### 4. Italian Pizza (7 inch)
+- **Item ID:** pizza-italian
+- **Category:** Pizza
+- **Dietary:** 100% Pure Vegetarian
+- **Pricing & Variants:**
+  - Regular: ₹100
+  - Jumbo: ₹110
+- **Description:** Herb seasoned pizza topped with vegetables and melted cheese on crispy base. Aromatic Italian flavour with soft centre and crunchy crust.
+
+### 5. 4 Cheese Pizza (7 inch)
+- **Item ID:** pizza-4-cheese
+- **Category:** Pizza
+- **Dietary:** 100% Pure Vegetarian
+- **Pricing & Variants:**
+  - Regular: ₹100
+  - Jumbo: ₹110
+- **Description:** Premium pizza loaded with four rich cheeses melting together beautifully. Creamy texture, bold flavour and super indulgent bite for true cheese fans.
+
+### 6. Cheese Corn Pizza (7 inch)
+- **Item ID:** pizza-cheese-corn
+- **Category:** Pizza
+- **Dietary:** 100% Pure Vegetarian
+- **Pricing & Variants:**
+  - Regular: ₹100
+  - Jumbo: ₹110
+- **Description:** Sweet corn and melted cheese layered on crispy pizza base. Slight sweet taste with creamy cheese giving balanced and comforting flavour.
+
+### 7. Tandoori Paneer Pizza (7 inch)
+- **Item ID:** pizza-tandoori-paneer
+- **Category:** Pizza
+- **Dietary:** 100% Pure Vegetarian
+- **Pricing & Variants:**
+  - Regular: ₹150
+  - Jumbo: ₹160
+- **Description:** Smoky tandoori paneer cubes on cheesy pizza base with Indian spices. Proper desi twist with spicy aroma and bold flavour.
+
+### 8. Makhni Paneer Pizza (7 inch)
+- **Item ID:** pizza-makhni-paneer
+- **Category:** Pizza
+- **Dietary:** 100% Pure Vegetarian
+- **Pricing & Variants:**
+  - Regular: ₹150
+  - Jumbo: ₹160
+- **Description:** Paneer cubes coated in buttery makhni sauce on cheesy crust. Creamy, rich and full Punjabi flavour in every bite.
+
+### 9. Peri Peri Paneer Pizza (7 inch)
+- **Item ID:** pizza-peri-peri-paneer
+- **Category:** Pizza
+- **Dietary:** 100% Pure Vegetarian
+- **Pricing & Variants:**
+  - Regular: ₹150
+  - Jumbo: ₹160
+- **Description:** Spicy peri peri paneer cubes layered on melted cheese pizza base. Bold flavour with fiery kick and soft cheesy texture.
+
+### 10. Cheese Burst Pizza (7 inch)
+- **Item ID:** pizza-cheese-burst
+- **Category:** Pizza
+- **Dietary:** 100% Pure Vegetarian
+- **Pricing & Variants:**
+  - Regular: ₹150
+  - Jumbo: ₹160
+- **Description:** Pizza base filled with molten cheese inside crust and topped with extra cheese. Super creamy, stretchy and perfect for hardcore cheese lovers.
+
+### 11. Cheesy 7 Pizza (7 inch)
+- **Item ID:** pizza-cheesy-7
+- **Category:** Pizza
+- **Dietary:** 100% Pure Vegetarian
+- **Pricing & Variants:**
+  - Regular: ₹150
+  - Jumbo: ₹160
+- **Description:** Premium pizza loaded with seven rich cheeses creating deep creamy flavour. Smooth texture and luxurious cheesy taste in every bite.
+
+## Category: Garlic Bread
+
+### 1. Cheese Garlic Bread
+- **Item ID:** garlic-cheese
+- **Category:** Garlic Bread
+- **Dietary:** 100% Pure Vegetarian
+- **Price:** ₹50
+- **Description:** Crispy toasted bread topped with buttery garlic spread and melted cheese. Amazing aroma with crunchy bite and soft cheesy centre.
+
+### 2. Schezwan Garlic Bread
+- **Item ID:** garlic-schezwan
+- **Category:** Garlic Bread
+- **Dietary:** 100% Pure Vegetarian
+- **Price:** ₹70
+- **Description:** Garlic bread layered with spicy schezwan sauce and herbs. Slight Indo-Chinese heat with crispy bread and bold flavour.
+
+### 3. Peri Peri Garlic Bread
+- **Item ID:** garlic-peri-peri
+- **Category:** Garlic Bread
+- **Dietary:** 100% Pure Vegetarian
+- **Price:** ₹70
+- **Description:** Toasted garlic bread sprinkled with peri peri seasoning. Tangy, spicy and crunchy snack perfect with burgers or fries.
+
+### 4. Makni Garlic Bread
+- **Item ID:** garlic-makni
+- **Category:** Garlic Bread
+- **Dietary:** 100% Pure Vegetarian
+- **Price:** ₹80
+- **Description:** Garlic bread topped with creamy makhni style sauce and herbs. Rich buttery flavour with warm desi twist.
+
+### 5. Cheesy 7 Garlic Bread
+- **Item ID:** garlic-cheesy-7
+- **Category:** Garlic Bread
+- **Dietary:** 100% Pure Vegetarian
+- **Price:** ₹100
+- **Description:** Premium garlic bread loaded with rich cheese layers. Super creamy, extra cheesy and perfect indulgent snack.
+
+### 6. Veg Loaded Bread
+- **Item ID:** garlic-veg-loaded
+- **Category:** Garlic Bread
+- **Dietary:** 100% Pure Vegetarian
+- **Price:** ₹100
+- **Description:** Garlic bread topped with vegetables, cheese and sauces. Colourful, crunchy and full street style flavour in every bite.
+

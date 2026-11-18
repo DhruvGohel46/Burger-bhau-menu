@@ -23,6 +23,7 @@ import {
     faReceipt,
 } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import styles from "./ordersAdmin.module.css";
 
 // Global Web Audio Context Synthesizer for Persistent Order Alarm
 let sharedAudioCtx: AudioContext | null = null;
@@ -112,7 +113,7 @@ function buildCustomerWhatsAppUrl(order: Order, customText?: string) {
     let text = customText;
     if (!text) {
         if (order.status === "Ready For Pickup") {
-            text = `Hi ${order.customer_name}! Your Burger Bhau Order #${order.order_number || order.id.slice(0, 6)} is FRESH & READY FOR PICKUP at our counter! 🍔 Pickup location: Rolex Road, Kothariya, Rajkot. See you soon!`;
+            text = `Hi ${order.customer_name}! Your Burger Bhau Order #${order.order_number || order.id.slice(0, 6)} is FRESH & READY FOR PICKUP at our counter! 🍔 Pickup location: Besides Axis Bank, Surbhi Possible 3, Rolex Road, Kothariya, Rajkot. See you soon!`;
         } else if (order.status === "Accepted") {
             text = `Hi ${order.customer_name}! Your Burger Bhau Order #${order.order_number || order.id.slice(0, 6)} has been ACCEPTED by our kitchen. We are preparing it fresh for you! 🍟`;
         } else if (order.status === "Preparing") {
@@ -442,35 +443,24 @@ export default function AdminOrdersPage() {
     });
 
     return (
-        <div>
+        <div className={styles.container}>
             {/* Header Toolbar */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "24px" }}>
-                <div>
-                    <h1 style={{ fontSize: "28px", fontWeight: "800", margin: 0, color: "#fff" }}>
+            <div className={styles.headerRow}>
+                <div className={styles.titleArea}>
+                    <h1 className={styles.title}>
                         Orders Management
                     </h1>
-                    <p style={{ fontSize: "14px", color: "#888", marginTop: "4px" }}>
+                    <p className={styles.subtitle}>
                         Manage incoming orders, UTR verification, audit logs, and realtime notifications.
                     </p>
                 </div>
 
-                <div style={{ display: "flex", gap: "10px" }}>
+                <div className={styles.headerActions}>
                     {/* Audio Toggle Button */}
                     <button
+                        type="button"
                         onClick={() => setSoundEnabled(!soundEnabled)}
-                        style={{
-                            padding: "10px 14px",
-                            backgroundColor: soundEnabled ? "rgba(40,167,69,0.15)" : "#222",
-                            border: `1px solid ${soundEnabled ? "#28a745" : "#444"}`,
-                            borderRadius: "8px",
-                            color: soundEnabled ? "#5dd579" : "#aaa",
-                            fontSize: "13px",
-                            fontWeight: "600",
-                            cursor: "pointer",
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "6px",
-                        }}
+                        className={`${styles.actionBtn} ${soundEnabled ? styles.audioActive : ""}`}
                     >
                         <FontAwesomeIcon icon={soundEnabled ? faVolumeHigh : faVolumeMute} />
                         {soundEnabled ? "Chime On" : "Chime Off"}
@@ -479,39 +469,18 @@ export default function AdminOrdersPage() {
                     {/* Web Notification Permission Button */}
                     {notifPermission !== "granted" && (
                         <button
+                            type="button"
                             onClick={requestWebNotification}
-                            style={{
-                                padding: "10px 14px",
-                                backgroundColor: "rgba(255,140,0,0.15)",
-                                border: "1px solid #ff8c00",
-                                borderRadius: "8px",
-                                color: "#ff8c00",
-                                fontSize: "13px",
-                                fontWeight: "700",
-                                cursor: "pointer",
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "6px",
-                            }}
+                            className={`${styles.actionBtn} ${styles.alertActive}`}
                         >
                             <FontAwesomeIcon icon={faBell} /> Enable Alerts
                         </button>
                     )}
 
                     <button
+                        type="button"
                         onClick={() => fetchOrders(true)}
-                        style={{
-                            padding: "10px 16px",
-                            backgroundColor: "#1e1e1e",
-                            border: "1px solid #333",
-                            borderRadius: "8px",
-                            color: "#ff8c00",
-                            fontWeight: "600",
-                            cursor: "pointer",
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "8px",
-                        }}
+                        className={styles.actionBtn}
                     >
                         <FontAwesomeIcon icon={faSync} /> Refresh
                     </button>
@@ -520,103 +489,50 @@ export default function AdminOrdersPage() {
 
             {/* Urgent Persistent Alert Banner for unaccepted orders */}
             {hasPendingAlert && (
-                <div style={{
-                    backgroundColor: "rgba(220, 53, 69, 0.95)",
-                    border: "2px solid #ff4444",
-                    borderRadius: "14px",
-                    padding: "16px 20px",
-                    marginBottom: "20px",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    flexWrap: "wrap",
-                    gap: "14px",
-                    boxShadow: "0 0 25px rgba(220, 53, 69, 0.55)",
-                    color: "#fff",
-                }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
-                        <FontAwesomeIcon icon={faExclamationTriangle} style={{ fontSize: "30px", color: "#ffe082" }} />
+                <div className={styles.urgentBanner}>
+                    <div className={styles.urgentLeft}>
+                        <FontAwesomeIcon icon={faExclamationTriangle} className={styles.urgentIcon} />
                         <div>
-                            <div style={{ fontSize: "16px", fontWeight: "800", letterSpacing: "0.5px" }}>
+                            <div className={styles.urgentTitle}>
                                 🚨 {unhandledOrders.length} NEW ORDER{unhandledOrders.length > 1 ? "S" : ""} AWAITING APPROVAL / REJECTION!
                             </div>
-                            <div style={{ fontSize: "13px", color: "#ffebee", marginTop: "2px" }}>
+                            <div className={styles.urgentSub}>
                                 Latest: #{unhandledOrders[0].order_number || unhandledOrders[0].id.slice(0, 6)} ({unhandledOrders[0].customer_name} • ₹{unhandledOrders[0].total}) • UTR: {unhandledOrders[0].utr}
-                                <span style={{ marginLeft: "8px", color: "#ffe082", fontWeight: "700" }}>
+                                <span style={{ marginLeft: "8px", fontWeight: 700, color: "var(--accent)" }}>
                                     (Alert siren will ring until you Accept or Reject this order)
                                 </span>
                             </div>
                         </div>
                     </div>
 
-                    <div style={{ display: "flex", gap: "10px", alignItems: "center", flexWrap: "wrap" }}>
+                    <div className={styles.urgentActions}>
                         <button
+                            type="button"
                             onClick={() => updatePaymentStatus(unhandledOrders[0].id, "Approved")}
                             disabled={actionLoading}
-                            style={{
-                                padding: "10px 16px",
-                                backgroundColor: "#28a745",
-                                color: "#fff",
-                                fontWeight: "800",
-                                borderRadius: "8px",
-                                border: "none",
-                                cursor: "pointer",
-                                fontSize: "13px",
-                                boxShadow: "0 4px 12px rgba(40,167,69,0.35)",
-                            }}
+                            className={styles.approveUrgentBtn}
                         >
                             ✓ Approve #{unhandledOrders[0].order_number || unhandledOrders[0].id.slice(0, 5)}
                         </button>
                         <button
+                            type="button"
                             onClick={() => setSelectedOrder(unhandledOrders[0])}
-                            style={{
-                                padding: "10px 16px",
-                                backgroundColor: "#fff",
-                                color: "#d32f2f",
-                                fontWeight: "800",
-                                borderRadius: "8px",
-                                border: "none",
-                                cursor: "pointer",
-                                fontSize: "13px",
-                                boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
-                            }}
+                            className={styles.reviewUrgentBtn}
                         >
                             Review Order
                         </button>
                         <button
+                            type="button"
                             onClick={() => setSilencedOrderIds(orders.map((o) => o.id))}
                             title="Silence alarm for all currently pending orders"
-                            style={{
-                                padding: "10px 14px",
-                                backgroundColor: "rgba(0,0,0,0.4)",
-                                color: "#ffe082",
-                                fontWeight: "700",
-                                borderRadius: "8px",
-                                border: "1px solid #ffe082",
-                                cursor: "pointer",
-                                fontSize: "12px",
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "6px",
-                            }}
+                            className={styles.actionBtn}
                         >
                             <FontAwesomeIcon icon={faVolumeMute} /> Silence Alarm
                         </button>
                         <button
+                            type="button"
                             onClick={() => setSoundEnabled(!soundEnabled)}
-                            style={{
-                                padding: "10px 14px",
-                                backgroundColor: "rgba(0,0,0,0.35)",
-                                color: "#fff",
-                                fontWeight: "700",
-                                borderRadius: "8px",
-                                border: "1px solid rgba(255,255,255,0.4)",
-                                cursor: "pointer",
-                                fontSize: "12px",
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "6px",
-                            }}
+                            className={styles.actionBtn}
                         >
                             <FontAwesomeIcon icon={soundEnabled ? faVolumeMute : faVolumeHigh} />
                             {soundEnabled ? "Mute All" : "Unmute"}
@@ -626,50 +542,24 @@ export default function AdminOrdersPage() {
             )}
 
             {/* Filter & Search Bar */}
-            <div style={{
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "16px",
-                marginBottom: "24px",
-                backgroundColor: "#141414",
-                padding: "16px",
-                borderRadius: "14px",
-                border: "1px solid #282828",
-            }}>
-                <div style={{ flex: 1, minWidth: "240px", position: "relative" }}>
-                    <FontAwesomeIcon icon={faSearch} style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "#666" }} />
+            <div className={styles.toolbar}>
+                <div className={styles.searchWrap}>
+                    <FontAwesomeIcon icon={faSearch} className={styles.searchIcon} />
                     <input
                         type="text"
                         placeholder="Search by #1001, Name, Phone, UTR..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        style={{
-                            width: "100%",
-                            padding: "10px 12px 10px 36px",
-                            backgroundColor: "#202020",
-                            border: "1px solid #333",
-                            borderRadius: "8px",
-                            color: "#fff",
-                            fontSize: "14px",
-                            outline: "none",
-                        }}
+                        className={styles.searchInput}
                     />
                 </div>
 
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                    <FontAwesomeIcon icon={faFilter} style={{ color: "#aaa" }} />
+                <div className={styles.filterWrap}>
+                    <FontAwesomeIcon icon={faFilter} style={{ color: "var(--muted)" }} />
                     <select
                         value={statusFilter}
                         onChange={(e) => setStatusFilter(e.target.value)}
-                        style={{
-                            padding: "10px 14px",
-                            backgroundColor: "#202020",
-                            border: "1px solid #333",
-                            borderRadius: "8px",
-                            color: "#fff",
-                            fontSize: "14px",
-                            outline: "none",
-                        }}
+                        className={styles.filterSelect}
                     >
                         <option value="ALL">All Statuses</option>
                         <option value="Pending Payment Verification">Pending Payment</option>
@@ -684,102 +574,97 @@ export default function AdminOrdersPage() {
 
             {/* Orders Table */}
             {loading ? (
-                <p>Loading orders...</p>
+                <p style={{ color: "var(--muted)" }}>Loading orders…</p>
             ) : filteredOrders.length === 0 ? (
-                <div style={{ padding: "40px", textAlign: "center", color: "#777", backgroundColor: "#141414", borderRadius: "14px" }}>
+                <div style={{ padding: "40px", textAlign: "center", color: "var(--muted)", backgroundColor: "var(--card)", borderRadius: "var(--radius-lg)", border: "1px solid var(--border)" }}>
                     No matching orders found.
                 </div>
             ) : (
-                <div style={{ backgroundColor: "#141414", border: "1px solid #282828", borderRadius: "16px", overflowX: "auto" }}>
-                    <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontSize: "14px" }}>
+                <div className={styles.tableCard}>
+                    <table className={styles.table}>
                         <thead>
-                            <tr style={{ borderBottom: "1px solid #282828", color: "#888", fontSize: "12px", textTransform: "uppercase" }}>
-                                <th style={{ padding: "14px" }}>Order No</th>
-                                <th style={{ padding: "14px" }}>Date/Time</th>
-                                <th style={{ padding: "14px" }}>Customer</th>
-                                <th style={{ padding: "14px" }}>Method</th>
-                                <th style={{ padding: "14px" }}>UTR / Ref</th>
-                                <th style={{ padding: "14px" }}>Payment</th>
-                                <th style={{ padding: "14px" }}>Status</th>
-                                <th style={{ padding: "14px" }}>Total</th>
-                                <th style={{ padding: "14px" }}>Action</th>
+                            <tr>
+                                <th className={styles.th}>Order No</th>
+                                <th className={styles.th}>Date/Time</th>
+                                <th className={styles.th}>Customer</th>
+                                <th className={styles.th}>Method</th>
+                                <th className={styles.th}>UTR / Ref</th>
+                                <th className={styles.th}>Payment</th>
+                                <th className={styles.th}>Status</th>
+                                <th className={styles.th}>Total</th>
+                                <th className={styles.th}>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             {filteredOrders.map((o) => (
-                                <tr key={o.id} style={{ borderBottom: "1px solid #1e1e1e" }}>
-                                    <td style={{ padding: "14px", fontWeight: "800", color: "#ff8c00" }}>
-                                        #{o.order_number || o.id.slice(0, 6)}
+                                <tr key={o.id} className={styles.tr}>
+                                    <td className={styles.td}>
+                                        <span className={styles.orderNum}>
+                                            #{o.order_number || o.id.slice(0, 6)}
+                                        </span>
                                     </td>
-                                    <td style={{ padding: "14px", fontSize: "12px", color: "#aaa" }}>
+                                    <td className={styles.td} style={{ fontSize: "12px", color: "var(--muted)" }}>
                                         {new Date(o.created_at).toLocaleString("en-IN", { dateStyle: "short", timeStyle: "short" })}
                                     </td>
-                                    <td style={{ padding: "14px" }}>
-                                        <div style={{ fontWeight: "600" }}>{o.customer_name}</div>
-                                        <div style={{ fontSize: "12px", color: "#888" }}>{o.customer_phone}</div>
+                                    <td className={styles.td}>
+                                        <div className={styles.custName}>{o.customer_name}</div>
+                                        <div className={styles.custPhone}>{o.customer_phone}</div>
                                     </td>
-                                    <td style={{ padding: "14px", textTransform: "capitalize", color: "#ff8c00" }}>{o.delivery_method}</td>
-                                    <td style={{ padding: "14px", fontFamily: "monospace", fontSize: "13px", color: "#aaa" }}>{o.utr}</td>
-                                    <td style={{ padding: "14px" }}>
-                                        <span style={{
-                                            padding: "4px 8px",
-                                            borderRadius: "6px",
-                                            fontSize: "12px",
-                                            fontWeight: "700",
-                                            color: o.payment_status === "Approved" ? "#28a745" : o.payment_status === "Rejected" ? "#ff4444" : "#ffc107",
-                                            backgroundColor: o.payment_status === "Approved" ? "rgba(40,167,69,0.15)" : o.payment_status === "Rejected" ? "rgba(255,68,68,0.15)" : "rgba(255,193,7,0.15)",
-                                        }}>
+                                    <td className={styles.td}>
+                                        <span className={styles.methodPill}>{o.delivery_method}</span>
+                                    </td>
+                                    <td className={styles.td} style={{ fontFamily: "monospace", fontSize: "13px", color: "var(--muted)" }}>
+                                        {o.utr}
+                                    </td>
+                                    <td className={styles.td}>
+                                        <span
+                                            className={
+                                                o.payment_status === "Approved"
+                                                    ? styles.badgeSuccess
+                                                    : o.payment_status === "Rejected"
+                                                    ? styles.badgeDanger
+                                                    : styles.badgePending
+                                            }
+                                        >
                                             {o.payment_status}
                                         </span>
                                     </td>
-                                    <td style={{ padding: "14px", fontWeight: "700", color: "#fff" }}>{o.status}</td>
-                                    <td style={{ padding: "14px", fontWeight: "800", color: "#28a745" }}>₹{o.total}</td>
-                                    <td style={{ padding: "14px" }}>
+                                    <td className={styles.td} style={{ fontWeight: 600 }}>
+                                        {o.status}
+                                    </td>
+                                    <td className={`${styles.td} ${styles.tableTotal}`}>
+                                        ₹{o.total}
+                                    </td>
+                                    <td className={styles.td}>
                                         <div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
                                             {o.status === "Pending Payment Verification" && o.payment_status === "Pending" && (
                                                 <button
+                                                    type="button"
                                                     onClick={() => updatePaymentStatus(o.id, "Approved")}
                                                     title="Quick Approve Payment and Accept Order"
-                                                    style={{
-                                                        padding: "6px 10px",
-                                                        backgroundColor: "#28a745",
-                                                        color: "#fff",
-                                                        border: "none",
-                                                        borderRadius: "6px",
-                                                        fontWeight: "800",
-                                                        cursor: "pointer",
-                                                        fontSize: "11px",
-                                                        whiteSpace: "nowrap",
-                                                    }}
+                                                    className={styles.quickApproveBtn}
                                                 >
                                                     ✓ Approve
                                                 </button>
                                             )}
                                             <button
+                                                type="button"
                                                 onClick={() => setSelectedOrder(o)}
-                                                style={{
-                                                    padding: "6px 12px",
-                                                    backgroundColor: "#ff8c00",
-                                                    color: "#000",
-                                                    border: "none",
-                                                    borderRadius: "6px",
-                                                    fontWeight: "700",
-                                                    cursor: "pointer",
-                                                    fontSize: "12px",
-                                                }}
+                                                className={styles.tableBtn}
                                             >
                                                 Manage
                                             </button>
                                             {o.status === "Pending Payment Verification" && !silencedOrderIds.includes(o.id) && (
                                                 <button
+                                                    type="button"
                                                     onClick={() => setSilencedOrderIds(prev => [...prev, o.id])}
                                                     title="Mute siren for this specific order"
                                                     style={{
                                                         padding: "6px 8px",
-                                                        backgroundColor: "rgba(255,255,255,0.08)",
-                                                        color: "#aaa",
-                                                        border: "1px solid #444",
-                                                        borderRadius: "6px",
+                                                        backgroundColor: "var(--card)",
+                                                        color: "var(--muted)",
+                                                        border: "1px solid var(--border-strong)",
+                                                        borderRadius: "var(--radius-xs)",
                                                         fontWeight: "600",
                                                         cursor: "pointer",
                                                         fontSize: "11px",
@@ -799,44 +684,25 @@ export default function AdminOrdersPage() {
 
             {/* Selected Order Detail Modal */}
             {selectedOrder && (
-                <div style={{
-                    position: "fixed",
-                    top: 0, left: 0, right: 0, bottom: 0,
-                    backgroundColor: "rgba(0,0,0,0.8)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: "20px",
-                    zIndex: 1000,
-                }}>
-                    <div style={{
-                        backgroundColor: "#161616",
-                        border: "1px solid #333",
-                        borderRadius: "16px",
-                        padding: "24px",
-                        maxWidth: "620px",
-                        width: "100%",
-                        maxHeight: "92vh",
-                        overflowY: "auto",
-                        boxShadow: "0 20px 60px rgba(0,0,0,0.8)",
-                    }}>
+                <div className={styles.modalBackdrop} role="dialog" aria-modal="true" aria-labelledby="modal-order-title">
+                    <div className={styles.modalCard}>
                         {/* Modal Header */}
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "16px" }}>
+                        <div className={styles.modalHeader}>
                             <div>
-                                <h2 style={{ fontSize: "22px", fontWeight: "800", color: "#ff8c00", margin: "0 0 4px 0" }}>
+                                <h2 id="modal-order-title" className={styles.modalTitle}>
                                     Order #{selectedOrder.order_number || selectedOrder.id.slice(0, 8)}
                                 </h2>
-                                <div style={{ fontSize: "12px", color: "#aaa" }}>
+                                <div className={styles.modalSub}>
                                     Placed on: {new Date(selectedOrder.created_at).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" })}
                                 </div>
                                 {selectedOrder.status === "Pending Payment Verification" && selectedOrder.payment_status === "Pending" && (
                                     <div style={{
                                         marginTop: "8px",
                                         padding: "6px 10px",
-                                        backgroundColor: "rgba(220, 53, 69, 0.2)",
-                                        border: "1px solid #dc3545",
+                                        backgroundColor: "var(--danger-soft)",
+                                        border: "1px solid var(--danger)",
                                         borderRadius: "6px",
-                                        color: "#ff8080",
+                                        color: "var(--danger)",
                                         fontSize: "11px",
                                         fontWeight: "700",
                                         display: "inline-flex",
@@ -848,78 +714,44 @@ export default function AdminOrdersPage() {
                                     </div>
                                 )}
                             </div>
-                            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-
-                                <button
-                                    onClick={() => {
-                                        setSelectedOrder(null);
-                                        setActionFeedback(null);
-                                    }}
-                                    style={{
-                                        background: "none",
-                                        border: "none",
-                                        color: "#aaa",
-                                        fontSize: "20px",
-                                        cursor: "pointer",
-                                        padding: "4px 8px",
-                                    }}
-                                    aria-label="Close modal"
-                                >
-                                    <FontAwesomeIcon icon={faTimes} />
-                                </button>
-                            </div>
+                            <button
+                                onClick={() => {
+                                    setSelectedOrder(null);
+                                    setActionFeedback(null);
+                                }}
+                                className={styles.modalCloseBtn}
+                                aria-label="Close modal"
+                            >
+                                <FontAwesomeIcon icon={faTimes} />
+                            </button>
                         </div>
 
                         {/* Action Feedback Banner */}
                         {actionFeedback && (
-                            <div style={{
-                                padding: "12px 16px",
-                                borderRadius: "10px",
-                                marginBottom: "16px",
-                                fontSize: "13px",
-                                fontWeight: "700",
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "10px",
-                                backgroundColor: actionFeedback.type === "success" ? "rgba(40, 167, 69, 0.2)" : "rgba(220, 53, 69, 0.2)",
-                                border: `1px solid ${actionFeedback.type === "success" ? "#28a745" : "#dc3545"}`,
-                                color: actionFeedback.type === "success" ? "#5dd579" : "#ff6b6b",
-                            }}>
+                            <div className={`${styles.modalFeedback} ${actionFeedback.type === "success" ? styles.modalFeedbackSuccess : styles.modalFeedbackDanger}`}>
                                 <FontAwesomeIcon icon={actionFeedback.type === "success" ? faCheckCircle : faExclamationTriangle} />
                                 <span>{actionFeedback.message}</span>
                             </div>
                         )}
 
                         {/* Customer Info Card */}
-                        <div style={{ backgroundColor: "#202020", borderRadius: "12px", padding: "16px", marginBottom: "16px", border: "1px solid #2d2d2d" }}>
-                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "10px" }}>
+                        <div className={styles.modalSectionCard}>
+                            <div className={styles.modalCustomerTop}>
                                 <div>
-                                    <div style={{ fontWeight: "800", color: "#fff", fontSize: "15px", marginBottom: "4px" }}>
+                                    <div className={styles.modalCustomerName}>
                                         {selectedOrder.customer_name}
                                     </div>
-                                    <div style={{ color: "#aaa", fontSize: "13px", marginBottom: "6px" }}>
+                                    <div className={styles.modalCustomerAddress}>
                                         Address: {selectedOrder.customer_address || "None provided"}
                                     </div>
-                                    <div style={{ color: "#ff8c00", fontSize: "12px", fontWeight: "700" }}>
-                                        Delivery Method: <span style={{ textTransform: "uppercase", backgroundColor: "rgba(255, 140, 0, 0.15)", padding: "2px 8px", borderRadius: "4px" }}>{selectedOrder.delivery_method}</span>
+                                    <div className={styles.modalDeliveryTag}>
+                                        Delivery Method: <span className={styles.modalDeliveryMethodBadge}>{selectedOrder.delivery_method}</span>
                                     </div>
                                 </div>
-                                <div style={{ display: "flex", gap: "8px" }}>
+                                <div className={styles.modalContactActions}>
                                     <a
                                         href={`tel:+${selectedOrder.customer_phone.replace(/[^0-9]/g, "")}`}
-                                        style={{
-                                            padding: "8px 12px",
-                                            backgroundColor: "rgba(255, 255, 255, 0.08)",
-                                            border: "1px solid #444",
-                                            borderRadius: "8px",
-                                            color: "#fff",
-                                            textDecoration: "none",
-                                            fontSize: "12px",
-                                            fontWeight: "700",
-                                            display: "flex",
-                                            alignItems: "center",
-                                            gap: "6px",
-                                        }}
+                                        className={styles.modalCallBtn}
                                     >
                                         <FontAwesomeIcon icon={faPhone} /> Call
                                     </a>
@@ -927,19 +759,7 @@ export default function AdminOrdersPage() {
                                         href={buildCustomerWhatsAppUrl(selectedOrder)}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        style={{
-                                            padding: "8px 12px",
-                                            backgroundColor: "rgba(37, 211, 102, 0.15)",
-                                            border: "1px solid #25d366",
-                                            borderRadius: "8px",
-                                            color: "#25d366",
-                                            textDecoration: "none",
-                                            fontSize: "12px",
-                                            fontWeight: "700",
-                                            display: "flex",
-                                            alignItems: "center",
-                                            gap: "6px",
-                                        }}
+                                        className={styles.modalWhatsappBtn}
                                     >
                                         <FontAwesomeIcon icon={faWhatsapp} /> WhatsApp
                                     </a>
@@ -948,25 +768,17 @@ export default function AdminOrdersPage() {
                         </div>
 
                         {/* UTR Verification & Payment Management Card */}
-                        <div style={{ backgroundColor: "#202020", borderRadius: "12px", padding: "16px", marginBottom: "16px", border: "1px solid #2d2d2d" }}>
-                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px", flexWrap: "wrap", gap: "10px" }}>
+                        <div className={styles.modalSectionCard}>
+                            <div className={styles.modalUtrTop}>
                                 <div>
-                                    <div style={{ fontSize: "12px", color: "#aaa" }}>Transaction ID (UTR / Ref):</div>
-                                    <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "2px" }}>
-                                        <span style={{ fontFamily: "monospace", fontSize: "15px", fontWeight: "700", color: "#fff", wordBreak: "break-all" }}>
+                                    <div className={styles.modalUtrLabel}>Transaction ID (UTR / Ref):</div>
+                                    <div className={styles.modalUtrRow}>
+                                        <span className={styles.modalUtrCode}>
                                             {selectedOrder.utr}
                                         </span>
                                         <button
                                             onClick={() => handleCopyUtr(selectedOrder.utr)}
-                                            style={{
-                                                background: "none",
-                                                border: "1px solid #444",
-                                                color: copiedUtr ? "#28a745" : "#aaa",
-                                                borderRadius: "4px",
-                                                padding: "2px 6px",
-                                                fontSize: "11px",
-                                                cursor: "pointer",
-                                            }}
+                                            className={styles.modalCopyBtn}
                                         >
                                             <FontAwesomeIcon icon={copiedUtr ? faCheck : faCopy} /> {copiedUtr ? "Copied!" : "Copy"}
                                         </button>
@@ -974,15 +786,7 @@ export default function AdminOrdersPage() {
                                 </div>
 
                                 {/* Current Payment Status Badge */}
-                                <div style={{
-                                    padding: "6px 12px",
-                                    borderRadius: "8px",
-                                    fontSize: "12px",
-                                    fontWeight: "800",
-                                    color: selectedOrder.payment_status === "Approved" ? "#28a745" : selectedOrder.payment_status === "Rejected" ? "#ff4444" : "#ffc107",
-                                    backgroundColor: selectedOrder.payment_status === "Approved" ? "rgba(40,167,69,0.15)" : selectedOrder.payment_status === "Rejected" ? "rgba(255,68,68,0.15)" : "rgba(255,193,7,0.15)",
-                                    border: `1px solid ${selectedOrder.payment_status === "Approved" ? "#28a745" : selectedOrder.payment_status === "Rejected" ? "#ff4444" : "#ffc107"}`,
-                                }}>
+                                <div className={selectedOrder.payment_status === "Approved" ? styles.badgeSuccess : selectedOrder.payment_status === "Rejected" ? styles.badgeDanger : styles.badgePending}>
                                     {selectedOrder.payment_status === "Approved" && "✓ Payment: Approved"}
                                     {selectedOrder.payment_status === "Rejected" && "✕ Payment: Rejected"}
                                     {selectedOrder.payment_status === "Pending" && "⏳ Payment: Pending Verification"}
@@ -990,26 +794,11 @@ export default function AdminOrdersPage() {
                             </div>
 
                             {/* Payment Role Action Buttons */}
-                            <div style={{ display: "flex", gap: "10px" }}>
+                            <div className={styles.paymentActionGrid}>
                                 <button
                                     onClick={() => updatePaymentStatus(selectedOrder.id, "Approved")}
                                     disabled={actionLoading}
-                                    style={{
-                                        flex: 1,
-                                        padding: "10px",
-                                        backgroundColor: selectedOrder.payment_status === "Approved" ? "#28a745" : "rgba(40, 167, 69, 0.2)",
-                                        border: `2px solid ${selectedOrder.payment_status === "Approved" ? "#5dd579" : "#28a745"}`,
-                                        color: selectedOrder.payment_status === "Approved" ? "#000" : "#5dd579",
-                                        borderRadius: "8px",
-                                        fontWeight: "800",
-                                        fontSize: "13px",
-                                        cursor: actionLoading ? "not-allowed" : "pointer",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        gap: "8px",
-                                        boxShadow: selectedOrder.payment_status === "Approved" ? "0 0 12px rgba(40,167,69,0.4)" : "none",
-                                    }}
+                                    className={selectedOrder.payment_status === "Approved" ? styles.paymentApproveBtn : styles.paymentApproveBtnOutline}
                                 >
                                     <FontAwesomeIcon icon={actionLoading ? faSpinner : faCheck} spin={actionLoading} />
                                     {selectedOrder.payment_status === "Approved" ? "Payment Approved ✓" : "Approve Payment"}
@@ -1017,22 +806,7 @@ export default function AdminOrdersPage() {
                                 <button
                                     onClick={() => updatePaymentStatus(selectedOrder.id, "Rejected")}
                                     disabled={actionLoading}
-                                    style={{
-                                        flex: 1,
-                                        padding: "10px",
-                                        backgroundColor: selectedOrder.payment_status === "Rejected" ? "#dc3545" : "rgba(220, 53, 69, 0.2)",
-                                        border: `2px solid ${selectedOrder.payment_status === "Rejected" ? "#ff6b6b" : "#dc3545"}`,
-                                        color: selectedOrder.payment_status === "Rejected" ? "#fff" : "#ff6b6b",
-                                        borderRadius: "8px",
-                                        fontWeight: "800",
-                                        fontSize: "13px",
-                                        cursor: actionLoading ? "not-allowed" : "pointer",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        gap: "8px",
-                                        boxShadow: selectedOrder.payment_status === "Rejected" ? "0 0 12px rgba(220,53,69,0.4)" : "none",
-                                    }}
+                                    className={selectedOrder.payment_status === "Rejected" ? styles.paymentRejectBtn : styles.paymentRejectBtnOutline}
                                 >
                                     <FontAwesomeIcon icon={actionLoading ? faSpinner : faTimes} spin={actionLoading} />
                                     {selectedOrder.payment_status === "Rejected" ? "Payment Rejected ✕" : "Reject Payment"}
@@ -1041,34 +815,34 @@ export default function AdminOrdersPage() {
                         </div>
 
                         {/* Order Items */}
-                        <div style={{ backgroundColor: "#202020", borderRadius: "12px", padding: "16px", marginBottom: "16px", border: "1px solid #2d2d2d" }}>
-                            <div style={{ fontSize: "13px", fontWeight: "800", color: "#aaa", marginBottom: "8px", textTransform: "uppercase" }}>
+                        <div className={styles.modalSectionCard}>
+                            <div className={styles.itemsHeader}>
                                 Order Items ({(selectedOrder.order_items || []).length}):
                             </div>
                             {selectedOrder.order_items && selectedOrder.order_items.map((item) => (
-                                <div key={item.id} style={{ display: "flex", justifyContent: "space-between", fontSize: "14px", marginBottom: "6px", color: "#fff" }}>
+                                <div key={item.id} className={styles.itemLine}>
                                     <span>
                                         {item.quantity}x {item.name} {item.variant_label ? `(${item.variant_label})` : ""}
                                     </span>
                                     <span style={{ fontWeight: "700" }}>₹{item.price * item.quantity}</span>
                                 </div>
                             ))}
-                            <div style={{ borderTop: "1px solid #333", paddingTop: "10px", marginTop: "10px", display: "flex", justifyContent: "space-between", fontWeight: "800", fontSize: "16px" }}>
-                                <span style={{ color: "#fff" }}>Total Payable</span>
-                                <span style={{ color: "#28a745", fontSize: "18px" }}>₹{selectedOrder.total}</span>
+                            <div className={styles.itemTotalLine}>
+                                <span>Total Payable</span>
+                                <span className={styles.itemTotalAmount}>₹{selectedOrder.total}</span>
                             </div>
                         </div>
 
                         {/* Status Change Controls */}
-                        <div style={{ backgroundColor: "#202020", borderRadius: "12px", padding: "16px", border: "1px solid #2d2d2d" }}>
-                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px" }}>
-                                <div style={{ fontSize: "14px", fontWeight: "800", color: "#fff" }}>
+                        <div className={styles.modalSectionCard}>
+                            <div className={styles.statusSectionHeader}>
+                                <div className={styles.statusSectionTitle}>
                                     Update Order Status:
                                 </div>
-                                <span style={{ fontSize: "11px", color: "#aaa" }}>Click to update live tracking</span>
+                                <span className={styles.statusSectionHint}>Click to update live tracking</span>
                             </div>
 
-                            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
+                            <div className={styles.statusGrid}>
                                 {(["Pending Payment Verification", "Accepted", "Preparing", "Ready For Pickup", "Delivered", "Cancelled"] as OrderStatus[]).map((status) => {
                                     const isCurrent = selectedOrder.status === status;
                                     return (
@@ -1076,22 +850,7 @@ export default function AdminOrdersPage() {
                                             key={status}
                                             onClick={() => updateOrderStatus(selectedOrder.id, status)}
                                             disabled={actionLoading}
-                                            style={{
-                                                padding: "12px 10px",
-                                                backgroundColor: isCurrent ? "#ff8c00" : "#262626",
-                                                color: isCurrent ? "#000" : "#fff",
-                                                border: `2px solid ${isCurrent ? "#ff8c00" : "#383838"}`,
-                                                borderRadius: "10px",
-                                                fontWeight: isCurrent ? "800" : "600",
-                                                fontSize: "12px",
-                                                cursor: actionLoading ? "not-allowed" : "pointer",
-                                                transition: "all 0.15s ease",
-                                                boxShadow: isCurrent ? "0 0 16px rgba(255,140,0,0.4)" : "none",
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                gap: "6px",
-                                            }}
+                                            className={isCurrent ? styles.statusOptionBtnActive : styles.statusOptionBtn}
                                         >
                                             {isCurrent && <FontAwesomeIcon icon={faCheckCircle} />}
                                             {status}
@@ -1101,27 +860,12 @@ export default function AdminOrdersPage() {
                             </div>
 
                             {/* Contextual WhatsApp Quick Action based on current status */}
-                            <div style={{ marginTop: "14px", paddingTop: "12px", borderTop: "1px solid #333" }}>
+                            <div style={{ marginTop: "14px", paddingTop: "12px", borderTop: "1px solid var(--border)" }}>
                                 <a
                                     href={buildCustomerWhatsAppUrl(selectedOrder)}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    style={{
-                                        width: "100%",
-                                        padding: "10px",
-                                        backgroundColor: "rgba(37, 211, 102, 0.15)",
-                                        border: "1px solid #25d366",
-                                        borderRadius: "8px",
-                                        color: "#25d366",
-                                        textDecoration: "none",
-                                        fontSize: "13px",
-                                        fontWeight: "700",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        gap: "8px",
-                                        boxSizing: "border-box",
-                                    }}
+                                    className={styles.whatsappWideLink}
                                 >
                                     <FontAwesomeIcon icon={faWhatsapp} />
                                     <span>

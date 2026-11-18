@@ -1,0 +1,57 @@
+name: Sync Google Business Profile Reviews
+
+on:
+  schedule:
+    # Runs every Monday at 03:00 UTC (08:30 AM IST)
+    - cron: '0 3 * * 1'
+  workflow_dispatch:
+    # Manual "Refresh Now" trigger for the store owner
+    inputs:
+      reason:
+        description: 'Reason for manual refresh'
+        required: false
+        default: 'Manual update triggered by store admin'
+
+permissions:
+  contents: write
+
+jobs:
+  sync-reviews:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Fetch and filter Google reviews
+        env:
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_ACCOUNT_ID: ${{ secrets.GOOGLE_ACCOUNT_ID }}
+          GOOGLE_LOCATION_ID: ${{ secrets.GOOGLE_LOCATION_ID }}
+          GOOGLE_REVIEWS_MIN_RATING: '4'
+          GOOGLE_REVIEWS_MIN_LENGTH: '40'
+          GOOGLE_REVIEWS_MAX_AGE_MONTHS: '24'
+          GOOGLE_REVIEWS_MAX_DISPLAY: '6'
+        run: |
+          node scripts/fetch-google-reviews.mjs
+
+      - name: Commit and push updated reviews.json
+        run: |
+          git config user.name "Burger Bhau Sync Bot"
+          git config user.email "bot@burgerbhau.netlify.app"
+          
+          if [ -n "$(git status --porcelain public/data/reviews.json)" ]; then
+            git add public/data/reviews.json
+            git commit -m "chore(reviews): weekly Google Business Profile sync [skip ci]"
+            git push
+            echo "Successfully committed and pushed updated reviews.json"
+          else
+            echo "No changes in reviews.json. Existing reviews remain up to date."
+          fi

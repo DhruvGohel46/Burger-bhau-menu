@@ -316,7 +316,7 @@ export default function OrderTrackingClient({ params }: { params: Promise<{ id: 
 
     const confirmMessage = `Hi Burger Bhau! 👋 I have placed Order #${order.order_number || order.id.slice(0, 6)}.\n\n📦 Items: ${itemsSummary || "Burger Order"}\n💰 Total: ₹${order.total}\n💳 Payment UTR: ${order.utr}\n🛵 Delivery Method: ${order.delivery_method ? order.delivery_method.toUpperCase() : "PICKUP"}\n\nPlease confirm my order and start kitchen preparation!`;
     const whatsappConfirmUrl = `https://wa.me/${cleanWhatsappNum}?text=${encodeURIComponent(confirmMessage)}`;
-    const googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=Burger+Bhau+Rolex+Road+Kothariya+Rajkot";
+    const googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=Burger+Bhau+Besides+Axis+Bank+Surbhi+Possible+3+Rolex+Road+Kothariya+Rajkot";
 
     // Dynamic Hero Status badge text & colors
     const getHeroStatusInfo = () => {
@@ -345,7 +345,7 @@ export default function OrderTrackingClient({ params }: { params: Promise<{ id: 
                 title: "Order Ready for Pickup! 🍔",
                 subtitle: order.delivery_method === "rapido"
                     ? "Freshly packed & ready! You can now book your Rapido Parcel rider for collection."
-                    : "Your order is ready and waiting at our counter on Rolex Road!",
+                    : "Your order is ready and waiting at our counter (Besides Axis Bank, Rolex Road)!",
                 color: "#22c55e",
                 bg: "rgba(34, 197, 94, 0.14)",
                 border: "rgba(34, 197, 94, 0.4)",
@@ -944,7 +944,7 @@ export default function OrderTrackingClient({ params }: { params: Promise<{ id: 
                                 Burger Bhau Store Counter
                             </div>
                             <div style={{ fontSize: "13px", color: "#a8a29e", lineHeight: "1.4" }}>
-                                Rolex Road, Near Kothariya, Rajkot, Gujarat 360004
+                                Besides Axis Bank, Surbhi Possible 3, Rolex Road, Kothariya, Rajkot 360004
                             </div>
                             <div style={{ fontSize: "12px", color: "#ff8c00", marginTop: "4px", fontWeight: "600" }}>
                                 Open: 4:00 PM – 11:30 PM Everyday

@@ -1,150 +1,166 @@
+/* Hallmark · polish · app/components/GalleryClient · gallery client */
+
+@media (prefers-reduced-motion: reduce) {
+  .main,
+  .main * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
 .main {
   min-height: 100vh;
-  background-color: #F0E8C7;
-  color: #060504;
-  font-family: var(--font-jakarta), sans-serif;
-  padding-bottom: 90px;
+  background-color: var(--bg);
+  color: var(--text);
+  padding-bottom: 96px;
+  position: relative;
 }
 
 .container {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: calc(var(--header-height, 64px) + 20px) 16px 40px 16px;
+  padding: 24px 16px 48px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 640px) {
   .container {
-    max-width: 100%;
-    padding: calc(var(--header-height, 64px) + 24px) 24px 40px 24px;
+    padding: 32px 24px 64px;
   }
 }
 
-@media (min-width: 1200px) {
-  .container {
-    padding-left: 36px;
-    padding-right: 36px;
-  }
-}
-
-@media (min-width: 1600px) {
-  .container {
-    padding-left: 48px;
-    padding-right: 48px;
-  }
-}
-
-.titleBar {
+.titleHeader {
   display: flex;
   align-items: center;
-  gap: 14px;
-  margin-bottom: 20px;
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
 .backBtn {
-  background-color: rgba(18, 14, 10, 0.76);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #CF4B13;
-  width: 42px;
-  height: 42px;
-  border-radius: 14px;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background-color: var(--card);
+  border: 1px solid var(--border-strong);
+  color: var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 16px;
   text-decoration: none;
-  box-shadow: 0 4px 14px rgba(6, 5, 4, 0.12);
   flex-shrink: 0;
+  transition: transform 140ms ease;
+  box-shadow: var(--shadow-xs);
+}
+
+.backBtn:hover {
+  transform: translateX(-2px);
+}
+
+.backBtn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .pageTitle {
-  font-size: 24px;
-  font-weight: 800;
-  color: #060504;
+  font-family: var(--font-claude-serif), "Playfair Display", Georgia, serif;
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 700;
+  color: var(--text);
   margin: 0;
-  font-family: var(--font-outfit), sans-serif;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
 .pageSub {
-  font-size: 13px;
-  color: #666666;
-  margin: 2px 0 0 0;
-  line-height: 1.35;
+  font-size: 13.5px;
+  color: var(--muted);
+  margin: 4px 0 0 0;
+  line-height: 1.45;
 }
 
+/* ─── Filter Pills ──────────────────────────────────────── */
 .pillsRow {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   overflow-x: auto;
   padding-bottom: 12px;
-  margin-bottom: 20px;
-  scrollbar-width: none;
+  margin-bottom: 24px;
   -webkit-overflow-scrolling: touch;
-}
-
-.pillsRow::-webkit-scrollbar {
-  display: none;
 }
 
 .pill {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 18px;
-  background-color: rgba(18, 14, 10, 0.76);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 9999px;
-  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  background-color: var(--card);
+  border: 1px solid var(--border-strong);
+  color: var(--text-secondary);
   font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
+  font-weight: 600;
   white-space: nowrap;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(6, 5, 4, 0.08);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background-color 140ms ease, border-color 140ms ease;
+}
+
+.pill:hover {
+  background-color: var(--card-hover);
+  border-color: var(--accent);
+}
+
+.pill:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .pillIcon {
-  color: #CF4B13;
+  color: var(--accent);
   font-size: 13px;
 }
 
 .pillActive {
-  background-color: #CF4B13 !important;
-  color: #ffffff !important;
-  border-color: #CF4B13 !important;
-  box-shadow: 0 4px 16px rgba(207, 75, 19, 0.35);
+  background-color: var(--accent);
+  color: var(--accent-text);
+  border-color: var(--accent);
 }
 
 .pillActive .pillIcon {
-  color: #ffffff;
+  color: var(--accent-text);
 }
 
+/* ─── Photo Grid ────────────────────────────────────────── */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 16px;
 }
 
-.card {
-  position: relative;
-  border-radius: 18px;
-  overflow: hidden;
-  background-color: rgba(18, 14, 10, 0.76);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 12px 32px rgba(6, 5, 4, 0.15);
-  cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  touch-action: manipulation;
+@media (min-width: 640px) {
+  .grid {
+    gap: 20px;
+  }
 }
 
-.card:active {
-  transform: scale(0.97);
+.card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: transform 140ms ease, box-shadow 140ms ease;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .imageWrap {
@@ -152,70 +168,72 @@
   width: 100%;
   aspect-ratio: 4 / 3;
   overflow: hidden;
+  background-color: var(--bg-secondary);
 }
 
 .img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
+  transition: transform 140ms ease;
 }
 
 .card:hover .img {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
 .overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 35%, rgba(6, 5, 4, 0.88) 100%);
-  padding: 14px;
+  background: var(--overlay-dark);
+  opacity: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  color: #ffffff;
+  padding: 16px;
+  color: var(--accent-text);
+  transition: opacity 140ms ease;
+}
+
+.card:hover .overlay {
+  opacity: 1;
 }
 
 .categoryBadge {
   align-self: flex-start;
   padding: 3px 8px;
-  background-color: rgba(207, 75, 19, 0.9);
-  color: #ffffff;
-  font-size: 10px;
-  font-weight: 800;
-  border-radius: 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  border-radius: var(--radius-xs);
+  background-color: var(--accent);
+  color: var(--accent-text);
+  font-size: 11px;
+  font-weight: 600;
   margin-bottom: 6px;
 }
 
 .cardTitle {
-  font-size: 15px;
-  font-weight: 800;
+  font-size: 14px;
+  font-weight: 700;
   margin: 0;
-  line-height: 1.3;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+  color: var(--accent-text);
 }
 
 .empty {
   text-align: center;
-  padding: 60px 16px;
-  color: #666;
+  padding: 64px 16px;
+  color: var(--muted);
 }
 
-/* Lightbox Modal */
+/* ─── Lightbox Modal ────────────────────────────────────── */
 .lightboxBackdrop {
   position: fixed;
   inset: 0;
-  z-index: 9999;
-  background-color: rgba(6, 5, 4, 0.94);
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
+  z-index: 100;
+  background-color: var(--overlay-dark);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 16px;
-  touch-action: pan-y;
+  backdrop-filter: blur(8px);
 }
 
 .lightboxContent {
@@ -229,218 +247,109 @@
 
 .lightboxClose {
   position: absolute;
-  top: -46px;
+  top: -44px;
   right: 0;
-  background-color: rgba(18, 14, 10, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #ffffff;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background-color: var(--card);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
   cursor: pointer;
-  z-index: 20;
+  font-size: 16px;
+}
+
+.lightboxClose:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .lightboxNavLeft,
 .lightboxNavRight {
   position: absolute;
-  top: 45%;
+  top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(18, 14, 10, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  color: #ffffff;
   width: 44px;
   height: 44px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
+  background-color: var(--card);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
   cursor: pointer;
-  z-index: 15;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  z-index: 10;
+  font-size: 16px;
 }
 
 .lightboxNavLeft {
-  left: 12px;
+  left: -20px;
 }
 
 .lightboxNavRight {
-  right: 12px;
+  right: -20px;
+}
+
+.lightboxNavLeft:focus-visible,
+.lightboxNavRight:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .lightboxImageFrame {
   width: 100%;
-  max-height: 65vh;
+  max-height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 16px;
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background-color: #000;
+  border: 1px solid var(--border-strong);
 }
 
 .lightboxImg {
   max-width: 100%;
-  max-height: 65vh;
+  max-height: 70vh;
   object-fit: contain;
 }
 
 .lightboxMeta {
   width: 100%;
-  margin-top: 14px;
-  background-color: rgba(18, 14, 10, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 16px;
-  padding: 16px;
-  color: #ffffff;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  margin-top: 12px;
+  padding: 14px 18px;
+  background-color: var(--card);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  color: var(--text);
 }
 
 .lightboxHeader {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 6px;
 }
 
 .counter {
-  font-size: 11px;
-  color: #aaaaaa;
-  font-weight: 700;
+  font-size: 12px;
+  color: var(--muted);
 }
 
 .lightboxTitle {
-  font-size: 17px;
-  font-weight: 800;
-  color: #FF9F1C;
-  margin: 0 0 4px 0;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text);
 }
 
 .lightboxCaption {
   font-size: 13px;
-  color: #dddddd;
-  margin: 0;
-  line-height: 1.4;
-}
-
-/* 📱 Mobile Media Queries (<= 640px) */
-@media (max-width: 640px) {
-  .container {
-    padding: calc(var(--header-height, 64px) + 20px) 12px 30px 12px;
-  }
-
-  .pageTitle {
-    font-size: 20px;
-  }
-
-  .pageSub {
-    font-size: 12px;
-  }
-
-  .titleBar {
-    gap: 10px;
-    margin-bottom: 16px;
-  }
-
-  .backBtn {
-    width: 38px;
-    height: 38px;
-    font-size: 16px;
-    border-radius: 10px;
-  }
-
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-
-  .card {
-    border-radius: 14px;
-  }
-
-  .imageWrap {
-    aspect-ratio: 1 / 1;
-  }
-
-  .overlay {
-    padding: 10px;
-  }
-
-  .categoryBadge {
-    padding: 2px 6px;
-    font-size: 8px;
-    margin-bottom: 4px;
-  }
-
-  .cardTitle {
-    font-size: 13px;
-    line-height: 1.25;
-  }
-
-  .lightboxBackdrop {
-    padding: 12px;
-  }
-
-  .lightboxClose {
-    top: 10px;
-    right: 10px;
-    width: 36px;
-    height: 36px;
-    font-size: 16px;
-  }
-
-  .lightboxNavLeft {
-    left: 4px;
-    width: 38px;
-    height: 38px;
-    font-size: 14px;
-  }
-
-  .lightboxNavRight {
-    right: 4px;
-    width: 38px;
-    height: 38px;
-    font-size: 14px;
-  }
-
-  .lightboxImageFrame {
-    max-height: 55vh;
-  }
-
-  .lightboxImg {
-    max-height: 55vh;
-  }
-
-  .lightboxMeta {
-    padding: 12px;
-    margin-top: 10px;
-    border-radius: 12px;
-  }
-
-  .lightboxTitle {
-    font-size: 15px;
-  }
-
-  .lightboxCaption {
-    font-size: 12px;
-  }
-}
-
-/* 📱 Small Mobile Phones (<= 380px) */
-@media (max-width: 380px) {
-  .grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-
-  .imageWrap {
-    aspect-ratio: 4 / 3;
-  }
+  color: var(--text-secondary);
+  margin: 4px 0 0 0;
+  line-height: 1.45;
 }

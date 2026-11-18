@@ -51,13 +51,14 @@ CREATE TABLE IF NOT EXISTS public.shop_settings (
     shop_name TEXT NOT NULL DEFAULT 'Burger Bhau (Kothariya)',
     shop_phone TEXT NOT NULL DEFAULT '919558941555',
     whatsapp_number TEXT NOT NULL DEFAULT '919558941555',
-    address TEXT NOT NULL DEFAULT 'Rolex road, Kothariya, Rajkot',
+    address TEXT NOT NULL DEFAULT 'Besides Axis Bank, Surbhi Possible 3, Rolex road, Kothariya, Rajkot',
     google_maps_url TEXT NOT NULL DEFAULT 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12244.891247087276!2d70.79826304398604!3d22.245888415627523!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3959b530de7af957%3A0x13afca3988e94f96!2sBurger%20Bhau!5e1!3m2!1sen!2sin!4v1774524524083!5m2!1sen!2sin',
     upi_id TEXT NOT NULL DEFAULT 'burgerbhau@upi',
     qr_code_url TEXT NOT NULL DEFAULT '/BURGER-BHAU-logo.webp',
     opening_hours TEXT NOT NULL DEFAULT '11:00 AM - 11:00 PM',
     delivery_radius_meters INT NOT NULL DEFAULT 400,
     min_order_for_delivery NUMERIC NOT NULL DEFAULT 500,
+    special_hours JSONB DEFAULT NULL,
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 

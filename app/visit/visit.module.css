@@ -1,0 +1,351 @@
+/* Hallmark · polish · app/visit/visit · visit page */
+
+@media (prefers-reduced-motion: reduce) {
+  .page,
+  .page * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+.page {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  padding-bottom: calc(72px + var(--safe-bottom));
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+
+.headerInner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brandLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.brandImg {
+  border-radius: var(--radius-sm);
+}
+
+.brandName {
+  font-family: var(--font-claude-serif), Georgia, serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.brandAccent {
+  color: var(--accent);
+}
+
+.branchName {
+  font-family: var(--font-claude-sans), Inter, sans-serif;
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.menuLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--card);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: var(--font-claude-sans), Inter, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.heroCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: var(--shadow-xs);
+}
+
+.statusWrap {
+  margin-bottom: 4px;
+}
+
+.heroTitle {
+  font-family: var(--font-claude-serif), Georgia, serif;
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.15;
+}
+
+.heroSub {
+  font-family: var(--font-claude-sans), Inter, sans-serif;
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.actionRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.primaryBtn,
+.secondaryBtn {
+  flex: 1;
+  min-width: 160px;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-claude-sans), Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-out),
+              transform var(--duration-fast) var(--ease-out);
+}
+
+.primaryBtn {
+  background: var(--accent);
+  color: var(--accent-text);
+  border: 1px solid var(--accent);
+}
+
+.primaryBtn:hover {
+  background: var(--accent-hover);
+}
+
+.secondaryBtn {
+  background: var(--bg-secondary);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+}
+
+.secondaryBtn:hover {
+  background: var(--card);
+}
+
+.primaryBtn:focus-visible,
+.secondaryBtn:focus-visible,
+.menuLink:focus-visible,
+.actionPill:focus-visible,
+.brandLink:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Map Grid */
+.mapGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 720px) {
+  .mapGrid {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 24px;
+  }
+}
+
+.mapWrap {
+  min-height: 320px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--card);
+}
+
+.iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+}
+
+.detailsCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.cardSection {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sectionHeader h3 {
+  font-family: var(--font-claude-sans), Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+}
+
+.sectionIcon {
+  color: var(--accent);
+  font-size: 14px;
+}
+
+.address {
+  font-family: var(--font-claude-sans), Inter, sans-serif;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  font-style: normal;
+  margin: 0;
+}
+
+.landmark {
+  font-family: var(--font-claude-sans), Inter, sans-serif;
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0;
+}
+
+.hours {
+  font-family: var(--font-claude-sans), Inter, sans-serif;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.viewMenuCta {
+  margin-top: auto;
+  padding: 10px 14px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-sm);
+  color: var(--accent);
+  font-family: var(--font-claude-sans), Inter, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.viewMenuCta:hover {
+  background: var(--card-hover);
+}
+
+/* Popular Section */
+.popularSection {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.popularTitle {
+  font-family: var(--font-claude-serif), Georgia, serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+}
+
+.popularGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+@media (min-width: 600px) {
+  .popularGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.popCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.popImgWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+}
+
+.popImg {
+  object-fit: cover;
+}
+
+.popInfo {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.popName {
+  font-family: var(--font-claude-sans), Inter, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.popPrice {
+  font-family: var(--font-claude-sans), Inter, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+}

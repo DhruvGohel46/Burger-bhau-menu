@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useAuthStore } from "@/store/authStore";
 import { supabase } from "@/lib/supabase";
+import styles from "./profileAdmin.module.css";
 
 export default function AdminProfilePage() {
     const { user, profile, setProfile } = useAuthStore();
@@ -47,84 +48,59 @@ export default function AdminProfilePage() {
     };
 
     return (
-        <div style={{ maxWidth: "560px" }}>
-            <div style={{ marginBottom: "28px" }}>
-                <h1 style={{ fontSize: "28px", fontWeight: "800", margin: 0, color: "#fff" }}>
+        <div className={styles.container}>
+            <div className={styles.header}>
+                <h1 className={styles.title}>
                     Admin Account Profile
                 </h1>
-                <p style={{ fontSize: "14px", color: "#888", marginTop: "4px" }}>
+                <p className={styles.subtitle}>
                     Manage administrator contact details and authentication profile.
                 </p>
             </div>
 
             {msg && (
-                <div style={{
-                    backgroundColor: msg.type === "success" ? "rgba(40,167,69,0.2)" : "rgba(255,68,68,0.2)",
-                    border: `1px solid ${msg.type === "success" ? "#28a745" : "#ff4444"}`,
-                    color: msg.type === "success" ? "#5dd579" : "#ff6b6b",
-                    padding: "12px",
-                    borderRadius: "8px",
-                    fontSize: "14px",
-                    marginBottom: "16px",
-                }}>
+                <div className={msg.type === "success" ? styles.msgSuccess : styles.msgError}>
                     {msg.text}
                 </div>
             )}
 
-            <form onSubmit={handleSave} style={{
-                backgroundColor: "#141414",
-                border: "1px solid #282828",
-                borderRadius: "16px",
-                padding: "24px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "16px",
-            }}>
-                <div>
-                    <label style={{ display: "block", fontSize: "13px", color: "#aaa", marginBottom: "4px" }}>Admin Email</label>
+            <form onSubmit={handleSave} className={styles.formCard}>
+                <div className={styles.field}>
+                    <label className={styles.label}>Admin Email</label>
                     <input
                         type="email"
                         disabled
                         value={user?.email || ""}
-                        style={{ width: "100%", padding: "12px", backgroundColor: "#1c1c1c", border: "1px solid #333", borderRadius: "8px", color: "#888" }}
+                        className={styles.inputDisabled}
                     />
                 </div>
 
-                <div>
-                    <label style={{ display: "block", fontSize: "13px", color: "#ddd", marginBottom: "4px" }}>Display Name</label>
+                <div className={styles.field}>
+                    <label className={styles.label}>Display Name</label>
                     <input
                         type="text"
                         required
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        style={{ width: "100%", padding: "12px", backgroundColor: "#202020", border: "1px solid #444", borderRadius: "8px", color: "#fff" }}
+                        className={styles.input}
                     />
                 </div>
 
-                <div>
-                    <label style={{ display: "block", fontSize: "13px", color: "#ddd", marginBottom: "4px" }}>Contact Phone</label>
+                <div className={styles.field}>
+                    <label className={styles.label}>Contact Phone</label>
                     <input
                         type="tel"
                         required
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
-                        style={{ width: "100%", padding: "12px", backgroundColor: "#202020", border: "1px solid #444", borderRadius: "8px", color: "#fff" }}
+                        className={styles.input}
                     />
                 </div>
 
                 <button
                     type="submit"
                     disabled={saving}
-                    style={{
-                        padding: "14px",
-                        backgroundColor: "#ff8c00",
-                        color: "#000",
-                        border: "none",
-                        borderRadius: "8px",
-                        fontWeight: "700",
-                        fontSize: "15px",
-                        cursor: saving ? "not-allowed" : "pointer",
-                    }}
+                    className={styles.submitBtn}
                 >
                     {saving ? "Saving..." : "Save Admin Profile"}
                 </button>

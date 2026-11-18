@@ -29,6 +29,7 @@ dist/
 .env.test.local
 .env.production.local
 .env*.local
+reviews-fetch.log
 
 # Allow example environment files
 !.env.example

@@ -1,13 +1,22 @@
-/* Burger Bhau MenuSite - Premium Cart Item Row */
+/* Hallmark · polish · app/components/CartItem · cart item */
+
+@media (prefers-reduced-motion: reduce) {
+  .row,
+  .row * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
 .row {
   display: flex;
   gap: 12px;
   padding: 12px;
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(6, 5, 4, 0.12);
-  background: #ffffff;
+  border: 1px solid var(--border);
+  background: var(--card);
   box-shadow: var(--shadow-sm);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  transition: border-color 140ms ease;
 }
 
 .image {
@@ -17,7 +26,7 @@
   border-radius: var(--radius-md);
   overflow: hidden;
   flex: 0 0 auto;
-  background: var(--border);
+  background: var(--bg-secondary);
 }
 
 .image :global(img) {
@@ -42,37 +51,34 @@
 .name {
   font-size: 14px;
   font-weight: 600;
-  line-height: 1.2;
-  color: #060504;
-  font-family: var(--font-playfair, "Playfair Display", serif);
+  line-height: 1.25;
+  color: var(--text);
+  font-family: var(--font-playfair), "Playfair Display", serif;
 }
 
 .remove {
-  width: 34px;
-  height: 34px;
-  border-radius: var(--radius-sm);
-  border: 1px solid rgba(6, 5, 4, 0.12);
-  background: rgba(6, 5, 4, 0.04);
-  color: rgba(6, 5, 4, 0.60);
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--muted);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all var(--duration-fast) ease;
+  transition: background-color 140ms ease, color 140ms ease, border-color 140ms ease;
 }
 
-.remove:active {
-  background: rgba(239, 68, 68, 0.12);
-  color: #ef4444;
-  border-color: rgba(239, 68, 68, 0.2);
+.remove:hover {
+  background: var(--danger-soft);
+  color: var(--danger);
+  border-color: var(--danger);
 }
 
-@media (hover: hover) {
-  .remove:hover {
-    background: rgba(239, 68, 68, 0.12);
-    color: #ef4444;
-    border-color: rgba(239, 68, 68, 0.2);
-  }
+.remove:focus-visible {
+  outline: 2px solid var(--danger);
+  outline-offset: 2px;
 }
 
 .bottom {
@@ -84,48 +90,48 @@
 
 .price {
   color: var(--accent);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 14px;
+  font-variant-numeric: tabular-nums;
 }
 
 .qty {
-  height: 36px;
+  height: 34px;
   display: inline-flex;
   align-items: center;
   border-radius: var(--radius-full);
-  border: 1px solid rgba(6, 5, 4, 0.15);
-  background: rgba(6, 5, 4, 0.04);
+  border: 1px solid var(--border-strong);
+  background: var(--bg-secondary);
   overflow: hidden;
 }
 
 .qtyBtn {
-  width: 40px;
-  height: 36px;
+  width: 36px;
+  height: 34px;
   border: none;
   background: transparent;
-  color: #060504;
+  color: var(--text);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background-color var(--duration-fast) ease;
+  transition: background-color 140ms ease;
 }
 
-.qtyBtn:active {
-  background: rgba(6, 5, 4, 0.08);
+.qtyBtn:hover {
+  background: var(--card-hover);
 }
 
-@media (hover: hover) {
-  .qtyBtn:hover {
-    background: rgba(6, 5, 4, 0.08);
-  }
+.qtyBtn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .qtyVal {
-  width: 30px;
+  width: 28px;
   text-align: center;
   font-weight: 700;
-  font-size: 14px;
-  color: #060504;
-  font-family: var(--font-jakarta, "Plus Jakarta Sans", sans-serif);
+  font-size: 13.5px;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
 }

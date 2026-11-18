@@ -1,41 +1,6 @@
 /* Hallmark · polish · app/admin/settings · zero-slop settings form */
 /* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V5 · weakest: S, utility screen; clean tokens and tactile feedback */
 
-.container {
-  --settings-canvas: #12100e;
-  --settings-card: #181411;
-  --settings-card-border: rgba(207, 75, 19, 0.32);
-  --settings-subcard: #1f1b17;
-  --settings-subcard-border: #322b24;
-  --settings-input-bg: #24201c;
-  --settings-input-border: #3c342c;
-  --settings-input-focus: #ff931e;
-  --settings-ink: #f7f3ea;
-  --settings-ink-muted: #d0c7b6;
-  --settings-ink-subtle: #968e82;
-  --settings-accent: #ff8c00;
-  --settings-accent-hover: #e07b00;
-  --settings-accent-active: #c76b00;
-  --settings-accent-bg: rgba(255, 140, 0, 0.16);
-  --settings-accent-bg-hover: rgba(255, 140, 0, 0.28);
-  --settings-accent-bg-active: rgba(255, 140, 0, 0.36);
-  --settings-success: #22c55e;
-  --settings-success-bg: rgba(34, 197, 94, 0.16);
-  --settings-success-ink: #4ade80;
-  --settings-danger: #ef4444;
-  --settings-danger-bg: rgba(239, 68, 68, 0.16);
-  --settings-danger-bg-hover: rgba(239, 68, 68, 0.28);
-  --settings-danger-bg-active: rgba(239, 68, 68, 0.36);
-  --settings-danger-ink: #fca5a5;
-  --settings-whatsapp: #25d366;
-  --settings-whatsapp-bg: rgba(37, 211, 102, 0.16);
-  --settings-whatsapp-bg-hover: rgba(37, 211, 102, 0.28);
-  --settings-whatsapp-bg-active: rgba(37, 211, 102, 0.36);
-  --settings-ring: #ff931e;
-  --settings-qr-bg: #f9f7f4;
-  --settings-btn-ink: #12100e;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .container,
   .container * {
@@ -372,7 +337,699 @@
   opacity: 0.7;
 }
 
+/* 🍔 Landing Page Hero Photo Management */
+.heroCard {
+  background-color: var(--settings-subcard);
+  border: 1px solid var(--settings-subcard-border);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.heroPreviewRow {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.heroPreviewWrap {
+  width: 140px;
+  height: 105px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--settings-input-border);
+  background-color: var(--settings-canvas);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.heroPreviewImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.heroPreviewMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 220px;
+}
+
+.heroCurrentLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--settings-ink);
+}
+
+.heroCurrentPath {
+  font-size: 12px;
+  color: var(--settings-ink-subtle);
+  word-break: break-all;
+  font-family: monospace;
+}
+
+.presetSubhead {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--settings-accent);
+  margin: 8px 0 4px 0;
+}
+
+.presetGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 10px;
+}
+
+.presetBtn {
+  background-color: var(--settings-input-bg);
+  border: 1px solid var(--settings-input-border);
+  border-radius: 10px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.1s ease;
+  text-align: center;
+}
+
+.presetBtn:hover {
+  border-color: var(--settings-accent);
+  background-color: var(--settings-accent-bg);
+}
+
+.presetBtnActive {
+  border-color: var(--settings-accent) !important;
+  background-color: var(--settings-accent-bg) !important;
+  box-shadow: 0 0 0 1px var(--settings-accent);
+}
+
+.presetThumb {
+  width: 100%;
+  height: 60px;
+  border-radius: 6px;
+  object-fit: cover;
+  display: block;
+}
+
+.presetName {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--settings-ink);
+  line-height: 1.2;
+}
+
 .loadingText {
   color: var(--settings-ink-muted);
   font-size: 15px;
+}
+
+/* ─── Featured Products Selector on Landing Page ─────────── */
+
+.featuredToolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+  margin-bottom: 12px;
+  padding: 12px 14px;
+  background-color: var(--settings-subcard);
+  border: 1px solid var(--settings-subcard-border);
+  border-radius: 12px;
+}
+
+.featuredStatusGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.featuredCountBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--settings-accent-bg);
+  border: 1px solid var(--settings-accent);
+  color: var(--settings-accent);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.featuredCountBadgeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--settings-accent);
+}
+
+.featuredRecText {
+  font-size: 12px;
+  color: var(--settings-ink-subtle);
+}
+
+.featuredActionGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.featuredResetBtn {
+  background-color: transparent;
+  border: 1px solid var(--settings-input-border);
+  color: var(--settings-ink-muted);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.featuredResetBtn:hover {
+  color: var(--settings-ink);
+  border-color: var(--settings-ink-muted);
+  background-color: var(--settings-input-bg);
+}
+
+.featuredResetBtn:focus-visible {
+  outline: 2px solid var(--settings-ring);
+  outline-offset: 2px;
+}
+
+.featuredSearchInput {
+  flex: 1;
+  min-width: 200px;
+  background-color: var(--settings-input-bg);
+  border: 1px solid var(--settings-input-border);
+  color: var(--settings-ink);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.featuredSearchInput:focus {
+  border-color: var(--settings-input-focus);
+  box-shadow: 0 0 0 3px var(--settings-accent-bg);
+}
+
+.featuredSearchInput:focus-visible {
+  outline: 2px solid var(--settings-ring);
+  outline-offset: 2px;
+}
+
+/* Category Filter Bar */
+.categoryBar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 4px 0 10px 0;
+  margin-bottom: 12px;
+}
+
+.categoryPill {
+  background-color: var(--settings-subcard);
+  border: 1px solid var(--settings-subcard-border);
+  color: var(--settings-ink-muted);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.categoryPill:hover {
+  color: var(--settings-ink);
+  border-color: var(--settings-accent);
+}
+
+.categoryPillActive {
+  background-color: var(--settings-accent-bg);
+  border-color: var(--settings-accent);
+  color: var(--settings-accent);
+}
+
+.categoryPill:focus-visible {
+  outline: 2px solid var(--settings-ring);
+  outline-offset: 2px;
+}
+
+/* Active Selected Items Chips Strip */
+.selectedStrip {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 12px;
+  background-color: var(--settings-input-bg);
+  border: 1px dashed var(--settings-card-border);
+  border-radius: 12px;
+}
+
+.selectedStripHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.selectedStripTitle {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--settings-accent);
+}
+
+.selectedChipsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.selectedChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--settings-card);
+  border: 1px solid var(--settings-accent);
+  border-radius: 8px;
+  padding: 4px 8px 4px 4px;
+}
+
+.selectedChipIndex {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  background-color: var(--settings-accent);
+  color: var(--settings-btn-ink);
+  font-size: 10px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.selectedChipThumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  object-fit: cover;
+  display: block;
+}
+
+.selectedChipName {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--settings-ink);
+  max-width: 130px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.selectedChipRemove {
+  background: none;
+  border: none;
+  color: var(--settings-ink-subtle);
+  cursor: pointer;
+  padding: 2px 4px;
+  font-size: 11px;
+  line-height: 1;
+  border-radius: 4px;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.selectedChipRemove:hover {
+  color: var(--settings-danger-ink);
+  background-color: var(--settings-danger-bg);
+}
+
+.selectedChipRemove:focus-visible {
+  outline: 2px solid var(--settings-ring);
+  outline-offset: 1px;
+}
+
+/* Product Selection Cards Grid */
+.productPickGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 10px;
+  max-height: 480px;
+  overflow-y: auto;
+  padding: 2px;
+}
+
+.productPickCard {
+  background-color: var(--settings-subcard);
+  border: 1px solid var(--settings-subcard-border);
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+  text-align: left;
+  position: relative;
+  transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.1s ease;
+}
+
+.productPickCard:hover {
+  border-color: var(--settings-accent);
+  background-color: var(--settings-accent-bg);
+}
+
+.productPickCardSelected {
+  border-color: var(--settings-accent) !important;
+  background-color: var(--settings-accent-bg) !important;
+  box-shadow: 0 0 0 1px var(--settings-accent);
+}
+
+.productPickCard:focus-visible {
+  outline: 2px solid var(--settings-ring);
+  outline-offset: 2px;
+}
+
+.productPickTop {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.productPickThumb {
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+  display: block;
+}
+
+.productPickMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.productPickCategory {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--settings-accent);
+}
+
+.productPickName {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--settings-ink);
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.productPickPrice {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--settings-ink-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.productPickFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 6px;
+  border-top: 1px solid var(--settings-subcard-border);
+  margin-top: auto;
+}
+
+.productPickStatusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--settings-accent);
+}
+
+.productPickActionLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--settings-ink-subtle);
+}
+
+.productPickCardSelected .productPickActionLabel {
+  color: var(--settings-accent);
+  font-weight: 700;
+}
+
+/* ─── Special Late Night & Extended Hours Section ───────── */
+.specialCard {
+  background-color: var(--settings-subcard);
+  border: 1px solid var(--settings-subcard-border);
+  border-radius: 12px;
+  padding: 20px;
+  color: var(--settings-ink);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.specialHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.specialTitleWrap {
+  flex: 1;
+  min-width: 240px;
+}
+
+.specialTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--settings-accent);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.specialDescription {
+  font-size: 13px;
+  color: var(--settings-ink-subtle);
+  margin: 4px 0 0 0;
+  line-height: 1.45;
+}
+
+.specialToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  border-width: 1px;
+  border-style: solid;
+  transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+  font-family: inherit;
+}
+
+.specialToggle:focus-visible {
+  outline: 2px solid var(--settings-accent);
+  outline-offset: 2px;
+}
+
+.specialToggle:active {
+  transform: scale(0.98);
+}
+
+.specialToggleActive {
+  background-color: var(--settings-success-bg);
+  border-color: var(--settings-success);
+  color: var(--settings-success-ink);
+}
+
+.specialToggleInactive {
+  background-color: var(--settings-input-bg);
+  border-color: var(--settings-input-border);
+  color: var(--settings-ink-muted);
+}
+
+.specialFieldGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+}
+
+.chipGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.presetChip {
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  background-color: var(--settings-input-bg);
+  border: 1px solid var(--settings-input-border);
+  color: var(--settings-ink-muted);
+  cursor: pointer;
+  transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+  font-family: inherit;
+}
+
+.presetChip:hover {
+  border-color: var(--settings-accent);
+  color: var(--settings-ink);
+}
+
+.presetChip:focus-visible {
+  outline: 2px solid var(--settings-accent);
+  outline-offset: 2px;
+}
+
+.presetChipActive {
+  background-color: var(--settings-accent);
+  border-color: var(--settings-accent);
+  color: var(--settings-canvas);
+  font-weight: 700;
+}
+
+.crossMidnightBanner {
+  background-color: var(--settings-card);
+  border: 1px solid var(--settings-card-border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--settings-ink);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.simulationBox {
+  background-color: var(--settings-canvas);
+  border: 1px solid var(--settings-subcard-border);
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.simulationTitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--settings-accent);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.simulationGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 10px;
+}
+
+.simulationItem {
+  background-color: var(--settings-subcard);
+  border: 1px solid var(--settings-subcard-border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.simTimeRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.simTimeLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--settings-ink-muted);
+}
+
+.simPillOpen {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: var(--settings-success-bg);
+  color: var(--settings-success-ink);
+  border: 1px solid var(--settings-success);
+}
+
+.simPillClosed {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: var(--settings-input-bg);
+  color: var(--settings-ink-subtle);
+  border: 1px solid var(--settings-input-border);
+}
+
+.simStatusText {
+  font-size: 12px;
+  color: var(--settings-ink);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.deactivateBtn {
+  align-self: flex-start;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  background: transparent;
+  border: 1px solid var(--settings-subcard-border);
+  color: var(--settings-ink-muted);
+  cursor: pointer;
+  transition: color 140ms ease, border-color 140ms ease;
+  font-family: inherit;
+}
+
+.deactivateBtn:hover {
+  border-color: var(--settings-danger);
+  color: var(--settings-danger-ink);
+}
+
+.deactivateBtn:focus-visible {
+  outline: 2px solid var(--settings-accent);
+  outline-offset: 2px;
 }

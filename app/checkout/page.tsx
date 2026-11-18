@@ -66,7 +66,7 @@ export default function CheckoutPage() {
         restaurant_name: "Burger Bhau (Kothariya)",
         shop_phone: "919558941555",
         whatsapp_number: "919558941555",
-        address: "Rolex road, Kothariya, Rajkot",
+        address: "Besides Axis Bank, Surbhi Possible 3, Rolex road, Kothariya, Rajkot",
         google_maps_url: "https://maps.google.com/?q=22.2379,70.8121",
         upi_id: "burgerbhau@upi",
         upi_name: "Burger Bhau Fast Food",

@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { Order } from "@/lib/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChartLine, faRupeeSign, faCrown, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
+import { faCrown } from "@fortawesome/free-solid-svg-icons";
+import styles from "./analyticsAdmin.module.css";
 
 export default function AdminAnalyticsPage() {
     const [orders, setOrders] = useState<Order[]>([]);
@@ -68,83 +69,77 @@ export default function AdminAnalyticsPage() {
         .slice(0, 5);
 
     if (loading) {
-        return <p>Loading sales analytics...</p>;
+        return (
+            <div className={styles.container}>
+                <p className={styles.emptyText}>Loading sales analytics...</p>
+            </div>
+        );
     }
 
     return (
-        <div>
+        <div className={styles.container}>
             {/* Header */}
-            <div style={{ marginBottom: "28px" }}>
-                <h1 style={{ fontSize: "28px", fontWeight: "800", margin: 0, color: "#fff" }}>
-                    Sales & Performance Analytics
+            <div className={styles.header}>
+                <h1 className={styles.title}>
+                    Sales &amp; Performance Analytics
                 </h1>
-                <p style={{ fontSize: "14px", color: "#888", marginTop: "4px" }}>
+                <p className={styles.subtitle}>
                     Revenue metrics, average order value, and top-selling menu items.
                 </p>
             </div>
 
             {/* Metrics Cards */}
-            <div style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-                gap: "16px",
-                marginBottom: "32px",
-            }}>
-                <div style={{ backgroundColor: "#141414", border: "1px solid #282828", borderRadius: "14px", padding: "20px" }}>
-                    <div style={{ fontSize: "13px", color: "#aaa", marginBottom: "8px" }}>Today's Sales</div>
-                    <div style={{ fontSize: "28px", fontWeight: "800", color: "#ff8c00" }}>₹{todaySales}</div>
+            <div className={styles.metricsGrid}>
+                <div className={styles.metricCard}>
+                    <div className={styles.metricLabel}>Today's Sales</div>
+                    <div className={`${styles.metricValue} ${styles.metricAccent}`}>₹{todaySales}</div>
                 </div>
 
-                <div style={{ backgroundColor: "#141414", border: "1px solid #282828", borderRadius: "14px", padding: "20px" }}>
-                    <div style={{ fontSize: "13px", color: "#aaa", marginBottom: "8px" }}>Weekly Sales (7 Days)</div>
-                    <div style={{ fontSize: "28px", fontWeight: "800", color: "#28a745" }}>₹{weeklySales}</div>
+                <div className={styles.metricCard}>
+                    <div className={styles.metricLabel}>Weekly Sales (7 Days)</div>
+                    <div className={`${styles.metricValue} ${styles.metricSuccess}`}>₹{weeklySales}</div>
                 </div>
 
-                <div style={{ backgroundColor: "#141414", border: "1px solid #282828", borderRadius: "14px", padding: "20px" }}>
-                    <div style={{ fontSize: "13px", color: "#aaa", marginBottom: "8px" }}>Monthly Sales (30 Days)</div>
-                    <div style={{ fontSize: "28px", fontWeight: "800", color: "#17a2b8" }}>₹{monthlySales}</div>
+                <div className={styles.metricCard}>
+                    <div className={styles.metricLabel}>Monthly Sales (30 Days)</div>
+                    <div className={styles.metricValue}>₹{monthlySales}</div>
                 </div>
 
-                <div style={{ backgroundColor: "#141414", border: "1px solid #282828", borderRadius: "14px", padding: "20px" }}>
-                    <div style={{ fontSize: "13px", color: "#aaa", marginBottom: "8px" }}>Avg Order Value</div>
-                    <div style={{ fontSize: "28px", fontWeight: "800", color: "#fff" }}>₹{avgOrderValue}</div>
+                <div className={styles.metricCard}>
+                    <div className={styles.metricLabel}>Avg Order Value</div>
+                    <div className={styles.metricValue}>₹{avgOrderValue}</div>
                 </div>
             </div>
 
             {/* Top Selling Products */}
-            <div style={{
-                backgroundColor: "#141414",
-                border: "1px solid #282828",
-                borderRadius: "16px",
-                padding: "24px",
-            }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "20px" }}>
-                    <FontAwesomeIcon icon={faCrown} style={{ color: "#ffc107", fontSize: "20px" }} />
-                    <h2 style={{ fontSize: "18px", fontWeight: "800", color: "#fff", margin: 0 }}>
+            <div className={styles.tableCard}>
+                <div className={styles.tableTitleRow}>
+                    <FontAwesomeIcon icon={faCrown} className={styles.crownIcon} />
+                    <h2 className={styles.tableTitle}>
                         Top Selling Menu Items
                     </h2>
                 </div>
 
                 {topProducts.length === 0 ? (
-                    <p style={{ color: "#777" }}>No sales data available yet.</p>
+                    <p className={styles.emptyText}>No sales data available yet.</p>
                 ) : (
-                    <div style={{ overflowX: "auto" }}>
-                        <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontSize: "14px" }}>
+                    <div className={styles.tableWrap}>
+                        <table className={styles.table}>
                             <thead>
-                                <tr style={{ borderBottom: "1px solid #282828", color: "#888", fontSize: "12px", textTransform: "uppercase" }}>
-                                    <th style={{ padding: "12px" }}>Rank</th>
-                                    <th style={{ padding: "12px" }}>Item Name</th>
-                                    <th style={{ padding: "12px" }}>Quantity Sold</th>
-                                    <th style={{ padding: "12px" }}>Total Revenue</th>
+                                <tr>
+                                    <th className={styles.th}>Rank</th>
+                                    <th className={styles.th}>Item Name</th>
+                                    <th className={styles.th}>Quantity Sold</th>
+                                    <th className={styles.th}>Total Revenue</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {topProducts.map((p, idx) => (
-                                    <tr key={p.name} style={{ borderBottom: "1px solid #1e1e1e" }}>
-                                        <td style={{ padding: "12px", fontWeight: "700", color: "#ff8c00" }}>#{idx + 1}</td>
-                                        <td style={{ padding: "12px", fontWeight: "600" }}>{p.name}</td>
-                                        <td style={{ padding: "12px" }}>{p.qty} units</td>
-                                        <td style={{ padding: "12px", fontWeight: "700", color: "#28a745" }}>₹{p.revenue}</td>
+                                    <tr key={p.name} className={styles.tr}>
+                                        <td className={styles.rankCell}>#{idx + 1}</td>
+                                        <td className={styles.itemCell}>{p.name}</td>
+                                        <td className={styles.qtyCell}>{p.qty} units</td>
+                                        <td className={styles.revenueCell}>₹{p.revenue}</td>
                                     </tr>
                                 ))}
                             </tbody>

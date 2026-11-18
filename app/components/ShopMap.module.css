@@ -1,4 +1,13 @@
-/* Burger Bhau MenuSite - Premium Shop Map */
+/* Hallmark · polish · app/components/ShopMap · map view */
+
+@media (prefers-reduced-motion: reduce) {
+  .wrap,
+  .wrap * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
 .wrap {
   margin-top: var(--space-4);
   padding: 0 8px;
@@ -39,6 +48,11 @@
   font-weight: 800;
   text-decoration: none;
   transition: background-color var(--duration-fast) ease, transform var(--duration-fast) ease;
+}
+
+.mapAction:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .mapAction:active {

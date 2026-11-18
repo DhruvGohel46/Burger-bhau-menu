@@ -72,6 +72,7 @@ export default function MenuCard({ item }: { item: MenuItem }) {
     return (
         <>
             <div
+                id={item.id}
                 className={styles.card}
                 role="button"
                 tabIndex={0}

@@ -1,0 +1,45 @@
+{
+  "average_rating": 4.9,
+  "total_reviews": 128,
+  "last_fetched": "2026-11-18T12:00:00.000Z",
+  "is_placeholder": true,
+  "note": "PLACEHOLDER SAMPLES: These sample reviews demonstrate the exact schema produced by the Google Business Profile API weekly sync. Real visitors will only see this section once real reviews are synced or populated (is_placeholder is set to false).",
+  "reviews": [
+    {
+      "id": "placeholder-1",
+      "reviewer_name": "Parth Patel",
+      "rating": 5,
+      "text": "The tandoori tadka burger and cheesy garlic bread are unbeatable in Kothariya! Freshly made, crispy patty, and authentic taste every single visit.",
+      "relative_time_description": "2 weeks ago",
+      "create_time": "2026-11-04T14:20:00.000Z",
+      "review_url": "https://maps.app.goo.gl/placeholder"
+    },
+    {
+      "id": "placeholder-2",
+      "reviewer_name": "Kishan Vala",
+      "rating": 5,
+      "text": "Best fast food spot near Rolex Road. The cheese burst pizza had plenty of toppings and the indori jumbo sandwich was super loaded. Quick service!",
+      "relative_time_description": "a month ago",
+      "create_time": "2026-10-18T18:45:00.000Z",
+      "review_url": "https://maps.app.goo.gl/placeholder"
+    },
+    {
+      "id": "placeholder-3",
+      "reviewer_name": "Dhaval Joshi",
+      "rating": 5,
+      "text": "Clean kitchen and warm hospitality. The fries were hot and fresh, and Korean burger is something you won't find anywhere else in this area at this price.",
+      "relative_time_description": "2 months ago",
+      "create_time": "2026-09-22T20:10:00.000Z",
+      "review_url": "https://maps.app.goo.gl/placeholder"
+    },
+    {
+      "id": "placeholder-4",
+      "reviewer_name": "Bhavin Mehta",
+      "rating": 4,
+      "text": "Delicious burgers and pocket-friendly pricing right next to Axis bank. Great evening hangout place with friends in Kothariya.",
+      "relative_time_description": "3 months ago",
+      "create_time": "2026-08-15T19:30:00.000Z",
+      "review_url": "https://maps.app.goo.gl/placeholder"
+    }
+  ]
+}

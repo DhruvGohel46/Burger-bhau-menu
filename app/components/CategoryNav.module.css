@@ -1,4 +1,13 @@
-/* Burger Bhau MenuSite - Premium Glass Category Navigation */
+/* Hallmark · polish · app/components/CategoryNav · editorial category scroller */
+
+@media (prefers-reduced-motion: reduce) {
+  .wrap,
+  .wrap * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
 .wrap {
   position: relative;
   width: 100%;
@@ -77,7 +86,7 @@
 
 @media (hover: hover) {
   .pill:hover:not(.pillActive) {
-    background: #ffffff;
+    background: var(--card-hover);
     border-color: var(--border-strong);
     color: var(--text);
   }
@@ -85,13 +94,13 @@
 
 .pillActive {
   background: transparent;
-  color: #ffffff;
+  color: var(--accent-text);
   border-color: var(--accent);
   font-weight: 500;
 }
 
 .pillActive .icon {
-  color: #ffffff;
+  color: var(--accent-text);
 }
 
 .activeBg {

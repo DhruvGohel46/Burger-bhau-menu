@@ -1,0 +1,40 @@
+# Burger Bhau (Kothariya, Rajkot)
+
+> 100% Pure Vegetarian Street Fast Food Restaurant in Kothariya, Rajkot, Gujarat, India. Known for freshly grilled desi burgers, loaded cheese burst pizzas, crinkle-cut loaded french fries, triple-layer grilled sandwiches, and cheesy garlic breads made fresh to order.
+
+## Essential Store Facts
+- **Restaurant Name:** Burger Bhau
+- **Location:** Besides Axis Bank, Surbhi Possible 3, Rolex Road, Kothariya, Rajkot, Gujarat 360004, India
+- **Landmark:** Besides Axis Bank, Surbhi Possible 3
+- **Geo Coordinates:** 22.237938° N, 70.812140° E
+- **Dietary Status:** 100% Pure Vegetarian (Strictly no meat, no poultry, no eggs). Jain preparation available upon request.
+- **Operating Hours:** Open daily Monday through Sunday, 11:00 AM to 11:00 PM IST
+- **Primary Phone Number:** +91 95589 41555
+- **WhatsApp Order Line:** +91 95589 41555
+- **Official Website:** https://burgerbhau.netlify.app/
+- **Google Maps Navigation:** https://www.google.com/maps/dir/?api=1&destination=22.23793791286797,70.8121401001821
+- **Price Range:** Inexpensive / Budget-friendly (₹40 to ₹150 per item)
+- **Payment Accepted:** UPI (Google Pay, PhonePe, Paytm, BHIM) and Cash
+- **Service Options:** Dine-in, Counter Takeaway / Pickup, Direct Phone & WhatsApp Ordering, Local Delivery (up to 400m radius)
+
+## Category Overview & Price Points
+- **Burgers (₹40 to ₹80):** Fresh toasted buns, crisp vegetable patties, house-made sauces. Available with or without melted cheese.
+- **French Fries (₹50 to ₹70):** Crispy crinkle-cut fries available Salted, Peri Peri, or Loaded with melted liquid cheese.
+- **Sandwiches (₹70 to ₹100):** Multi-layered grilled bread packed with vegetables and cheese, including the signature Indori Jumbo Sandwich.
+- **Pizzas (₹70 to ₹120):** Freshly baked thin and pan crusts topped with house pizza sauce, mozzarella, cheese burst center, and vegetables.
+- **Garlic Breads (₹50 to ₹70):** Toasted herb baguettes with garlic butter, melted cheese, and corn toppings.
+
+## Top 8 Most Popular Dishes & Recommendations
+1. **Tandoori Tadka Burger** (₹40 without cheese / ₹50 with cheese): Crispy veg patty, smoky tandoori sauce, onions, and melted cheese in a toasted bun.
+2. **Aalu Tikki Burger** (₹40 without cheese / ₹50 with cheese): Desi street-style spiced potato patty with tangy mint mayo and fresh lettuce.
+3. **Bhau Special Open Burger** (₹80): Signature open-faced double-portion burger drenched in melted cheese and special spices.
+4. **Korean Burger** (₹40 without cheese / ₹50 with cheese): Fusion sweet and spicy glazed patty with crunchy vegetables.
+5. **Loaded French Fries** (₹70): Golden fries generously smothered in warm cheese sauce and herb seasoning.
+6. **7 Cheese Pizza** (₹100): Blend of seven distinct cheeses melted over crispy crust.
+7. **Cheese Burst Pizza** (₹120): Liquid cheese infused crust with vegetable toppings.
+8. **Indori Jumbo Sandwich** (₹100): Triple-layer jumbo grilled sandwich seasoned with authentic Indori sev and jeeravan spices.
+
+## Useful Links
+- [Official Interactive Menu](https://burgerbhau.netlify.app/menu/): Complete interactive menu with live categories and cart.
+- [Store Photo Gallery](https://burgerbhau.netlify.app/gallery/): Verified real photos of food items and store ambience.
+- [Full LLM Knowledge Catalog](https://burgerbhau.netlify.app/llms-full.txt): Exhaustive raw text catalog listing all 43 items, variants, and descriptions for LLM agents.
