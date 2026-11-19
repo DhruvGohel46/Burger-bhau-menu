@@ -1,4 +1,5 @@
 import { SHOP_LAT, SHOP_LNG, SHOP_NAME, SHOP_PHONE } from "@/app/data/shopConfig";
+import { STORE } from "@/app/data/storeConfig";
 import { MenuCategory, MenuItem } from "@/app/data/menu";
 import { SITE_URL } from "@/lib/siteConfig";
 
@@ -23,7 +24,7 @@ export function buildRestaurantJsonLd() {
             "100% pure vegetarian street fast food restaurant in Kothariya, Rajkot. Freshly grilled burgers, loaded cheese burst pizzas, crinkle-cut fries, and toasted sandwiches made to order.",
         url: `${SITE_ORIGIN}/`,
         logo: `${SITE_ORIGIN}/BURGER-BHAU-logo.webp`,
-        image: `${SITE_ORIGIN}/productimage/burger/burger-tandoori-tadka.jpg`,
+        image: `${SITE_ORIGIN}${STORE.heroImage}`,
         telephone: `+${phoneDigits}`,
         priceRange: "₹40 to ₹150",
         currenciesAccepted: "INR",

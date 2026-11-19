@@ -16,10 +16,10 @@ export const metadata: Metadata = {
         type: "website",
         images: [
             {
-                url: "/productimage/burger/aalu-tikki-burger.jpg",
+                url: "/BURGER-BHAU-logo.webp",
                 width: 800,
                 height: 600,
-                alt: "Aalu Tikki Burger - Burger Bhau Kothariya",
+                alt: "Burger Bhau Kothariya Gallery",
             },
         ],
     },
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Photo Gallery – Burger Bhau (Kothariya)",
         description: "Browse authentic photos of handcrafted burgers and shop highlights.",
-        images: ["/productimage/burger/aalu-tikki-burger.jpg"],
+        images: ["/BURGER-BHAU-logo.webp"],
     },
 };
 

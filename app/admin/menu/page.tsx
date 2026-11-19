@@ -242,7 +242,7 @@ export default function AdminMenuPage() {
             setProdName("");
             setProdCat(defaultCategory || categories[0]?.name || "Burger");
             setProdDesc("");
-            setProdImage("/productimage/burger/aalu-tikki-burger.jpg");
+            setProdImage("/BURGER-BHAU-logo.webp");
             setProdPrice(40);
             setProdVariants([
                 { id: "regular", label: "Without Cheese", price: 40 },

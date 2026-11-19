@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/siteConfig";
+import { STORE } from "@/app/data/storeConfig";
 import { getDynamicMenuItems } from "@/app/data/menu";
 import { buildRestaurantJsonLd, buildFaqJsonLd } from "@/lib/restaurantSchema";
 import LandingNav from "@/app/components/landing/LandingNav";
@@ -27,10 +28,10 @@ export const metadata: Metadata = {
         type: "website",
         images: [
             {
-                url: "/productimage/burger/burger-bhau-special.jpg",
+                url: STORE.heroImage,
                 width: 1200,
                 height: 800,
-                alt: "Burger Bhau Special Burger in Kothariya",
+                alt: "Burger Bhau in Kothariya",
             },
         ],
     },
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
         title: "Burger Bhau Kothariya, Rajkot | Fresh Burgers & Fast Food",
         description:
             "Visit Burger Bhau Besides Axis Bank, Surbhi Possible 3, Rolex Road, Kothariya, Rajkot. Freshly grilled street burgers, pizza & fries.",
-        images: ["/productimage/burger/burger-bhau-special.jpg"],
+        images: [STORE.heroImage],
     },
 };
 

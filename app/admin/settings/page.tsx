@@ -14,17 +14,6 @@ import {
 import { MenuItem, getDynamicMenuItems } from "@/app/data/menu";
 import styles from "./settings.module.css";
 
-const BURGER_HERO_PRESETS = [
-    { name: "Tandoori Tadka", url: "/productimage/burger/burger-tandoori-tadka.jpg" },
-    { name: "Aalu Tikki", url: "/productimage/burger/aalu-tikki-burger.jpg" },
-    { name: "Cheesy Garlic", url: "/productimage/burger/burger-cheesy-garlic.jpg" },
-    { name: "Bhau Special Open", url: "/productimage/burger/burger-bhau-special.jpg" },
-    { name: "Korean Burger", url: "/productimage/burger/burger-korean.jpg" },
-    { name: "African Peri Peri", url: "/productimage/burger/burger-african-peri-peri.jpg" },
-    { name: "Hot Like Hill", url: "/productimage/burger/burger-hot-like-hill.jpg" },
-    { name: "Shahi Hydrabadi", url: "/productimage/burger/burger-shahi-hydrabadi.jpg" },
-];
-
 const TIME_PRESETS = [
     { label: "11:30 PM", value: "23:30" },
     { label: "12:00 AM Midnight", value: "00:00" },
@@ -92,7 +81,6 @@ export default function AdminSettingsPage() {
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [uploadingQr, setUploadingQr] = useState(false);
-    const [uploadingHero, setUploadingHero] = useState(false);
     const [msg, setMsg] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
     useEffect(() => {
@@ -252,21 +240,6 @@ export default function AdminSettingsPage() {
         }
     }, [specialHours]);
 
-    const handleHeroUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
-
-        setUploadingHero(true);
-        const publicUrl = await uploadImageToSupabase(file, "branding");
-        if (publicUrl) {
-            setSettings((prev) => ({ ...prev, hero_image_url: publicUrl, banner_url: publicUrl }));
-            setMsg({ type: "success", text: "New hero image uploaded to Supabase Storage!" });
-        } else {
-            setMsg({ type: "error", text: "Failed to upload hero image to Supabase Storage." });
-        }
-        setUploadingHero(false);
-    };
-
     const handleQrUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
@@ -389,90 +362,6 @@ export default function AdminSettingsPage() {
             )}
 
             <form onSubmit={handleSave} className={styles.form}>
-
-                {/* 🍔 Landing Page Hero Photo Management Section */}
-                <div className={styles.sectionCard}>
-                    <div className={styles.sectionHeader}>
-                        <div>
-                            <h3 className={styles.sectionTitle}>
-                                Landing Page Hero Photo
-                            </h3>
-                            <p className={styles.sectionDescription}>
-                                Choose an appetizing burger preset, upload your own store photo, or enter a custom image URL.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className={styles.heroPreviewRow}>
-                        <div className={styles.heroPreviewWrap}>
-                            <img
-                                src={settings.hero_image_url || settings.banner_url || "/productimage/burger/burger-tandoori-tadka.jpg"}
-                                alt="Current Hero Preview"
-                                className={styles.heroPreviewImg}
-                            />
-                        </div>
-                        <div className={styles.heroPreviewMeta}>
-                            <span className={styles.heroCurrentLabel}>Current Active Hero Photo</span>
-                            <span className={styles.heroCurrentPath}>
-                                {settings.hero_image_url || settings.banner_url || "/productimage/burger/burger-tandoori-tadka.jpg"}
-                            </span>
-                            <div style={{ marginTop: "8px" }}>
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={handleHeroUpload}
-                                    disabled={uploadingHero}
-                                    className={styles.fileInput}
-                                />
-                                <p className={styles.helperText}>
-                                    {uploadingHero ? "Uploading to Supabase..." : "Or upload custom photo from device"}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div className={styles.presetSubhead}>Quick Pick from Menu Burgers:</div>
-                        <div className={styles.presetGrid}>
-                            {BURGER_HERO_PRESETS.map((preset) => {
-                                const current = settings.hero_image_url || settings.banner_url;
-                                const isActive = current === preset.url;
-                                return (
-                                    <button
-                                        key={preset.url}
-                                        type="button"
-                                        onClick={() => {
-                                            setSettings((prev) => ({
-                                                ...prev,
-                                                hero_image_url: preset.url,
-                                                banner_url: preset.url,
-                                            }));
-                                        }}
-                                        className={`${styles.presetBtn} ${isActive ? styles.presetBtnActive : ""}`}
-                                    >
-                                        <img
-                                            src={preset.url}
-                                            alt={preset.name}
-                                            className={styles.presetThumb}
-                                        />
-                                        <span className={styles.presetName}>{preset.name}</span>
-                                    </button>
-                                );
-                            })}
-                        </div>
-                    </div>
-
-                    <div className={styles.fieldGroup} style={{ marginTop: "14px" }}>
-                        <label className={styles.labelSubtle}>Custom Image URL (Optional)</label>
-                        <input
-                            type="text"
-                            value={settings.hero_image_url || ""}
-                            onChange={(e) => setSettings({ ...settings, hero_image_url: e.target.value, banner_url: e.target.value })}
-                            placeholder="/productimage/burger/... or https://..."
-                            className={styles.input}
-                        />
-                    </div>
-                </div>
 
                 {/* 🍔 Landing Page Featured Food Products Selection Section */}
                 <div className={styles.sectionCard}>
