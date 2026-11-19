@@ -72,6 +72,20 @@
     Content-Type = "application/manifest+json"
     Cache-Control = "public, max-age=0, must-revalidate"
 
+# Old Netlify subdomain → new primary domain (permanent)
+[[redirects]]
+  from = "https://burgerbhau.netlify.app/*"
+  to = "https://burgerbhaukothariya.in/:splat"
+  status = 301
+  force = true
+
+# www → non-www
+[[redirects]]
+  from = "https://www.burgerbhaukothariya.in/*"
+  to = "https://burgerbhaukothariya.in/:splat"
+  status = 301
+  force = true
+
 # SPA rewrite for dynamic order tracking in static export
 [[redirects]]
   from = "/orders/*"

@@ -19,6 +19,7 @@ if (fs.existsSync(envPath)) {
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://burgerbhaukothariya.in').replace(/\/+$/, '');
 
 function escapeXml(unsafe) {
     if (!unsafe) return '';
@@ -53,7 +54,7 @@ async function generateDynamicSitemap() {
     const imageBlocks = galleryImages.map((img) => {
         const fullUrl = img.public_url.startsWith('http')
             ? img.public_url
-            : `https://burgerbhau.netlify.app${img.public_url}`;
+            : `${SITE_URL}${img.public_url}`;
 
         return `    <image:image>
       <image:loc>${escapeXml(fullUrl)}</image:loc>
@@ -66,22 +67,22 @@ async function generateDynamicSitemap() {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://burgerbhau.netlify.app/</loc>
+    <loc>${SITE_URL}/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://burgerbhau.netlify.app/menu/</loc>
+    <loc>${SITE_URL}/menu/</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://burgerbhau.netlify.app/visit/</loc>
+    <loc>${SITE_URL}/visit/</loc>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://burgerbhau.netlify.app/gallery/</loc>
+    <loc>${SITE_URL}/gallery/</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
 ${imageBlocks ? imageBlocks + '\n' : ''}  </url>

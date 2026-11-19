@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/siteConfig";
 import { getDynamicCategories, getDynamicMenuItems } from "@/app/data/menu";
 import MenuPageClient from "@/app/components/MenuPageClient";
 import { buildRestaurantJsonLd, buildMenuJsonLd } from "@/lib/restaurantSchema";
@@ -8,13 +9,13 @@ export const metadata: Metadata = {
     description:
         "Full menu with prices for Burger Bhau (Kothariya, Rajkot). Fresh burgers, loaded fries, cheese burst pizza, grilled sandwiches, and garlic bread. Order or visit our store.",
     alternates: {
-        canonical: "/menu/",
+        canonical: `${SITE_URL}/menu/`,
     },
     openGraph: {
         title: "Official Menu | Burger Bhau Kothariya, Rajkot",
         description:
             "Full menu with prices for Burger Bhau (Kothariya, Rajkot). Fresh burgers, loaded fries, cheese burst pizza, grilled sandwiches, and garlic bread.",
-        url: "https://burgerbhau.netlify.app/menu/",
+        url: `${SITE_URL}/menu/`,
         type: "website",
     },
     twitter: {

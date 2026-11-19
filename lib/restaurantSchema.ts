@@ -1,7 +1,8 @@
 import { SHOP_LAT, SHOP_LNG, SHOP_NAME, SHOP_PHONE } from "@/app/data/shopConfig";
 import { MenuCategory, MenuItem } from "@/app/data/menu";
+import { SITE_URL } from "@/lib/siteConfig";
 
-const SITE_ORIGIN = "https://burgerbhau.netlify.app";
+const SITE_ORIGIN = SITE_URL;
 
 /**
  * Restaurant JSON-LD for AI search engines, Google Knowledge Graph, and LLM crawlers.

@@ -4,6 +4,7 @@ import { Lora, Inter } from 'next/font/google';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import './globals.css';
+import { SITE_URL } from '@/lib/siteConfig';
 
 config.autoAddCss = false;
 
@@ -31,7 +32,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-    metadataBase: new URL('https://burgerbhau.netlify.app'),
+    metadataBase: new URL(SITE_URL),
     title: {
         default: 'Burger Bhau (Kothariya, Rajkot) | Fresh Burgers, Pizza & Fast Food',
         template: '%s | Burger Bhau (Kothariya)',

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/siteConfig";
 import { getDynamicMenuItems } from "@/app/data/menu";
 import { buildRestaurantJsonLd, buildFaqJsonLd } from "@/lib/restaurantSchema";
 import LandingNav from "@/app/components/landing/LandingNav";
@@ -16,13 +17,13 @@ export const metadata: Metadata = {
     description:
         "Visit Burger Bhau Besides Axis Bank, Surbhi Possible 3, Rolex Road, Kothariya, Rajkot. Freshly grilled street burgers, cheese burst pizza, loaded fries, and grilled sandwiches. Open daily 11 AM to 11 PM.",
     alternates: {
-        canonical: "/",
+        canonical: `${SITE_URL}/`,
     },
     openGraph: {
         title: "Burger Bhau Kothariya, Rajkot | Made Fresh When You Order",
         description:
             "Visit Burger Bhau Besides Axis Bank, Surbhi Possible 3, Rolex Road, Kothariya, Rajkot. Freshly grilled street burgers, cheese burst pizza, loaded fries, and grilled sandwiches.",
-        url: "https://burgerbhau.netlify.app/",
+        url: `${SITE_URL}/`,
         type: "website",
         images: [
             {

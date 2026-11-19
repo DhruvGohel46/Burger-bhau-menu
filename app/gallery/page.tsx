@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { SITE_URL } from "@/lib/siteConfig";
 import { getDynamicGalleryImages } from "@/app/data/galleryData";
 import GalleryClient from "@/app/components/GalleryClient";
 
@@ -6,12 +7,12 @@ export const metadata: Metadata = {
     title: "Photo Gallery - Real Food & Shop Photos",
     description: "Browse authentic photos of handcrafted burgers, garlic bread, fries, and store ambience at Burger Bhau (Kothariya) in Rajkot.",
     alternates: {
-        canonical: "/gallery/",
+        canonical: `${SITE_URL}/gallery/`,
     },
     openGraph: {
         title: "Photo Gallery – Burger Bhau (Kothariya)",
         description: "Explore real food photos, burgers, pizzas, and store ambience at Burger Bhau Rajkot.",
-        url: "https://burgerbhau.netlify.app/gallery/",
+        url: `${SITE_URL}/gallery/`,
         type: "website",
         images: [
             {
@@ -36,7 +37,7 @@ export default async function GalleryPage() {
     const jsonLd = images.map((img) => ({
         "@context": "https://schema.org",
         "@type": "ImageObject",
-        "contentUrl": img.public_url.startsWith("http") ? img.public_url : `https://burgerbhau.netlify.app${img.public_url}`,
+        "contentUrl": img.public_url.startsWith("http") ? img.public_url : `${SITE_URL}${img.public_url}`,
         "name": img.title,
         "description": img.alt_text || img.caption || img.title,
         "representativeOfPage": false,

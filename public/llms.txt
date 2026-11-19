@@ -11,7 +11,7 @@
 - **Operating Hours:** Open daily Monday through Sunday, 11:00 AM to 11:00 PM IST
 - **Primary Phone Number:** +91 95589 41555
 - **WhatsApp Order Line:** +91 95589 41555
-- **Official Website:** https://burgerbhau.netlify.app/
+- **Official Website:** https://burgerbhaukothariya.in/
 - **Google Maps Navigation:** https://www.google.com/maps/dir/?api=1&destination=22.23793791286797,70.8121401001821
 - **Price Range:** Inexpensive / Budget-friendly (₹40 to ₹150 per item)
 - **Payment Accepted:** UPI (Google Pay, PhonePe, Paytm, BHIM) and Cash
@@ -35,6 +35,6 @@
 8. **Indori Jumbo Sandwich** (₹100): Triple-layer jumbo grilled sandwich seasoned with authentic Indori sev and jeeravan spices.
 
 ## Useful Links
-- [Official Interactive Menu](https://burgerbhau.netlify.app/menu/): Complete interactive menu with live categories and cart.
-- [Store Photo Gallery](https://burgerbhau.netlify.app/gallery/): Verified real photos of food items and store ambience.
-- [Full LLM Knowledge Catalog](https://burgerbhau.netlify.app/llms-full.txt): Exhaustive raw text catalog listing all 43 items, variants, and descriptions for LLM agents.
+- [Official Interactive Menu](https://burgerbhaukothariya.in/menu/): Complete interactive menu with live categories and cart.
+- [Store Photo Gallery](https://burgerbhaukothariya.in/gallery/): Verified real photos of food items and store ambience.
+- [Full LLM Knowledge Catalog](https://burgerbhaukothariya.in/llms-full.txt): Exhaustive raw text catalog listing all 43 items, variants, and descriptions for LLM agents.

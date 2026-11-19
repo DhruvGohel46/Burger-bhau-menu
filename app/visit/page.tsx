@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/siteConfig";
 import Image from "next/image";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     description:
         "Directions and store details for Burger Bhau (Besides Axis Bank, Surbhi Possible 3, Rolex Road, Kothariya, Rajkot). Open daily 11 AM to 11 PM. Fresh burgers, pizza & fries.",
     alternates: {
-        canonical: "/visit/",
+        canonical: `${SITE_URL}/visit/`,
     },
 };
 

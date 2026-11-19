@@ -5,6 +5,8 @@
 // This is the single source of truth for store information.
 // The older shopConfig.ts reads from here automatically.
 
+import { SITE_URL } from "@/lib/siteConfig";
+
 export const STORE = {
     // ─── Store Identity ─────────────────────────────────────
     name: "Burger Bhau",
@@ -12,7 +14,7 @@ export const STORE = {
     tagline: "Fresh burgers, pizza and more",
     phone: "919558941555",
     whatsappNumber: "919558941555",
-    websiteUrl: "https://burgerbhau.netlify.app",
+    websiteUrl: SITE_URL,
 
     // ─── Hero Section ───────────────────────────────────────
     // Path to hero image (relative to /public or Supabase Storage URL).

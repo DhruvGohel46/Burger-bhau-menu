@@ -1,5 +1,5 @@
 # Robots.txt for Burger Bhau (Kothariya, Rajkot)
-# Website: https://burgerbhau.netlify.app
+# Website: https://burgerbhaukothariya.in
 
 User-agent: *
 Allow: /
@@ -47,6 +47,6 @@ Allow: /
 Disallow: /admin/
 
 # Sitemap & LLM Context Files
-Sitemap: https://burgerbhau.netlify.app/sitemap.xml
-# AI Context: https://burgerbhau.netlify.app/llms.txt
-# AI Full Catalog: https://burgerbhau.netlify.app/llms-full.txt
+Sitemap: https://burgerbhaukothariya.in/sitemap.xml
+# AI Context: https://burgerbhaukothariya.in/llms.txt
+# AI Full Catalog: https://burgerbhaukothariya.in/llms-full.txt
