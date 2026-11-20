@@ -68,6 +68,9 @@ export default function LandingFooter() {
                         <p className={styles.hoursLine}>
                             Open daily: 11:00 AM to 11:00 PM
                         </p>
+                        <p className={styles.phoneLine}>
+                            Phone: <a href={`tel:+${STORE.phone}`} className={styles.phoneLink}>{STORE.phoneDisplay || "+91 95589 41555"}</a>
+                        </p>
                         <div className={styles.contactActions}>
                             <a
                                 href={STORE.mapsDirectionsUrl}

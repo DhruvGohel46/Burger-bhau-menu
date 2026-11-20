@@ -73,6 +73,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  text-decoration: none;
   transition:
     color var(--duration-fast) var(--ease-out),
     border-color var(--duration-fast) var(--ease-out),

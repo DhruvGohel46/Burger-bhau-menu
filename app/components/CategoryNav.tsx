@@ -35,7 +35,7 @@ function categoryIcon(iconKey: string) {
 export default function CategoryNav({ categories: navCategories = categories }: { categories?: MenuCategory[] }) {
     const [activeCategory, setActiveCategory] = useState(navCategories[0]?.id || "burger");
     const scrollRef = useRef<HTMLDivElement>(null);
-    const buttonRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+    const itemRefs = useRef<Record<string, HTMLElement | null>>({});
 
     // Scroll spy: highlight category based on viewport position
     useEffect(() => {
@@ -57,13 +57,13 @@ export default function CategoryNav({ categories: navCategories = categories }: 
 
     // Auto-scroll the chip bar to keep active category visible
     useEffect(() => {
-        const activeButton = buttonRefs.current[activeCategory];
-        if (activeButton && scrollRef.current) {
+        const activeItem = itemRefs.current[activeCategory];
+        if (activeItem && scrollRef.current) {
             const container = scrollRef.current;
-            const buttonLeft = activeButton.offsetLeft;
-            const buttonWidth = activeButton.offsetWidth;
+            const itemLeft = activeItem.offsetLeft;
+            const itemWidth = activeItem.offsetWidth;
             const containerWidth = container.offsetWidth;
-            const scrollLeft = buttonLeft - containerWidth / 2 + buttonWidth / 2;
+            const scrollLeft = itemLeft - containerWidth / 2 + itemWidth / 2;
             container.scrollTo({ left: scrollLeft, behavior: "smooth" });
         }
     }, [activeCategory]);
@@ -87,10 +87,14 @@ export default function CategoryNav({ categories: navCategories = categories }: 
                 {navCategories.map((cat) => {
                     const isActive = activeCategory === cat.id;
                     return (
-                        <button
+                        <a
                             key={cat.id}
-                            ref={(el) => { buttonRefs.current[cat.id] = el; }}
-                            onClick={() => scrollToCategory(cat.id)}
+                            href={`#section-${cat.id}`}
+                            ref={(el) => { itemRefs.current[cat.id] = el; }}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                scrollToCategory(cat.id);
+                            }}
                             className={`${styles.pill} ${isActive ? styles.pillActive : ""}`}
                         >
                             {isActive && (
@@ -105,7 +109,7 @@ export default function CategoryNav({ categories: navCategories = categories }: 
                                 <FontAwesomeIcon icon={categoryIcon(cat.icon)} width={14} height={14} />
                             </span>
                             {cat.name}
-                        </button>
+                        </a>
                     );
                 })}
             </div>

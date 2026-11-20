@@ -41,6 +41,23 @@
   margin: 0;
 }
 
+.aboutStory {
+  margin-top: 18px;
+  max-width: 800px;
+}
+
+.aboutParagraph {
+  font-family: var(--font-claude-sans), Inter, sans-serif;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  margin: 0 0 12px 0;
+}
+
+.aboutParagraph:last-child {
+  margin-bottom: 0;
+}
+
 .liveDistanceBadge {
   display: inline-flex;
   align-items: center;
@@ -228,6 +245,38 @@
 .landmarkLabel {
   font-weight: 600;
   color: var(--text);
+}
+
+.phoneBlock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-claude-sans), Inter, sans-serif;
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 10px 0 14px 0;
+}
+
+.phoneIcon {
+  color: var(--accent);
+  font-size: 14px;
+}
+
+.phoneLabel {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.phoneLink {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.phoneLink:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
 }
 
 .visitNote {

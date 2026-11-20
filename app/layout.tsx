@@ -25,21 +25,18 @@ const inter = Inter({
 export const viewport: Viewport = {
     width: 'device-width',
     initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
     themeColor: '#F0E8C7',
     viewportFit: 'cover',
 };
 
 export const metadata: Metadata = {
-    metadataBase: new URL(SITE_URL),
+    metadataBase: new URL("https://burgerbhaukothariya.in"),
     title: {
-        default: 'Burger Bhau (Kothariya, Rajkot) | Fresh Burgers, Pizza & Fast Food',
+        default: 'Burger Bhau Kothariya | Burgers, Pizza & Fast Food in Rajkot',
         template: '%s | Burger Bhau (Kothariya)',
     },
-    description: 'Visit Burger Bhau Besides Axis Bank, Surbhi Possible 3, Rolex Road, Kothariya, Rajkot. Made fresh when you order: handcrafted burgers, cheese burst pizzas, loaded fries and grilled sandwiches.',
+    description: 'Order fresh handcrafted burgers, pizzas and sandwiches from Burger Bhau, Kothariya, Rajkot. See the full menu, prices and call or WhatsApp to order.',
     applicationName: 'Burger Bhau (Kothariya)',
-    keywords: ['burger bhau', 'burger bhau rajkot', 'burger bhau kothariya', 'burger bhau rolex road', 'burger bhau surbhi possible', 'best burgers rajkot', 'fast food rajkot', 'pizza rajkot', 'sandwich rajkot', 'pure veg burgers rajkot'],
     manifest: '/site.webmanifest',
     robots: {
         index: true,
@@ -67,7 +64,8 @@ export const metadata: Metadata = {
         ],
     },
     openGraph: {
-        siteName: 'Burger Bhau',
+        siteName: 'Burger Bhau Kothariya',
+        locale: 'en_IN',
         images: [
             {
                 url: '/og-image.jpg',
@@ -124,7 +122,7 @@ import AnalyticsScript from '@/app/components/AnalyticsScript';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en" className={`${lora.variable} ${inter.variable}`} suppressHydrationWarning>
+        <html lang="en-IN" className={`${lora.variable} ${inter.variable}`} suppressHydrationWarning>
             <head>
                 <link rel="alternate" type="text/markdown" href="/llms.txt" title="LLM Context Summary" />
                 <link rel="alternate" type="text/markdown" href="/llms-full.txt" title="Full LLM Knowledge Catalog" />

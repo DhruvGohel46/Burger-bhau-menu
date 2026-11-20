@@ -61,6 +61,8 @@ export default function StickyHeader() {
                             <img
                                 src="/BURGER-BHAU-logo.webp"
                                 alt="Burger Bhau Logo"
+                                width={36}
+                                height={36}
                                 className={styles.logoImage}
                             />
                             <div className={styles.brandText}>
@@ -93,6 +95,7 @@ export default function StickyHeader() {
                         href={user ? "/profile/" : "/login/"}
                         className={styles.actionBtn}
                         aria-label={user ? "My profile" : "Customer login"}
+                        rel="nofollow"
                     >
                         <FontAwesomeIcon icon={faUser} width={13} height={13} />
                         <span className={styles.actionLabel}>{user ? "Profile" : "Login"}</span>
@@ -103,6 +106,7 @@ export default function StickyHeader() {
                             href="/orders/"
                             className={styles.actionBtn}
                             aria-label="My orders"
+                            rel="nofollow"
                         >
                             <FontAwesomeIcon icon={faBoxOpen} width={13} height={13} />
                             <span className={styles.actionLabel}>Orders</span>

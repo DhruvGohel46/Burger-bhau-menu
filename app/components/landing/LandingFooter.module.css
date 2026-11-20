@@ -138,6 +138,23 @@
   margin: 0;
 }
 
+.phoneLine {
+  font-family: var(--font-claude-sans), Inter, sans-serif;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.phoneLink {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.phoneLink:hover {
+  text-decoration: underline;
+}
+
 .contactActions {
   display: flex;
   flex-wrap: wrap;

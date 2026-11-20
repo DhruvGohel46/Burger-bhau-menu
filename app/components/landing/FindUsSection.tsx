@@ -133,6 +133,15 @@ export default function FindUsSection() {
                     <p className={styles.lead}>
                         Located besides Axis Bank, Surbhi Possible 3, Rolex Road, Kothariya, Rajkot. Fresh burgers and snacks ready in minutes.
                     </p>
+                    {STORE.aboutStory && (
+                        <div className={styles.aboutStory}>
+                            {STORE.aboutStory.split("\n\n").map((paragraph, idx) => (
+                                <p key={idx} className={styles.aboutParagraph}>
+                                    {paragraph}
+                                </p>
+                            ))}
+                        </div>
+                    )}
                     {distanceInfo && (
                         <div className={styles.liveDistanceBadge}>
                             <span className={styles.pulseDot} aria-hidden="true" />
@@ -155,7 +164,7 @@ export default function FindUsSection() {
                             allowFullScreen
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"
-                            title={`Google Map for ${STORE.name} ${STORE.branch}`}
+                            title="Google Map location of Burger Bhau fast food restaurant in Kothariya, Rajkot"
                             className={styles.mapIframe}
                         />
                     </div>
@@ -184,6 +193,14 @@ export default function FindUsSection() {
                                 <br />
                                 {STORE.address.city}, {STORE.address.state} ({STORE.address.postalCode})
                             </address>
+
+                            <div className={styles.phoneBlock}>
+                                <FontAwesomeIcon icon={faPhone} className={styles.phoneIcon} aria-hidden="true" />
+                                <span className={styles.phoneLabel}>Phone: </span>
+                                <a href={`tel:+${STORE.phone}`} className={styles.phoneLink}>
+                                    {STORE.phoneDisplay || "+91 95589 41555"}
+                                </a>
+                            </div>
 
                             {STORE.address.landmark && (
                                 <p className={styles.landmark}>

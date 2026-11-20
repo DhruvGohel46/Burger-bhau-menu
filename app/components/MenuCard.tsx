@@ -86,9 +86,10 @@ export default function MenuCard({ item }: { item: MenuItem }) {
                     <Image
                         src={imageSrc}
                         alt={`${item.name} - Burger Bhau Kothariya`}
-                        fill
-                        sizes="76px"
+                        width={76}
+                        height={76}
                         loading="lazy"
+                        style={{ objectFit: "cover" }}
                     />
                 </div>
 

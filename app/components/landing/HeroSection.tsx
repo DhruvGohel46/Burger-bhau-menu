@@ -30,6 +30,7 @@ export default function HeroSection() {
                         </div>
 
                         <h1 id="hero-heading" className={styles.headline}>
+                            <span className="sr-only">Burger Bhau Kothariya — </span>
                             {STORE.heroHeadline}
                         </h1>
 
@@ -76,6 +77,8 @@ export default function HeroSection() {
                                 alt="Burger Bhau freshly prepared burger in Kothariya"
                                 fill
                                 priority
+                                loading="eager"
+                                fetchPriority="high"
                                 sizes="(max-width: 768px) 100vw, 560px"
                                 className={styles.heroImg}
                             />

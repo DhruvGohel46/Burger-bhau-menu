@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/siteConfig";
 import { STORE } from "@/app/data/storeConfig";
-import { getDynamicMenuItems } from "@/app/data/menu";
-import { buildRestaurantJsonLd, buildFaqJsonLd } from "@/lib/restaurantSchema";
+import { getDynamicCategories, getDynamicMenuItems } from "@/app/data/menu";
+import { buildRestaurantJsonLd, buildFaqJsonLd, buildWebSiteJsonLd } from "@/lib/restaurantSchema";
 import LandingNav from "@/app/components/landing/LandingNav";
 import HeroSection from "@/app/components/landing/HeroSection";
 import TrustStrip from "@/app/components/landing/TrustStrip";
@@ -14,38 +14,42 @@ import LandingFooter from "@/app/components/landing/LandingFooter";
 import StickyActionBar from "@/app/components/StickyActionBar";
 
 export const metadata: Metadata = {
-    title: "Burger Bhau Kothariya, Rajkot | Made Fresh When You Order",
+    title: "Burger Bhau Kothariya | Burgers, Pizza & Fast Food in Rajkot",
     description:
-        "Visit Burger Bhau Besides Axis Bank, Surbhi Possible 3, Rolex Road, Kothariya, Rajkot. Freshly grilled street burgers, cheese burst pizza, loaded fries, and grilled sandwiches. Open daily 11 AM to 11 PM.",
+        "Order fresh handcrafted burgers, pizzas and sandwiches from Burger Bhau, Kothariya, Rajkot. See the full menu, prices and call or WhatsApp to order.",
     alternates: {
-        canonical: `${SITE_URL}/`,
+        canonical: "https://burgerbhaukothariya.in/",
     },
     openGraph: {
-        title: "Burger Bhau Kothariya, Rajkot | Made Fresh When You Order",
+        title: "Burger Bhau Kothariya | Burgers, Pizza & Fast Food in Rajkot",
         description:
-            "Visit Burger Bhau Besides Axis Bank, Surbhi Possible 3, Rolex Road, Kothariya, Rajkot. Freshly grilled street burgers, cheese burst pizza, loaded fries, and grilled sandwiches.",
-        url: `${SITE_URL}/`,
+            "Order fresh handcrafted burgers, pizzas and sandwiches from Burger Bhau, Kothariya, Rajkot. See the full menu, prices and call or WhatsApp to order.",
+        url: "https://burgerbhaukothariya.in/",
         type: "website",
+        locale: "en_IN",
         images: [
             {
                 url: "/og-image.jpg",
                 width: 1200,
                 height: 630,
-                alt: "Burger Bhau (Kothariya, Rajkot) - Made Fresh When You Order",
+                alt: "Burger Bhau Kothariya | Burgers, Pizza & Fast Food in Rajkot",
             },
         ],
     },
     twitter: {
-        title: "Burger Bhau Kothariya, Rajkot | Fresh Burgers & Fast Food",
+        card: "summary_large_image",
+        title: "Burger Bhau Kothariya | Burgers, Pizza & Fast Food in Rajkot",
         description:
-            "Visit Burger Bhau Besides Axis Bank, Surbhi Possible 3, Rolex Road, Kothariya, Rajkot. Freshly grilled street burgers, pizza & fries.",
+            "Order fresh handcrafted burgers, pizzas and sandwiches from Burger Bhau, Kothariya, Rajkot. See the full menu, prices and call or WhatsApp to order.",
         images: ["/og-image.jpg"],
     },
 };
 
 export default async function HomePage() {
+    const categories = await getDynamicCategories();
     const items = await getDynamicMenuItems();
-    const restaurantJsonLd = buildRestaurantJsonLd();
+    const restaurantJsonLd = buildRestaurantJsonLd(categories, items);
+    const webSiteJsonLd = buildWebSiteJsonLd();
     const faqJsonLd = buildFaqJsonLd();
 
     return (
@@ -53,6 +57,10 @@ export default async function HomePage() {
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(restaurantJsonLd) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd) }}
             />
             <script
                 type="application/ld+json"

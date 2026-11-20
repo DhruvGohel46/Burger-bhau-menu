@@ -17,8 +17,10 @@ export const metadata: Metadata = {
             "Full menu with prices for Burger Bhau (Kothariya, Rajkot). Fresh burgers, loaded fries, cheese burst pizza, grilled sandwiches, and garlic bread.",
         url: `${SITE_URL}/menu/`,
         type: "website",
+        locale: "en_IN",
     },
     twitter: {
+        card: "summary_large_image",
         title: "Official Menu | Burger Bhau Kothariya, Rajkot",
         description:
             "Full menu with prices for Burger Bhau (Kothariya, Rajkot). Fresh burgers, loaded fries, cheese burst pizza, grilled sandwiches, and garlic bread.",
@@ -28,7 +30,7 @@ export const metadata: Metadata = {
 export default async function MenuPage() {
     const categories = await getDynamicCategories();
     const items = await getDynamicMenuItems();
-    const restaurantJsonLd = buildRestaurantJsonLd();
+    const restaurantJsonLd = buildRestaurantJsonLd(categories, items);
     const menuJsonLd = buildMenuJsonLd(categories, items);
 
     return (

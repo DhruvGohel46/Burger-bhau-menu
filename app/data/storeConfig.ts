@@ -13,12 +13,18 @@ export const STORE = {
     branch: "Kothariya",
     tagline: "Fresh burgers, pizza and more",
     phone: "919558941555",
+    phoneDisplay: "+91 95589 41555",
     whatsappNumber: "919558941555",
     websiteUrl: SITE_URL,
 
+    // ─── About Narrative (SEO & Local Citation) ─────────────
+    aboutHeading: "About Burger Bhau Kothariya",
+    aboutStory:
+        "Welcome to Burger Bhau, Kothariya's neighborhood fast food destination for freshly made street-style burgers, pizzas, and snacks. Located on Rolex Road besides Axis Bank at Surbhi Possible 3, our kitchen is 100% pure vegetarian, preparing every order hot and fresh on the spot. From our signature Tandoori Tadka and fiery Korean burgers to cheesy garlic breads, loaded fries, and authentic grilled sandwiches, we serve the best street flavors in Rajkot at honest everyday prices.\n\nWhether you are dropping in for a quick afternoon bite, picking up takeaway for the family, or craving late-night comfort food, Burger Bhau welcomes you with warm counter service and fast turnaround. We are open daily from 11:00 AM to 11:00 PM IST with easy parking and convenient UPI payment. Visit us in Kothariya or call +91 95589 41555 to place your order!",
+
     // ─── Hero Section ───────────────────────────────────────
     // Path to hero image (relative to /public or Supabase Storage URL).
-    heroImage: "/hero.jpg",
+    heroImage: "/hero.webp",
     // Short headline (7 words max)
     heroHeadline: "Made fresh, right when you order",
     // One line of copy (12 words max)

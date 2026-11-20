@@ -3,10 +3,11 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://burgerbhaukothariya.in/</loc>
+    <lastmod>2026-11-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://burgerbhaukothariya.in/hero.jpg</image:loc>
+      <image:loc>https://burgerbhaukothariya.in/hero.webp</image:loc>
       <image:title>Burger Bhau Fresh Burgers and Pizza in Kothariya</image:title>
       <image:caption>Burger Bhau storefront and freshly prepared handcrafted food in Kothariya, Rajkot</image:caption>
     </image:image>
@@ -23,16 +24,19 @@
   </url>
   <url>
     <loc>https://burgerbhaukothariya.in/menu/</loc>
+    <lastmod>2026-11-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://burgerbhaukothariya.in/visit/</loc>
+    <lastmod>2026-11-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://burgerbhaukothariya.in/gallery/</loc>
+    <lastmod>2026-11-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <image:image>

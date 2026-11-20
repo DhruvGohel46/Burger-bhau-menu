@@ -1,21 +1,33 @@
 import { SHOP_LAT, SHOP_LNG, SHOP_NAME, SHOP_PHONE } from "@/app/data/shopConfig";
 import { STORE } from "@/app/data/storeConfig";
-import { MenuCategory, MenuItem } from "@/app/data/menu";
+import { categories as defaultCategories, menuItems as defaultItems, MenuCategory, MenuItem } from "@/app/data/menu";
 import { SITE_URL } from "@/lib/siteConfig";
 
 const SITE_ORIGIN = SITE_URL;
 
 /**
  * Restaurant JSON-LD for AI search engines, Google Knowledge Graph, and LLM crawlers.
+ * Embeds full menu and sections with INR currency offers.
+ * Strictly omits aggregateRating if no real reviews exist.
  */
-export function buildRestaurantJsonLd() {
-    const phoneDigits = SHOP_PHONE.replace(/[^0-9]/g, "");
+export function buildRestaurantJsonLd(categories?: MenuCategory[], items?: MenuItem[]) {
+    const phoneDigits = (STORE.phone || SHOP_PHONE).replace(/[^0-9]/g, "");
+    const resolvedCategories = categories && categories.length > 0 ? categories : defaultCategories;
+    const resolvedItems = items && items.length > 0 ? items : defaultItems;
+
+    const sameAsUrls = [
+        STORE.googleReviews?.googleMapsPlaceUrl,
+    ].filter(Boolean) as string[];
+
+    const sameAs = Array.from(new Set(sameAsUrls.filter(url => url && url.startsWith("http"))));
+
     return {
         "@context": "https://schema.org",
         "@type": ["Restaurant", "FastFoodRestaurant"],
         "@id": `${SITE_ORIGIN}/#restaurant`,
-        name: SHOP_NAME,
+        name: STORE.name ? `${STORE.name} (${STORE.branch})` : SHOP_NAME,
         alternateName: [
+            "Burger Bhau",
             "Burger Bhau Kothariya",
             "Burger Bhau Rajkot",
             "Burger Bhau Fast Food",
@@ -25,10 +37,13 @@ export function buildRestaurantJsonLd() {
         url: `${SITE_ORIGIN}/`,
         logo: `${SITE_ORIGIN}/logo-square.png`,
         image: [
+            `${SITE_ORIGIN}/hero.webp`,
             `${SITE_ORIGIN}/hero.jpg`,
             `${SITE_ORIGIN}/og-image.jpg`,
             `${SITE_ORIGIN}/logo-square.png`,
+            `${SITE_ORIGIN}/BURGER-BHAU-logo.webp`,
         ],
+        sameAs: sameAs.length > 0 ? sameAs : undefined,
         telephone: `+${phoneDigits}`,
         priceRange: "₹40 to ₹150",
         currenciesAccepted: "INR",
@@ -66,8 +81,8 @@ export function buildRestaurantJsonLd() {
         },
         geo: {
             "@type": "GeoCoordinates",
-            latitude: SHOP_LAT,
-            longitude: SHOP_LNG,
+            latitude: STORE.coordinates?.lat || SHOP_LAT,
+            longitude: STORE.coordinates?.lng || SHOP_LNG,
         },
         openingHoursSpecification: [
             {
@@ -81,11 +96,45 @@ export function buildRestaurantJsonLd() {
                     "Saturday",
                     "Sunday",
                 ],
-                opens: "11:00",
-                closes: "23:00",
+                opens: STORE.hours?.monday?.open || "11:00",
+                closes: STORE.hours?.monday?.close || "23:00",
             },
         ],
-        hasMenu: `${SITE_ORIGIN}/menu/`,
+        hasMenu: {
+            "@type": "Menu",
+            "@id": `${SITE_ORIGIN}/#menu`,
+            name: "Burger Bhau Official Menu",
+            url: `${SITE_ORIGIN}/menu/`,
+            inLanguage: "en-IN",
+            hasMenuSection: resolvedCategories.map((cat) => {
+                const sectionItems = resolvedItems.filter(
+                    (item) => item.category?.toLowerCase() === cat.name?.toLowerCase()
+                );
+                return {
+                    "@type": "MenuSection",
+                    name: cat.name,
+                    hasMenuItem: sectionItems.map((item) => {
+                        const minPrice = item.variants && item.variants.length > 0
+                            ? Math.min(...item.variants.map((v) => v.price))
+                            : item.price ?? 0;
+                        return {
+                            "@type": "MenuItem",
+                            name: item.name,
+                            description: item.description || `${item.name} at Burger Bhau Kothariya`,
+                            image: item.image?.startsWith("http")
+                                ? item.image
+                                : `${SITE_ORIGIN}${item.image || "/BURGER-BHAU-logo.webp"}`,
+                            suitableForDiet: "https://schema.org/VegetarianDiet",
+                            offers: {
+                                "@type": "Offer",
+                                price: String(minPrice),
+                                priceCurrency: "INR",
+                            },
+                        };
+                    }),
+                };
+            }),
+        },
         potentialAction: [
             {
                 "@type": "OrderAction",
@@ -105,6 +154,19 @@ export function buildRestaurantJsonLd() {
                 name: "Get Directions on Google Maps",
             },
         ],
+    };
+}
+
+/**
+ * WebSite Schema JSON-LD for homepage.
+ */
+export function buildWebSiteJsonLd() {
+    return {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "@id": `${SITE_ORIGIN}/#website`,
+        name: "Burger Bhau Kothariya",
+        url: `${SITE_ORIGIN}/`,
     };
 }
 

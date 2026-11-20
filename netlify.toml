@@ -17,7 +17,7 @@
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
     Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://* ; connect-src 'self' https://*; frame-src 'self' https://www.google.com;"
 
-# Explicit noindex HTTP headers for private customer routes
+# Explicit noindex HTTP headers for private customer routes and admin routes
 [[headers]]
   for = "/checkout*"
   [headers.values]
@@ -26,7 +26,12 @@
 [[headers]]
   for = "/login*"
   [headers.values]
-    X-Robots-Tag = "noindex, follow"
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/login/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
 
 [[headers]]
   for = "/register*"
@@ -48,6 +53,15 @@
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
 
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/404.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
 
 # Cache static assets aggressively
 [[headers]]
@@ -55,16 +69,36 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# Cache images
+# Cache images and brand assets (30 days with stale-while-revalidate)
 [[headers]]
-  for = "/*.ico"
+  for = "/*.webp"
   [headers.values]
-    Cache-Control = "public, max-age=86400"
+    Cache-Control = "public, max-age=2592000, stale-while-revalidate=86400"
+
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000, stale-while-revalidate=86400"
+
+[[headers]]
+  for = "/*.jpeg"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000, stale-while-revalidate=86400"
 
 [[headers]]
   for = "/*.png"
   [headers.values]
-    Cache-Control = "public, max-age=86400"
+    Cache-Control = "public, max-age=2592000, stale-while-revalidate=86400"
+
+[[headers]]
+  for = "/*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000, stale-while-revalidate=86400"
+
+[[headers]]
+  for = "/*.ico"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000, stale-while-revalidate=86400"
 
 [[headers]]
   for = "/site.webmanifest"

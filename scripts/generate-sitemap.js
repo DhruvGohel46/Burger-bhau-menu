@@ -63,15 +63,18 @@ async function generateDynamicSitemap() {
     </image:image>`;
     }).join('\n');
 
+    const buildDate = new Date().toISOString().split('T')[0];
+
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>${SITE_URL}/</loc>
+    <lastmod>${buildDate}</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>${SITE_URL}/hero.jpg</image:loc>
+      <image:loc>${SITE_URL}/hero.webp</image:loc>
       <image:title>Burger Bhau Fresh Burgers and Pizza in Kothariya</image:title>
       <image:caption>Burger Bhau storefront and freshly prepared handcrafted food in Kothariya, Rajkot</image:caption>
     </image:image>
@@ -88,16 +91,19 @@ async function generateDynamicSitemap() {
   </url>
   <url>
     <loc>${SITE_URL}/menu/</loc>
+    <lastmod>${buildDate}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>${SITE_URL}/visit/</loc>
+    <lastmod>${buildDate}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>${SITE_URL}/gallery/</loc>
+    <lastmod>${buildDate}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
 ${imageBlocks ? imageBlocks + '\n' : ''}  </url>
