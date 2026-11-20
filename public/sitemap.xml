@@ -5,6 +5,21 @@
     <loc>https://burgerbhaukothariya.in/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://burgerbhaukothariya.in/hero.jpg</image:loc>
+      <image:title>Burger Bhau Fresh Burgers and Pizza in Kothariya</image:title>
+      <image:caption>Burger Bhau storefront and freshly prepared handcrafted food in Kothariya, Rajkot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://burgerbhaukothariya.in/og-image.jpg</image:loc>
+      <image:title>Burger Bhau Kothariya Official Card</image:title>
+      <image:caption>Burger Bhau pure vegetarian fast food restaurant in Kothariya, Rajkot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://burgerbhaukothariya.in/logo-square.png</image:loc>
+      <image:title>Burger Bhau Official Logo</image:title>
+      <image:caption>Burger Bhau brand logo</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://burgerbhaukothariya.in/menu/</loc>

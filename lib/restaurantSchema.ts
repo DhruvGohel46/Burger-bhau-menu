@@ -23,8 +23,12 @@ export function buildRestaurantJsonLd() {
         description:
             "100% pure vegetarian street fast food restaurant in Kothariya, Rajkot. Freshly grilled burgers, loaded cheese burst pizzas, crinkle-cut fries, and toasted sandwiches made to order.",
         url: `${SITE_ORIGIN}/`,
-        logo: `${SITE_ORIGIN}/BURGER-BHAU-logo.webp`,
-        image: `${SITE_ORIGIN}${STORE.heroImage}`,
+        logo: `${SITE_ORIGIN}/logo-square.png`,
+        image: [
+            `${SITE_ORIGIN}/hero.jpg`,
+            `${SITE_ORIGIN}/og-image.jpg`,
+            `${SITE_ORIGIN}/logo-square.png`,
+        ],
         telephone: `+${phoneDigits}`,
         priceRange: "₹40 to ₹150",
         currenciesAccepted: "INR",

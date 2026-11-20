@@ -70,6 +70,21 @@ async function generateDynamicSitemap() {
     <loc>${SITE_URL}/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>${SITE_URL}/hero.jpg</image:loc>
+      <image:title>Burger Bhau Fresh Burgers and Pizza in Kothariya</image:title>
+      <image:caption>Burger Bhau storefront and freshly prepared handcrafted food in Kothariya, Rajkot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>${SITE_URL}/og-image.jpg</image:loc>
+      <image:title>Burger Bhau Kothariya Official Card</image:title>
+      <image:caption>Burger Bhau pure vegetarian fast food restaurant in Kothariya, Rajkot</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>${SITE_URL}/logo-square.png</image:loc>
+      <image:title>Burger Bhau Official Logo</image:title>
+      <image:caption>Burger Bhau brand logo</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>${SITE_URL}/menu/</loc>

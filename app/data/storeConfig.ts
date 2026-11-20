@@ -18,8 +18,7 @@ export const STORE = {
 
     // ─── Hero Section ───────────────────────────────────────
     // Path to hero image (relative to /public or Supabase Storage URL).
-    // Can also be changed anytime from the Admin Portal (Settings -> Hero Photo).
-    heroImage: "/productimage/burger/burger-tandoori-tadka.jpg",
+    heroImage: "/hero.jpg",
     // Short headline (7 words max)
     heroHeadline: "Made fresh, right when you order",
     // One line of copy (12 words max)
