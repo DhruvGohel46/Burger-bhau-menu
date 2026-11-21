@@ -127,7 +127,7 @@ export default function MostLovedSection({ items }: MostLovedProps) {
                                             }
                                         }}
                                     />
-                                    <div className={styles.vegBadge} title="100% Vegetarian" aria-label="Vegetarian">
+                                    <div className={styles.vegBadge} role="img" aria-label="Vegetarian" title="100% Vegetarian">
                                         <span className={styles.vegDot} />
                                     </div>
                                     <span className={styles.categoryBadge}>{item.category}</span>

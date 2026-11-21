@@ -167,7 +167,7 @@ export default function ReviewsSection({ initialData }: ReviewsSectionProps = {}
                     <div className={styles.ratingBigNumber}>
                         {reviewsData.average_rating ? reviewsData.average_rating.toFixed(1) : "5.0"}
                     </div>
-                    <div className={styles.ratingStarsRow} aria-label={`${reviewsData.average_rating} out of 5 stars`}>
+                    <div className={styles.ratingStarsRow} role="img" aria-label={`${reviewsData.average_rating} out of 5 stars`}>
                         {[1, 2, 3, 4, 5].map((star) => (
                             <FontAwesomeIcon
                                 key={star}
@@ -215,7 +215,7 @@ export default function ReviewsSection({ initialData }: ReviewsSectionProps = {}
                                             </div>
                                         </div>
 
-                                        <div className={styles.cardStars} aria-label={`${rev.rating} stars`}>
+                                        <div className={styles.cardStars} role="img" aria-label={`${rev.rating} stars`}>
                                             {[...Array(rev.rating)].map((_, i) => (
                                                 <FontAwesomeIcon key={i} icon={faStar} />
                                             ))}
