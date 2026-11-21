@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3131",
-    "build": "node scripts/optimize-images.mjs && node scripts/generate-sitemap.js && next build",
+    "build": "node scripts/optimize-images.mjs && node scripts/generate-sitemap.js && next build && node scripts/inline-critical-css.mjs",
     "start": "next start -p 3131",
     "lint": "next lint",
     "test": "node scripts/verify-seo.mjs",
