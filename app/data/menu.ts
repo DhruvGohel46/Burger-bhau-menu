@@ -54,7 +54,10 @@ export const categories: MenuCategory[] = menuData.categories.map((name) => ({
 }));
 
 // Fallback initial menu items
-export const menuItems: MenuItem[] = menuData.items as MenuItem[];
+export const menuItems: MenuItem[] = (menuData.items as MenuItem[]).map((item) => ({
+    ...item,
+    image: item.image && !item.image.startsWith("/productimage/") ? item.image : "/logo-120.webp",
+}));
 
 // Export extras
 export const extras: MenuExtra[] = ((menuData as unknown as { extras?: MenuExtra[] }).extras ?? []);
@@ -86,7 +89,9 @@ export async function getDynamicMenuItems(): Promise<MenuItem[]> {
                 name: p.name,
                 category: p.category,
                 description: p.description || "",
-                image: (p.image && typeof p.image === "string" && p.image.trim() !== "") ? p.image.trim() : "/BURGER-BHAU-logo.webp",
+                image: (p.image && typeof p.image === "string" && p.image.trim() !== "" && !p.image.trim().startsWith("/productimage/"))
+                    ? p.image.trim()
+                    : "/logo-120.webp",
                 price: Number(p.price) || 0,
                 variants: Array.isArray(p.variants) ? p.variants : [],
                 is_veg: p.is_veg ?? true,

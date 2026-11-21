@@ -19,14 +19,19 @@ export default function LandingNav() {
                 {/* Brand */}
                 <Link href="/" className={styles.brandLink} aria-label="Burger Bhau Kothariya">
                     <div className={styles.brandWrap}>
-                        <Image
-                            src="/BURGER-BHAU-logo.webp"
-                            alt="Burger Bhau Logo"
-                            width={36}
-                            height={36}
-                            priority
-                            className={styles.logoImage}
-                        />
+                        <picture>
+                            <source type="image/avif" srcSet="/logo-36.avif 1x, /logo-48.avif 2x" />
+                            <source type="image/webp" srcSet="/logo-36.webp 1x, /logo-48.webp 2x" />
+                            <img
+                                src="/logo-36.webp"
+                                alt="Burger Bhau Logo"
+                                width={36}
+                                height={36}
+                                loading="eager"
+                                decoding="async"
+                                className={styles.logoImage}
+                            />
+                        </picture>
                         <div className={styles.brandText}>
                             <span className={styles.brandName}>
                                 Burger <span className={styles.brandAccent}>Bhau</span>

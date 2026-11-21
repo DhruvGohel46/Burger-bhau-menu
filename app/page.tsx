@@ -3,6 +3,8 @@ import { SITE_URL } from "@/lib/siteConfig";
 import { STORE } from "@/app/data/storeConfig";
 import { getDynamicCategories, getDynamicMenuItems } from "@/app/data/menu";
 import { buildRestaurantJsonLd, buildFaqJsonLd, buildWebSiteJsonLd } from "@/lib/restaurantSchema";
+import storedReviews from "@/public/data/reviews.json";
+import { GoogleReviewsData } from "@/lib/types";
 import LandingNav from "@/app/components/landing/LandingNav";
 import HeroSection from "@/app/components/landing/HeroSection";
 import TrustStrip from "@/app/components/landing/TrustStrip";
@@ -54,6 +56,14 @@ export default async function HomePage() {
 
     return (
         <>
+            <link
+                rel="preload"
+                as="image"
+                type="image/webp"
+                imageSrcSet="/hero-400.webp 400w, /hero-600.webp 600w, /hero-800.webp 800w, /hero-1200.webp 1200w"
+                imageSizes="(max-width: 768px) 100vw, 560px"
+                fetchPriority="high"
+            />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(restaurantJsonLd) }}
@@ -71,7 +81,7 @@ export default async function HomePage() {
                 <HeroSection />
                 <TrustStrip />
                 <MostLovedSection items={items} />
-                <ReviewsSection />
+                <ReviewsSection initialData={storedReviews as unknown as GoogleReviewsData} />
                 <FindUsSection />
                 <FaqSection />
                 <LandingFooter />

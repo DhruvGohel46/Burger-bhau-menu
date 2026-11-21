@@ -1,6 +1,6 @@
 // Burger Bhau MenuSite - Root layout with theme support and SEO
 import type { Metadata, Viewport } from 'next';
-import { Lora, Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import './globals.css';
@@ -8,16 +8,18 @@ import { SITE_URL } from '@/lib/siteConfig';
 
 config.autoAddCss = false;
 
-const lora = Lora({
-    subsets: ['latin'],
-    weight: ['500', '600'],
+const lora = localFont({
+    src: '../public/fonts/lora-latin.woff2',
+    weight: '500 600',
+    style: 'normal',
     variable: '--font-newsreader',
     display: 'swap',
 });
 
-const inter = Inter({
-    subsets: ['latin'],
-    weight: ['400', '500', '600'],
+const inter = localFont({
+    src: '../public/fonts/inter-latin.woff2',
+    weight: '400 600',
+    style: 'normal',
     variable: '--font-inter',
     display: 'swap',
 });

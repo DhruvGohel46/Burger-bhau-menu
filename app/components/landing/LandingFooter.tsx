@@ -24,13 +24,19 @@ export default function LandingFooter() {
                     {/* Brand Col */}
                     <div className={styles.brandCol}>
                         <div className={styles.logoRow}>
-                            <Image
-                                src="/BURGER-BHAU-logo.webp"
-                                alt="Burger Bhau Logo"
-                                width={44}
-                                height={44}
-                                className={styles.logoImg}
-                            />
+                            <picture>
+                                <source type="image/avif" srcSet="/logo-48.avif 1x, /logo-120.avif 2x" />
+                                <source type="image/webp" srcSet="/logo-48.webp 1x, /logo-120.webp 2x" />
+                                <img
+                                    src="/logo-48.webp"
+                                    alt="Burger Bhau Logo"
+                                    width={44}
+                                    height={44}
+                                    loading="lazy"
+                                    decoding="async"
+                                    className={styles.logoImg}
+                                />
+                            </picture>
                             <div>
                                 <span className={styles.brandTitle}>
                                     Burger <span className={styles.brandAccent}>Bhau</span>

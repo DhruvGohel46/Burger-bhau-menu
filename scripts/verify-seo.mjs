@@ -392,8 +392,8 @@ try {
         netlifyToml.includes('for = "/*.webp"') &&
         netlifyToml.includes('for = "/*.jpg"') &&
         netlifyToml.includes('for = "/*.png"') &&
-        netlifyToml.includes('max-age=2592000'),
-        'netlify.toml configures 30-day (max-age=2592000) caching headers for .webp, .jpg, .png',
+        (netlifyToml.includes('max-age=31536000') || netlifyToml.includes('max-age=2592000')),
+        'netlify.toml configures immutable / long-lived caching headers for .webp, .jpg, .png',
         'Missing static image caching headers in netlify.toml'
     );
 

@@ -16,6 +16,15 @@ const nextConfig = {
         ],
     },
     trailingSlash: true,
+    experimental: {
+        optimizePackageImports: [
+            '@fortawesome/free-solid-svg-icons',
+            '@fortawesome/free-brands-svg-icons',
+            '@fortawesome/react-fontawesome',
+            'framer-motion',
+            'zustand',
+        ],
+    },
 };
 
 module.exports = nextConfig;

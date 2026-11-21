@@ -96,16 +96,36 @@ export default function MostLovedSection({ items }: MostLovedProps) {
                             ? `₹${Math.min(...item.variants.map((v) => v.price))} / ₹${Math.max(...item.variants.map((v) => v.price))}`
                             : `₹${item.price ?? 0}`;
 
+                        const rawImg = item.image && item.image.trim() !== "" && !item.image.trim().startsWith("/productimage/")
+                            ? item.image.trim()
+                            : "/logo-120.webp";
+                        const isRemote = rawImg.startsWith("http");
+                        const isNetlifyHost = typeof window !== "undefined" && (window.location.hostname.includes("netlify") || window.location.hostname.includes("burgerbhaukothariya.in"));
+                        const optimizedSrc = (isRemote && isNetlifyHost) ? `/.netlify/images?url=${encodeURIComponent(rawImg)}&w=400&q=75&fm=webp` : rawImg;
+                        const optimizedSrcSet = (isRemote && isNetlifyHost)
+                            ? `/.netlify/images?url=${encodeURIComponent(rawImg)}&w=260&q=75&fm=webp 260w, /.netlify/images?url=${encodeURIComponent(rawImg)}&w=400&q=75&fm=webp 400w, /.netlify/images?url=${encodeURIComponent(rawImg)}&w=600&q=75&fm=webp 600w`
+                            : undefined;
+
                         return (
                             <div key={item.id} className={styles.card}>
                                 <div className={styles.imageWrap}>
-                                    <Image
-                                        src={item.image || "/BURGER-BHAU-logo.webp"}
-                                        alt={`${item.name} at Burger Bhau Kothariya`}
-                                        fill
+                                    <img
+                                        src={optimizedSrc}
+                                        srcSet={optimizedSrcSet}
                                         sizes="(max-width: 600px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                                        className={styles.cardImg}
+                                        alt={`${item.name} at Burger Bhau Kothariya`}
+                                        width={300}
+                                        height={225}
                                         loading="lazy"
+                                        decoding="async"
+                                        className={styles.cardImg}
+                                        onError={(e) => {
+                                            const target = e.currentTarget;
+                                            if (!target.src.endsWith("/logo-120.webp")) {
+                                                target.srcset = "";
+                                                target.src = "/logo-120.webp";
+                                            }
+                                        }}
                                     />
                                     <div className={styles.vegBadge} title="100% Vegetarian" aria-label="Vegetarian">
                                         <span className={styles.vegDot} />

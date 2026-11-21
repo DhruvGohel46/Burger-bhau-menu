@@ -1,0 +1,65 @@
+# Netlify HTTP Cache and Security Headers
+
+# Root & HTML files: always validate to ensure visitors see latest updates
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(self)
+
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Next.js hashed static assets (JS, CSS, media chunks)
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Self-hosted fonts
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Images & media assets
+/*.webp
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.avif
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.png
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.jpg
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.jpeg
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.svg
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.ico
+  Cache-Control: public, max-age=31536000, immutable
+
+# Manifest and Data files
+/site.webmanifest
+  Content-Type: application/manifest+json
+  Cache-Control: public, max-age=0, must-revalidate
+
+/manifest.json
+  Content-Type: application/manifest+json
+  Cache-Control: public, max-age=0, must-revalidate
+
+/data/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/llms.txt
+  Cache-Control: public, max-age=86400, stale-while-revalidate=86400
+
+/llms-full.txt
+  Cache-Control: public, max-age=86400, stale-while-revalidate=86400
+
+/sitemap.xml
+  Cache-Control: public, max-age=86400, stale-while-revalidate=86400

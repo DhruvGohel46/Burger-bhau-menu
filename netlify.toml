@@ -6,6 +6,9 @@
 [build.environment]
   SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY,NEXT_PUBLIC_SITE_URL"
 
+[images]
+  remote_images = ['https://hblsadtgtrdtbqresppg\.supabase\.co/.*']
+
 # Security headers
 [[headers]]
   for = "/*"
@@ -15,7 +18,7 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=(self)"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://* ; connect-src 'self' https://*; frame-src 'self' https://www.google.com;"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https://* ; connect-src 'self' https://*; frame-src 'self' https://www.google.com;"
 
 # Explicit noindex HTTP headers for private customer routes and admin routes
 [[headers]]
@@ -63,47 +66,71 @@
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
 
-# Cache static assets aggressively
+# Cache static assets aggressively (1 year immutable)
 [[headers]]
   for = "/_next/static/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# Cache images and brand assets (30 days with stale-while-revalidate)
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
 [[headers]]
   for = "/*.webp"
   [headers.values]
-    Cache-Control = "public, max-age=2592000, stale-while-revalidate=86400"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.avif"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
   for = "/*.jpg"
   [headers.values]
-    Cache-Control = "public, max-age=2592000, stale-while-revalidate=86400"
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
   for = "/*.jpeg"
   [headers.values]
-    Cache-Control = "public, max-age=2592000, stale-while-revalidate=86400"
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
   for = "/*.png"
   [headers.values]
-    Cache-Control = "public, max-age=2592000, stale-while-revalidate=86400"
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
   for = "/*.svg"
   [headers.values]
-    Cache-Control = "public, max-age=2592000, stale-while-revalidate=86400"
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
   for = "/*.ico"
   [headers.values]
-    Cache-Control = "public, max-age=2592000, stale-while-revalidate=86400"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
 
 [[headers]]
   for = "/site.webmanifest"
   [headers.values]
     Content-Type = "application/manifest+json"
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/data/*"
+  [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
 # Old Netlify subdomain → new primary domain (permanent)

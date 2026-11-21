@@ -19,14 +19,18 @@ function formatReviewDate(dateStr?: string, relativeDesc?: string): string {
     }
 }
 
-export default function ReviewsSection() {
+interface ReviewsSectionProps {
+    initialData?: GoogleReviewsData | null;
+}
+
+export default function ReviewsSection({ initialData }: ReviewsSectionProps = {}) {
     const config = STORE.googleReviews;
-    const [reviewsData, setReviewsData] = useState<GoogleReviewsData | null>(null);
-    const [loading, setLoading] = useState(true);
+    const [reviewsData, setReviewsData] = useState<GoogleReviewsData | null>(() => initialData || null);
+    const [loading, setLoading] = useState(() => (initialData !== undefined ? false : Boolean(config?.enabled)));
     const [expandedIds, setExpandedIds] = useState<Record<string, boolean>>({});
 
     useEffect(() => {
-        if (!config?.enabled) {
+        if (initialData !== undefined || !config?.enabled) {
             setLoading(false);
             return;
         }
@@ -36,7 +40,7 @@ export default function ReviewsSection() {
 
         async function fetchReviews() {
             try {
-                const res = await fetch(dataUrl, { cache: "no-store" });
+                const res = await fetch(dataUrl);
                 if (!res.ok) {
                     if (isMounted) setLoading(false);
                     return;
@@ -56,7 +60,7 @@ export default function ReviewsSection() {
         return () => {
             isMounted = false;
         };
-    }, [config?.enabled, config?.reviewsDataUrl]);
+    }, [initialData, config?.enabled, config?.reviewsDataUrl]);
 
     // If disabled in config, hide quietly
     if (!config?.enabled) {

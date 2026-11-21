@@ -18,9 +18,9 @@ export default function AnalyticsScript() {
         <>
             <Script
                 src={`https://www.googletagmanager.com/gtag/js?id=${STORE.googleTagId}`}
-                strategy="afterInteractive"
+                strategy="lazyOnload"
             />
-            <Script id="google-gtag" strategy="afterInteractive">
+            <Script id="google-gtag" strategy="lazyOnload">
                 {`
                     window.dataLayer = window.dataLayer || [];
                     function gtag(){dataLayer.push(arguments);}

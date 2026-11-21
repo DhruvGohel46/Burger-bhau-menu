@@ -1,4 +1,3 @@
-import { SHOP_LAT, SHOP_LNG, SHOP_NAME, SHOP_PHONE } from "@/app/data/shopConfig";
 import { STORE } from "@/app/data/storeConfig";
 import { categories as defaultCategories, menuItems as defaultItems, MenuCategory, MenuItem } from "@/app/data/menu";
 import { SITE_URL } from "@/lib/siteConfig";
@@ -11,7 +10,7 @@ const SITE_ORIGIN = SITE_URL;
  * Strictly omits aggregateRating if no real reviews exist.
  */
 export function buildRestaurantJsonLd(categories?: MenuCategory[], items?: MenuItem[]) {
-    const phoneDigits = (STORE.phone || SHOP_PHONE).replace(/[^0-9]/g, "");
+    const phoneDigits = (STORE.phone || "919558941555").replace(/[^0-9]/g, "");
     const resolvedCategories = categories && categories.length > 0 ? categories : defaultCategories;
     const resolvedItems = items && items.length > 0 ? items : defaultItems;
 
@@ -21,11 +20,13 @@ export function buildRestaurantJsonLd(categories?: MenuCategory[], items?: MenuI
 
     const sameAs = Array.from(new Set(sameAsUrls.filter(url => url && url.startsWith("http"))));
 
+    const defaultShopName = STORE.name ? `${STORE.name} (${STORE.branch})` : "Burger Bhau (Kothariya)";
+
     return {
         "@context": "https://schema.org",
         "@type": ["Restaurant", "FastFoodRestaurant"],
         "@id": `${SITE_ORIGIN}/#restaurant`,
-        name: STORE.name ? `${STORE.name} (${STORE.branch})` : SHOP_NAME,
+        name: defaultShopName,
         alternateName: [
             "Burger Bhau",
             "Burger Bhau Kothariya",
@@ -81,8 +82,8 @@ export function buildRestaurantJsonLd(categories?: MenuCategory[], items?: MenuI
         },
         geo: {
             "@type": "GeoCoordinates",
-            latitude: STORE.coordinates?.lat || SHOP_LAT,
-            longitude: STORE.coordinates?.lng || SHOP_LNG,
+            latitude: STORE.coordinates?.lat || 22.23793791286797,
+            longitude: STORE.coordinates?.lng || 70.8121401001821,
         },
         openingHoursSpecification: [
             {
@@ -150,7 +151,7 @@ export function buildRestaurantJsonLd(categories?: MenuCategory[], items?: MenuI
             },
             {
                 "@type": "ViewAction",
-                target: `https://www.google.com/maps/dir/?api=1&destination=${SHOP_LAT},${SHOP_LNG}`,
+                target: STORE.mapsDirectionsUrl || `https://www.google.com/maps/dir/?api=1&destination=${STORE.coordinates.lat},${STORE.coordinates.lng}`,
                 name: "Get Directions on Google Maps",
             },
         ],

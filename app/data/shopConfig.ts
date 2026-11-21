@@ -2,7 +2,7 @@
 // Core values come from storeConfig.ts (the single file you edit).
 // This file re-exports them for backward compatibility and adds business logic.
 import { STORE } from "./storeConfig";
-import { CartItem } from "@/app/store/cartStore";
+import type { CartItem } from "@/app/store/cartStore";
 
 // ─── Shop Details (from storeConfig.ts) ─────────────────
 export const SHOP_PHONE = STORE.phone;

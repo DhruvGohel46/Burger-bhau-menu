@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3131",
-    "build": "node scripts/generate-sitemap.js && next build",
+    "build": "node scripts/optimize-images.mjs && node scripts/generate-sitemap.js && next build",
     "start": "next start -p 3131",
     "lint": "next lint",
     "test": "node scripts/verify-seo.mjs",
@@ -33,5 +33,12 @@
     "playwright": "^1.65.0",
     "postcss": "^8.5.6",
     "typescript": "^5.0.0"
-  }
+  },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Firefox versions",
+    "last 2 Safari versions",
+    "last 2 Edge versions",
+    "not dead"
+  ]
 }

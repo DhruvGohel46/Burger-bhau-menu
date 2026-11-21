@@ -72,16 +72,28 @@ export default function HeroSection() {
                     {/* Right: Appetizing Hero Image */}
                     <div className={styles.visualCol}>
                         <div className={styles.imageCard}>
-                            <Image
-                                src={STORE.heroImage}
-                                alt="Burger Bhau freshly prepared burger in Kothariya"
-                                fill
-                                priority
-                                loading="eager"
-                                fetchPriority="high"
-                                sizes="(max-width: 768px) 100vw, 560px"
-                                className={styles.heroImg}
-                            />
+                            <picture>
+                                <source
+                                    type="image/avif"
+                                    srcSet="/hero-400.avif 400w, /hero-600.avif 600w, /hero-800.avif 800w, /hero-1200.avif 1200w"
+                                    sizes="(max-width: 768px) 100vw, 560px"
+                                />
+                                <source
+                                    type="image/webp"
+                                    srcSet="/hero-400.webp 400w, /hero-600.webp 600w, /hero-800.webp 800w, /hero-1200.webp 1200w"
+                                    sizes="(max-width: 768px) 100vw, 560px"
+                                />
+                                <img
+                                    src="/hero.webp"
+                                    alt="Burger Bhau freshly prepared burger in Kothariya"
+                                    width={560}
+                                    height={420}
+                                    fetchPriority="high"
+                                    loading="eager"
+                                    decoding="async"
+                                    className={styles.heroImg}
+                                />
+                            </picture>
                             <div className={styles.imageOverlay}>
                                 <span className={styles.branchTag}>Besides Axis Bank, Rolex Road</span>
                             </div>
